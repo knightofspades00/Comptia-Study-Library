@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA A+ Study Hub</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --accent: #e74c3c; --accent2: #e67e22; --text: #e8eaf0; --text-muted: #8892b0;
+  --border: #2d3153; --radius: 10px; --green: #2ecc71; --blue: #3498db; --yellow: #f1c40f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+/* NAV */
+.top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
+.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+.back-link:hover { color: var(--text); }
+.nav-title { font-weight: 700; font-size: 1rem; }
+.nav-badge { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: auto; }
+
+/* HEADER */
+.exam-header {
+  background: linear-gradient(135deg, #1e1025 0%, #1a1d2e 60%, #0f1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 40px;
+  position: relative; overflow: hidden;
+}
+.exam-header::after { content: '🖥️'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.08; }
+.exam-header .code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--accent2); text-transform: uppercase; margin-bottom: 8px; }
+.exam-header h1 { font-size: 2rem; font-weight: 800; }
+.exam-header h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.exam-header p { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+.exam-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.meta-item { font-size: 0.8rem; color: var(--text-muted); }
+.meta-item strong { color: var(--text); }
+
+/* TABS */
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 30px; overflow-x: auto; }
+.tab-btn {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap;
+  border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+  display: flex; align-items: center; gap: 7px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* CONTENT AREA */
+.content-area { max-width: 960px; margin: 0 auto; padding: 36px 30px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* STUDY GUIDE */
+.domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.domain-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; cursor: pointer; user-select: none;
+  background: var(--surface);
+}
+.domain-header:hover { background: var(--surface2); }
+.domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+.chevron { transition: transform 0.2s; color: var(--text-muted); }
+.domain-header.open .chevron { transform: rotate(180deg); }
+.domain-body { display: none; padding: 0 22px 22px; }
+.domain-body.open { display: block; }
+.domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.domain-body ul { padding-left: 20px; }
+.domain-body ul li { margin-bottom: 4px; }
+.key-term { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; color: var(--accent); margin: 2px; font-family: monospace; }
+.info-box { background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.warn-box { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+
+/* FLASHCARDS */
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; cursor: pointer; }
+.fc-progress { font-size: 0.85rem; color: var(--text-muted); }
+.flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 30px; text-align: center;
+}
+.fc-front { background: linear-gradient(135deg, var(--surface2), var(--surface)); border: 1px solid var(--border); }
+.fc-back { background: linear-gradient(135deg, #1e2a1e, var(--surface)); border: 1px solid rgba(46,204,113,0.4); transform: rotateY(180deg); }
+.fc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.fc-term { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+.fc-definition { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.fc-nav { display: flex; justify-content: center; gap: 16px; align-items: center; }
+.fc-btn {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.88rem;
+  font-weight: 600; transition: background 0.15s;
+}
+.fc-btn:hover { background: var(--surface2); }
+.fc-count { font-size: 0.9rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+.fc-known-btn { background: var(--green); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-unknown-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
+.fc-score span { color: var(--green); font-weight: 700; }
+
+/* QUIZ */
+.quiz-header { margin-bottom: 28px; }
+.quiz-header h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.quiz-header p { color: var(--text-muted); font-size: 0.88rem; }
+.quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+.q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-opt {
+  background: var(--surface2); border: 2px solid var(--border); border-radius: 8px;
+  padding: 13px 16px; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5;
+}
+.q-opt:hover:not(.disabled) { border-color: var(--accent); background: rgba(231,76,60,0.1); }
+.q-opt.correct { border-color: var(--green); background: rgba(46,204,113,0.1); }
+.q-opt.incorrect { border-color: var(--accent); background: rgba(231,76,60,0.1); }
+.q-opt.disabled { cursor: default; }
+.q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
+.q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-explanation.show { display: block; }
+.quiz-next-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white;
+  border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer;
+  font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none;
+}
+.quiz-next-btn.show { display: inline-block; }
+.quiz-result { text-align: center; padding: 50px 30px; }
+.quiz-result .score { font-size: 4rem; font-weight: 800; }
+.quiz-result .score-label { color: var(--text-muted); margin-bottom: 20px; }
+.quiz-result .verdict { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
+.restart-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 30px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+
+/* CHEAT SHEET */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.cheat-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.cheat-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid rgba(45,49,83,0.5); font-size: 0.83rem; gap: 10px; }
+.cheat-row:last-child { border-bottom: none; }
+.cheat-key { color: var(--text); font-weight: 600; min-width: 80px; }
+.cheat-val { color: var(--text-muted); text-align: right; }
+
+/* ACTIVITIES */
+.activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.activity-card .act-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+.activity-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.activity-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+.activity-card ol { padding-left: 20px; }
+.activity-card ol li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+.activity-card .resources { margin-top: 14px; }
+.activity-card .resources h4 { font-size: 0.8rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+.resource-link { display: block; color: var(--blue); font-size: 0.82rem; padding: 2px 0; }
+.reading-prompt { background: var(--surface2); border-left: 3px solid var(--accent); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Concepts & Visuals Tab */
+  .concepts-section { margin-bottom: 36px; }
+  .concepts-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .concepts-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+  .concepts-section p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+  .concepts-section .example-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-size: 0.85rem; color: var(--text); }
+  .concepts-section .example-box strong { color: var(--accent); }
+  .vocab-search { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; margin-bottom: 18px; outline: none; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .vocab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .vocab-card .vocab-term { font-weight: 700; font-size: 0.88rem; color: var(--accent); margin-bottom: 5px; }
+  .vocab-card .vocab-def { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .vocab-card .vocab-example { font-size: 0.78rem; color: var(--text); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); font-style: italic; }
+  .infographic-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 14px 0; overflow-x: auto; }
+  .infographic-wrap svg { display: block; max-width: 100%; height: auto; }
+  .concept-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  .concept-table th { background: var(--surface2); color: var(--accent); text-align: left; padding: 8px 10px; border: 1px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .concept-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .concept-table tr:nth-child(even) td { background: var(--surface2); }
+  .tip-box { background: var(--surface2); border: 1px solid #2a6b4a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .tip-box .tip-label { color: #2ecc71; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .warn-box { background: var(--surface2); border: 1px solid #7a3a1a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .warn-box .warn-label { color: #e67e22; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* ── Week Assignment Tracker ── */
+  .week-tracker {
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 0; overflow: hidden;
+  }
+  .tracker-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 30px; cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .tracker-toggle:hover { background: var(--surface2); }
+  .tracker-title { font-size: 0.88rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .tracker-progress { font-size: 0.78rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+  .tracker-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.2s; }
+  .tracker-chevron.open { transform: rotate(180deg); }
+  .tracker-body {
+    display: none; padding: 16px 30px 20px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;
+  }
+  .tracker-body.open { display: grid; }
+  .tracker-day {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tracker-day input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+  .tracker-day label { font-size: 0.83rem; line-height: 1.5; cursor: pointer; color: var(--text-muted); }
+  .tracker-day label strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tracker-day.done { border-color: var(--green); background: rgba(46,204,113,0.07); }
+  .tracker-day.done label { color: var(--text); }
+
+  /* ── Score Card ── */
+  .score-card {
+    border-radius: 16px; padding: 32px; max-width: 500px;
+    margin: 0 auto; background: var(--surface);
+    border: 3px solid var(--border);
+  }
+  .score-card.pass { border-color: var(--green); }
+  .score-card.fail { border-color: #e74c3c; }
+  .score-card-header { text-align: center; margin-bottom: 20px; }
+  .score-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .score-card-date { font-size: 0.82rem; color: var(--text-muted); }
+  .score-card-numbers { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+  .score-card-num { text-align: center; }
+  .score-card-big { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+  .score-card-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-card-banner { text-align: center; padding: 11px; border-radius: 8px; margin-bottom: 18px; font-weight: 700; }
+  .score-card-banner.pass { background: rgba(46,204,113,0.12); border: 1px solid var(--green); color: var(--green); }
+  .score-card-banner.fail { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; color: #e74c3c; }
+  .screenshot-prompt {
+    background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.5);
+    border-radius: 8px; padding: 12px 16px; text-align: center; margin-bottom: 18px;
+  }
+  .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
+  .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
+
+
+  /* ── Tips & Careers tab ─────────────────────────────────── */
+  .mnem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .mnem-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .mnem-phrase {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+  .mnem-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mnem-step {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .mnem-detail {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+  .strategy-section { margin-bottom: 28px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .strategy-card h4 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    color: var(--accent);
+  }
+  .strategy-card p, .strategy-card li {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resource-link {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: .83rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .resource-link:hover { background: var(--accent); color: #fff; }
+  .careers-section { margin-bottom: 28px; }
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .career-card-tip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .career-card-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+  }
+  .career-salary {
+    font-size: .9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .career-desc {
+    font-size: .83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* tip section headings */
+  .tips-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html" class="back-link">← Library Home</a>
+  <span class="nav-title">CompTIA A+ Study Hub</span>
+  <span class="nav-badge">220-1101 / 220-1102</span>
+</div>
+
+<div class="exam-header">
+  <div class="code">CompTIA A+ &nbsp;|&nbsp; Core 1: 220-1101 &nbsp;&amp;&nbsp; Core 2: 220-1102</div>
+  <h1><span>CompTIA A+</span> Study Hub</h1>
+  <p>Complete study materials for both A+ Core exams</p>
+  <div class="exam-meta">
+    <div class="meta-item"><strong>Format:</strong> 90 questions per exam</div>
+    <div class="meta-item"><strong>Duration:</strong> 90 minutes each</div>
+    <div class="meta-item"><strong>Passing Score:</strong> 675/900</div>
+    <div class="meta-item"><strong>Exam Types:</strong> Multiple choice, performance-based</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('guide')">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz')">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet')">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities')">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
+  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+</div>
+
+<div class="content-area">
+
+<!-- ===== STUDY GUIDE ===== -->
+<div id="panel-guide" class="tab-panel active">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Domain-by-Domain Study Guide</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Click any domain to expand. Percentages reflect exam weighting.</p>
+
+  <!-- CORE 1 -->
+  <div style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:24px 0 12px;">Core 1 (220-1101)</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📱 1.0 — Mobile Devices <span class="domain-pct">15%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Laptop Hardware Components</h4>
+      <p>Laptops have many proprietary components. Key items to know:</p>
+      <ul>
+        <li><strong>Display types:</strong> TN (fast, poor viewing angles), IPS (best color/angles), OLED (deep blacks, power-efficient on dark content), VA (good contrast)</li>
+        <li><strong>Storage:</strong> SATA SSD, NVMe M.2 (PCIe x4), eMMC (soldered, budget devices)</li>
+        <li><strong>Memory:</strong> SO-DIMM (laptop DDR4/DDR5), many modern laptops have soldered RAM</li>
+        <li><strong>Battery:</strong> Li-ion / Li-polymer. Measured in mAh or Wh. Replace when capacity drops below ~80%</li>
+        <li><strong>Thermal paste:</strong> Applied between CPU and heat sink/fan assembly. Dries out over time causing thermal throttling</li>
+      </ul>
+      <h4>Mobile Device Connections &amp; Accessories</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Connection</th><th>Speed / Standard</th><th>Notes</th></tr>
+          <tr><td><strong>USB-C</strong></td><td>Up to 40 Gbps (USB4)</td><td>Supports power delivery, video, data</td></tr>
+          <tr><td><strong>Lightning</strong></td><td>480 Mbps</td><td>Apple proprietary, pre-USB-C iPhones</td></tr>
+          <tr><td><strong>MicroUSB</strong></td><td>480 Mbps</td><td>Legacy Android, many peripherals</td></tr>
+          <tr><td><strong>Bluetooth</strong></td><td>~3 Mbps (BT 5.0)</td><td>PAN, ~10m range, 2.4 GHz</td></tr>
+          <tr><td><strong>NFC</strong></td><td>~400 Kbps</td><td>Tap payments, &lt;4cm range</td></tr>
+        </table>
+      </div>
+      <h4>Mobile OS Comparisons</h4>
+      <p>iOS: Closed ecosystem, App Store only, tighter security, no sideloading (without MDM). Android: Open source (AOSP), sideloading allowed, more fragmentation. Both support MDM, VPN, remote wipe.</p>
+      <div class="warn-box">⚠️ <strong>Exam tip:</strong> Know the difference between iOS and Android app sources. iOS = App Store only. Android = Play Store + APK sideloading.</div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🌐 2.0 — Networking <span class="domain-pct">20%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>TCP/IP Basics</h4>
+      <p>The A+ exam tests practical networking, not deep theory. Focus on:</p>
+      <ul>
+        <li><strong>IP addressing:</strong> IPv4 (32-bit, dotted decimal), IPv6 (128-bit, hex colon notation)</li>
+        <li><strong>Subnet masks:</strong> /24 = 255.255.255.0 (256 hosts, 254 usable), /16 = 255.255.0.0, /8 = 255.0.0.0</li>
+        <li><strong>Private IP ranges:</strong> 10.x.x.x, 172.16-31.x.x, 192.168.x.x</li>
+        <li><strong>APIPA:</strong> 169.254.x.x — assigned when DHCP fails. Sign of a connectivity problem</li>
+        <li><strong>Loopback:</strong> 127.0.0.1 — always refers to local machine</li>
+      </ul>
+      <h4>Common Ports to Memorize</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Port</th><th>Protocol</th><th>Use</th></tr>
+          <tr><td><strong>20/21</strong></td><td>FTP</td><td>File transfer (21=control, 20=data)</td></tr>
+          <tr><td><strong>22</strong></td><td>SSH</td><td>Secure shell / secure file transfer (SFTP)</td></tr>
+          <tr><td><strong>23</strong></td><td>Telnet</td><td>Unsecure remote management</td></tr>
+          <tr><td><strong>25</strong></td><td>SMTP</td><td>Send email</td></tr>
+          <tr><td><strong>53</strong></td><td>DNS</td><td>Domain name resolution</td></tr>
+          <tr><td><strong>67/68</strong></td><td>DHCP</td><td>IP address assignment</td></tr>
+          <tr><td><strong>80</strong></td><td>HTTP</td><td>Unencrypted web traffic</td></tr>
+          <tr><td><strong>110</strong></td><td>POP3</td><td>Retrieve email (downloads, deletes from server)</td></tr>
+          <tr><td><strong>143</strong></td><td>IMAP</td><td>Email (syncs, stays on server)</td></tr>
+          <tr><td><strong>443</strong></td><td>HTTPS</td><td>Encrypted web (TLS)</td></tr>
+          <tr><td><strong>3389</strong></td><td>RDP</td><td>Windows remote desktop</td></tr>
+        </table>
+      </div>
+      <h4>Network Devices</h4>
+      <ul>
+        <li><strong>Hub:</strong> Layer 1, broadcasts to all ports — legacy, avoid</li>
+        <li><strong>Switch:</strong> Layer 2, uses MAC addresses, sends frames only to destination port</li>
+        <li><strong>Router:</strong> Layer 3, uses IP addresses, connects different networks</li>
+        <li><strong>WAP:</strong> Wireless access point, extends wired network wirelessly</li>
+        <li><strong>Firewall:</strong> Filters traffic by rules; hardware or software</li>
+        <li><strong>Modem:</strong> Converts analog (cable/DSL) signal to digital</li>
+      </ul>
+      <h4>Wireless Standards</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Standard</th><th>Frequency</th><th>Max Speed</th><th>Range</th></tr>
+          <tr><td><strong>802.11a</strong></td><td>5 GHz</td><td>54 Mbps</td><td>Short</td></tr>
+          <tr><td><strong>802.11b</strong></td><td>2.4 GHz</td><td>11 Mbps</td><td>Long</td></tr>
+          <tr><td><strong>802.11g</strong></td><td>2.4 GHz</td><td>54 Mbps</td><td>Medium</td></tr>
+          <tr><td><strong>802.11n (Wi-Fi 4)</strong></td><td>2.4/5 GHz</td><td>600 Mbps</td><td>Long</td></tr>
+          <tr><td><strong>802.11ac (Wi-Fi 5)</strong></td><td>5 GHz</td><td>3.5 Gbps</td><td>Medium</td></tr>
+          <tr><td><strong>802.11ax (Wi-Fi 6)</strong></td><td>2.4/5/6 GHz</td><td>9.6 Gbps</td><td>Medium</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔧 3.0 — Hardware <span class="domain-pct">25%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Motherboard Components</h4>
+      <ul>
+        <li><strong>CPU socket types:</strong> Intel LGA (pins on motherboard), AMD AM5/PGA (pins on CPU)</li>
+        <li><strong>Chipset:</strong> Northbridge (fast: CPU-RAM-GPU) and Southbridge (slow: storage, USB, audio) — modern CPUs integrate northbridge</li>
+        <li><strong>RAM slots:</strong> DIMM (desktop), SO-DIMM (laptop). Install in matching slots for dual-channel</li>
+        <li><strong>PCIe slots:</strong> x16 (GPU), x8, x4, x1 (NIC, sound cards)</li>
+        <li><strong>Storage interfaces:</strong> SATA III (6 Gbps), M.2 NVMe (up to 32 Gbps PCIe 4.0 x4)</li>
+        <li><strong>BIOS/UEFI:</strong> Firmware that initializes hardware on boot. UEFI supports GPT, Secure Boot, faster POST</li>
+      </ul>
+      <h4>RAM Types</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Type</th><th>Speed Range</th><th>Notes</th></tr>
+          <tr><td><strong>DDR4</strong></td><td>2133–3200+ MHz</td><td>288-pin DIMM, most common current desktop/laptop</td></tr>
+          <tr><td><strong>DDR5</strong></td><td>4800–8000+ MHz</td><td>288-pin DIMM, newer platforms</td></tr>
+          <tr><td><strong>ECC RAM</strong></td><td>Any DDR gen</td><td>Error-correcting, used in servers</td></tr>
+        </table>
+      </div>
+      <h4>Storage Technologies</h4>
+      <ul>
+        <li><strong>HDD:</strong> Spinning platters, 5400/7200 RPM, high capacity, low cost per GB, slow random access</li>
+        <li><strong>SSD (SATA):</strong> Flash-based, 550/500 MB/s read/write, 2.5" or M.2 SATA</li>
+        <li><strong>NVMe SSD:</strong> PCIe interface, 3500+ MB/s, much faster than SATA SSD</li>
+        <li><strong>RAID 0:</strong> Striping, speed, no redundancy. RAID 1: Mirroring, redundancy. RAID 5: Striping + parity, needs 3+ drives, can lose 1. RAID 10: Mirror + stripe, needs 4 drives</li>
+      </ul>
+      <div class="info-box">💡 <strong>PSU:</strong> 80 PLUS rating (Bronze, Silver, Gold, Platinum, Titanium) indicates efficiency. Modular PSUs allow removing unused cables.</div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>☁️ 4.0 — Virtualization &amp; Cloud <span class="domain-pct">11%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Cloud Service Models</h4>
+      <ul>
+        <li><strong>IaaS</strong> (Infrastructure as a Service): Raw compute, storage, network — AWS EC2, Azure VMs. You manage OS up.</li>
+        <li><strong>PaaS</strong> (Platform as a Service): Managed runtime environment — Heroku, Azure App Service. You manage app &amp; data only.</li>
+        <li><strong>SaaS</strong> (Software as a Service): Ready-to-use app — Gmail, Office 365, Salesforce. Provider manages everything.</li>
+      </ul>
+      <h4>Cloud Deployment Types</h4>
+      <ul>
+        <li><strong>Public:</strong> Shared infrastructure (AWS, Azure, GCP)</li>
+        <li><strong>Private:</strong> Dedicated to one org, on-prem or hosted</li>
+        <li><strong>Hybrid:</strong> Mix of public + private, connected</li>
+        <li><strong>Community:</strong> Shared by orgs with common needs (gov, healthcare)</li>
+      </ul>
+      <h4>Virtualization Basics</h4>
+      <ul>
+        <li><strong>Hypervisor Type 1:</strong> Bare-metal (VMware ESXi, Hyper-V, KVM) — runs directly on hardware</li>
+        <li><strong>Hypervisor Type 2:</strong> Hosted (VirtualBox, VMware Workstation) — runs as app on OS</li>
+        <li><strong>VM vs Container:</strong> VMs virtualize full hardware; containers share host OS kernel (Docker)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CORE 2 -->
+  <div style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:32px 0 12px;">Core 2 (220-1102)</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>💻 1.0 — Operating Systems <span class="domain-pct">31%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Windows Editions</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Edition</th><th>Key Features</th></tr>
+          <tr><td><strong>Home</strong></td><td>Consumer, no domain join, no Group Policy, no BitLocker (no drive encryption)</td></tr>
+          <tr><td><strong>Pro</strong></td><td>Domain join, Group Policy, BitLocker, Hyper-V, Remote Desktop</td></tr>
+          <tr><td><strong>Enterprise</strong></td><td>Pro + AppLocker, DirectAccess, Windows To Go, volume licensing</td></tr>
+        </table>
+      </div>
+      <h4>Key Windows Tools &amp; Commands</h4>
+      <ul>
+        <li><span class="key-term">ipconfig</span> — show IP config; /release, /renew for DHCP; /flushdns</li>
+        <li><span class="key-term">ping</span> — test reachability</li>
+        <li><span class="key-term">tracert</span> / <span class="key-term">traceroute</span> — trace route hops</li>
+        <li><span class="key-term">netstat</span> — active connections and listening ports</li>
+        <li><span class="key-term">nslookup</span> — DNS query tool</li>
+        <li><span class="key-term">chkdsk</span> — check/repair filesystem errors</li>
+        <li><span class="key-term">sfc /scannow</span> — System File Checker</li>
+        <li><span class="key-term">DISM</span> — Deployment Image Servicing and Management (repair Windows image)</li>
+        <li><span class="key-term">msconfig</span> — startup/services configuration</li>
+        <li><span class="key-term">regedit</span> — Windows Registry Editor</li>
+        <li><span class="key-term">gpupdate /force</span> — force Group Policy refresh</li>
+        <li><span class="key-term">diskpart</span> — CLI disk partitioning</li>
+      </ul>
+      <h4>Windows File Systems</h4>
+      <ul>
+        <li><strong>NTFS:</strong> Default for Windows drives. Supports permissions, encryption (EFS), journaling, large files</li>
+        <li><strong>FAT32:</strong> Universal compatibility, max 4 GB per file, max 32 GB volume (Windows format)</li>
+        <li><strong>exFAT:</strong> Flash drives, max 16 EB file size, good cross-platform</li>
+      </ul>
+      <h4>macOS &amp; Linux Basics</h4>
+      <ul>
+        <li>macOS uses HFS+/APFS, Terminal with bash/zsh, Spotlight search</li>
+        <li>Linux: Everything is a file, case-sensitive filenames, root is /, uses package managers (apt, yum)</li>
+        <li>Key Linux commands: <span class="key-term">ls</span> <span class="key-term">cd</span> <span class="key-term">pwd</span> <span class="key-term">chmod</span> <span class="key-term">chown</span> <span class="key-term">grep</span> <span class="key-term">ps</span> <span class="key-term">sudo</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔐 2.0 — Security <span class="domain-pct">25%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Malware Types</h4>
+      <ul>
+        <li><strong>Virus:</strong> Attaches to files, requires user action to spread</li>
+        <li><strong>Worm:</strong> Self-replicates across network without user action</li>
+        <li><strong>Trojan:</strong> Disguised as legitimate software</li>
+        <li><strong>Ransomware:</strong> Encrypts files, demands payment</li>
+        <li><strong>Spyware:</strong> Monitors user activity, steals data</li>
+        <li><strong>Rootkit:</strong> Hides in OS, very difficult to detect/remove. May require offline scan</li>
+        <li><strong>Keylogger:</strong> Records keystrokes</li>
+        <li><strong>Botnet/Zombie:</strong> Compromised machine controlled remotely for DDoS, spam</li>
+      </ul>
+      <h4>Social Engineering</h4>
+      <ul>
+        <li><strong>Phishing:</strong> Bulk fake email; <strong>Spear phishing:</strong> targeted; <strong>Whaling:</strong> targeting executives</li>
+        <li><strong>Vishing:</strong> Voice/phone phishing</li>
+        <li><strong>Smishing:</strong> SMS phishing</li>
+        <li><strong>Tailgating/Piggybacking:</strong> Following someone through a secure door</li>
+        <li><strong>Shoulder surfing:</strong> Watching someone enter credentials</li>
+        <li><strong>Dumpster diving:</strong> Finding sensitive info in trash</li>
+      </ul>
+      <h4>Windows Security Features</h4>
+      <ul>
+        <li><strong>BitLocker:</strong> Full-disk encryption. Requires TPM 1.2+ or USB key. Pro/Enterprise only</li>
+        <li><strong>Windows Defender:</strong> Built-in AV/anti-malware</li>
+        <li><strong>Windows Firewall:</strong> Host-based packet filtering</li>
+        <li><strong>UAC:</strong> User Account Control — prompts before elevated actions</li>
+        <li><strong>EFS:</strong> Encrypting File System — per-file/folder encryption (NTFS only)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔧 5.0 — Hardware &amp; Network Troubleshooting (Core 1) <span class="domain-pct">29%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Troubleshooting Methodology (Always Follow This Order)</h4>
+      <ol style="padding-left:20px;color:var(--text-muted);font-size:0.9rem;line-height:1.9;">
+        <li><strong>Identify the problem</strong> — gather info, question user, check logs, duplicate if possible</li>
+        <li><strong>Establish a theory of probable cause</strong> — consider multiple causes (start simple)</li>
+        <li><strong>Test the theory</strong> — if confirmed, move on; if not, re-theorize or escalate</li>
+        <li><strong>Establish a plan of action</strong> — consider side-effects, schedule downtime if needed</li>
+        <li><strong>Implement the solution or escalate</strong> — apply fix, or refer to next tier</li>
+        <li><strong>Verify full system functionality</strong> — test, and implement preventive measures</li>
+        <li><strong>Document findings, actions, and outcomes</strong> — update ticket, knowledge base</li>
+      </ol>
+      <h4>Power Issues</h4>
+      <ul>
+        <li><strong>No power at all:</strong> Check outlet, PSU switch, power cable, surge protector. Try known-good PSU.</li>
+        <li><strong>Intermittent shutdowns:</strong> Overheating (clean fans/vents, reapply thermal paste), failing PSU, bad capacitors on motherboard</li>
+        <li><strong>Burning smell:</strong> Immediately power off. Check for bulging/leaking capacitors, scorched components</li>
+        <li><strong>POST beep codes:</strong> Vary by BIOS vendor. Generally: 1 short = OK, 1 long + 2-3 short = GPU/RAM issue. Always check mobo manual.</li>
+        <li><strong>POST errors on screen:</strong> "Boot device not found" = storage issue or wrong boot order. "CMOS checksum error" = replace CMOS battery (CR2032)</li>
+      </ul>
+      <h4>Display Troubleshooting</h4>
+      <ul>
+        <li><strong>No image, PC on:</strong> Check cable connections, try different port (HDMI→DP), test with another monitor. If iGPU: reseat RAM</li>
+        <li><strong>Dim/dark screen:</strong> If image visible with flashlight → backlight failed (CCFL or LED inverter). If laptop → check Fn+brightness keys first</li>
+        <li><strong>Flickering:</strong> Loose cable, failing backlight, refresh rate mismatch, GPU driver issue</li>
+        <li><strong>Dead pixels:</strong> Always-black = stuck off (dead). Always-lit = stuck on. Small clusters often warranty-covered</li>
+        <li><strong>Color distortion / burn-in:</strong> GPU output issue or panel degradation. Run pixel-refresh if OLED</li>
+        <li><strong>VGA fuzzy:</strong> Analog signal — tighten connector, increase resolution</li>
+        <li><strong>Overscan on TV:</strong> Adjust display scaling in GPU driver settings or TV picture settings</li>
+      </ul>
+      <h4>Storage Troubleshooting</h4>
+      <ul>
+        <li><strong>HDD clicking/grinding:</strong> Mechanical failure imminent — back up immediately, replace drive</li>
+        <li><strong>Drive not detected in BIOS:</strong> Check data cable, power cable, try different SATA port. For M.2: reseat card</li>
+        <li><strong>Slow read/write:</strong> HDD fragmented (run defrag), SSD nearly full (&gt;90%), SATA in wrong mode (IDE vs AHCI)</li>
+        <li><strong>SMART errors:</strong> Self-Monitoring Analysis and Reporting Technology. Warning = drive failure likely. Back up and replace</li>
+        <li><strong>Bad sectors:</strong> Run <span class="key-term">chkdsk /r</span> to find and mark bad sectors. Frequent bad sectors = replace drive</li>
+        <li><strong>OS not found / boot failure:</strong> Run <span class="key-term">bootrec /fixmbr</span>, <span class="key-term">bootrec /fixboot</span>, <span class="key-term">bootrec /rebuildbcd</span> from WinRE</li>
+      </ul>
+      <h4>RAM Troubleshooting</h4>
+      <ul>
+        <li><strong>POST beep codes or no boot:</strong> Reseat RAM, try one stick at a time, test with known-good stick</li>
+        <li><strong>Random BSODs / crashes:</strong> Often RAM failure. Run Windows Memory Diagnostic (<span class="key-term">mdsched.exe</span>) or MemTest86</li>
+        <li><strong>System won't boot with new RAM:</strong> Incompatible speed/type, needs XMP profile enabled in BIOS, or slots need to be dual-channel paired correctly</li>
+      </ul>
+      <h4>Printer Troubleshooting</h4>
+      <ul>
+        <li><strong>Laser — ghost images / light shadows:</strong> Fuser assembly worn, or drum not cleaning properly. Replace fuser or drum unit</li>
+        <li><strong>Laser — smeared/smudged toner:</strong> Fuser not reaching proper temperature. Replace fuser</li>
+        <li><strong>Laser — streaks/lines on page:</strong> Scratched drum, toner cartridge low or damaged</li>
+        <li><strong>Laser — blank pages:</strong> Toner cartridge empty or sealing tape not removed (new cartridge)</li>
+        <li><strong>Inkjet — streaky/missing colors:</strong> Clogged nozzle — run print head cleaning utility</li>
+        <li><strong>Inkjet — colors incorrect:</strong> Wrong color profile, wrong paper type selected, low ink in specific cartridge</li>
+        <li><strong>Paper jam:</strong> Follow printer jam-clearing procedure, never force paper. Check for torn bits left inside</li>
+        <li><strong>Printer offline:</strong> Check network/USB connection, restart print spooler service (<span class="key-term">services.msc</span> → Print Spooler → Restart)</li>
+        <li><strong>Incorrect paper size error:</strong> Verify paper in tray matches driver settings</li>
+        <li><strong>Thermal printer — no output:</strong> Paper loaded backwards (thermal side must face print head). Check thermal head for debris</li>
+      </ul>
+      <h4>Network Troubleshooting (Core 1 Level)</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Symptom</th><th>Likely Cause</th><th>Fix</th></tr>
+        <tr><td>169.254.x.x IP</td><td>DHCP unreachable</td><td>Check DHCP server, run <span class="key-term">ipconfig /release /renew</span></td></tr>
+        <tr><td>Can ping IP, not name</td><td>DNS failure</td><td>Check DNS settings, run <span class="key-term">nslookup</span></td></tr>
+        <tr><td>Intermittent drops</td><td>Bad cable, interference, duplex mismatch</td><td>Replace cable, check switch port stats</td></tr>
+        <tr><td>No network at all</td><td>NIC disabled, bad cable, dead switch port</td><td>Device Manager, try different port/cable</td></tr>
+        <tr><td>Slow speeds</td><td>Congestion, bad NIC driver, duplex mismatch</td><td>Update drivers, check switch error counters</td></tr>
+        <tr><td>Limited Wi-Fi</td><td>Wrong password, wrong security type, IP conflict</td><td>Forget + rejoin network</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:32px 0 12px;">Core 2 (220-1102) — Additional Domains</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🛠️ 3.0 — Software Troubleshooting (Core 2) <span class="domain-pct">22%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Windows Boot Issues</h4>
+      <ul>
+        <li><strong>BSOD (Blue Screen of Death):</strong> Stop error with code. Common causes: bad drivers, RAM, overheating, corrupted OS. Note the stop code (e.g., MEMORY_MANAGEMENT, IRQL_NOT_LESS_OR_EQUAL)</li>
+        <li><strong>Spinning wheel / won't finish loading:</strong> Corrupted startup files, failed update, bad driver. Boot to WinRE → Startup Repair</li>
+        <li><strong>Windows boot options:</strong>
+          <ul>
+            <li>F8 (legacy) or Shift+Restart → <strong>Safe Mode</strong> — loads minimal drivers only</li>
+            <li><strong>Safe Mode with Networking</strong> — adds network drivers</li>
+            <li><strong>Safe Mode with Command Prompt</strong> — no GUI</li>
+            <li><strong>WinRE (Windows Recovery Environment)</strong> — Startup Repair, System Restore, Command Prompt, Reset this PC, System Image Recovery</li>
+          </ul>
+        </li>
+        <li><strong>Boot loop:</strong> Stuck in restart cycle. Often after failed update. Boot to WinRE → Uninstall Updates or use System Restore</li>
+        <li><strong>Inaccessible Boot Device BSOD:</strong> Storage driver failure (often after SATA mode change IDE↔AHCI), corrupted boot sector</li>
+        <li><strong>Missing NTLDR / BOOTMGR:</strong> Run <span class="key-term">bootrec /fixmbr</span> and <span class="key-term">bootrec /rebuildbcd</span></li>
+      </ul>
+      <h4>Application Issues</h4>
+      <ul>
+        <li><strong>Application won't launch:</strong> Check compatibility mode (right-click → Properties → Compatibility), missing .NET/VC++ runtime, corrupted install</li>
+        <li><strong>Application crashes frequently:</strong> Check Event Viewer → Windows Logs → Application for error codes. Reinstall or update app</li>
+        <li><strong>Application not responding (hung):</strong> Task Manager → right-click → End Task. If recurring, check RAM, run sfc /scannow</li>
+        <li><strong>High CPU/RAM usage:</strong> Task Manager → identify culprit process. Could be malware, runaway service, or memory leak</li>
+        <li><strong>Application won't uninstall:</strong> Use Settings → Apps, or third-party uninstaller. Manually remove registry entries if needed</li>
+        <li><strong>Missing DLL errors:</strong> Reinstall the associated application, or install correct Visual C++ Redistributable/DirectX runtime</li>
+        <li><strong>Compatibility issues (older apps on Win 10/11):</strong> Run as Administrator, enable compatibility mode for older Windows version</li>
+      </ul>
+      <h4>Malware Removal Procedure</h4>
+      <ol style="padding-left:20px;color:var(--text-muted);font-size:0.9rem;line-height:1.8;">
+        <li>Identify malware symptoms (slow, popups, browser hijacked, AV disabled)</li>
+        <li><strong>Quarantine / isolate</strong> the infected machine from the network</li>
+        <li>Boot to <strong>Safe Mode</strong> to prevent malware from loading</li>
+        <li>Run <strong>updated malware scanner</strong> (Malwarebytes, Windows Defender Offline)</li>
+        <li><strong>Remove</strong> identified malware per tool instructions</li>
+        <li><strong>Remediate</strong> — restore affected files, fix browser settings, re-enable security</li>
+        <li><strong>Schedule scans and update software</strong> — patch OS and applications</li>
+        <li><strong>Educate user</strong> on how infection occurred</li>
+      </ol>
+      <div class="info-box">💡 <strong>Rootkit note:</strong> If a rootkit is suspected, offline scanning (bootable AV media) is required — the rootkit hides from a running OS scan.</div>
+      <h4>Browser Issues</h4>
+      <ul>
+        <li><strong>Browser hijack:</strong> Homepage/search engine changed without permission. Remove suspicious extensions, reset browser settings, run malware scan</li>
+        <li><strong>Pop-up ads everywhere:</strong> Adware installed. Remove via Programs and Features + malware scan</li>
+        <li><strong>Certificate errors:</strong> Expired/untrusted cert, wrong system date/time, or MITM attack</li>
+        <li><strong>Slow browsing:</strong> Too many extensions, full cache, DNS issue. Clear cache, disable extensions, try different DNS (8.8.8.8)</li>
+      </ul>
+      <h4>Mobile Device Software Troubleshooting</h4>
+      <ul>
+        <li><strong>App crashing:</strong> Force stop → clear cache → uninstall/reinstall</li>
+        <li><strong>Slow performance:</strong> Restart device, clear app cache, free storage space (&lt;10% free = very slow)</li>
+        <li><strong>Battery draining fast:</strong> Check battery usage in settings — identify rogue app. Disable background app refresh</li>
+        <li><strong>Cannot sync:</strong> Check credentials, verify Wi-Fi, toggle airplane mode, re-add account</li>
+        <li><strong>Factory reset:</strong> Last resort for persistent issues. Wipes all user data — back up first</li>
+        <li><strong>Screen unresponsive:</strong> Force restart (model-specific button combination). If persistent → hardware issue (digitizer)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📋 4.0 — Operational Procedures (Core 2) <span class="domain-pct">22%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Documentation Best Practices</h4>
+      <ul>
+        <li><strong>Network diagrams:</strong> Logical (shows IP scheme, VLANs) and Physical (shows cable runs, rack layout)</li>
+        <li><strong>SOPs:</strong> Standard Operating Procedures — step-by-step instructions for recurring tasks</li>
+        <li><strong>Knowledge base:</strong> Searchable repository of known issues and resolutions</li>
+        <li><strong>Ticketing system:</strong> Tracks incidents, service requests, changes. Fields: priority, category, assignee, SLA, status</li>
+        <li><strong>Asset inventory:</strong> Hardware/software list with serial numbers, warranty info, license keys</li>
+        <li><strong>Change log:</strong> Records all changes made to systems — essential for troubleshooting</li>
+      </ul>
+      <h4>Change Management</h4>
+      <ul>
+        <li><strong>Purpose:</strong> Ensure changes are tested, approved, and reversible before deployment</li>
+        <li><strong>Change request:</strong> Formal request documenting the change, reason, risk, rollback plan</li>
+        <li><strong>Approval process:</strong> Change Advisory Board (CAB) reviews and approves</li>
+        <li><strong>Change window:</strong> Scheduled low-impact time (often nights/weekends)</li>
+        <li><strong>Backout plan / rollback:</strong> How to undo the change if something goes wrong</li>
+        <li><strong>Documentation:</strong> Record what was done, when, by whom, and the outcome</li>
+      </ul>
+      <h4>Backup and Recovery</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>What it backs up</th><th>Restore time</th><th>Storage use</th></tr>
+        <tr><td><strong>Full</strong></td><td>Everything</td><td>Fastest</td><td>Most</td></tr>
+        <tr><td><strong>Incremental</strong></td><td>Changes since last backup (any type)</td><td>Slowest (needs full + all incrementals)</td><td>Least</td></tr>
+        <tr><td><strong>Differential</strong></td><td>Changes since last <em>full</em> backup</td><td>Fast (needs full + one differential)</td><td>Grows over time</td></tr>
+        <tr><td><strong>Synthetic full</strong></td><td>Combines full + incrementals into new full</td><td>Fast</td><td>Medium</td></tr>
+      </table></div>
+      <p><strong>3-2-1 Rule:</strong> 3 copies of data, on 2 different media types, with 1 offsite copy.</p>
+      <h4>Safety Procedures</h4>
+      <ul>
+        <li><strong>ESD (Electrostatic Discharge):</strong> Can destroy components with static as low as 10V (undetectable by humans). Use ESD wrist strap connected to ground, ESD mat, anti-static bags for components</li>
+        <li><strong>Lifting:</strong> Lift with legs not back. Get help or use cart for heavy equipment (&gt;50 lbs)</li>
+        <li><strong>Electrical safety:</strong> Never work on live circuits. Disconnect power before opening PSU (capacitors store charge)</li>
+        <li><strong>Toxic materials:</strong> Toner is a fine particle — don't inhale. Use mask when cleaning. Laser printer ozone — ensure ventilation. CRT monitors — high-voltage capacitors, don't open</li>
+        <li><strong>Fire suppression:</strong> Server rooms use FM-200 or CO₂ (not water). Know the location of fire extinguishers</li>
+        <li><strong>MSDS/SDS:</strong> Material Safety Data Sheet — required for hazardous substances. Toner, batteries, cleaning agents</li>
+      </ul>
+      <h4>Scripting Basics</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Script Type</th><th>Extension</th><th>Shell</th><th>Use Case</th></tr>
+        <tr><td><strong>Batch</strong></td><td>.bat / .cmd</td><td>cmd.exe</td><td>Simple Windows automation, legacy</td></tr>
+        <tr><td><strong>PowerShell</strong></td><td>.ps1</td><td>PowerShell</td><td>Windows admin, AD, Azure management</td></tr>
+        <tr><td><strong>Python</strong></td><td>.py</td><td>python.exe</td><td>Cross-platform, data processing, automation</td></tr>
+        <tr><td><strong>Bash</strong></td><td>.sh</td><td>bash/sh</td><td>Linux/macOS automation, server admin</td></tr>
+        <tr><td><strong>VBScript</strong></td><td>.vbs</td><td>wscript/cscript</td><td>Legacy Windows automation</td></tr>
+        <tr><td><strong>JavaScript</strong></td><td>.js</td><td>Node.js / browser</td><td>Web automation, cross-platform</td></tr>
+      </table></div>
+      <div class="warn-box">⚠️ <strong>Exam tip:</strong> Know which script extension belongs to which shell. PowerShell (.ps1) requires execution policy to allow running scripts: <span class="key-term">Set-ExecutionPolicy RemoteSigned</span></div>
+      <h4>Remote Access Technologies</h4>
+      <ul>
+        <li><strong>RDP (Remote Desktop Protocol):</strong> Port 3389. Full graphical desktop access to Windows machines. Requires Pro/Enterprise edition</li>
+        <li><strong>VPN:</strong> Encrypted tunnel for remote network access. Common types: SSL/TLS (port 443), IPSec</li>
+        <li><strong>SSH:</strong> Port 22. Secure CLI access to Linux/network devices</li>
+        <li><strong>Telnet:</strong> Port 23. Unencrypted CLI — never use on production systems</li>
+        <li><strong>Remote Assistance (MSRA):</strong> Windows tool for helpdesk to view and control user's screen with their permission</li>
+        <li><strong>Third-party tools:</strong> TeamViewer, AnyDesk, ConnectWise — used for unattended or attended remote support</li>
+        <li><strong>Screen sharing:</strong> macOS Screen Sharing (VNC-based), Google Chrome Remote Desktop</li>
+      </ul>
+      <h4>Professionalism</h4>
+      <ul>
+        <li>Always get proper authorization before accessing someone's system</li>
+        <li>Respect privacy — don't read personal files, avoid unnecessary snooping</li>
+        <li>Set expectations with users — give realistic ETAs, follow up</li>
+        <li>Use plain language with non-technical users; avoid jargon</li>
+        <li>Maintain a positive attitude, don't blame the user</li>
+        <li>Confidentiality — don't discuss client data or issues publicly</li>
+      </ul>
+    </div>
+  </div>
+
+<!-- ===== FLASHCARDS ===== -->
+<div id="panel-flashcards" class="tab-panel">
+  <div class="fc-controls">
+    <select class="category-select" id="fc-category" onchange="loadCards()">
+      <option value="all">All Categories</option>
+      <option value="hardware">Hardware</option>
+      <option value="networking">Networking</option>
+      <option value="os">Operating Systems</option>
+      <option value="security">Security</option>
+      <option value="acronyms">Acronyms</option>
+    </select>
+    <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-face fc-front">
+        <div class="fc-label">Term</div>
+        <div class="fc-term" id="fc-term">Loading...</div>
+        <div class="fc-hint">Click to reveal definition</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-label">Definition</div>
+        <div class="fc-definition" id="fc-def"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-nav">
+    <button class="fc-unknown-btn" onclick="markCard(false)">✗ Still Learning</button>
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-count" id="fc-count">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+    <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
+  </div>
+  <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="panel-quiz" class="tab-panel">
+  <div id="quiz-container">
+    <div class="quiz-header">
+      <h2>CompTIA A+ Practice Quiz</h2>
+      <p>20 questions · Mixed Core 1 &amp; Core 2 topics · Immediate feedback</p>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">20</span></div>
+    </div>
+    <div id="question-area"></div>
+  </div>
+  <div id="quiz-result" class="quiz-result" style="display:none;"></div>
+</div>
+
+<!-- ===== CHEAT SHEET ===== -->
+<div id="panel-cheatsheet" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">A+ Quick Reference Cheat Sheet</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Key facts, numbers, and acronyms for last-minute review</p>
+  <div class="cheat-grid">
+
+    <div class="cheat-card">
+      <h3>⚡ Common Ports</h3>
+      <div class="cheat-row"><span class="cheat-key">FTP</span><span class="cheat-val">20 (data) / 21 (ctrl)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SSH/SFTP</span><span class="cheat-val">22</span></div>
+      <div class="cheat-row"><span class="cheat-key">Telnet</span><span class="cheat-val">23</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMTP</span><span class="cheat-val">25</span></div>
+      <div class="cheat-row"><span class="cheat-key">DNS</span><span class="cheat-val">53</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP</span><span class="cheat-val">67/68</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTP</span><span class="cheat-val">80</span></div>
+      <div class="cheat-row"><span class="cheat-key">POP3</span><span class="cheat-val">110</span></div>
+      <div class="cheat-row"><span class="cheat-key">IMAP</span><span class="cheat-val">143</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTPS</span><span class="cheat-val">443</span></div>
+      <div class="cheat-row"><span class="cheat-key">RDP</span><span class="cheat-val">3389</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📡 Wi-Fi Standards</h3>
+      <div class="cheat-row"><span class="cheat-key">802.11a</span><span class="cheat-val">5 GHz · 54 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11b</span><span class="cheat-val">2.4 GHz · 11 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11g</span><span class="cheat-val">2.4 GHz · 54 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11n</span><span class="cheat-val">2.4/5 · 600 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ac</span><span class="cheat-val">5 GHz · 3.5 Gbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ax</span><span class="cheat-val">2.4/5/6 · 9.6 Gbps</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>💾 RAID Levels</h3>
+      <div class="cheat-row"><span class="cheat-key">RAID 0</span><span class="cheat-val">Stripe, speed, no redundancy</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 1</span><span class="cheat-val">Mirror, full redundancy</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 5</span><span class="cheat-val">Stripe+parity, lose 1 drive</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 6</span><span class="cheat-val">Stripe+2 parity, lose 2</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 10</span><span class="cheat-val">Mirror+stripe, 4 drives min</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌍 IP Address Classes</h3>
+      <div class="cheat-row"><span class="cheat-key">Private A</span><span class="cheat-val">10.0.0.0/8</span></div>
+      <div class="cheat-row"><span class="cheat-key">Private B</span><span class="cheat-val">172.16-31.x.x/12</span></div>
+      <div class="cheat-row"><span class="cheat-key">Private C</span><span class="cheat-val">192.168.x.x/24</span></div>
+      <div class="cheat-row"><span class="cheat-key">Loopback</span><span class="cheat-val">127.0.0.1</span></div>
+      <div class="cheat-row"><span class="cheat-key">APIPA</span><span class="cheat-val">169.254.x.x</span></div>
+      <div class="cheat-row"><span class="cheat-key">Broadcast</span><span class="cheat-val">255.255.255.255</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🖥️ Windows Editions</h3>
+      <div class="cheat-row"><span class="cheat-key">Home</span><span class="cheat-val">No domain, no BitLocker</span></div>
+      <div class="cheat-row"><span class="cheat-key">Pro</span><span class="cheat-val">Domain, BitLocker, RDP, Hyper-V</span></div>
+      <div class="cheat-row"><span class="cheat-key">Enterprise</span><span class="cheat-val">Pro + AppLocker, DirectAccess</span></div>
+      <div class="cheat-row"><span class="cheat-key">NTFS</span><span class="cheat-val">Permissions, EFS, journaling</span></div>
+      <div class="cheat-row"><span class="cheat-key">FAT32</span><span class="cheat-val">4 GB file limit</span></div>
+      <div class="cheat-row"><span class="cheat-key">exFAT</span><span class="cheat-val">Flash drives, no size limit</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>☁️ Cloud / Virt</h3>
+      <div class="cheat-row"><span class="cheat-key">IaaS</span><span class="cheat-val">Raw infra (AWS EC2)</span></div>
+      <div class="cheat-row"><span class="cheat-key">PaaS</span><span class="cheat-val">Runtime platform (Heroku)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SaaS</span><span class="cheat-val">Full app (Office 365)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Type 1 HV</span><span class="cheat-val">Bare-metal (ESXi, KVM)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Type 2 HV</span><span class="cheat-val">Hosted (VirtualBox)</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ACTIVITIES ===== -->
+<div id="panel-activities" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Reading Comprehension &amp; Research Activities</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Apply what you've learned through guided research and reading tasks</p>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 1: Understanding the POST Process</h3>
+    <p>The Power-On Self-Test (POST) is a firmware-level diagnostic run every time a computer boots. Understanding this process is critical for hardware troubleshooting on the A+ exam.</p>
+    <div class="reading-prompt">
+      Read about the POST process in the CompTIA A+ study material, then answer: What is the purpose of POST? What does a single beep vs. multiple beeps indicate? What happens if POST fails to find bootable media? What role does the BIOS/UEFI play after POST completes?
+    </div>
+    <ol>
+      <li>List the six main stages of the POST process in order.</li>
+      <li>Describe two different POST error codes (beep codes or visual codes) and what they indicate.</li>
+      <li>Explain the difference between BIOS and UEFI. Why did UEFI replace BIOS as the standard?</li>
+      <li>A technician powers on a PC and hears 3 long beeps. No display appears. What is the most likely issue and what are the troubleshooting steps?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 2: Comparing Storage Technologies</h3>
+    <p>Storage technology is a major topic on the A+ Core 1 exam. This activity asks you to research and compare the primary storage interfaces and form factors used in modern computing.</p>
+    <ol>
+      <li>Research and fill in a comparison table of: HDD (SATA), SSD (SATA), NVMe M.2 SSD, and eMMC storage — covering speed, typical use case, price tier, and physical form factor.</li>
+      <li>Look up the difference between M.2 SATA and M.2 NVMe. Why do both use the same physical slot but perform so differently?</li>
+      <li>Research the concept of wear leveling in SSDs. Why is this important for longevity?</li>
+      <li>Find the current average price per GB for HDD vs SATA SSD vs NVMe SSD. What does this tell you about when you'd choose each?</li>
+    </ol>
+    <div class="resources">
+      <h4>Suggested Resources</h4>
+      <span class="resource-link">🔗 comptia.org — Official A+ exam objectives</span>
+      <span class="resource-link">🔗 professorMesser.com — Free A+ training videos</span>
+      <span class="resource-link">🔗 crucial.com/articles — Storage technology explainers</span>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 3: Network Troubleshooting Scenarios</h3>
+    <p>Read the following scenarios carefully, then apply the CompTIA troubleshooting methodology (identify problem → establish theory → test theory → establish plan → implement solution → verify → document) to each.</p>
+    <div class="reading-prompt">
+      Scenario A: A user's laptop shows "Limited connectivity" on Wi-Fi. The IP address shown is 169.254.45.12. Other users on the same Wi-Fi are working fine.<br><br>
+      Scenario B: A user can browse the web but cannot send or receive email using their desktop email client. Webmail works fine through the browser.<br><br>
+      Scenario C: After moving to a new office, a user can't connect to the printer on the network. The printer has an IP of 192.168.1.50. The user's IP is 10.0.0.23/24.
+    </div>
+    <ol>
+      <li>For Scenario A: What does the 169.254.x.x address indicate? What is the most likely root cause? What command would you run first?</li>
+      <li>For Scenario B: Which port(s) should you check? What protocol is used for outgoing vs incoming email?</li>
+      <li>For Scenario C: Why can the user not reach the printer? What networking concept explains this, and what solution would fix it?</li>
+    </ol>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 4: Security &amp; Operational Procedures Research</h3>
+    <p>The Core 2 exam heavily emphasizes security practices and operational procedures. Research these real-world topics and apply them to the scenarios below.</p>
+    <ol>
+      <li>Research the CompTIA A+ "best practice methodology" for malware removal. List the 6 steps in order and explain why each step must happen in that sequence.</li>
+      <li>Research BitLocker: what is it, what editions of Windows support it, and what role does TPM play? What happens if you lose the recovery key?</li>
+      <li>Research the principle of "least privilege." How would you apply it to a new standard employee user account in Windows? List three specific settings or restrictions you would enforce.</li>
+      <li>Your organization needs to destroy 500 old hard drives. Research the options: degaussing, shredding, and overwriting. Which is most appropriate for SSDs vs HDDs and why?</li>
+      <li>Find an example of a recent ransomware attack. Summarize: how did it spread, what was the impact, and what security controls could have prevented it?</li>
+    </ol>
+    <div style="margin-top:14px;"><h4 style="font-size:0.8rem;font-weight:700;color:var(--accent);margin-bottom:8px;">Suggested Resources</h4>
+      <span class="resource-link">🔗 comptia.org — A+ exam objectives</span>
+      <span class="resource-link">🔗 professorMesser.com — Free A+ training</span>
+      <span class="resource-link">🔗 support.microsoft.com — BitLocker documentation</span>
+    </div>
+  </div>
+
+<!-- ===== CONCEPTS & VISUALS ===== -->
+<div id="panel-concepts" class="tab-panel">
+
+  <!-- LASER PRINTER PROCESS -->
+  <div class="concepts-section">
+    <h2>🖨️ Laser Printer: The 7-Step Imaging Process</h2>
+    <p>One of the most consistently tested A+ topics. Every step happens in order — a question about a symptom (e.g., toner smearing) maps to a specific step. Know them all.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 740 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:740px">
+        <defs>
+          <marker id="arrowLP" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#3d4270"/>
+          </marker>
+        </defs>
+        <!-- Step 1: Processing -->
+        <rect x="5" y="20" width="90" height="70" rx="6" fill="#252840" stroke="#e74c3c" stroke-width="1.5"/>
+        <text x="50" y="42" text-anchor="middle" fill="#e74c3c" font-size="16" font-weight="800" font-family="sans-serif">1</text>
+        <text x="50" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">PROCESSING</text>
+        <text x="50" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">RIP converts</text>
+        <text x="50" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">file to bitmap</text>
+        <line x1="97" y1="55" x2="108" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 2: Charging -->
+        <rect x="110" y="20" width="88" height="70" rx="6" fill="#252840" stroke="#e67e22" stroke-width="1.5"/>
+        <text x="154" y="42" text-anchor="middle" fill="#e67e22" font-size="16" font-weight="800" font-family="sans-serif">2</text>
+        <text x="154" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">CHARGING</text>
+        <text x="154" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Drum coated</text>
+        <text x="154" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">-600V uniform</text>
+        <line x1="200" y1="55" x2="211" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 3: Exposing -->
+        <rect x="213" y="20" width="88" height="70" rx="6" fill="#252840" stroke="#f39c12" stroke-width="1.5"/>
+        <text x="257" y="42" text-anchor="middle" fill="#f39c12" font-size="16" font-weight="800" font-family="sans-serif">3</text>
+        <text x="257" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">EXPOSING</text>
+        <text x="257" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Laser writes</text>
+        <text x="257" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">image -100V</text>
+        <line x1="303" y1="55" x2="314" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 4: Developing -->
+        <rect x="316" y="20" width="88" height="70" rx="6" fill="#252840" stroke="#27ae60" stroke-width="1.5"/>
+        <text x="360" y="42" text-anchor="middle" fill="#27ae60" font-size="16" font-weight="800" font-family="sans-serif">4</text>
+        <text x="360" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">DEVELOPING</text>
+        <text x="360" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Toner clings</text>
+        <text x="360" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">to -100V areas</text>
+        <line x1="406" y1="55" x2="417" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 5: Transferring -->
+        <rect x="419" y="20" width="88" height="70" rx="6" fill="#252840" stroke="#1abc9c" stroke-width="1.5"/>
+        <text x="463" y="42" text-anchor="middle" fill="#1abc9c" font-size="16" font-weight="800" font-family="sans-serif">5</text>
+        <text x="463" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">TRANSFERRING</text>
+        <text x="463" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Toner moves</text>
+        <text x="463" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">to paper (+charge)</text>
+        <line x1="509" y1="55" x2="520" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 6: Fusing -->
+        <rect x="522" y="20" width="88" height="70" rx="6" fill="#252840" stroke="#3498db" stroke-width="1.5"/>
+        <text x="566" y="42" text-anchor="middle" fill="#3498db" font-size="16" font-weight="800" font-family="sans-serif">6</text>
+        <text x="566" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">FUSING</text>
+        <text x="566" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Heat + pressure</text>
+        <text x="566" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">melts toner</text>
+        <line x1="612" y1="55" x2="623" y2="55" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowLP)"/>
+        <!-- Step 7: Cleaning -->
+        <rect x="625" y="20" width="108" height="70" rx="6" fill="#252840" stroke="#9b59b6" stroke-width="1.5"/>
+        <text x="679" y="42" text-anchor="middle" fill="#9b59b6" font-size="16" font-weight="800" font-family="sans-serif">7</text>
+        <text x="679" y="57" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">CLEANING</text>
+        <text x="679" y="70" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Residual toner</text>
+        <text x="679" y="81" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">scraped from drum</text>
+      </svg>
+    </div>
+    <div class="warn-box"><div class="warn-label">Common Exam Trap</div>Toner smearing/not fusing = <strong>Fuser assembly failure</strong> (Step 6). Ghost images (faint duplicate) = <strong>Cleaning blade failure</strong> (Step 7). Blank pages = <strong>Charging or Exposing failure</strong> (Steps 2–3).</div>
+  </div>
+
+  <!-- STORAGE COMPARISON -->
+  <div class="concepts-section">
+    <h2>💾 Storage Technology Comparison</h2>
+    <p>A+ covers both legacy and modern storage types. Know the interface, speed, and use-case for each — these appear in hardware selection and troubleshooting scenarios.</p>
+    <table class="concept-table">
+      <tr><th>Type</th><th>Interface</th><th>Speed (typical)</th><th>Form Factor</th><th>Notes</th></tr>
+      <tr><td>HDD (7200 RPM)</td><td>SATA III</td><td>100–160 MB/s</td><td>3.5" desktop / 2.5" laptop</td><td>Mechanical platters; vulnerable to vibration; cheapest per GB</td></tr>
+      <tr><td>SSD (SATA)</td><td>SATA III</td><td>500–550 MB/s</td><td>2.5" / M.2 SATA</td><td>No moving parts; faster than HDD; limited by SATA bandwidth</td></tr>
+      <tr><td>NVMe SSD</td><td>PCIe (M.2 / U.2)</td><td>3,000–7,000 MB/s</td><td>M.2 2280 most common</td><td>Uses PCIe lanes directly; much faster than SATA; generates more heat</td></tr>
+      <tr><td>Optane (Intel)</td><td>PCIe / M.2</td><td>~2,400 MB/s + ultra-low latency</td><td>M.2</td><td>3D XPoint technology; excellent for caching; being discontinued</td></tr>
+      <tr><td>eMMC</td><td>Internal (soldered)</td><td>150–400 MB/s</td><td>Chip on motherboard</td><td>Found in budget laptops/tablets; not replaceable by user</td></tr>
+      <tr><td>RAID 0</td><td>Any</td><td>2x single drive speed</td><td>2+ drives</td><td>Striping only — NO redundancy; one drive fails = all data lost</td></tr>
+      <tr><td>RAID 1</td><td>Any</td><td>Same as single drive (write)</td><td>2 drives</td><td>Mirroring — exact copy; survives one drive failure</td></tr>
+      <tr><td>RAID 5</td><td>Any</td><td>Good read; slower write</td><td>3+ drives</td><td>Striping + distributed parity; survives ONE drive failure</td></tr>
+      <tr><td>RAID 10</td><td>Any</td><td>Fast read/write</td><td>4+ drives</td><td>RAID 1+0: mirrored pairs then striped; good performance + redundancy</td></tr>
+    </table>
+    <div class="tip-box"><div class="tip-label">Key Distinction</div>M.2 is a <strong>form factor</strong> (physical slot/size), not a speed standard. An M.2 slot can hold a SATA drive (slow) or an NVMe drive (fast). Check the key notch: M-key supports NVMe, B+M-key supports SATA.</div>
+  </div>
+
+  <!-- BOOT PROCESS -->
+  <div class="concepts-section">
+    <h2>⚡ PC Boot Process: BIOS/UEFI to OS</h2>
+    <p>Understanding the boot sequence helps troubleshoot no-boot scenarios — each step is a potential failure point.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 680 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px">
+        <defs>
+          <marker id="arrowBP" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#3d4270"/>
+          </marker>
+        </defs>
+        <rect x="5" y="15" width="95" height="60" rx="6" fill="#252840" stroke="#e74c3c" stroke-width="1.5"/>
+        <text x="52" y="38" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700" font-family="sans-serif">POWER ON</text>
+        <text x="52" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">PSU outputs</text>
+        <text x="52" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Power Good</text>
+        <line x1="102" y1="45" x2="113" y2="45" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowBP)"/>
+        <rect x="115" y="15" width="95" height="60" rx="6" fill="#252840" stroke="#e67e22" stroke-width="1.5"/>
+        <text x="162" y="38" text-anchor="middle" fill="#e67e22" font-size="9" font-weight="700" font-family="sans-serif">POST</text>
+        <text x="162" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">BIOS tests CPU,</text>
+        <text x="162" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">RAM, devices</text>
+        <line x1="212" y1="45" x2="223" y2="45" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowBP)"/>
+        <rect x="225" y="15" width="95" height="60" rx="6" fill="#252840" stroke="#f39c12" stroke-width="1.5"/>
+        <text x="272" y="38" text-anchor="middle" fill="#f39c12" font-size="9" font-weight="700" font-family="sans-serif">BOOTSTRAP</text>
+        <text x="272" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">MBR/GPT</text>
+        <text x="272" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">loaded to RAM</text>
+        <line x1="322" y1="45" x2="333" y2="45" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowBP)"/>
+        <rect x="335" y="15" width="95" height="60" rx="6" fill="#252840" stroke="#27ae60" stroke-width="1.5"/>
+        <text x="382" y="38" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="700" font-family="sans-serif">BOOTLOADER</text>
+        <text x="382" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">NTLDR/BOOTMGR</text>
+        <text x="382" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">finds OS kernel</text>
+        <line x1="432" y1="45" x2="443" y2="45" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowBP)"/>
+        <rect x="445" y="15" width="95" height="60" rx="6" fill="#252840" stroke="#3498db" stroke-width="1.5"/>
+        <text x="492" y="38" text-anchor="middle" fill="#3498db" font-size="9" font-weight="700" font-family="sans-serif">KERNEL LOAD</text>
+        <text x="492" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">ntoskrnl.exe</text>
+        <text x="492" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">loaded into RAM</text>
+        <line x1="542" y1="45" x2="553" y2="45" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowBP)"/>
+        <rect x="555" y="15" width="118" height="60" rx="6" fill="#252840" stroke="#9b59b6" stroke-width="1.5"/>
+        <text x="614" y="38" text-anchor="middle" fill="#9b59b6" font-size="9" font-weight="700" font-family="sans-serif">OS STARTUP</text>
+        <text x="614" y="52" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Drivers, services,</text>
+        <text x="614" y="63" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">login screen</text>
+      </svg>
+    </div>
+    <table class="concept-table">
+      <tr><th>Symptom</th><th>Likely Failure Point</th><th>Fix</th></tr>
+      <tr><td>No power, no beeps, blank screen</td><td>PSU or Power Good signal</td><td>Test PSU with multimeter or swap PSU</td></tr>
+      <tr><td>Beep codes on startup</td><td>POST — RAM, GPU, or CPU error</td><td>Decode beep code for your BIOS vendor; reseat RAM/GPU</td></tr>
+      <tr><td>"No bootable device" / "Operating system not found"</td><td>Bootstrap / MBR/GPT corrupt or wrong boot order</td><td>Check BIOS boot order; run bootrec /fixmbr or gdisk</td></tr>
+      <tr><td>BSOD during Windows load (0x0000007B)</td><td>Kernel driver — missing storage controller driver</td><td>Add driver to install media; check SATA mode (AHCI vs IDE)</td></tr>
+      <tr><td>Stuck at spinning dots / Windows logo</td><td>OS startup — corrupt system file or bad driver</td><td>Boot to WinRE; run sfc /scannow or startup repair</td></tr>
+    </table>
+  </div>
+
+  <!-- WINDOWS VERSIONS -->
+  <div class="concepts-section">
+    <h2>🪟 Windows Editions &amp; Key Features</h2>
+    <p>A+ Core 2 (220-1102) tests Windows features heavily. Know which edition supports which feature, and the lifecycle dates.</p>
+    <table class="concept-table">
+      <tr><th>Feature / Tool</th><th>Home</th><th>Pro</th><th>Pro for Workstations</th><th>Enterprise</th></tr>
+      <tr><td>Domain Join</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>BitLocker Full Disk Encryption</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Remote Desktop (host)</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Group Policy Editor (gpedit.msc)</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Hyper-V</td><td>No</td><td>Yes (64-bit)</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Windows Sandbox</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>DirectStorage / NVMe RAID</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>AppLocker</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+    </table>
+    <div class="example-box"><strong>Common Scenario:</strong> A user says BitLocker is greyed out. They likely have Windows 10/11 <strong>Home</strong>. Solution: upgrade to Pro, or use a third-party encryption tool.</div>
+  </div>
+
+  <!-- MOBILE DEVICE CONNECTIVITY -->
+  <div class="concepts-section">
+    <h2>📱 Mobile Device Connectivity Standards</h2>
+    <table class="concept-table">
+      <tr><th>Standard</th><th>Range</th><th>Speed</th><th>Use Case</th></tr>
+      <tr><td>Bluetooth 5.x</td><td>Up to 400m (open space)</td><td>2 Mbps (basic) / 50 Mbps (HS)</td><td>Headsets, keyboards, IoT sensors, file transfer</td></tr>
+      <tr><td>NFC</td><td>&lt;4 cm (1.6 in)</td><td>424 Kbps</td><td>Contactless payment, tag reading, device pairing</td></tr>
+      <tr><td>Wi-Fi 6 (802.11ax)</td><td>35m indoor</td><td>Up to 9.6 Gbps theoretical</td><td>High-density environments; smartphones, tablets</td></tr>
+      <tr><td>Wi-Fi 5 (802.11ac)</td><td>35m indoor</td><td>Up to 3.5 Gbps</td><td>5 GHz band; streaming, general use</td></tr>
+      <tr><td>Cellular 5G</td><td>City-wide (varies)</td><td>1–10 Gbps peak</td><td>Mobile broadband when Wi-Fi unavailable</td></tr>
+      <tr><td>USB-C (3.2 Gen 2)</td><td>Cable (up to 2m)</td><td>10 Gbps data / 100W power</td><td>Charging, data sync, display output (Alt Mode)</td></tr>
+      <tr><td>Lightning (Apple)</td><td>Cable</td><td>Up to 480 Mbps (USB 2.0 speed)</td><td>Legacy Apple device charging and sync</td></tr>
+      <tr><td>Thunderbolt 4</td><td>Cable (passive up to 0.8m)</td><td>40 Gbps</td><td>Daisy-chain monitors, docks, high-speed storage</td></tr>
+    </table>
+  </div>
+
+  <!-- VOCABULARY GLOSSARY -->
+  <div class="concepts-section">
+    <h2>📖 A+ Vocabulary Glossary</h2>
+    <p>Search by term or definition to find key vocabulary. Each card includes a real-world example to cement the concept.</p>
+    <input type="text" class="vocab-search" placeholder="Search terms and definitions..." oninput="filterVocabAP(this.value)" id="ap-vocab-search"/>
+    <div class="vocab-grid" id="ap-vocab-grid"></div>
+  </div>
+
+</div><!-- end panel-concepts -->
+
+</div>
+
+</div>
+
+
+<!-- ── Tips & Careers Panel ───────────────────────────────────────── -->
+<div id="panel-tips" class="tab-panel">
+  <div class="tips-section-title">🧠 Memory Tricks & Mnemonics</div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🖨️ Laser Printing — 7 Steps</div>
+      <div class="mnem-phrase">"<strong>Please Create Every Document, Then File Carefully</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step"><strong>P</strong>rocessing</span>
+        <span class="mnem-step"><strong>C</strong>harging</span>
+        <span class="mnem-step"><strong>E</strong>xposing</span>
+        <span class="mnem-step"><strong>D</strong>eveloping</span>
+        <span class="mnem-step"><strong>T</strong>ransferring</span>
+        <span class="mnem-step"><strong>F</strong>using</span>
+        <span class="mnem-step"><strong>C</strong>leaning</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🌐 OSI Model — 7 Layers (bottom → top)</div>
+      <div class="mnem-phrase">"<strong>Please Do Not Throw Sausage Pizza Away</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step"><strong>P</strong>hysical</span>
+        <span class="mnem-step"><strong>D</strong>ata Link</span>
+        <span class="mnem-step"><strong>N</strong>etwork</span>
+        <span class="mnem-step"><strong>T</strong>ransport</span>
+        <span class="mnem-step"><strong>S</strong>ession</span>
+        <span class="mnem-step"><strong>P</strong>resentation</span>
+        <span class="mnem-step"><strong>A</strong>pplication</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">💾 Storage vs Memory — Quick Rule</div>
+      <div class="mnem-phrase">"<strong>RAM = Remember After Momentarily — it forgets when power is gone.</strong>"</div>
+      <div class="mnem-detail">RAM (volatile) = loses data without power · Storage (HDD/SSD) = keeps data permanently · Cache = fastest, smallest · Virtual memory = pretend RAM using disk space</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔌 Connector Types — Color Coding Trick</div>
+      <div class="mnem-phrase">"<strong>Audio jacks: Green = Go (output/speakers), Pink = Pick up (mic input), Blue = Back (line-in)</strong>"</div>
+      <div class="mnem-detail">Most PCs follow this color standard. On the exam, if a question says "no sound from speakers," check the green jack first.</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🛠️ Troubleshooting — 6 Steps</div>
+      <div class="mnem-phrase">"<strong>I Ensure Every Tech Verifies Results</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step"><strong>I</strong>dentify the problem</span>
+        <span class="mnem-step"><strong>E</strong>stablish theory</span>
+        <span class="mnem-step"><strong>E</strong>valuate/test theory</span>
+        <span class="mnem-step"><strong>T</strong>est &amp; implement</span>
+        <span class="mnem-step"><strong>V</strong>erify &amp; prevent</span>
+        <span class="mnem-step"><strong>R</strong>ecord findings</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">⚡ POST Beep Codes — Rule of Thumb</div>
+      <div class="mnem-phrase">"<strong>1 beep = happy, no beep = power problem, many beeps = hardware problem</strong>"</div>
+      <div class="mnem-detail">1 short beep on BIOS POST = system OK · Continuous beeps = RAM · Repeating short beeps = power supply · Long + short combos = video card (varies by BIOS manufacturer)</div>
+    </div>
+
+
+    <div class="strategy-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">🎯 How to Pass the CompTIA A+ (220-1101 / 220-1102)</h3>
+
+      <div class="strategy-grid">
+
+        <div class="strategy-card">
+          <h4>🗣️ CompTIA Question Language</h4>
+          <p>CompTIA uses specific trigger words that change the right answer. Learn to spot them:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li><strong>"MOST likely"</strong> — eliminate impossible answers; pick the best fit</li>
+            <li><strong>"BEST"</strong> — there may be 2 correct answers; one is more efficient/secure</li>
+            <li><strong>"FIRST"</strong> — follow the correct order/process (e.g., troubleshooting steps)</li>
+            <li><strong>"LEAST"</strong> / <strong>"EXCEPT"</strong> — you're looking for the <em>wrong</em> one</li>
+            <li><strong>"ALWAYS"</strong> / <strong>"NEVER"</strong> — these are usually wrong; tech rarely works in absolutes</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>✂️ Elimination Technique</h4>
+          <ol style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Read the question stem carefully — what is it <em>really</em> asking?</li>
+            <li>Cross out any answer that is obviously wrong or out of scope</li>
+            <li>If 2 answers look similar, one of them is usually correct</li>
+            <li>Look for answers that are "too extreme" — usually distractors</li>
+            <li>If completely unsure, pick the more <em>conservative/secure</em> option</li>
+          </ol>
+        </div>
+
+        <div class="strategy-card">
+          <h4>🖥️ Performance-Based Questions (PBQs)</h4>
+          <p>PBQs appear at the <strong>start</strong> of the exam and are simulations (drag-drop, click-throughs, command line scenarios). Tips:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Don't panic — skip and come back if you're unsure</li>
+            <li>Read every instruction carefully before clicking</li>
+            <li>Most PBQs test basic knowledge in a visual way</li>
+            <li>Flagging and returning with fresh eyes often helps</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>📅 Day-Before Checklist</h4>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>✅ Review your weakest domains (check your tracker above!)</li>
+            <li>✅ Look over mnemonics one more time</li>
+            <li>✅ Get 8 hours of sleep — tired brains forget everything</li>
+            <li>✅ Eat a good breakfast before the exam</li>
+            <li>✅ Arrive early (or set up testing software ahead of time)</li>
+            <li>✅ Bring valid photo ID if testing in-person</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="strategy-card" style="margin-top:12px;">
+        <h4>📚 Free Study Resources</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+          <a href="https://www.professormesser.com" target="_blank" class="resource-link">🎓 Professor Messer (free video courses)</a>
+          <a href="https://www.comptia.org/training/resources" target="_blank" class="resource-link">📘 CompTIA Official Study Resources</a>
+          <a href="https://www.examcompass.com" target="_blank" class="resource-link">❓ ExamCompass (free practice tests)</a>
+          <a href="https://quizlet.com" target="_blank" class="resource-link">🃏 Quizlet (community flashcard sets)</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="careers-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">💼 Where This Certification Can Take You</h3>
+      <div class="careers-grid">
+      <div class="career-card-tip">
+        <div class="career-card-title">💻 Help Desk Technician</div>
+        <div class="career-salary">$35k – $55k/yr</div>
+        <div class="career-desc">First line of tech support — answers calls, fixes password issues, and solves day-to-day computer problems.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🖥️ Desktop Support Specialist</div>
+        <div class="career-salary">$40k – $62k/yr</div>
+        <div class="career-desc">Goes on-site to fix computers, install software, and set up workstations for employees.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🔧 IT Field Technician</div>
+        <div class="career-salary">$42k – $68k/yr</div>
+        <div class="career-desc">Travels to offices or client locations to repair hardware, run cable, and configure devices.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🏢 IT Support Specialist</div>
+        <div class="career-salary">$45k – $70k/yr</div>
+        <div class="career-desc">Manages hardware, software, and users in a company — the go-to person when something breaks.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">⚙️ Systems Administrator</div>
+        <div class="career-salary">$60k – $95k/yr</div>
+        <div class="career-desc">Keeps servers and IT infrastructure running smoothly; often the next step after a few years of experience.</div>
+      </div>
+      </div>
+      <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">💡 Salaries vary by location and experience. These ranges reflect US national averages (entry to mid-level). Source: Bureau of Labor Statistics / Glassdoor / LinkedIn Salary (2024–2025).</p>
+    </div>
+
+</div><!-- /panel-tips -->
+
+<script>
+
+const apVocabTerms = [
+  { term: 'BIOS / UEFI', def: 'Basic Input/Output System (legacy) or Unified Extensible Firmware Interface (modern) — firmware that initializes hardware at boot and loads the OS bootloader.', example: 'UEFI supports GPT disks larger than 2TB and provides Secure Boot to prevent unsigned OS loaders from running.' },
+  { term: 'POST (Power-On Self-Test)', def: 'The BIOS/UEFI self-check routine run at every boot to verify CPU, RAM, GPU, and storage are functional before loading the OS.', example: 'Three short beeps during POST (AMI BIOS) indicates a RAM error — reseat or replace the memory module.' },
+  { term: 'CPU (Central Processing Unit)', def: 'The primary processor that executes program instructions. Key specs: cores, threads, clock speed (GHz), cache, TDP.', example: 'An Intel Core i9-14900K has 24 cores (8P+16E), up to 6.0 GHz boost clock, 36MB cache — suited for workstation tasks.' },
+  { term: 'RAM (Random Access Memory)', def: 'Volatile, high-speed memory used by the CPU to store active data and program code. Cleared when power is removed.', example: 'Opening 20 Chrome tabs consumes ~4GB of RAM; insufficient RAM causes excessive paging to disk, dramatically slowing the PC.' },
+  { term: 'GPU (Graphics Processing Unit)', def: 'A processor optimized for parallel floating-point calculations, handling display rendering. Also used for ML and crypto mining.', example: 'A discrete GPU (NVIDIA RTX 4070) has its own VRAM (12GB GDDR6X) vs integrated graphics sharing system RAM.' },
+  { term: 'Thermal Paste', def: 'A thermally conductive compound applied between CPU/GPU and the heatsink to fill microscopic air gaps and improve heat transfer.', example: 'Dried or missing thermal paste causes CPU temps to spike to 95C+ under load, triggering thermal throttling or shutdown.' },
+  { term: 'SATA (Serial ATA)', def: 'A storage interface standard for connecting HDDs, SSDs, and optical drives. SATA III max bandwidth: 600 MB/s.', example: 'A SATA SSD reads at ~550 MB/s — limited by the SATA III interface, not the NAND flash itself.' },
+  { term: 'NVMe (Non-Volatile Memory Express)', def: 'A high-performance storage protocol for SSDs that communicates directly over PCIe, bypassing the slower SATA/AHCI layer.', example: 'A Samsung 990 Pro NVMe SSD reads at 7,450 MB/s — over 13x faster than a SATA SSD.' },
+  { term: 'PCIe (Peripheral Component Interconnect Express)', def: 'A high-speed serial expansion bus standard used for GPUs, NVMe SSDs, NICs, and other add-in cards.', example: 'A PCIe x16 slot (used for GPUs) has 16 lanes; PCIe 5.0 x16 provides up to 128 GB/s of bandwidth.' },
+  { term: 'PSU (Power Supply Unit)', def: 'Converts AC wall power to DC voltages (+12V, +5V, +3.3V) used by PC components. Rated by wattage and efficiency (80 PLUS).', example: '80 PLUS Platinum PSUs are 90%+ efficient — a 650W Platinum wastes much less heat than a cheap generic unit.' },
+  { term: 'Virtualization', def: 'Running multiple isolated virtual machines (VMs) on a single physical host using a hypervisor to share hardware resources.', example: 'A single server runs 20 Windows VMs using VMware ESXi (Type 1 hypervisor) — each VM thinks it has its own hardware.' },
+  { term: 'Type 1 Hypervisor', def: 'Bare-metal hypervisor that runs directly on hardware without a host OS. Used in enterprise data centers for high performance.', example: 'VMware ESXi, Microsoft Hyper-V Server, KVM — installed directly on server hardware, no Windows/Linux host needed.' },
+  { term: 'Type 2 Hypervisor', def: 'Hosted hypervisor that runs as an application on top of an existing OS. Convenient for development and testing.', example: 'VirtualBox or VMware Workstation running on Windows 11 — the host OS runs first, then you launch VMs inside it.' },
+  { term: 'Active Directory (AD)', def: 'Microsoft's directory service for Windows networks, providing centralized authentication, authorization, and policy management.', example: 'An IT admin uses AD to enforce a password complexity policy across all 500 company PCs without touching each machine.' },
+  { term: 'Group Policy (GPO)', def: 'A Windows feature (requires AD or gpedit.msc locally) to configure OS settings, restrictions, and security for users and computers.', example: 'A GPO prevents users from running PowerShell, disables USB storage, and sets the desktop wallpaper company-wide.' },
+  { term: 'NTFS', def: 'New Technology File System — the default Windows file system supporting permissions, encryption (EFS), journaling, and files over 4GB.', example: 'NTFS allows setting "Read Only" permissions on a folder for contractors while giving full control to IT admins.' },
+  { term: 'FAT32', def: 'Legacy file system compatible with nearly all devices but limited to 4GB max file size and 2TB max partition size.', example: 'USB drives used between Windows, Mac, and game consoles are often formatted FAT32 for maximum compatibility.' },
+  { term: 'exFAT', def: 'Extended FAT — supports large files (no 4GB limit) with broad cross-platform compatibility. Used on large USB drives and SD cards.', example: 'A 256GB SD card in a camera is formatted exFAT — it can store 4K video files exceeding 4GB that FAT32 cannot handle.' },
+  { term: 'Malware', def: 'Malicious software designed to damage, disrupt, or gain unauthorized access to a system. Types include viruses, worms, ransomware, spyware, trojans, rootkits.', example: 'A trojan disguised as a game installer installs a keylogger that silently records all typed passwords.' },
+  { term: 'Rootkit', def: 'Malware that hides itself and other malware deep in the OS, often in the kernel, making it extremely difficult to detect.', example: 'A rootkit intercepts OS calls so that when AV asks for a list of running processes, it simply omits itself from the response.' },
+  { term: 'Phishing (A+ context)', def: 'Social engineering via fraudulent emails/messages to trick users into clicking malicious links or providing credentials.', example: 'An employee clicks a "reset your VPN password" email — the fake site steals their credentials, compromising the network.' },
+  { term: 'MDM (Mobile Device Management)', def: 'Software that allows IT to remotely manage, configure, and secure mobile devices (smartphones, tablets) enrolled in the platform.', example: 'An MDM policy enforces PIN lock, disables camera, and enables remote wipe if an employee loses their company iPhone.' },
+  { term: 'BYOD (Bring Your Own Device)', def: 'A policy allowing employees to use personal devices for work. Creates security challenges around data separation.', example: 'A company deploys containerized apps via MDM — corporate email and files are in an encrypted container, isolated from personal data.' },
+  { term: 'Troubleshooting Methodology', def: 'CompTIA's 6-step process: 1) Identify the problem, 2) Establish theory, 3) Test theory, 4) Establish action plan, 5) Implement solution, 6) Document findings.', example: 'User says PC won't boot. Identify: what changed recently? Theory: Windows update failed. Test: boot to WinRE. Fix: rollback update. Document: KB article.' }
+];
+
+function buildVocabAP(terms) {
+  var grid = document.getElementById('ap-vocab-grid');
+  if (!grid) return;
+  grid.innerHTML = terms.map(function(t) {
+    return '<div class="vocab-card">' +
+      '<div class="vocab-term">' + t.term + '</div>' +
+      '<div class="vocab-def">' + t.def + '</div>' +
+      '<div class="vocab-example">Example: ' + t.example + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function filterVocabAP(query) {
+  var q = query.toLowerCase();
+  var filtered = apVocabTerms.filter(function(t) {
+    return t.term.toLowerCase().indexOf(q) >= 0 || t.def.toLowerCase().indexOf(q) >= 0;
+  });
+  buildVocabAP(filtered);
+}
+
+function showTab(name, ev) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (ev && ev.target) ev.target.classList.add('active');
+  if (name === 'flashcards') loadCards();
+  if (name === 'quiz') initQuiz();
+}
+function toggleDomain(h) {
+  h.classList.toggle('open');
+  h.nextElementSibling.classList.toggle('open');
+}
+
+const allCards = [
+  // Hardware
+  { term: 'CPU Socket Types', def: 'Intel: LGA (Land Grid Array) — pins on motherboard. AMD: PGA (Pin Grid Array) — pins on CPU for AM4; LGA for AM5. Must match: AM4 CPU only in AM4 motherboard. Also check TDP/cooling compatibility.', cat: 'hardware' },
+  { term: 'RAM Types', def: 'DDR4: 288-pin DIMM (desktop), 260-pin SO-DIMM (laptop). DDR5: higher bandwidth, lower voltage, on-die ECC. ECC RAM: detects/corrects single-bit errors — used in servers. Check: voltage, speed (MHz), and CAS latency must be compatible with motherboard.', cat: 'hardware' },
+  { term: 'RAID Levels', def: 'RAID 0: Striping — speed, no redundancy (any disk failure = data loss). RAID 1: Mirroring — redundancy, 50% capacity. RAID 5: Striping + parity — 3+ disks, 1 disk fault tolerance. RAID 10: Mirror+Stripe — performance + redundancy, 4+ disks.', cat: 'hardware' },
+  { term: 'M.2 Form Factor', def: 'M.2 slots support SATA or NVMe (PCIe). Key types: B-key (SATA/NVMe), M-key (NVMe preferred). Check motherboard manual for which protocol is supported. NVMe (PCIe) = 3,500+ MB/s; SATA M.2 = 550 MB/s max.', cat: 'hardware' },
+  { term: 'HDD vs SSD vs NVMe', def: 'HDD: spinning platters, cheap/GB, slow (100-150 MB/s), noise, shock-sensitive, fragmentation matters. SSD (SATA): 550 MB/s, silent, shock-resistant. NVMe (PCIe): 3,500-7,000 MB/s, best for OS/apps. No fragmentation on SSDs.', cat: 'hardware' },
+  { term: 'PSU Form Factors & Ratings', def: 'ATX: standard desktop. SFX: small form-factor. PSU 80 Plus: efficiency ratings: Standard, Bronze, Silver, Gold, Platinum, Titanium. Higher = more efficient. Rail voltages: 12V (CPU/GPU), 5V (drives), 3.3V (memory/chipset). Modular = removable cables.', cat: 'hardware' },
+  { term: 'PCIe Slots', def: 'x1: 1 lane, ~1 GB/s (network cards, sound). x4: 4 lanes (NVMe SSDs, some GPUs). x8: 8 lanes. x16: 16 lanes, full bandwidth for GPUs. Physical size ≠ lane count. PCIe 4.0 doubles PCIe 3.0 bandwidth per lane. Backward compatible.', cat: 'hardware' },
+  { term: 'Laser Printer 7-Step Process', def: '1. Processing (RIP creates bitmap). 2. Charging (drum charged -600V). 3. Exposing (laser creates latent image, -100V areas). 4. Developing (toner adheres to exposed areas). 5. Transferring (toner to paper). 6. Fusing (heat/pressure bonds toner). 7. Cleaning (remove residual toner).', cat: 'hardware' },
+  { term: 'Printer Troubleshooting', def: 'Ghost images = fuser worn (residual toner). Smearing/not fusing = fuser failing (low temp). Lines on page = dirty/scratched drum. Incorrect colors = wrong toner cartridge installed. Paper jams = paper size, worn rollers, humidity. Calibrate after toner replacement.', cat: 'hardware' },
+  { term: 'Display Technologies', def: 'TN: fast response, cheap, poor viewing angles. IPS: best color accuracy and wide viewing angles, slightly slower. VA: deep blacks, mid-range. OLED: per-pixel lighting, infinite contrast, risk of burn-in. Resolution: FHD (1920x1080), QHD (2560x1440), 4K (3840x2160).', cat: 'hardware' },
+  { term: 'Monitor Connectors', def: 'VGA: analog, 15-pin, legacy only (no support for 4K). DVI: digital/analog, supports up to 2560x1600. HDMI: audio+video, 4K@60Hz (2.0). DisplayPort: high refresh rates, daisy-chain monitors, 8K support (2.0). USB-C/Thunderbolt: power + data + video.', cat: 'hardware' },
+  { term: 'USB Standards', def: 'USB 2.0: 480 Mbps, black connector. USB 3.0/3.1 Gen 1: 5 Gbps, blue. USB 3.1 Gen 2: 10 Gbps. USB 3.2 Gen 2x2: 20 Gbps. USB 4.0: 40 Gbps (Thunderbolt 3 compatible). USB-C: reversible connector, can carry USB 4, DP, Thunderbolt. Not all USB-C ports have same speed.', cat: 'hardware' },
+  { term: 'Thermal Paste', def: 'Fills microscopic gaps between CPU and heatsink to improve heat transfer. Reapply when: replacing heatsink, after ~3-5 years (dries out), if CPU temperatures are high unexpectedly. Too much = insulation. Too little = hot spots. Pea-sized drop in center is standard.', cat: 'hardware' },
+  { term: 'POST / BIOS / UEFI', def: 'POST (Power-On Self Test): hardware test at startup. BIOS: legacy firmware, 16-bit, MBR only, 2TB limit. UEFI: modern firmware, 64-bit, GPT support, >2TB, Secure Boot, faster boot, mouse support. BIOS/UEFI settings: boot order, XMP/EXPO memory profiles, virtualization (VT-x/AMD-V).', cat: 'hardware' },
+  { term: 'ESD Prevention', def: 'Electrostatic Discharge damages components. Prevention: antistatic wrist strap (ground yourself), antistatic mat, antistatic bags for storage, touch metal case before handling. Work on hard floor, not carpet. Most sensitive: RAM, GPU, CPU, expansion cards.', cat: 'hardware' },
+  // Networking
+  { term: 'TCP/IP Model', def: 'Four layers: Application (HTTP, DNS, SMTP, FTP), Transport (TCP/UDP), Internet (IP, ICMP), Network Access/Link (Ethernet, Wi-Fi). TCP/IP is the actual protocol suite; OSI is the conceptual model. Both help with troubleshooting.', cat: 'networking' },
+  { term: 'IP Address Classes', def: 'Class A: 1-126.x.x.x (/8, millions of hosts). Class B: 128-191.x.x.x (/16, 65K hosts). Class C: 192-223.x.x.x (/24, 254 hosts). Private: 10.x, 172.16-31.x, 192.168.x. Loopback: 127.x.x.x. APIPA: 169.254.x.x.', cat: 'networking' },
+  { term: 'Subnetting Quick Reference', def: '/24 = 254 hosts. /25 = 126 hosts. /26 = 62 hosts. /27 = 30 hosts. /28 = 14 hosts. /29 = 6 hosts. /30 = 2 hosts (point-to-point links). Formula: 2^n - 2 where n = host bits. Default subnet masks: A=/8, B=/16, C=/24.', cat: 'networking' },
+  { term: 'Common Ports to Memorize', def: '20/21=FTP, 22=SSH, 23=Telnet, 25=SMTP, 53=DNS, 67/68=DHCP, 80=HTTP, 110=POP3, 143=IMAP, 443=HTTPS, 3389=RDP, 445=SMB, 3306=MySQL, 137-139=NetBIOS. Secure versions: 993=IMAPS, 995=POP3S, 465=SMTPS.', cat: 'networking' },
+  { term: 'DNS Record Types', def: 'A: hostname to IPv4. AAAA: hostname to IPv6. CNAME: alias to canonical name. MX: mail exchange server. PTR: IP to hostname (reverse DNS). NS: authoritative nameserver. SOA: zone authority info. TXT: text (SPF, DKIM, domain verification).', cat: 'networking' },
+  { term: 'Wi-Fi Standards', def: '802.11a: 5GHz, 54Mbps. 802.11b: 2.4GHz, 11Mbps. 802.11g: 2.4GHz, 54Mbps. 802.11n (Wi-Fi 4): 2.4/5GHz, 600Mbps, MIMO. 802.11ac (Wi-Fi 5): 5GHz, 3.5Gbps. 802.11ax (Wi-Fi 6): 2.4/5/6GHz, 9.6Gbps, OFDMA.', cat: 'networking' },
+  { term: 'Wireless Security Comparison', def: 'WEP: broken (IV reuse). WPA-TKIP: broken. WPA2-Personal: AES-CCMP + PSK, vulnerable to dictionary attacks offline. WPA2-Enterprise: 802.1X + RADIUS, best for business. WPA3-Personal: SAE (no PSK vulnerability). WPA3-Enterprise: 192-bit suite.', cat: 'networking' },
+  { term: 'IPv4 vs IPv6', def: 'IPv4: 32-bit, 4.3B addresses, dotted decimal (192.168.1.1). IPv6: 128-bit, vast address space, hexadecimal colon notation (2001:db8::1). IPv6 features: SLAAC (auto-config), no NAT needed, built-in IPSec support, larger header but simpler routing.', cat: 'networking' },
+  { term: 'Network Hardware', def: 'Hub: Layer 1, repeats all traffic to all ports (legacy). Switch: Layer 2, forwards based on MAC table, one collision domain per port. Router: Layer 3, routes between networks using IP. AP: wireless access point. Managed switch: supports VLANs, port mirroring, SNMP.', cat: 'networking' },
+  { term: 'VPN Types', def: 'Remote access VPN: individual users connect to corporate network (SSL VPN, IPSec). Site-to-site VPN: connects entire office networks. Split tunnel: only corporate traffic through VPN. Full tunnel: all traffic through VPN. Always-on VPN: automatic connection on corporate devices.', cat: 'networking' },
+  // Operating Systems
+  { term: 'Windows Editions', def: 'Home: basic features, no domain join, no BitLocker. Pro: domain join, BitLocker, RDP hosting, Group Policy, Hyper-V. Pro Workstation: NUMA, ReFS, more RAM. Enterprise/Education: AppLocker, BranchCache, UE-V. Enterprise features require volume licensing.', cat: 'os' },
+  { term: 'Windows Registry Hives', def: 'HKLM (HKEY_LOCAL_MACHINE): system-wide settings, hardware, services. HKCU (HKEY_CURRENT_USER): current user settings. HKCR: file associations. HKU: all user profiles. HKCC: current hardware profile. Backup registry before editing. Use regedit.exe.', cat: 'os' },
+  { term: 'Windows Command Line Tools', def: 'ipconfig: IP settings. ping/tracert: connectivity. nslookup: DNS. netstat: connections. sfc /scannow: system file check. DISM: Windows image repair. chkdsk: disk errors. bootrec /fixmbr, /fixboot, /rebuildbcd: boot repair. net user: user management. gpupdate /force: apply group policy.', cat: 'os' },
+  { term: 'MBR vs GPT', def: 'MBR (Master Boot Record): legacy, max 4 primary partitions, max 2TB disk, used with BIOS. GPT (GUID Partition Table): modern, 128 partitions, supports >2TB, requires UEFI (Windows). Converting MBR to GPT without data loss: mbr2gpt tool or during clean install.', cat: 'os' },
+  { term: 'NTFS Permissions', def: 'Full Control, Modify, Read & Execute, List Folder Contents, Read, Write. Effective permissions: most restrictive combination of share + NTFS. Inheritance: child objects inherit parent by default. DENY overrides ALLOW. icacls command for CLI management.', cat: 'os' },
+  { term: 'Windows Event Viewer', def: 'Logs: Application (app errors), System (OS events), Security (login/audit events). Key Event IDs: 4624 (successful login), 4625 (failed login), 4720 (account created), 7036 (service started/stopped), 6005/6006 (system startup/shutdown). Access: eventvwr.msc.', cat: 'os' },
+  { term: 'Windows Task Manager', def: 'Tabs: Processes (CPU/memory/disk/network per app), Performance (system-wide graphs), App history, Startup (manage startup programs), Users, Details (PIDs), Services. Ctrl+Shift+Esc or right-click taskbar. Use to kill hung processes, identify resource hogs.', cat: 'os' },
+  { term: 'Safe Mode Types', def: 'Safe Mode: minimal drivers (network disabled) — use to remove malware. Safe Mode with Networking: adds network drivers — use for network-dependent fixes. Safe Mode with Command Prompt: CLI only. Access: msconfig → Boot → Safe Boot, or F8/Shift+F8, or WinRE.', cat: 'os' },
+  { term: 'macOS Features', def: 'Finder: file manager. Time Machine: automatic backup to external drive. Keychain: password manager. Spotlight: universal search. FileVault: full-disk encryption. Gatekeeper: allows only signed apps. Terminal: bash/zsh CLI. App Store: centralized app distribution. System Preferences/Settings: configuration.', cat: 'os' },
+  { term: 'Linux Commands', def: 'ls -la: list files with permissions. cd/mkdir/rm/cp/mv: navigation/file management. chmod 755: change permissions. sudo: run as admin. apt-get/yum: package management. grep: search text. ps aux: running processes. top: live process monitor. df -h: disk space. cat/nano/vi: view/edit files.', cat: 'os' },
+  { term: 'Linux File Permissions', def: 'Three sets of rwx: owner, group, others. r=4, w=2, x=1. chmod 755: owner=rwx(7), group=r-x(5), others=r-x(5). chmod 644: owner=rw(6), group=r(4), others=r(4). chown: change ownership. Directories need x permission to enter.', cat: 'os' },
+  { term: 'Windows Troubleshooting Tools', def: 'msconfig: startup programs, safe mode, boot options. msinfo32: system info. dxdiag: DirectX/GPU info. devmgmt.msc: Device Manager (yellow ! = driver error). diskmgmt.msc: disk management. compmgmt.msc: Computer Management hub. services.msc: service manager.', cat: 'os' },
+  // Security
+  { term: 'Malware Types', def: 'Virus: attaches to files, needs execution to spread. Worm: self-replicating over networks, no host file needed. Trojan: disguised as legitimate software. Ransomware: encrypts files for ransom. Spyware: monitors without consent. Rootkit: hides itself in OS. Keylogger: records keystrokes. Adware: unwanted ads.', cat: 'security' },
+  { term: 'Malware Removal Process (A+)', def: '1. Investigate/identify symptoms. 2. Quarantine infected system (disconnect network). 3. Disable System Restore (prevents malware hiding in restore points). 4. Remediate (run scanners in Safe Mode, remove malware). 5. Schedule scans/enable protection. 6. Re-enable System Restore, create restore point. 7. Educate user.', cat: 'security' },
+  { term: 'Authentication Types', def: 'Something you know: password, PIN. Something you have: smart card, hardware token (RSA SecurID), TOTP app (Authenticator). Something you are: biometric (fingerprint, retina, face). Multifactor = two or more DIFFERENT types. Two passwords = single factor.', cat: 'security' },
+  { term: 'Windows BitLocker', def: 'Full disk encryption built into Windows Pro/Enterprise. Uses TPM chip to store keys — can unlock automatically, or require PIN. Recovery key (48-digit) must be saved to AD, USB, or Microsoft account. Crypto Erase: wipe encryption keys to instantly destroy data.', cat: 'security' },
+  { term: 'Firewall & Network Security', def: 'Windows Defender Firewall: host-based, controls inbound/outbound per app. Rules: block or allow by port, protocol, app, IP. Best practice: deny-all inbound, allow specific exceptions. UTM (Unified Threat Management): combines firewall, AV, IPS, VPN, web filter in one device.', cat: 'security' },
+  { term: 'Social Engineering Attacks', def: 'Phishing: fake email. Vishing: voice/phone fraud. Smishing: SMS fraud. Tailgating: following through secure door. Shoulder surfing: watching someone type. Dumpster diving: finding info in trash. Pretexting: false scenario to extract info. Defense: training + verification procedures.', cat: 'security' },
+  { term: 'Wireless Security Protocols', def: 'TKIP (WPA): Temporal Key Integrity Protocol, replaced WEP RC4 with per-packet keys. AES-CCMP (WPA2): Counter Mode CBC-MAC Protocol, strongest before WPA3. WPA3 SAE: Simultaneous Authentication of Equals eliminates PSK. PMF: Protected Management Frames (mandatory in WPA3).', cat: 'security' },
+  { term: 'Encryption at Rest', def: 'Protects stored data if device is stolen. Windows: BitLocker (full drive), EFS (individual files, NTFS). macOS: FileVault 2 (AES-XTS 128-bit). Android/iOS: full disk encryption by default. Self-encrypting drives (SED): hardware encryption in the drive controller.', cat: 'security' },
+  // Troubleshooting
+  { term: 'POST Beep Codes', def: 'Single beep: normal POST. Multiple beeps: hardware failure (varies by BIOS vendor). AMI BIOS: 1 beep=RAM fail, 3 beeps=RAM fail, 8 beeps=GPU fail. Common on older hardware. Modern UEFI may display error codes on screen instead. Check manual for specific codes.', cat: 'troubleshooting' },
+  { term: 'Blue Screen of Death (BSOD)', def: 'Windows kernel-mode error. Common causes: bad RAM (run memtest86), corrupt drivers, failing storage, overheating. Key info: stop code (e.g., 0x0000007E), driver filename. Check: Event Viewer, minidumps in C:\Windows\Minidump, update/rollback drivers.', cat: 'troubleshooting' },
+  { term: 'Storage Failure Symptoms', def: 'HDD: clicking sound = head failure (backup immediately). Slow performance = bad sectors. Not detected = controller/cable/power failure. SSD: sudden read-only = dying (data preserved but no writes). Files corrupting = check with chkdsk. S.M.A.R.T. data: check with CrystalDiskInfo.', cat: 'troubleshooting' },
+  { term: 'Network Troubleshooting Steps', def: '1. Check physical (cable, lights). 2. ipconfig (is IP valid — not APIPA 169.254.x.x?). 3. Ping 127.0.0.1 (loopback — stack OK?). 4. Ping default gateway (local network OK?). 5. Ping 8.8.8.8 (internet routing OK?). 6. nslookup google.com (DNS OK?).', cat: 'troubleshooting' },
+  { term: 'Display Troubleshooting', def: 'Dim image: backlight failing (LCD) or brightness set low. No image but PC running: cable, GPU driver, monitor power. Single stuck pixel: dead pixel (hardware defect). Artifacts/flickering: GPU overheating or dying, or cable issue. Burn-in: OLED/plasma issue — use screensaver.', cat: 'troubleshooting' },
+  { term: 'Overheating Symptoms', def: 'Random shutdowns, throttling (sudden performance drop), fan running at max. Causes: dust blockage, failed fan, dried thermal paste, poor case airflow, overclocking. Tools: HWMonitor, SpeedFan. Fix: clean dust, reapply thermal paste, improve airflow.', cat: 'troubleshooting' },
+  { term: 'Windows Boot Troubleshooting', def: 'WinRE (Windows Recovery Environment): access via Shift+Restart or boot media. Tools: Startup Repair, System Restore, Command Prompt. bootrec /fixmbr: repair MBR. bootrec /fixboot: repair boot sector. bootrec /rebuildbcd: rebuild boot config. sfc /scannow from WinRE: fix system files.', cat: 'troubleshooting' },
+  { term: 'Laptop Troubleshooting', def: 'No display but running: check Fn+F1/F2 external display toggle, external monitor test. Battery not charging: check adapter (multimeter), battery health, charging port. Overheating: clean vents, replace thermal paste. Keyboard keys not working: driver update, debris under key, replace keyboard.', cat: 'troubleshooting' },
+  // Operational Procedures
+  { term: 'Backup Types', def: 'Full: complete copy of all data. Differential: all changes since last full backup — restore with full + last differential. Incremental: changes since last backup of any type — smaller but restore requires full + all incrementals. 3-2-1 rule: 3 copies, 2 different media, 1 offsite.', cat: 'operational' },
+  { term: 'Change Management', def: 'Formal process: request → impact assessment → approval (CAB) → schedule maintenance window → implement → test → document → rollback plan. Prevents unauthorized changes that cause outages. Documentation: change log, approval signature, rollback procedure.', cat: 'operational' },
+  { term: 'Ticketing System / Documentation', def: 'Asset management: serial numbers, warranty, location, users. Incident tracking: ticket creation, assignment, escalation, resolution, closure. Knowledge base: solutions to common issues. Network diagrams: logical and physical. Procedures: standard operating procedures (SOPs).', cat: 'operational' },
+  { term: 'Physical Safety', def: 'Lifting: use legs not back, keep close to body. Electrical: discharge capacitors before working inside PSU. ESD: ground yourself. Cable management: prevent trip hazards. Fire extinguisher types: A (ordinary combustibles), B (flammable liquids), C (electrical), ABC. Never use water on electrical fires.', cat: 'operational' },
+  { term: 'Environmental Controls', def: 'Data center temp: 68-77°F (20-25°C). Humidity: 40-60% (too low = ESD, too high = condensation). Hot aisle/cold aisle: alternating rack orientation to manage airflow. UPS (Uninterruptible Power Supply): protects against power outages. PDU: power distribution in racks.', cat: 'operational' },
+  { term: 'Scripting Languages (A+)', def: 'Python (.py): cross-platform, versatile. Bash (.sh): Linux/macOS shell scripts. PowerShell (.ps1): Windows automation, object-based output. Batch (.bat/.cmd): legacy Windows scripting. VBScript (.vbs): legacy Windows. JavaScript (.js): web and Node.js. Use appropriate interpreter for each file type.', cat: 'operational' },
+  { term: 'Remote Support Tools', def: 'RDP (Remote Desktop Protocol): port 3389, Windows graphical remote access. SSH: port 22, encrypted CLI remote access. VNC: cross-platform graphical, may be unencrypted. TeamViewer/AnyDesk: commercial remote support tools. RMM (Remote Monitoring & Management): enterprise IT tools for monitoring and management.', cat: 'operational' },
+  // Mobile
+  { term: 'Mobile Connection Types', def: 'Cellular: 4G LTE (150 Mbps), 5G (up to 10 Gbps). Wi-Fi: 802.11ax (Wi-Fi 6). Bluetooth: short range (<10m typical), used for peripherals, PAN. NFC: Near Field Communication, <4cm, used for tap-to-pay, pairing. IR: infrared, line-of-sight, remote controls.', cat: 'mobile' },
+  { term: 'Mobile OS Comparison', def: 'Android: open-source (Google), sideloading allowed, varied update timelines by manufacturer. iOS: closed (Apple), no sideloading (pre-EU), consistent updates across devices. Both: full disk encryption by default, biometric auth, MDM support, app sandboxing.', cat: 'mobile' },
+  { term: 'MDM (Mobile Device Management)', def: 'Centrally manages mobile devices. Features: remote wipe, lock, enforce PIN/encryption, push apps, restrict features, geofencing, compliance monitoring. BYOD: enroll personal device, corporate apps in container. COPE: company-owned, personal enabled. MDM vs MAM: device vs app management.', cat: 'mobile' },
+  { term: 'Mobile Troubleshooting', def: 'Short battery life: background apps, location services, screen brightness, old battery. No cellular signal: airplane mode check, SIM issue, carrier outage. Screen unresponsive: clean screen, restart, screen protector interference. App crashes: update app, clear cache, reinstall. GPS: location services enabled?', cat: 'mobile' },
+  // Virtualization & Cloud
+  { term: 'Virtualization Concepts', def: 'Hypervisor Type 1 (bare metal): runs directly on hardware (VMware ESXi, Hyper-V, KVM) — better performance. Type 2 (hosted): runs on OS (VirtualBox, VMware Workstation) — easier to set up. VM: virtual machine with virtual CPU, RAM, storage, NIC. Snapshot: point-in-time VM state capture.', cat: 'hardware' },
+  { term: 'Cloud Service Models', def: 'IaaS (Infrastructure): rent VMs, storage, network — AWS EC2, Azure VMs. PaaS (Platform): rent app platform — AWS Elastic Beanstalk, Azure App Service. SaaS (Software): rent software — Office 365, Salesforce, Google Workspace. Responsibility shifts to provider as you go up the stack.', cat: 'hardware' },
+  { term: 'Cloud Deployment Models', def: 'Public: shared provider infrastructure (AWS, Azure, GCP). Private: dedicated, on-prem or hosted. Hybrid: mix of public and private (most common enterprise). Community: shared by organizations with common needs (government). Multi-cloud: using multiple cloud providers.', cat: 'hardware' },
+  { term: 'Containers vs VMs', def: 'VMs: full OS per VM, strong isolation, heavy (minutes to start, GBs of storage). Containers (Docker): share host OS kernel, lighter (seconds to start, MBs), less isolation. Kubernetes: orchestrates containers. Best practice: VMs for security isolation, containers for app deployment speed.', cat: 'hardware' },
+  // Acronyms
+  { term: 'BIOS / UEFI / POST', def: 'BIOS: Basic Input/Output System (legacy firmware). UEFI: Unified Extensible Firmware Interface (modern replacement). POST: Power-On Self Test (hardware check at startup). CPU initializes BIOS/UEFI → POST → boot loader → OS kernel.', cat: 'acronyms' },
+  { term: 'SMART / SSD / NVMe', def: 'SMART: Self-Monitoring Analysis and Reporting Technology — disk health monitoring. SSD: Solid State Drive (NAND flash, no moving parts). NVMe: Non-Volatile Memory Express — high-speed SSD protocol over PCIe. NVMe SSDs can be 7x faster than SATA SSDs.', cat: 'acronyms' },
+  { term: 'DHCP / DNS / NAT / PAT', def: 'DHCP: Dynamic Host Configuration Protocol — auto-assigns IP, mask, gateway, DNS. DNS: Domain Name System — name to IP translation. NAT: Network Address Translation — private to public IP mapping. PAT: Port Address Translation — many-to-one NAT using port numbers (most home routers use PAT).', cat: 'acronyms' },
+  { term: 'PII / PHI / PCI', def: 'PII: Personally Identifiable Information (name, SSN, address). PHI: Protected Health Information (medical records — HIPAA). PCI: Payment Card Industry data (credit card numbers — PCI-DSS). All require special handling, encryption, and access controls. Breaches of each have different legal consequences.', cat: 'acronyms' },
+  { term: 'SLA / MSA / SOW', def: 'SLA (Service Level Agreement): defines uptime, performance guarantees, penalties. MSA (Master Service Agreement): broad terms between vendor and customer. SOW (Statement of Work): specific deliverables and timeline for a project. All are contractual documents defining IT service relationships.', cat: 'acronyms' },
+  { term: 'SSID / WPA / TKIP / CCMP', def: 'SSID: Service Set Identifier — Wi-Fi network name. WPA: Wi-Fi Protected Access (security protocol). TKIP: Temporal Key Integrity Protocol (WPA, deprecated). CCMP: Counter Mode Cipher Block Chaining Message Authentication Code Protocol (WPA2, AES-based, current standard).', cat: 'acronyms' },
+  { term: 'VPN / SSL / TLS / IPSec', def: 'VPN: Virtual Private Network — encrypted tunnel. SSL: Secure Sockets Layer (deprecated, replaced by TLS). TLS: Transport Layer Security — encrypts web traffic (HTTPS). IPSec: IP Security — L3 encryption, used in site-to-site VPNs. TLS VPN = SSL VPN on exam (same thing effectively).', cat: 'acronyms' },
+  { term: 'UPS / PDU / HVAC', def: 'UPS: Uninterruptible Power Supply — battery backup during power outage. PDU: Power Distribution Unit — distributes power in server racks. HVAC: Heating, Ventilation, and Air Conditioning — critical for data center temperature/humidity control. All three are physical infrastructure essentials.', cat: 'acronyms' },
+  { term: 'RDP / VNC / SSH', def: 'RDP: Remote Desktop Protocol (port 3389) — Windows graphical remote access. VNC: Virtual Network Computing — cross-platform graphical remote (may be unencrypted). SSH: Secure Shell (port 22) — encrypted command-line remote access. Always use SSH over Telnet; prefer RDP over VNC for encryption.', cat: 'acronyms' },
+  { term: 'MDM / MAM / BYOD / COPE', def: 'MDM: Mobile Device Management — manages entire device. MAM: Mobile Application Management — manages only apps. BYOD: Bring Your Own Device — employee uses personal device for work. COPE: Company-Owned, Personally Enabled — company device with personal use allowed. COBO: Company-Owned, Business Only — no personal use.', cat: 'acronyms' },
+  { term: 'Motherboard Form Factors', def: 'ATX: 305x244mm, full-size, 7 expansion slots. Micro-ATX: 244x244mm, 4 slots. Mini-ITX: 170x170mm, 1 slot. All use same power connectors. Larger = more expansion slots, better airflow, requires larger case.', cat: 'hardware' },
+  { term: 'CPU Cooling Methods', def: 'Air: heatsink + fan, adequate for most CPUs. AIO Liquid: closed-loop pump + radiator + fans, better for high TDP. Custom loop: maximum cooling, complex. All require thermal paste. Match cooler TDP rating to CPU TDP.', cat: 'hardware' },
+  { term: 'Power Supply Connectors', def: 'ATX 24-pin: main motherboard power. 4/8-pin EPS: CPU power (always required). 6/8-pin PCIe: GPU power. SATA power: drives. Molex: legacy 4-pin fans/drives. 80 Plus ratings: Standard, Bronze, Silver, Gold, Platinum, Titanium (efficiency tiers).', cat: 'hardware' },
+  { term: 'Scanner Types', def: 'Flatbed: glass surface, best quality for photos/documents. ADF (Automatic Document Feeder): feeds multiple pages automatically for business use. Drum: professional-grade highest quality. OCR: converts scanned images of text to editable text. Barcode: reads 1D and 2D codes.', cat: 'hardware' },
+  { term: 'Inkjet vs Laser Printers', def: 'Inkjet: sprays liquid ink, good for photos, slow, expensive per page, nozzles clog when unused. Laser: toner powder fused by heat, fast, cheap per page, high-volume text. Thermal: no ink/toner (receipts). Impact/dot matrix: multipart forms, still used in warehouses.', cat: 'hardware' },
+  { term: 'Storage Interface Standards', def: 'SATA III: 6 Gbps, standard for HDDs and 2.5in SSDs. SAS: enterprise drives, more reliable. NVMe over PCIe: up to 7,000 MB/s for SSDs. IDE/PATA: 40/80-pin ribbon, fully obsolete. U.2: enterprise NVMe in 2.5in form factor.', cat: 'hardware' },
+  { term: 'UPS Types', def: 'Standby/offline: switches to battery on outage (brief transfer gap). Line-interactive: conditions power, faster transfer. Online/double-conversion: always runs from inverter, zero transfer time, best protection for servers. VA rating = volts x amps of supported load.', cat: 'hardware' },
+  { term: 'Virtualization Benefits', def: 'Server consolidation: multiple VMs on one physical host. Isolation: VMs do not affect each other. Snapshots: capture and rollback VM state. Fast provisioning. Reduced hardware costs. VM migration for high availability. Type 1 hypervisor (ESXi, Hyper-V) is bare-metal, more efficient than Type 2.', cat: 'hardware' },
+  { term: 'Cloud Service Models (IaaS/PaaS/SaaS)', def: 'IaaS: rent VMs/storage/networking, manage OS and above (AWS EC2, Azure VM). PaaS: rent platform, manage apps and data only (Elastic Beanstalk). SaaS: rent software, manage data and settings only (Office 365, Salesforce). More layers = less control + less responsibility.', cat: 'hardware' },
+  { term: 'NAT and Port Forwarding', def: 'NAT: translates private IPs to public IP. PAT: many-to-one translation using port numbers (standard for home/SMB routers). Port forwarding: routes inbound traffic on a specific port to an internal host IP. Used for hosting servers behind NAT.', cat: 'networking' },
+  { term: 'Network Topologies', def: 'Bus: single cable, legacy. Star: all devices connect to central switch (most common today). Ring: each connects to two neighbors, legacy Token Ring. Mesh: every device connected to every other, used in WANs. Hybrid: most common is star-bus combination.', cat: 'networking' },
+  { term: 'DHCP Process', def: 'DORA: Discover (client broadcasts seeking DHCP) -> Offer (server proposes IP) -> Request (client accepts) -> Acknowledge (server confirms). Lease duration: typically 8 days. Client renews at 50% of lease time. Static DHCP reservation: always assign same IP to specific MAC.', cat: 'networking' },
+  { term: 'Common Network Ports', def: '20/21=FTP, 22=SSH, 23=Telnet, 25=SMTP, 53=DNS, 67/68=DHCP, 80=HTTP, 110=POP3, 143=IMAP, 443=HTTPS, 445=SMB, 3389=RDP, 3306=MySQL, 137-139=NetBIOS. Secure versions: 993=IMAPS, 995=POP3S, 465/587=SMTPS.', cat: 'networking' },
+  { term: 'QoS (Quality of Service)', def: 'Prioritizes network traffic to ensure performance for critical apps. Priority order: VoIP > video conferencing > business apps > browsing > file transfers. Methods: traffic shaping (smooth bursts), policing (drop excess), prioritization queuing. Configured on routers and managed switches.', cat: 'networking' },
+  { term: 'Cellular Standards', def: '3G: ~7 Mbps. 4G LTE: 100-150 Mbps typical. LTE-A: 300+ Mbps. 5G Sub-6 GHz: 500 Mbps to 2 Gbps, wide coverage. 5G mmWave: multi-Gbps, very short range. Most current mobile devices require 4G LTE minimum for data.', cat: 'networking' },
+  { term: 'Windows Update Management', def: 'Windows Update: auto security patches and feature updates. WSUS: centralized enterprise update management. Patch Tuesday: monthly quality updates on 2nd Tuesday. Feature updates: annual (major OS version). Critical patches: should be applied within 24-72 hours in enterprise environments.', cat: 'os' },
+  { term: 'User Account Control (UAC)', def: 'Prompts for elevation when admin rights are needed. Standard user: limited privileges. Admin: can elevate. Settings: Always Notify, Notify for app changes only, Never Notify (disabled, insecure). Least privilege: standard user for daily work, separate admin account for IT tasks.', cat: 'os' },
+  { term: 'Group Policy', def: 'Centralized Windows settings management for domains. GPO (Group Policy Object) applies settings to OUs, domains, or sites. gpedit.msc: local policy editor. gpupdate /force: immediately applies policies. gpresult /r: shows which policies are applied to user/computer.', cat: 'os' },
+  { term: 'Windows Disk Management', def: 'Access: diskmgmt.msc. Tasks: initialize disk (MBR or GPT), create/delete/format/resize partitions, assign drive letters, extend/shrink volumes, convert to dynamic disk. New disks must be initialized before use. Unallocated space needed to extend a volume.', cat: 'os' },
+  { term: 'File System Types', def: 'FAT32: 4GB max file size, 32GB max partition (Windows), cross-platform. exFAT: no file size limit, cross-platform, good for USB drives. NTFS: Windows native, permissions/encryption/journaling. ext4: Linux native. APFS: macOS/iOS, SSD-optimized. Format external drives exFAT for cross-platform compatibility.', cat: 'os' },
+  { term: 'SFC and DISM Commands', def: 'sfc /scannow: scans and replaces corrupted Windows protected files. DISM /Online /Cleanup-Image /RestoreHealth: repairs Windows component store from Windows Update. Best practice: run DISM first, then sfc /scannow. DISM fixes the tool sfc uses; reverse order may fail.', cat: 'os' },
+  { term: 'PowerShell Execution Policy', def: 'Controls script execution. Restricted: no scripts (default). RemoteSigned: downloaded scripts need signing, local scripts run freely. AllSigned: all scripts must be signed. Unrestricted: all run. Set with Set-ExecutionPolicy. Scope: Process, CurrentUser, LocalMachine.', cat: 'os' },
+  { term: 'Active Directory Basics', def: 'Domain: logical group sharing AD database. DC (Domain Controller): authenticates users, enforces group policy. OU: container organizing users/computers for policy application. GPO linked to OUs applies settings. Domain join requires Windows Pro/Enterprise edition.', cat: 'os' },
+  { term: 'macOS Tools', def: 'Finder: file manager. Time Machine: automatic backup to external drive. Keychain: credential/certificate manager. Spotlight: system-wide search (Cmd+Space). FileVault 2: AES full-disk encryption. Gatekeeper: app signing verification. Terminal: zsh/bash CLI. Activity Monitor: Task Manager equivalent.', cat: 'os' },
+  { term: 'Linux File Permissions', def: 'Three permission sets: owner, group, others. Each has read(r=4), write(w=2), execute(x=1). chmod 755: owner=rwx(7), group=rx(5), others=rx(5). chmod 644: owner=rw(6), group=r(4), others=r(4). chown user:group file: change ownership. ls -la: view current permissions.', cat: 'os' },
+  { term: 'Password Policy Best Practices', def: 'NIST guidelines: minimum 8-12 characters, no forced complexity requirements that reduce length, no mandatory rotation unless breach suspected, check against known-breached passwords list. MFA is more important than complex rotation. Account lockout: 3-5 failed attempts with gradual lockout.', cat: 'security' },
+  { term: 'Principle of Least Privilege', def: 'Users, apps, and services get only minimum permissions needed for their function. Windows: standard user accounts for daily work, separate admin accounts for IT. Service accounts: minimal rights. Regular access reviews. Reduces blast radius of compromised accounts significantly.', cat: 'security' },
+  { term: 'Secure Disposal of Storage Media', def: 'HDD: degaussing (strong magnetic field wipes), physical shredding, or DoD 5220.22-M multi-pass overwrite. SSD: crypto erase (destroy encryption key, instantaneous) or physical shredding. Overwriting is NOT reliable for SSDs due to wear-leveling. Format is NOT secure disposal.', cat: 'security' },
+  { term: 'Windows Defender Security Center', def: 'Built-in Windows 10/11 security platform. Includes: real-time AV protection, firewall, browser protection, controlled folder access (ransomware), exploit protection, device security (TPM/Secure Boot status). Updates via Windows Update. Free and effective baseline protection.', cat: 'security' },
+  { term: 'MFA (Multi-Factor Authentication)', def: 'Requires two different factor types. TOTP apps: Microsoft/Google Authenticator (30-second codes). SMS codes: convenient but vulnerable to SIM swapping. Hardware token: physical key (YubiKey, RSA SecurID). Biometric + PIN = MFA. Password + password = single factor (same category).', cat: 'security' },
+  { term: 'Physical Security Controls', def: 'Badge/proximity card: RFID-based entry control. Mantrap/airlock: prevents tailgating (two doors, only one opens at a time). CCTV: deterrent and evidence. Visitor log: physical access tracking. Cable locks: laptop security. Clean desk policy: no sensitive docs left out when away.', cat: 'security' },
+  { term: 'Rootkit Detection and Removal', def: 'Traditional AV often cannot detect rootkits (they hide from OS). Use: bootable scanner (Kaspersky Rescue Disk, ESET SysRescue), Malwarebytes Anti-Rootkit. Firmware rootkits survive OS reinstall. Best solution if confirmed: backup data and do clean OS reinstall.', cat: 'security' },
+  { term: 'Encryption Types for A+', def: 'Symmetric (AES, 3DES): same key encrypts and decrypts, fast, good for bulk data. Asymmetric (RSA, ECC): key pair, slow, used for key exchange and digital signatures. Hashing (SHA-256, MD5-broken): one-way, integrity verification. TLS uses asymmetric to exchange a symmetric session key.', cat: 'security' },
+  { term: 'Account Lockout Policy', def: 'Threshold: lock after N failed attempts (3-5 common). Duration: lockout time (30 min or until admin unlocks). Reset counter: minutes before failed count resets. Prevents brute-force attacks. Set via GPO: Computer Config > Windows Settings > Security Settings > Account Lockout Policy.', cat: 'security' },
+  { term: 'Incident Documentation', def: 'Record: date/time discovered, symptoms, systems affected, users involved, steps taken, evidence (screenshots/logs), resolution, root cause analysis. Required for: insurance claims, legal proceedings, compliance audits, lessons learned. Never alter original evidence.', cat: 'operational' },
+  { term: 'Environmental Regulations (E-Waste)', def: 'RoHS: restricts hazardous substances (lead, mercury, cadmium) in electronics manufacturing. WEEE: European e-waste recycling directive. EPA regulations: proper battery/chemical disposal. MSDS/SDS: Safety Data Sheet for hazardous materials handling. Improper disposal = legal liability.', cat: 'operational' },
+  { term: 'Help Desk Best Practices', def: 'Open-ended questions to gather info. Active listening. Document everything in ticketing system. Escalation: L1 (triage) -> L2 (technical) -> L3 (engineering). Set resolution time expectations. Follow up after closure. Avoid jargon with users. SLA compliance: track response and resolution times.', cat: 'operational' },
+  { term: 'Configuration Management', def: 'Baseline: documented standard system configuration. Drift: deviation from baseline (security/stability risk). Tools: SCCM, Ansible, Puppet, Chef for automated enforcement. Asset inventory: track hardware/software. Change control prevents unauthorized modifications. Regular audits verify compliance.', cat: 'operational' },
+  { term: 'Bluetooth Connectivity', def: 'Pairing modes: PIN entry, passkey, Just Works (IoT), numeric comparison. BLE (Bluetooth Low Energy): IoT sensors, wearables, beacons, low power. Version 5.0: longer range, 2x speed vs 4.0. Security: pair in private areas, disable when not in use. Max range: 10-100m depending on class.', cat: 'mobile' },
+  { term: 'Mobile Security Features', def: 'Both iOS/Android: FDE by default, biometric auth, app sandboxing, MDM support, encrypted backup. iOS: strict App Store review, rapid updates, face/touch ID. Android: Google Play Protect, variable update timeline by manufacturer. Enable remote wipe and screen lock on all devices.', cat: 'mobile' },
+  { term: 'Screen Lock and Remote Wipe', def: 'Screen lock: PIN, password, pattern, biometric. Auto-lock: trigger after inactivity (1-5 min for corporate devices). Remote lock: lock via MDM or Find My. Remote wipe: full device erase or selective (corporate data only). Apple Find My / Google Find My Device: built-in tracking.', cat: 'mobile' },
+  { term: 'Memory Troubleshooting', def: 'Bad RAM symptoms: random BSODs, system freezes, file corruption, memtest86 errors. Steps: reseat modules, test one stick at a time, try different slots. Run memtest86 for at least 2 passes. ECC RAM auto-corrects single-bit errors. Check motherboard QVL for RAM compatibility.', cat: 'troubleshooting' },
+  { term: 'Wireless Troubleshooting', def: 'Cannot connect: check SSID/password, forget and reconnect, update NIC driver, check 2.4/5 GHz band compatibility. Connected but no internet: ipconfig (169.254.x.x = APIPA = DHCP issue), ping gateway. Slow Wi-Fi: channel congestion (Wi-Fi analyzer), distance, interference from microwaves/Bluetooth.', cat: 'troubleshooting' },
+  { term: 'Application Troubleshooting', def: 'App will not install: check system requirements, run as admin, install missing runtimes (.NET, Visual C++). App crashes: update app, clear cache, reinstall. Slow app: Task Manager (CPU/RAM/disk usage). DLL errors: reinstall app or repair installation. Compatibility mode for legacy apps.', cat: 'troubleshooting' },
+  { term: 'Printer Troubleshooting', def: 'Print queue stuck: clear all jobs, restart Print Spooler service (services.msc). Printer offline: check connection, ping IP, right-click set online. Wrong colors: check correct toner/ink installed. Print spooler crashing repeatedly: corrupt driver, reinstall driver, clear spool folder (C:\Windows\System32\spool\PRINTERS).', cat: 'troubleshooting' },
+  { term: 'Professionalism in IT', def: 'Punctual, clear communication, avoid jargon with end users, maintain confidentiality, document all work, manage expectations, respect workspace. Ethics: no unauthorized access even if you have credentials. Escalate when beyond knowledge. Follow up to confirm resolution. Ethics: do not exceed authorized access scope.', cat: 'operational' },
+  { term: 'CompTIA A+ Troubleshooting Methodology', def: '7 steps: 1. Identify the problem (gather info, question user). 2. Establish theory of probable cause. 3. Test the theory. 4. Establish plan of action (consider effects). 5. Implement the solution. 6. Verify full functionality. 7. Document findings, actions, outcomes.', cat: 'troubleshooting' },
+  { term: 'Malware Removal 6-Step Process', def: '1. Quarantine infected system (disconnect network). 2. Identify malware type/name. 3. Disable System Restore. 4. Remediate: boot to Safe Mode, run updated scanners, remove infections. 5. Schedule scans, enable System Restore, create restore point. 6. Educate end user on prevention.', cat: 'security' },
+  { term: 'Cable Management', def: 'Best practices: velcro/zip ties to bundle cables, label both ends, route away from heat sources and power cables, use cable trays in racks, avoid sharp bends that damage conductors. Poor cable management causes airflow issues and makes troubleshooting difficult.', cat: 'operational' },
+  { term: 'Ticketing Systems', def: 'Track all support requests from open to close. Fields: requester, date/time, priority, category, assigned technician, SLA due date, resolution notes. Escalation rules: L1 -> L2 -> L3 by complexity. Knowledge base: catalog solutions to common issues. Metrics: first-call resolution rate, MTTR.', cat: 'operational' },
+  { term: 'Asset Management', def: 'Track all hardware/software assets: serial numbers, model, purchase date, warranty expiry, assigned user, location, license keys. Tools: Lansweeper, SCCM, Snipe-IT. Required for: warranty claims, compliance audits, capacity planning, theft recovery.', cat: 'operational' },
+  { term: 'BYOD Security Risks', def: 'Personal devices may: lack encryption, run outdated OS/apps, be jailbroken/rooted, connect to untrusted networks, mix personal and corporate data, remain accessible after employee termination. Mitigations: MDM enrollment, MAM, NAC compliance checks, containerization, remote wipe capability.', cat: 'security' },
+  { term: 'Patch Management Process', def: '1. Inventory systems and software. 2. Identify applicable patches (subscribe to vendor advisories). 3. Test patches in staging environment. 4. Deploy to production in maintenance windows. 5. Verify successful installation. 6. Document. Critical security patches: apply within 24-72 hours. Never skip testing for critical systems.', cat: 'operational' },
+  { term: 'Port Replicator / Docking Station', def: 'Port replicator: basic device extending laptop ports (USB, video, Ethernet). Docking station: full workstation integration with power delivery, multiple displays, all peripherals via single connection. Thunderbolt 3/4: fastest (40Gbps), supports 4K dual monitors + power. USB-C docks: widely compatible.', cat: 'hardware' },
+  { term: 'Display Resolution and Refresh Rate', def: 'Resolution: FHD 1920x1080 (1080p), QHD 2560x1440 (1440p), 4K 3840x2160 (UHD). Refresh rate: 60Hz (standard), 144Hz (gaming), 240Hz+ (competitive). Higher refresh rate reduces motion blur. Requires GPU support for high refresh rates at high resolutions.', cat: 'hardware' },
+  { term: 'Wi-Fi Troubleshooting Tools', def: 'Wi-Fi analyzer (inSSIDer, Wireless Diagnostics/macOS): shows all nearby SSIDs, channels, signal strength, interference. Use to: select least congested channel, verify AP coverage, find rogue APs. Speed test: verify actual vs. expected throughput. Check channel overlap: 2.4 GHz use 1, 6, or 11 only.', cat: 'troubleshooting' },
+  { term: 'Data Backup Verification', def: 'Backup without verification is incomplete. Tests: restore individual files (periodic spot check), full restore test (annually), check backup logs for errors. 3-2-1 rule: 3 copies, 2 media types, 1 offsite. Immutable backups (write-once): prevent ransomware from encrypting backups.', cat: 'operational' },
+  { term: 'Operating System Upgrade Path', def: 'In-place upgrade: keeps files, settings, apps (Home -> Pro requires license). Clean install: wipe and reinstall, best performance and stability. Migration: move user data/settings to new PC (Windows Easy Transfer, USMT). Always backup before upgrading. Check hardware compatibility before starting.', cat: 'os' },
+  { term: 'Browser Troubleshooting', def: 'Clear cache/cookies: fixes loading issues. Disable extensions: isolate conflicting extension. Reset browser: restores defaults. Slow browser: too many tabs, extensions, RAM usage. Blocked site: check proxy settings, hosts file, firewall rules. Certificate errors: check system clock accuracy, untrusted CA.', cat: 'troubleshooting' },
+  { term: 'Print Spooler Service', def: 'Windows service that manages print queue. Runs as LocalSystem. If stuck: open Services (services.msc), stop Print Spooler, delete files in C:\Windows\System32\spool\PRINTERS, restart Print Spooler. Corrupted spooler causes all print jobs to fail. Common fix for sudden printing failures.', cat: 'troubleshooting' },
+  { term: 'Secure Boot and UEFI Settings', def: 'Secure Boot: prevents unsigned boot loaders and rootkits from loading at startup. Enable in UEFI settings. Required for Windows 11. TPM: enable for BitLocker and Windows 11. Boot order: set internal drive first. BIOS/UEFI password: prevents unauthorized firmware changes.', cat: 'security' },
+  { term: 'Windows Credential Manager', def: 'Stores Windows credentials and certificates. Access: Control Panel -> User Accounts -> Credential Manager. Contains: Windows Credentials (domain, mapped drives, RDP), Certificate-Based Credentials, Generic Credentials (apps, websites). Use to remove stale credentials causing authentication failures.', cat: 'os' },
+  { term: 'Indexing Service / Windows Search', def: 'Windows indexes file contents and metadata for fast search. If search is slow or missing results: check that indexing is enabled (Indexing Options in Control Panel), rebuild the index. Index location: %ProgramData%\Microsoft\Search. Can exclude folders from indexing to improve performance.', cat: 'os' },
+  { term: 'Thunderbolt Interface', def: 'Thunderbolt 3/4: USB-C connector, 40 Gbps, supports 2x 4K displays, 100W power delivery, PCIe tunneling. Thunderbolt 4: adds stricter certification (must support specific features). Backward compatible with USB-C. Enables external GPU (eGPU), high-speed docks, daisy-chaining up to 6 devices.', cat: 'hardware' },
+  { term: 'Virtualization Requirements', def: 'CPU: must have virtualization support (Intel VT-x or AMD-V). Enable in BIOS/UEFI settings. RAM: each VM needs allocated RAM, host needs overhead. Storage: VM disk images can be large. SLAT (Second Level Address Translation): required for Hyper-V and improves performance in all hypervisors.', cat: 'hardware' },
+  { term: 'Container vs VM Comparison', def: 'VMs: full OS per instance, strong isolation, GBs of overhead, minutes to start, hypervisor required. Containers (Docker): share host OS kernel, MBs overhead, seconds to start, less isolation. Containers for app deployment speed; VMs for strong security isolation. Kubernetes orchestrates containers at scale.', cat: 'hardware' },
+  { term: 'CompTIA A+ Domains (Core 1 220-1101)', def: 'Domain 1: Mobile Devices (15%). Domain 2: Networking (20%). Domain 3: Hardware (25%). Domain 4: Virtualization and Cloud Computing (11%). Domain 5: Hardware and Network Troubleshooting (29%). Hardware and troubleshooting = over half the exam weight combined.', cat: 'acronyms' },
+  { term: 'CompTIA A+ Domains (Core 2 220-1102)', def: 'Domain 1: Operating Systems (31%). Domain 2: Security (25%). Domain 3: Software Troubleshooting (22%). Domain 4: Operational Procedures (22%). OS is largest domain. Security and Software Troubleshooting are nearly equal. All four domains are critical.', cat: 'acronyms' },
+  { term: 'Ohms Law / Electrical Basics', def: 'V (volts) = I (amps) x R (ohms). Power (watts) = V x I. PSU: 12V rail for CPU/GPU, 5V for drives, 3.3V for memory. Multimeter: measures voltage, current, resistance, continuity. Check capacitors in PSUs (dangerous -- high voltage stored even when unplugged).', cat: 'hardware' },
+  { term: 'Fiber Optic Cables', def: 'Single-mode fiber (SMF): yellow jacket, small core (8-10 micron), long distance (up to 100km+), uses laser. Multi-mode fiber (MMF): orange or aqua jacket, larger core (50 micron), shorter distances (up to 400m at 10G). LC connectors most common for SFP+ transceivers in network equipment.', cat: 'networking' },
+  { term: 'Windows Activation', def: 'Windows requires activation to verify genuine license. Methods: OEM (key embedded in UEFI, activates automatically), Retail (key tied to Microsoft account, transferable), Volume (KMS server or MAK for enterprises). License key in UEFI: Windows 10/11 activates automatically on reinstall on same hardware.', cat: 'os' },
+  { term: 'IT Safety and PPE', def: 'Eye protection when soldering or working with chemicals. Latex/nitrile gloves for chemical handling. ESD wrist strap for electronics. Proper lifting technique for heavy equipment. OSHA: employer must provide PPE. SDS (Safety Data Sheet) for chemical hazards. Never work alone on high-voltage equipment.', cat: 'operational' },
+];
+
+let filteredCards = [...allCards];
+let currentCard = 0;
+let isFlipped = false;
+let knownCards = new Set();
+
+function loadCards() {
+  const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
+  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  currentCard = 0; isFlipped = false; knownCards.clear();
+  showCard();
+}
+
+function showCard() {
+  if (!filteredCards.length) return;
+  const card = filteredCards[currentCard];
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length;
+  document.getElementById('fc-count').textContent = (currentCard + 1) + ' / ' + filteredCards.length;
+  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-total-count').textContent = filteredCards.length;
+  if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  isFlipped = !isFlipped;
+  fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
+function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
+function markCard(known) { if (known) knownCards.add(currentCard); else knownCards.delete(currentCard); nextCard(); }
+
+const quizQuestions = [
+  { q: 'A laser printer is producing faint ghost images from previous print jobs. Which component is most likely failing?', opts: ['Toner cartridge', 'Fuser assembly', 'Imaging drum', 'Transfer belt'], answer: 1, exp: 'Ghost images (shadow of previous pages) indicate a worn fuser that is not cleaning up residual toner between passes. Replace the fuser assembly.' },
+  { q: 'Which RAID level provides the best read/write performance with NO fault tolerance?', opts: ['RAID 0', 'RAID 1', 'RAID 5', 'RAID 10'], answer: 0, exp: 'RAID 0 stripes data across all drives for maximum performance but provides zero redundancy. Loss of any single drive destroys the entire array.' },
+  { q: 'A user's PC displays 169.254.x.x as its IP address. What is the most likely cause?', opts: ['Static IP configuration error', 'DHCP server unreachable (APIPA assigned)', 'DNS resolution failure', 'Incorrect subnet mask'], answer: 1, exp: '169.254.x.x is APIPA (Automatic Private IP Addressing), assigned automatically when a DHCP server cannot be reached. Check network connection, DHCP server, and DHCP relay agent.' },
+  { q: 'Which command verifies the integrity of Windows system files and replaces corrupted ones?', opts: ['chkdsk /r', 'sfc /scannow', 'DISM /Online /Cleanup-Image /RestoreHealth', 'bootrec /fixboot'], answer: 1, exp: 'sfc /scannow (System File Checker) scans protected Windows files and replaces corrupted ones from a cached copy. Run DISM first if sfc reports it cannot fix files.' },
+  { q: 'You need to encrypt an entire drive on a Windows 10 Pro laptop. What built-in tool should you use?', opts: ['EFS', 'BitLocker', 'VeraCrypt', 'NTFS compression'], answer: 1, exp: 'BitLocker provides full-drive encryption and is built into Windows Pro and Enterprise. EFS encrypts individual files but not the whole drive. BitLocker requires TPM or USB startup key.' },
+  { q: 'A hard drive makes a clicking noise and the PC cannot boot. What should be the FIRST action?', opts: ['Run chkdsk /r', 'Attempt data recovery immediately — drive is failing', 'Update disk drivers', 'Format and reinstall Windows'], answer: 1, exp: 'Clicking indicates mechanical failure (read/write head crashing). Data recovery must happen immediately before the drive fails completely. Do NOT run chkdsk as it may write to the dying drive.' },
+  { q: 'Which Windows boot option disables all non-essential drivers and services but includes network access?', opts: ['Safe Mode', 'Safe Mode with Networking', 'Safe Mode with Command Prompt', 'Last Known Good Configuration'], answer: 1, exp: 'Safe Mode with Networking loads minimal drivers AND network support. Use this when you need to download drivers or tools to fix the system. Plain Safe Mode has no network access.' },
+  { q: 'A user cannot print to a network printer. Other users on the same subnet print fine. What is the FIRST step?', opts: ['Replace the printer', 'Check that the user's PC has the correct printer driver installed', 'Restart the print spooler on the server', 'Verify the printer IP address'], answer: 1, exp: 'Since only one user is affected and others work fine, the issue is likely client-side. Check the printer driver (wrong driver = failure), IP/port configuration in the printer properties, and ensure the printer is set as default.' },
+  { q: 'What is the primary purpose of the TPM chip?', opts: ['Increase graphics performance', 'Store cryptographic keys and enable platform integrity measurement', 'Manage RAM allocation', 'Accelerate network encryption'], answer: 1, exp: 'TPM (Trusted Platform Module) is a secure hardware chip for storing encryption keys, enabling BitLocker, supporting Secure Boot attestation, and providing hardware-based platform integrity verification.' },
+  { q: 'Which file system is required for full NTFS permissions, encryption, and compression on Windows?', opts: ['FAT32', 'exFAT', 'NTFS', 'ext4'], answer: 2, exp: 'NTFS supports file/folder permissions, EFS encryption, compression, shadow copies, and auditing. FAT32 has no security features. exFAT is cross-platform but no permissions. ext4 is Linux.' },
+  { q: 'A technician is replacing a CPU cooler. What should they do before installing the new cooler?', opts: ['Update BIOS first', 'Clean old thermal paste and apply fresh thermal compound', 'Discharge the CPU with a resistor', 'Format the OS drive'], answer: 1, exp: 'Dried or improperly applied thermal paste reduces heat transfer, causing overheating. Always clean old paste (isopropyl alcohol) and apply fresh compound before installing any new cooler.' },
+  { q: 'Which backup strategy requires the most time to restore but uses the least daily storage?', opts: ['Full backup daily', 'Differential backup', 'Incremental backup', 'Mirror backup'], answer: 2, exp: 'Incremental backups are smallest (only changes since last backup) but restoration requires the full backup PLUS every incremental since then — the longest restore process.' },
+  { q: 'A Windows PC cannot connect to websites by name but works fine when using IP addresses. What is broken?', opts: ['Default gateway', 'DNS resolution', 'DHCP scope', 'Network interface driver'], answer: 1, exp: 'If IP access works but name resolution fails, DNS is the problem. Check: ipconfig /all (verify DNS server IP), flush DNS cache (ipconfig /flushdns), and test with nslookup.' },
+  { q: 'Which Linux command displays and sets file permissions using octal notation?', opts: ['chown', 'chgrp', 'chmod', 'ls -l'], answer: 2, exp: 'chmod (change mode) sets permissions: chmod 755 = owner rwx(7), group r-x(5), others r-x(5). ls -l shows current permissions. chown changes ownership.' },
+  { q: 'A user reports that their laptop screen is very dim but visible when using a flashlight to view the display. What has failed?', opts: ['LCD panel', 'GPU driver', 'Backlight/backlight inverter', 'Video cable'], answer: 2, exp: 'If content is visible but very dim, the display panel is fine but the backlight (LED or CCFL backlight + inverter for older LCDs) has failed. GPU and cable issues typically cause no image or distortion.' },
+  { q: 'Which Windows feature allows you to automatically revert system files and registry to a previous state without affecting user files?', opts: ['Windows Backup', 'System Restore (restore point)', 'WinRE', 'Reset this PC'], answer: 1, exp: 'System Restore reverts system files, registry, and installed programs to a restore point. It does NOT affect personal files. Different from Reset This PC (which reinstalls Windows).' },
+  { q: 'What is the maximum partition size supported by MBR?', opts: ['1 TB', '2 TB', '4 TB', 'Unlimited'], answer: 1, exp: 'MBR (Master Boot Record) supports a maximum disk size of 2 TB due to 32-bit LBA addressing. For drives larger than 2TB, GPT (GUID Partition Table) with UEFI is required.' },
+  { q: 'Which malware type spreads across networks autonomously without requiring a host file or user action?', opts: ['Virus', 'Worm', 'Trojan', 'Ransomware'], answer: 1, exp: 'Worms self-replicate and spread across networks without user interaction or a host file. Viruses require a host file and user execution. Trojans disguise themselves as legitimate software.' },
+  { q: 'An employee works from home and needs encrypted access to corporate file shares. What solution should be implemented?', opts: ['Direct internet access', 'VPN connection to corporate network', 'Port forwarding on home router', 'Public cloud storage'], answer: 1, exp: 'A VPN creates an encrypted tunnel between the remote worker and the corporate network, providing secure access to internal resources as if they were on-site.' },
+  { q: 'Which cloud service model gives the customer MOST control over the underlying infrastructure?', opts: ['SaaS', 'PaaS', 'IaaS', 'DBaaS'], answer: 2, exp: 'IaaS (Infrastructure as a Service) gives customers control over VMs, OS, networking, and storage. PaaS manages the OS for you. SaaS manages everything — customer only controls data and configuration.' },
+  { q: 'A mobile device has sensitive corporate email. The device is lost. What MDM action should be taken?', opts: ['Locate device and wait', 'Remote wipe the device', 'Change the email password only', 'Notify the user'], answer: 1, exp: 'Remote wipe erases all data on the device to prevent unauthorized access to corporate data. Modern MDM can selectively wipe only corporate data (MAM approach) while preserving personal data.' },
+  { q: 'Which event IDs in Windows Security log indicate failed login attempts?', opts: ['4624', '4625', '7036', '4720'], answer: 1, exp: 'Event ID 4625 = failed logon attempt. 4624 = successful logon. 4720 = new account created. 7036 = service state change. Monitor 4625 for brute-force attacks.' },
+  { q: 'What should be the FIRST step in the CompTIA A+ malware removal procedure?', opts: ['Run antivirus in Safe Mode', 'Quarantine/isolate the infected system', 'Disable System Restore', 'Back up user data'], answer: 1, exp: 'Step 1 is quarantine — isolate the infected system from the network to prevent spread. Then disable System Restore (step 3), then remediate. Isolation prevents the malware from spreading to other systems.' },
+  { q: 'Which display technology offers the best color accuracy and widest viewing angles for graphic design work?', opts: ['TN panel', 'VA panel', 'IPS panel', 'OLED'], answer: 2, exp: 'IPS (In-Plane Switching) panels provide the most accurate color reproduction and widest viewing angles, making them ideal for graphic design, photo editing, and color-critical work.' },
+  { q: 'What does the 3-2-1 backup rule specify?', opts: ['3 weekly backups, 2 monthly, 1 annual', '3 copies of data, on 2 different media types, with 1 copy offsite', '3 daily, 2 weekly, 1 monthly backup rotation', '3 incremental, 2 differential, 1 full backup cycle'], answer: 1, exp: 'The 3-2-1 rule: keep 3 total copies of data, on 2 different types of storage media, with at least 1 copy stored offsite (or in cloud). Protects against device failure, local disasters, and theft.' },
+  { q: 'Which type of hypervisor runs directly on hardware without a host operating system?', opts: ['Type 2 hypervisor', 'Type 1 hypervisor (bare metal)', 'Container runtime', 'Emulator'], answer: 1, exp: 'Type 1 (bare-metal) hypervisors run directly on hardware: VMware ESXi, Microsoft Hyper-V (server), KVM. Type 2 runs as an application on a host OS: VMware Workstation, VirtualBox. Type 1 = better performance.' },
+  { q: 'A Windows computer randomly shuts down after a few minutes of use, especially during demanding tasks. What is the most likely cause?', opts: ['RAM failure', 'Overheating (thermal shutdown protection)', 'PSU failure', 'Malware infection'], answer: 1, exp: 'Thermal shutdown protection triggers automatic shutoff when CPU/GPU temperatures exceed safe limits. This pattern (fine at first, shuts off under load) indicates overheating. Check fans, clean dust, reapply thermal paste.' },
+  { q: 'What is the primary security risk of BYOD policies without MDM?', opts: ['Increased licensing costs', 'Unmanaged devices with corporate data and no enforcement of security policies', 'Incompatible apps', 'Bandwidth congestion'], answer: 1, exp: 'Without MDM, BYOD devices may lack encryption, weak PINs, outdated OS, or have corporate data accessible after employment ends. MDM enforces policies, enables remote wipe, and separates corporate/personal data.' },
+  { q: 'Which port is used by SSH for secure remote administration?', opts: ['21', '22', '23', '3389'], answer: 1, exp: 'SSH uses port 22. It provides encrypted command-line remote access. Telnet (port 23) is unencrypted and deprecated. RDP (3389) is for Windows graphical remote access. FTP uses 21/20.' },
+  { q: 'A workstation cannot connect to the internet but CAN ping the default gateway successfully. What is the next troubleshooting step?', opts: ['Replace the NIC', 'Check DNS resolution with nslookup and ping 8.8.8.8', 'Reinstall Windows', 'Check DHCP settings'], answer: 1, exp: 'If pinging the gateway works, LAN connectivity is fine. Next: ping 8.8.8.8 (bypasses DNS — tests routing). If that works but websites fail, DNS is broken. Use nslookup to test name resolution.' },
+  { q: 'Which tool should a technician use to determine if a memory module is causing system instability?', opts: ['chkdsk', 'sfc /scannow', 'memtest86', 'DISM'], answer: 2, exp: 'memtest86 runs independently of the OS and systematically tests RAM for errors. Run for at least one full pass (preferably multiple). Failing RAM causes BSODs, random restarts, and data corruption.' },
+  { q: 'An M.2 SSD is not detected after installation in a new slot. What is the most likely cause?', opts: ['Wrong driver installed', 'Slot supports SATA M.2 but drive is NVMe', 'RAID configuration prevents detection', 'BIOS update required only'], answer: 1, exp: 'M.2 slots can be SATA-only, NVMe-only, or both. An NVMe drive in a SATA-only M.2 slot will not be detected. Check motherboard manual for each slot's supported protocols.' },
+  { q: 'What type of fire extinguisher should be used on an electrical equipment fire?', opts: ['Class A (water)', 'Class B (CO2)', 'Class C (non-conductive agent)', 'Class D (dry powder)'], answer: 2, exp: 'Class C extinguishers use non-conductive agents (CO2 or dry chemical) safe for electrical fires. Using water (Class A) on electrical fires creates electrocution risk. ABC extinguishers cover all three types.' },
+  { q: 'Which laser printer component bonds toner to paper using heat and pressure?', opts: ['Drum', 'Transfer belt', 'Fuser', 'Developer'], answer: 2, exp: 'The fuser assembly uses heat (180°C+) and pressure rollers to permanently bond toner particles to paper. Fuser issues cause smearing (not hot enough) or ghost images (worn, residual toner).' },
+  { q: 'A computer randomly shuts off during gaming but runs fine at idle. What should be checked FIRST?', opts: ['RAM modules with memtest86', 'CPU and GPU temperatures with HWMonitor', 'HDD health with SMART data', 'PSU voltage rails with multimeter'], answer: 1, exp: 'Random shutdowns under heavy load are a classic symptom of thermal shutdown protection activating. Check temps with HWMonitor, clean dust from heatsinks, verify fan operation, and reapply thermal paste if needed.' },
+  { q: 'What is the correct command sequence for repairing corrupted Windows system files when the component store is damaged?', opts: ['sfc /scannow then DISM /RestoreHealth', 'DISM /RestoreHealth first, then sfc /scannow', 'chkdsk /r then sfc /scannow', 'bootrec /fixboot then sfc /scannow'], answer: 1, exp: 'Run DISM /Online /Cleanup-Image /RestoreHealth first to repair the component store that sfc relies on. Then run sfc /scannow. Reversed order fails if the component store itself is corrupted.' },
+  { q: 'An M.2 SSD is installed but not detected in BIOS. The motherboard manual shows that slot supports SATA M.2 only. What is the issue?', opts: ['Driver not installed', 'NVMe SSD in SATA-only M.2 slot', 'BIOS needs update', 'SSD power connector missing'], answer: 1, exp: 'M.2 slots can support SATA, NVMe, or both. An NVMe drive in a SATA-only slot will not be detected. Check the motherboard manual for each slot supported protocols before purchasing drives.' },
+  { q: 'A display shows content only when a flashlight is held up to it. What has failed?', opts: ['LCD panel (cracked)', 'GPU driver', 'Video cable', 'Backlight / backlight inverter'], answer: 3, exp: 'Faint visible image with flashlight = display panel is functional but backlight has failed. LED backlights fail or CCFL backlight (older LCDs) with inverter fail. GPU/cable issues typically show no image or corruption.' },
+  { q: 'Which backup type provides the FASTEST restore but uses the MOST storage space daily?', opts: ['Incremental', 'Differential', 'Full daily backup', 'Synthetic full'], answer: 2, exp: 'A full backup every day gives the fastest single-step restore but uses maximum storage. Incremental is smallest daily but slowest restore. Differential is moderate on both.' },
+  { q: 'What is the first action when a Windows PC shows a BSOD on every startup after a driver update?', opts: ['Reinstall Windows from scratch', 'Boot to Safe Mode and roll back or uninstall the driver', 'Run memtest86', 'Reset BIOS settings'], answer: 1, exp: 'Safe Mode loads minimal drivers, bypassing the problematic driver. Roll back or uninstall the driver that caused the issue. If Safe Mode is inaccessible, use System Restore from Windows Recovery Environment.' },
+  { q: 'A user can ping 8.8.8.8 successfully but cannot load any websites by name. What is the problem?', opts: ['Default gateway is wrong', 'DNS resolution is failing', 'NIC driver needs updating', 'Firewall is blocking HTTP'], answer: 1, exp: 'If IP-based connectivity works (pinging 8.8.8.8) but hostname resolution fails, DNS is broken. Check: ipconfig /all (correct DNS server?), ipconfig /flushdns, nslookup to test resolution.' },
+  { q: 'Which Windows utility allows you to see all active TCP connections and the processes using them?', opts: ['ipconfig /all', 'netstat -an', 'tracert', 'arp -a'], answer: 1, exp: 'netstat -an shows all active connections with port numbers. netstat -b (admin) shows process names. ss is the Linux equivalent. Use to identify which process is listening on a port or making unexpected connections.' },
+  { q: 'What Windows feature should be DISABLED before attempting malware removal to prevent malware from hiding in restore points?', opts: ['Windows Defender', 'Remote Desktop', 'System Restore', 'Windows Update'], answer: 2, exp: 'Step 3 of the A+ malware removal process: disable System Restore. Malware can hide within restore points and reinfect the system when System Restore is used. Re-enable and create a fresh restore point after cleanup.' },
+  { q: 'A technician needs to access a Windows PC remotely with a graphical interface. The PC is on the corporate network and runs Windows 10 Pro. What built-in tool is used?', opts: ['SSH', 'Telnet', 'RDP (mstsc.exe, port 3389)', 'VNC'], answer: 2, exp: 'RDP (Remote Desktop Protocol) is built into Windows Pro/Enterprise. Access with mstsc.exe. Requires Remote Desktop to be enabled (System Properties > Remote). Use VPN + RDP rather than exposing port 3389 to the internet.' },
+  { q: 'Which NTFS permission should be applied to prevent a user from deleting a file while still allowing them to modify its contents?', opts: ['Read and Execute', 'Modify', 'Write only (without Delete sub-permission)', 'Full Control'], answer: 2, exp: 'The Modify permission includes Read, Write, and Delete. To allow editing but prevent deletion, use special permissions and remove the Delete permission specifically. Full Control includes all permissions including deleting.' },
+  { q: 'A Windows 11 upgrade fails because the PC does not meet requirements. Which TWO hardware requirements are most commonly missing on older PCs?', opts: ['TPM 2.0 and Secure Boot capability', 'At least 8GB RAM and discrete GPU', 'USB 3.0 ports and SSD storage', '64-bit CPU and UEFI only'], answer: 0, exp: 'Windows 11 requires: TPM 2.0, Secure Boot enabled, 64-bit CPU (8th gen Intel / Ryzen 2000+), 4GB RAM, 64GB storage. TPM 2.0 and Secure Boot are the most commonly missing requirements on older hardware.' },
+  { q: 'An inkjet printer has not been used for two months and now prints faded, streaky output. What is the most likely cause?', opts: ['Toner low', 'Fuser failure', 'Ink nozzles clogged from dried ink', 'Print spooler corrupt'], answer: 2, exp: 'Inkjet nozzles clog when ink dries during periods of non-use. Run the printer's built-in head cleaning utility (may require multiple cycles). Prevent by printing a test page at least monthly.' },
+  { q: 'Which environmental condition in a server room increases the risk of electrostatic discharge (ESD) damage to components?', opts: ['High humidity (>60%)', 'High temperature (>80F)', 'Low humidity (<40%)', 'High air pressure'], answer: 2, exp: 'Low humidity allows static electricity to build up more easily, increasing ESD risk. Ideal data center humidity: 40-60%. ESD discharge can instantly destroy RAM, CPUs, and motherboards. Use wrist straps and antistatic mats.' },
+  { q: 'A user reports that after moving to a new desk, their wired Ethernet connection stopped working. Other devices at the same switch port work fine. What should be checked FIRST on the user workstation?', opts: ['Reinstall NIC drivers', 'Check that the Ethernet cable is fully seated at both ends', 'Assign a static IP address', 'Check DNS settings'], answer: 1, exp: 'Physical layer first: a cable not fully clicked in is the most common cause of sudden connectivity loss after moving equipment. Verify the cable clicks into both the NIC and switch port before investigating further.' },
+  { q: 'What type of virtualization allows multiple virtual machines to run with their own isolated OS on a single physical server?', opts: ['Containerization', 'Application virtualization', 'Full machine virtualization with hypervisor', 'Network function virtualization'], answer: 2, exp: 'Full machine virtualization (Type 1 or Type 2 hypervisor) allows each VM to run its own complete OS independently. Containers share the host OS kernel. Application virtualization isolates individual apps.' },
+  { q: 'Which cloud deployment model uses a mix of on-premises infrastructure and public cloud services?', opts: ['Public cloud', 'Private cloud', 'Hybrid cloud', 'Community cloud'], answer: 2, exp: 'Hybrid cloud combines on-premises (private) infrastructure with public cloud services, connected via VPN or private link. Most common enterprise approach: keep sensitive data on-prem while using cloud for scalability.' },
+  { q: 'A user calls to report they cannot access their files on the network share. Other users can access it fine. What should be checked?', opts: ['Network switch port', 'User account NTFS permissions on the shared folder', 'DNS server', 'Switch VLAN configuration'], answer: 1, exp: 'Since only one user is affected, check their NTFS permissions and share permissions on the specific folder. Effective permissions = most restrictive of share + NTFS. DENY overrides ALLOW. Check group memberships.' },
+  { q: 'Regarding the Windows Registry, which hive contains system-wide hardware configuration and service settings?', opts: ['HKCU', 'HKLM', 'HKCR', 'HKU'], answer: 1, exp: 'HKLM (HKEY_LOCAL_MACHINE) contains system-wide settings: hardware, drivers, installed software, and services. HKCU (HKEY_CURRENT_USER) stores the current user's settings and preferences.' },
+  { q: 'A technician needs to determine which startup programs are slowing down Windows boot. Where should they look?', opts: ['Services.msc', 'Task Manager > Startup tab', 'Event Viewer > System', 'Device Manager'], answer: 1, exp: 'Task Manager > Startup tab shows all startup programs, their publisher, and their performance impact (High/Medium/Low/None). Disable unnecessary startup items here. Also available in msconfig > Startup (older Windows).' },
+  { q: 'What does the acronym APIPA stand for and when is an APIPA address assigned?', opts: ['Advanced Protocol IP Assignment; assigned when NIC is installed', 'Automatic Private IP Addressing; assigned when DHCP server is unreachable', 'Assigned Protocol Internet Parameter Address; assigned at factory', 'Alternate Private IP Addressing; assigned for VPN connections'], answer: 1, exp: 'APIPA (Automatic Private IP Addressing) automatically assigns a 169.254.x.x/16 address when a DHCP server cannot be reached. The device can communicate only with other APIPA devices on the same subnet.' },
+  { q: 'Which mobile device management approach enrolls the entire device including personal apps and data?', opts: ['MAM only', 'MDM (Mobile Device Management)', 'BYOD without management', 'App wrapping only'], answer: 1, exp: 'MDM enrolls the entire device, enabling full management: remote wipe, enforce encryption, manage all apps, screen lock policies. MAM manages only corporate apps. MDM is appropriate for company-owned devices.' },
+  { q: 'What tool should be used to test a network cable for wire mapping and continuity faults?', opts: ['TDR (Time Domain Reflectometer)', 'Cable certifier', 'Basic cable tester', 'Multimeter'], answer: 2, exp: 'A basic cable tester checks continuity and wire mapping (correct pin-to-pin connections at both ends). A TDR locates faults by distance. A certifier performs full IEEE testing. For basic troubleshooting, a simple cable tester suffices.' },
+  { q: 'A user reports their laptop battery drains in 2 hours instead of the usual 8 hours. What should be checked?', opts: ['RAM usage', 'Background apps, screen brightness, battery health (powercfg /batteryreport)', 'Network driver', 'Hard drive health'], answer: 1, exp: 'Run powercfg /batteryreport for battery health history. Check: background apps (Task Manager), screen brightness (major drain), Wi-Fi/Bluetooth enabled unnecessarily, battery wear level. Aging batteries lose capacity.' },
+  { q: 'When should a technician use a wrist strap when working on computer components?', opts: ['Only when working near high-voltage components like PSUs', 'Whenever handling sensitive electronics to prevent ESD damage', 'Only in data centers with special flooring', 'Only when working with CPUs'], answer: 1, exp: 'Antistatic wrist straps should be used whenever handling electronic components: RAM, CPUs, GPUs, motherboards, expansion cards. ESD (Electrostatic Discharge) can invisibly damage components even with voltages too low to feel.' },
+  { q: 'What does a Windows Event ID 4625 indicate?', opts: ['Successful user logon', 'Failed logon attempt', 'Account lockout', 'Service started'], answer: 1, exp: 'Event ID 4625 = failed logon attempt. 4624 = successful logon. 4740 = account locked out. 4720 = account created. Multiple 4625 events in quick succession indicate a brute-force attack. Monitor in Security event log.' },
+];
+
+let quizQs = [];
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function initQuiz() {
+  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 60);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('q-total').textContent = quizQs.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (currentQ >= quizQs.length) { showResult(); return; }
+  answered = false;
+  const q = quizQs[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('quiz-progress').style.width = ((currentQ / quizQs.length) * 100) + '%';
+  const area = document.getElementById('question-area');
+  const opts = q.opts.map((o, i) => '<button class="q-opt" onclick="selectAnswer(' + i + ')">' + String.fromCharCode(65+i) + '. ' + o + '</button>').join('');
+  area.innerHTML = '<div class="quiz-question"><p class="q-text">' + q.q + '</p><div class="q-options">' + opts + '</div><div class="q-explanation" id="q-exp" style="display:none"></div><button class="q-next-btn" id="q-next" onclick="nextQuestion()" style="display:none">Next Question →</button></div>';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizQs[currentQ];
+  if (idx === q.answer) score++;
+  const btns = document.querySelectorAll('.q-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('incorrect');
+  });
+  const exp = document.getElementById('q-exp');
+  exp.innerHTML = '<strong>' + (idx === q.answer ? '✓ Correct!' : '✗ Incorrect.') + '</strong> ' + q.exp;
+  exp.style.display = 'block';
+  document.getElementById('q-next').style.display = 'inline-block';
+}
+
+function nextQuestion() { currentQ++; renderQuestion(); }
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocabAP(apVocabTerms);
+});
+
+
+// ── Week Tracker ─────────────────────────────────────────────────────────────
+function toggleTracker() {
+  const body    = document.getElementById('tracker-body');
+  const chevron = document.getElementById('tracker-chevron');
+  const open    = body.classList.toggle('open');
+  chevron.classList.toggle('open', open);
+}
+
+function saveTracker() {
+  const state = [1,2,3,4,5].map(i => document.getElementById('task-'+i)?.checked || false);
+  localStorage.setItem('tracker_aplus', JSON.stringify(state));
+  renderTracker(state);
+}
+
+function renderTracker(state) {
+  let done = 0;
+  state.forEach((checked, i) => {
+    const cb  = document.getElementById('task-'+(i+1));
+    const day = document.getElementById('tday-'+(i+1));
+    if (cb)  cb.checked = checked;
+    if (day) day.classList.toggle('done', checked);
+    if (checked) done++;
+  });
+  const el = document.getElementById('tracker-progress');
+  if (el) el.textContent = done + ' / 5 complete';
+}
+
+function loadTracker() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tracker_aplus') || '[]');
+    if (saved.length === 5) renderTracker(saved);
+  } catch(e) {}
+}
+
+// ── Score Card builder ────────────────────────────────────────────────────────
+function buildScoreCard(score, total) {
+  const pct    = Math.round(score / total * 100);
+  const passed = pct >= 72;
+  const date   = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade  = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= 72 ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return `<div class="score-card ${passed?'pass':'fail'}">
+    <div class="score-card-header">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
+      <div class="score-card-title">CompTIA A+ Practice Quiz</div>
+      <div class="score-card-date">${date}</div>
+    </div>
+    <div class="score-card-numbers">
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:${passed?'var(--green)':'#e74c3c'}">${pct}%</div>
+        <div class="score-card-lbl">Score</div>
+      </div>
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:var(--blue)">${score}/${total}</div>
+        <div class="score-card-lbl">Correct</div>
+      </div>
+    </div>
+    <div class="score-card-banner ${passed?'pass':'fail'}">
+      ${passed ? '✓ Above passing threshold (72%)' : '✗ Below passing threshold — retake on Day 5'}
+    </div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
+    <div class="screenshot-prompt">
+      <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
+      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+    </div>
+    <div class="score-card-btns">
+      <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>
+    </div>
+  </div>`;
+}
+
+  loadTracker();
+</script>
+</body>
+</html>

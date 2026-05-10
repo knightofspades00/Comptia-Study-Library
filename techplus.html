@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Tech+ Study Hub</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --accent: #f39c12; --accent2: #e67e22; --text: #e8eaf0; --text-muted: #8892b0;
+  --border: #2d3153; --radius: 10px; --green: #2ecc71; --blue: #3498db; --yellow: #f1c40f; --red: #e74c3c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+.top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
+.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+.back-link:hover { color: var(--text); }
+.nav-title { font-weight: 700; font-size: 1rem; }
+.nav-badge { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: auto; }
+
+.exam-header {
+  background: linear-gradient(135deg, #1e1800 0%, #1a1d2e 60%, #0f1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 40px;
+  position: relative; overflow: hidden;
+}
+.exam-header::after { content: '💻'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.08; }
+.exam-header .code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+.exam-header h1 { font-size: 2rem; font-weight: 800; }
+.exam-header h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.exam-header p { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+.exam-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.meta-item { font-size: 0.8rem; color: var(--text-muted); }
+.meta-item strong { color: var(--text); }
+
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 30px; overflow-x: auto; }
+.tab-btn {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap;
+  border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+  display: flex; align-items: center; gap: 7px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.content-area { max-width: 960px; margin: 0 auto; padding: 36px 30px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.domain-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; cursor: pointer; user-select: none; background: var(--surface);
+}
+.domain-header:hover { background: var(--surface2); }
+.domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+.chevron { transition: transform 0.2s; color: var(--text-muted); }
+.domain-header.open .chevron { transform: rotate(180deg); }
+.domain-body { display: none; padding: 0 22px 22px; }
+.domain-body.open { display: block; }
+.domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.domain-body ul { padding-left: 20px; }
+.domain-body ul li { margin-bottom: 4px; }
+.key-term { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; color: var(--accent); margin: 2px; font-family: monospace; }
+.info-box { background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.warn-box { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; cursor: pointer; }
+.fc-progress { font-size: 0.85rem; color: var(--text-muted); }
+.flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 30px; text-align: center;
+}
+.fc-front { background: linear-gradient(135deg, var(--surface2), var(--surface)); border: 1px solid var(--border); }
+.fc-back { background: linear-gradient(135deg, #1e1800, var(--surface)); border: 1px solid rgba(243,156,18,0.4); transform: rotateY(180deg); }
+.fc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.fc-term { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+.fc-definition { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.fc-nav { display: flex; justify-content: center; gap: 16px; align-items: center; }
+.fc-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; transition: background 0.15s; }
+.fc-btn:hover { background: var(--surface2); }
+.fc-count { font-size: 0.9rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+.fc-known-btn { background: var(--green); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-unknown-btn { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
+.fc-score span { color: var(--green); font-weight: 700; }
+
+.quiz-header { margin-bottom: 28px; }
+.quiz-header h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.quiz-header p { color: var(--text-muted); font-size: 0.88rem; }
+.quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+.q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-opt {
+  background: var(--surface2); border: 2px solid var(--border); border-radius: 8px;
+  padding: 13px 16px; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5;
+  text-align: left; width: 100%;
+}
+.q-opt:hover:not([disabled]) { border-color: var(--accent); background: rgba(243,156,18,0.1); }
+.q-opt.correct { border-color: var(--green); background: rgba(46,204,113,0.1); }
+.q-opt.incorrect { border-color: var(--red); background: rgba(231,76,60,0.1); }
+.q-opt[disabled] { cursor: default; }
+.q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
+.q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-explanation.show { display: block; }
+.q-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
+.q-next-btn.show { display: inline-block; }
+.quiz-result-box { text-align: center; padding: 50px 30px; }
+.quiz-result-box .score { font-size: 4rem; font-weight: 800; color: var(--accent); }
+.quiz-result-box .score-label { color: var(--text-muted); margin-bottom: 20px; }
+.quiz-result-box .verdict { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
+.restart-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 30px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.cheat-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.cheat-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid rgba(45,49,83,0.5); font-size: 0.83rem; gap: 10px; }
+.cheat-row:last-child { border-bottom: none; }
+.cheat-key { color: var(--text); font-weight: 600; min-width: 80px; }
+.cheat-val { color: var(--text-muted); text-align: right; }
+
+.activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.activity-card .act-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+.activity-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.activity-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+.activity-card ol { padding-left: 20px; }
+.activity-card ol li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+
+.vocab-search { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; margin-bottom: 18px; outline: none; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.vocab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.vocab-card .vocab-term { font-weight: 700; font-size: 0.88rem; color: var(--accent); margin-bottom: 5px; }
+.vocab-card .vocab-def { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+.vocab-card .vocab-example { font-size: 0.78rem; color: var(--text); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); font-style: italic; }
+
+  /* ── Week Assignment Tracker ── */
+  .week-tracker {
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 0; overflow: hidden;
+  }
+  .tracker-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 30px; cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .tracker-toggle:hover { background: var(--surface2); }
+  .tracker-title { font-size: 0.88rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .tracker-progress { font-size: 0.78rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+  .tracker-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.2s; }
+  .tracker-chevron.open { transform: rotate(180deg); }
+  .tracker-body {
+    display: none; padding: 16px 30px 20px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;
+  }
+  .tracker-body.open { display: grid; }
+  .tracker-day {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tracker-day input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+  .tracker-day label { font-size: 0.83rem; line-height: 1.5; cursor: pointer; color: var(--text-muted); }
+  .tracker-day label strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tracker-day.done { border-color: var(--green); background: rgba(46,204,113,0.07); }
+  .tracker-day.done label { color: var(--text); }
+
+  /* ── Score Card ── */
+  .score-card {
+    border-radius: 16px; padding: 32px; max-width: 500px;
+    margin: 0 auto; background: var(--surface);
+    border: 3px solid var(--border);
+  }
+  .score-card.pass { border-color: var(--green); }
+  .score-card.fail { border-color: #e74c3c; }
+  .score-card-header { text-align: center; margin-bottom: 20px; }
+  .score-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .score-card-date { font-size: 0.82rem; color: var(--text-muted); }
+  .score-card-numbers { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+  .score-card-num { text-align: center; }
+  .score-card-big { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+  .score-card-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-card-banner { text-align: center; padding: 11px; border-radius: 8px; margin-bottom: 18px; font-weight: 700; }
+  .score-card-banner.pass { background: rgba(46,204,113,0.12); border: 1px solid var(--green); color: var(--green); }
+  .score-card-banner.fail { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; color: #e74c3c; }
+  .screenshot-prompt {
+    background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.5);
+    border-radius: 8px; padding: 12px 16px; text-align: center; margin-bottom: 18px;
+  }
+  .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
+  .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
+
+
+  /* ── Tips & Careers tab ─────────────────────────────────── */
+  .mnem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .mnem-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .mnem-phrase {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+  .mnem-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mnem-step {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .mnem-detail {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+  .strategy-section { margin-bottom: 28px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .strategy-card h4 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    color: var(--accent);
+  }
+  .strategy-card p, .strategy-card li {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resource-link {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: .83rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .resource-link:hover { background: var(--accent); color: #fff; }
+  .careers-section { margin-bottom: 28px; }
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .career-card-tip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .career-card-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+  }
+  .career-salary {
+    font-size: .9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .career-desc {
+    font-size: .83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* tip section headings */
+  .tips-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html" class="back-link">← Library Home</a>
+  <span class="nav-title">CompTIA Tech+ Study Hub</span>
+  <span class="nav-badge">FC0-U71</span>
+</div>
+
+<div class="exam-header">
+  <div class="code">CompTIA Tech+ &nbsp;|&nbsp; FC0-U71</div>
+  <h1><span>CompTIA Tech+</span> Study Hub</h1>
+  <p>Your starting point for IT fundamentals — perfect for students new to technology careers</p>
+  <div class="exam-meta">
+    <div class="meta-item"><strong>Format:</strong> 75 questions</div>
+    <div class="meta-item"><strong>Duration:</strong> 60 minutes</div>
+    <div class="meta-item"><strong>Passing Score:</strong> 650/900</div>
+    <div class="meta-item"><strong>Exam Type:</strong> Multiple choice, scenario-based</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('guide')">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz')">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('vocab')">📚 Vocabulary</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet')">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities')">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+</div>
+
+<div class="content-area">
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     STUDY GUIDE
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-guide" class="tab-panel active">
+
+  <!-- Domain 1 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>💻 IT Concepts &amp; Terminology <span class="domain-pct">17%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Hardware Basics</h4>
+      <p>Every computer system is built from a few core components that work together:</p>
+      <ul>
+        <li><strong>CPU (Central Processing Unit):</strong> The "brain" — executes instructions. Speed measured in GHz; modern CPUs have multiple cores (quad-core = 4 independent processors on one chip).</li>
+        <li><strong>RAM (Random Access Memory):</strong> Fast, <em>volatile</em> workspace memory — cleared when power is off. More RAM = more programs running at once without slowdown.</li>
+        <li><strong>Storage (HDD / SSD / NVMe):</strong> Non-volatile — persists data permanently. SSD (flash) is much faster than HDD (spinning disk). NVMe (via PCIe slot) is the fastest.</li>
+        <li><strong>Motherboard:</strong> The main circuit board connecting all components — CPU, RAM, storage, GPU, and expansion slots.</li>
+        <li><strong>GPU (Graphics Processing Unit):</strong> Dedicated processor for rendering images/video. Also used for AI and parallel computing.</li>
+      </ul>
+      <div class="info-box">💡 <strong>Volatile vs Non-Volatile:</strong> RAM is volatile (lost on power-off). Storage (SSD, HDD) is non-volatile (persists). This is a common exam question!</div>
+
+      <h4>Input &amp; Output Devices</h4>
+      <ul>
+        <li><strong>Input devices</strong> send data INTO the computer: keyboard, mouse, microphone, scanner, webcam, touchscreen.</li>
+        <li><strong>Output devices</strong> present data FROM the computer to the user: monitor, printer, speakers, projector.</li>
+        <li><strong>I/O devices</strong> do both: touchscreen (input + output), network interface card.</li>
+      </ul>
+
+      <h4>Number Systems</h4>
+      <ul>
+        <li><strong>Binary (Base-2):</strong> Only 0s and 1s. All digital data is ultimately binary. Each position is a power of 2.</li>
+        <li><strong>Bit:</strong> A single 0 or 1 — the smallest unit of digital data.</li>
+        <li><strong>Byte:</strong> 8 bits. Can represent 256 values (2⁸). All storage is measured in bytes: KB (1,024 B), MB, GB, TB.</li>
+        <li><strong>Hexadecimal (Base-16):</strong> Uses 0–9 and A–F. Commonly used for memory addresses and color codes.</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Prefix</th><th>Size</th><th>Example Use</th></tr>
+          <tr><td><strong>Kilobyte (KB)</strong></td><td>1,024 bytes</td><td>Small text file</td></tr>
+          <tr><td><strong>Megabyte (MB)</strong></td><td>1,024 KB</td><td>Song (3–5 MB)</td></tr>
+          <tr><td><strong>Gigabyte (GB)</strong></td><td>1,024 MB</td><td>Movie (~2 GB), RAM (8–32 GB)</td></tr>
+          <tr><td><strong>Terabyte (TB)</strong></td><td>1,024 GB</td><td>Hard drive capacity</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Domain 2 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🌐 Infrastructure <span class="domain-pct">22%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Networking Fundamentals</h4>
+      <ul>
+        <li><strong>IP Address:</strong> A unique numerical label for every device on a network. IPv4 uses 32 bits (e.g., 192.168.1.10). IPv6 uses 128 bits for a much larger address space.</li>
+        <li><strong>Router:</strong> Forwards data packets between different networks (e.g., your home network to the internet). Every packet passes through a router to leave its network.</li>
+        <li><strong>Switch:</strong> Connects multiple devices within the same network (LAN). Sends data only to the intended destination device, unlike older hubs which broadcast to all.</li>
+        <li><strong>Wi-Fi:</strong> IEEE 802.11 wireless networking. Common standards: 802.11ac (Wi-Fi 5) and 802.11ax (Wi-Fi 6). Uses radio waves; speed affected by distance and interference.</li>
+        <li><strong>Internet vs. Intranet:</strong> The Internet is the global public network. An Intranet is a private internal network (like a company's internal website) accessible only from inside the organization.</li>
+      </ul>
+
+      <h4>Cloud Computing</h4>
+      <ul>
+        <li><strong>Cloud Computing:</strong> Delivering computing services over the internet on a pay-as-you-go basis. Providers: AWS, Microsoft Azure, Google Cloud.</li>
+        <li><strong>IaaS (Infrastructure as a Service):</strong> Rent virtual machines and storage. You manage the OS and apps. Example: AWS EC2.</li>
+        <li><strong>PaaS (Platform as a Service):</strong> Rent an app development platform. Provider manages OS and runtime. Example: Heroku, Google App Engine.</li>
+        <li><strong>SaaS (Software as a Service):</strong> Rent software accessed via browser. Provider manages everything. Example: Gmail, Microsoft 365, Salesforce.</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Model</th><th>You Manage</th><th>Provider Manages</th><th>Example</th></tr>
+          <tr><td><strong>IaaS</strong></td><td>OS, apps, data</td><td>Hardware, network, virtualization</td><td>AWS EC2</td></tr>
+          <tr><td><strong>PaaS</strong></td><td>Apps, data</td><td>OS, runtime, middleware</td><td>Heroku</td></tr>
+          <tr><td><strong>SaaS</strong></td><td>Data, settings only</td><td>Everything else</td><td>Gmail, Office 365</td></tr>
+        </table>
+      </div>
+      <div class="warn-box">⚠️ <strong>Exam Tip:</strong> "Which model gives you most control?" → IaaS. "Which requires least management?" → SaaS. The more you go up (IaaS → PaaS → SaaS), the more the provider manages.</div>
+    </div>
+  </div>
+
+  <!-- Domain 3 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>📱 Applications &amp; Software <span class="domain-pct">18%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Operating Systems</h4>
+      <p>The OS manages all hardware resources and provides a platform for applications to run. Key functions:</p>
+      <ul>
+        <li>Manages CPU time (scheduling), RAM allocation, storage access, and I/O devices</li>
+        <li>Provides user interface (GUI or command line)</li>
+        <li>Handles security — user accounts, permissions, login</li>
+      </ul>
+      <p><strong>Common OS examples:</strong> Windows 11, macOS Ventura, Linux (Ubuntu, Fedora), Android, iOS</p>
+
+      <h4>File Systems</h4>
+      <p>The method an OS uses to organize and store files on storage media:</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>File System</th><th>Used By</th><th>Notes</th></tr>
+          <tr><td><strong>NTFS</strong></td><td>Windows</td><td>Supports permissions, encryption, large files</td></tr>
+          <tr><td><strong>APFS</strong></td><td>macOS</td><td>Optimized for SSDs, strong encryption</td></tr>
+          <tr><td><strong>ext4</strong></td><td>Linux</td><td>Reliable, journaling, widely used</td></tr>
+          <tr><td><strong>FAT32</strong></td><td>Universal</td><td>Works on all OS; max 4 GB file size</td></tr>
+          <tr><td><strong>exFAT</strong></td><td>USB drives</td><td>Cross-platform, no 4 GB limit</td></tr>
+        </table>
+      </div>
+
+      <h4>Application Software vs. System Software</h4>
+      <ul>
+        <li><strong>System software:</strong> Manages hardware and platform — OS, drivers, utilities (antivirus, backup tools).</li>
+        <li><strong>Application software:</strong> Designed for end-user tasks — word processors, browsers, games, media players.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Domain 4 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>💾 Software Development <span class="domain-pct">12%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Programming Basics</h4>
+      <ul>
+        <li><strong>Variable:</strong> A named storage location in code that holds a value. Example: <span class="key-term">age = 17</span></li>
+        <li><strong>Algorithm:</strong> A step-by-step set of instructions to solve a problem. Every program is built from algorithms.</li>
+        <li><strong>Conditional (If/Else):</strong> Makes decisions in code — "If X is true, do Y; otherwise do Z."</li>
+        <li><strong>Loop:</strong> Repeats a block of code — <span class="key-term">for</span>, <span class="key-term">while</span>. Used to process lists of data.</li>
+        <li><strong>Function:</strong> A reusable named block of code. Avoids repeating the same code in multiple places.</li>
+      </ul>
+      <div class="info-box">💡 <strong>Real-world example:</strong> When Netflix recommends a show, an algorithm analyzes your watch history, compares it to other users, and recommends shows with the highest predicted match.</div>
+
+      <h4>Development Concepts</h4>
+      <ul>
+        <li><strong>Source code:</strong> Human-readable instructions written in a programming language (Python, Java, JavaScript).</li>
+        <li><strong>Compiler / Interpreter:</strong> Translates source code into machine instructions the CPU can execute.</li>
+        <li><strong>Version control (Git):</strong> Tracks changes to code over time; allows teams to collaborate and roll back mistakes.</li>
+        <li><strong>Bug:</strong> An error in code that causes unexpected behavior. Debugging = finding and fixing bugs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Domain 5 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🗄️ Database Fundamentals <span class="domain-pct">11%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>What is a Database?</h4>
+      <p>An organized collection of structured data managed by a <strong>DBMS (Database Management System)</strong>. Databases power nearly every app — social media, banking, school records, online stores.</p>
+
+      <h4>Relational Databases</h4>
+      <ul>
+        <li>Data is stored in <strong>tables</strong> (rows = records, columns = fields).</li>
+        <li>Tables are <strong>related</strong> to each other via common fields (foreign keys).</li>
+        <li>Examples: MySQL, PostgreSQL, Microsoft SQL Server, SQLite.</li>
+      </ul>
+
+      <h4>SQL Basics</h4>
+      <p><strong>SQL (Structured Query Language)</strong> is used to interact with relational databases:</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Command</th><th>Purpose</th><th>Example</th></tr>
+          <tr><td><strong>SELECT</strong></td><td>Read / retrieve data</td><td>SELECT * FROM students</td></tr>
+          <tr><td><strong>INSERT</strong></td><td>Add new records</td><td>INSERT INTO students VALUES (...)</td></tr>
+          <tr><td><strong>UPDATE</strong></td><td>Modify existing data</td><td>UPDATE students SET grade='A'</td></tr>
+          <tr><td><strong>DELETE</strong></td><td>Remove records</td><td>DELETE FROM students WHERE id=5</td></tr>
+        </table>
+      </div>
+
+      <h4>NoSQL Databases</h4>
+      <p>For unstructured or rapidly changing data. Types: document (MongoDB), key-value (Redis), graph, time-series. Used by social media, IoT, real-time analytics.</p>
+    </div>
+  </div>
+
+  <!-- Domain 6 -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔐 Security <span class="domain-pct">20%</span></h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Common Threats</h4>
+      <ul>
+        <li><strong>Malware:</strong> Malicious software designed to harm. Types: <span class="key-term">virus</span> (attaches to files), <span class="key-term">worm</span> (self-spreads), <span class="key-term">trojan</span> (disguised), <span class="key-term">ransomware</span> (encrypts files for ransom), <span class="key-term">spyware</span> (steals data).</li>
+        <li><strong>Phishing:</strong> Fake emails/messages designed to steal passwords or trick you into clicking malicious links. The #1 method attackers use to compromise accounts.</li>
+        <li><strong>Social Engineering:</strong> Manipulating people (not computers) to give up information. Phishing is a type of social engineering.</li>
+      </ul>
+
+      <h4>Protection Methods</h4>
+      <ul>
+        <li><strong>Firewall:</strong> Monitors and controls network traffic based on security rules. Can be hardware or software. Blocks unauthorized connections.</li>
+        <li><strong>Strong Passwords:</strong> Long (12+ characters), complex (uppercase, lowercase, numbers, symbols), unique per account. Use a password manager.</li>
+        <li><strong>Multi-Factor Authentication (MFA):</strong> Requires 2+ verification methods — something you know (password) + something you have (phone) + something you are (fingerprint).</li>
+        <li><strong>Encryption:</strong> Scrambles data so only the intended recipient can read it. HTTPS uses encryption. Essential for protecting data in transit and at rest.</li>
+        <li><strong>Software Updates / Patches:</strong> Fix security vulnerabilities. Unpatched software is one of the most common attack vectors.</li>
+      </ul>
+      <div class="warn-box">⚠️ <strong>Real-World Rule:</strong> Never share your password — not even with "IT support." Legitimate IT staff never need your password. This is the #1 phishing social engineering script.</div>
+    </div>
+  </div>
+
+</div><!-- /panel-guide -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     FLASHCARDS
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-flashcards" class="tab-panel">
+  <div class="fc-controls">
+    <div>
+      <label style="font-size:0.85rem;color:var(--text-muted);margin-right:8px;">Category:</label>
+      <select class="category-select" id="fc-category" onchange="loadCards()">
+        <option value="all">All Categories</option>
+        <option value="hardware">Hardware</option>
+        <option value="networking">Networking</option>
+        <option value="software">Software</option>
+        <option value="security">Security</option>
+        <option value="database">Databases</option>
+        <option value="cloud">Cloud</option>
+        <option value="programming">Programming</option>
+        <option value="concepts">Concepts</option>
+      </select>
+    </div>
+    <span class="fc-progress" id="fc-progress">Card 1 of 24</span>
+  </div>
+
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-face fc-front">
+        <div class="fc-label">Term — click to flip</div>
+        <div class="fc-term" id="fc-term">Loading...</div>
+        <div class="fc-hint">Click anywhere on card to see definition</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-label">Definition</div>
+        <div class="fc-definition" id="fc-def">...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-nav">
+    <button class="fc-unknown-btn" onclick="markCard(false)">✗ Still Learning</button>
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-count" id="fc-count">1 / 24</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+    <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
+  </div>
+  <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">24</span></div>
+</div><!-- /panel-flashcards -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     QUIZ
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-quiz" class="tab-panel">
+  <div class="quiz-header">
+    <h2>Tech+ Practice Quiz</h2>
+    <p>25 scenario-based questions covering all Tech+ domains. Explanations shown after each answer.</p>
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">25</span></p>
+  </div>
+  <div id="quiz-container">
+    <div class="question-card" id="question-area"></div>
+  </div>
+  <div id="quiz-result" style="display:none;"></div>
+  <div style="margin-top:20px;">
+    <button class="restart-btn" onclick="initQuiz()">🔄 Start / Restart Quiz</button>
+  </div>
+</div><!-- /panel-quiz -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     VOCABULARY
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-vocab" class="tab-panel">
+  <h2 style="margin-bottom:6px;">Tech+ Vocabulary</h2>
+  <p class="text-muted" style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Search for any term to see its definition and a real-world example.</p>
+  <input class="vocab-search" type="text" id="vocab-search" placeholder="Search terms and definitions..." oninput="filterVocab()">
+  <div class="vocab-grid" id="vocab-grid"></div>
+</div><!-- /panel-vocab -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CHEAT SHEET
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-cheatsheet" class="tab-panel">
+  <h2 style="margin-bottom:20px;">Tech+ Quick Reference</h2>
+  <div class="cheat-grid">
+
+    <div class="cheat-card">
+      <h3>🖥️ Core Components</h3>
+      <div class="cheat-row"><span class="cheat-key">CPU</span><span class="cheat-val">Brain — executes instructions (GHz, cores)</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAM</span><span class="cheat-val">Volatile workspace memory — lost on power off</span></div>
+      <div class="cheat-row"><span class="cheat-key">SSD</span><span class="cheat-val">Fast non-volatile flash storage</span></div>
+      <div class="cheat-row"><span class="cheat-key">HDD</span><span class="cheat-val">Slower spinning disk; higher capacity/$ </span></div>
+      <div class="cheat-row"><span class="cheat-key">GPU</span><span class="cheat-val">Graphics processor; also AI/parallel compute</span></div>
+      <div class="cheat-row"><span class="cheat-key">Motherboard</span><span class="cheat-val">Main circuit board; connects all parts</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📏 Storage Sizes</h3>
+      <div class="cheat-row"><span class="cheat-key">1 Bit</span><span class="cheat-val">Single 0 or 1</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 Byte</span><span class="cheat-val">8 bits (256 possible values)</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 KB</span><span class="cheat-val">1,024 bytes</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 MB</span><span class="cheat-val">1,024 KB</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 GB</span><span class="cheat-val">1,024 MB</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 TB</span><span class="cheat-val">1,024 GB</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>☁️ Cloud Models</h3>
+      <div class="cheat-row"><span class="cheat-key">IaaS</span><span class="cheat-val">Rent VMs + storage (AWS EC2)</span></div>
+      <div class="cheat-row"><span class="cheat-key">PaaS</span><span class="cheat-val">Rent dev platform (Heroku)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SaaS</span><span class="cheat-val">Rent software via browser (Gmail)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Public</span><span class="cheat-val">Shared resources, anyone can buy</span></div>
+      <div class="cheat-row"><span class="cheat-key">Private</span><span class="cheat-val">Dedicated resources, one org</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hybrid</span><span class="cheat-val">Mix of on-prem + public cloud</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔐 Security Essentials</h3>
+      <div class="cheat-row"><span class="cheat-key">Virus</span><span class="cheat-val">Attaches to files; needs user to spread</span></div>
+      <div class="cheat-row"><span class="cheat-key">Worm</span><span class="cheat-val">Self-spreads across networks, no host file</span></div>
+      <div class="cheat-row"><span class="cheat-key">Ransomware</span><span class="cheat-val">Encrypts files; demands payment</span></div>
+      <div class="cheat-row"><span class="cheat-key">Phishing</span><span class="cheat-val">Fake email to steal credentials</span></div>
+      <div class="cheat-row"><span class="cheat-key">Firewall</span><span class="cheat-val">Controls network traffic by rules</span></div>
+      <div class="cheat-row"><span class="cheat-key">MFA</span><span class="cheat-val">2+ verification factors required</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌐 Networking</h3>
+      <div class="cheat-row"><span class="cheat-key">IP Address</span><span class="cheat-val">Device's network identifier</span></div>
+      <div class="cheat-row"><span class="cheat-key">Router</span><span class="cheat-val">Connects different networks</span></div>
+      <div class="cheat-row"><span class="cheat-key">Switch</span><span class="cheat-val">Connects devices in same network (LAN)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Wi-Fi</span><span class="cheat-val">IEEE 802.11 wireless networking</span></div>
+      <div class="cheat-row"><span class="cheat-key">Internet</span><span class="cheat-val">Global public network</span></div>
+      <div class="cheat-row"><span class="cheat-key">Intranet</span><span class="cheat-val">Private internal company network</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🗄️ SQL Commands</h3>
+      <div class="cheat-row"><span class="cheat-key">SELECT</span><span class="cheat-val">Read data from a table</span></div>
+      <div class="cheat-row"><span class="cheat-key">INSERT</span><span class="cheat-val">Add new record</span></div>
+      <div class="cheat-row"><span class="cheat-key">UPDATE</span><span class="cheat-val">Modify existing data</span></div>
+      <div class="cheat-row"><span class="cheat-key">DELETE</span><span class="cheat-val">Remove records</span></div>
+      <div class="cheat-row"><span class="cheat-key">WHERE</span><span class="cheat-val">Filter records by condition</span></div>
+      <div class="cheat-row"><span class="cheat-key">JOIN</span><span class="cheat-val">Combine data from multiple tables</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>💾 File Systems</h3>
+      <div class="cheat-row"><span class="cheat-key">NTFS</span><span class="cheat-val">Windows — permissions, encryption</span></div>
+      <div class="cheat-row"><span class="cheat-key">APFS</span><span class="cheat-val">macOS — SSD-optimized</span></div>
+      <div class="cheat-row"><span class="cheat-key">ext4</span><span class="cheat-val">Linux — journaling, reliable</span></div>
+      <div class="cheat-row"><span class="cheat-key">FAT32</span><span class="cheat-val">Universal — max 4 GB file</span></div>
+      <div class="cheat-row"><span class="cheat-key">exFAT</span><span class="cheat-val">Cross-platform USB drives</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>💡 Programming Basics</h3>
+      <div class="cheat-row"><span class="cheat-key">Variable</span><span class="cheat-val">Named container for a value</span></div>
+      <div class="cheat-row"><span class="cheat-key">Algorithm</span><span class="cheat-val">Step-by-step problem solution</span></div>
+      <div class="cheat-row"><span class="cheat-key">Loop</span><span class="cheat-val">Repeats code (for, while)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Conditional</span><span class="cheat-val">Decision making (if/else)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Function</span><span class="cheat-val">Reusable named block of code</span></div>
+      <div class="cheat-row"><span class="cheat-key">Bug</span><span class="cheat-val">Error in code causing bad behavior</span></div>
+    </div>
+
+  </div>
+</div><!-- /panel-cheatsheet -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     ACTIVITIES
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="panel-activities" class="tab-panel">
+  <h2 style="margin-bottom:20px;">Learning Activities</h2>
+
+  <div class="activity-card">
+    <div class="act-type">🔬 Hands-On Activity</div>
+    <h3>Build Your Own Computer (Virtual)</h3>
+    <p>Use the PC Part Picker website to "build" a computer within a $700 budget. You'll need to select compatible components and understand what each part does.</p>
+    <ol>
+      <li>Go to <strong>pcpartpicker.com</strong> and start a new build</li>
+      <li>Select a CPU — note the socket type (LGA1700, AM5)</li>
+      <li>Select a compatible motherboard with the same socket</li>
+      <li>Add RAM (at least 16 GB DDR5 recommended)</li>
+      <li>Add an SSD (NVMe preferred) and a case + power supply</li>
+      <li>Check compatibility — fix any warnings the site shows</li>
+      <li>Write a 1-paragraph summary: what does each part do?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">📖 Reading &amp; Research</div>
+    <h3>Cloud Services Comparison</h3>
+    <p>Visit the free tier pages for AWS, Azure, and Google Cloud. Research what each provider offers for free and write a comparison explaining which you would choose for a small project and why.</p>
+    <ol>
+      <li>Visit aws.amazon.com/free, azure.microsoft.com/free, cloud.google.com/free</li>
+      <li>Find one IaaS, one PaaS, and one SaaS offering from each</li>
+      <li>Compare: storage limits, compute time, pricing after free tier</li>
+      <li>Write a 1-page recommendation for a student starting a web app</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🎯 Scenario Challenge</div>
+    <h3>Phishing Email Identification</h3>
+    <p>Practice recognizing phishing emails. For each scenario below, identify the red flags:</p>
+    <ol>
+      <li>"Your Microsoft account has been compromised. Click here immediately to reset your password." — What are the red flags?</li>
+      <li>An email from "paypa1.com" says your payment failed. — What's wrong with the sender address?</li>
+      <li>A Google Doc notification arrives at 2 AM for a document you never created. — What should you do?</li>
+      <li>Your "bank" emails you to call a phone number to verify a transaction. — How do you safely verify this is real?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">💾 Binary Math Practice</div>
+    <h3>Number Systems Drill</h3>
+    <p>Practice converting between binary and decimal — a foundational skill for understanding how computers store data.</p>
+    <ol>
+      <li>Convert binary <strong>1010</strong> to decimal (hint: 8+0+2+0)</li>
+      <li>Convert binary <strong>11001</strong> to decimal</li>
+      <li>Convert decimal <strong>25</strong> to binary</li>
+      <li>Convert decimal <strong>255</strong> to binary (what is this in networking?)</li>
+      <li>How many unique values can 8 bits represent? How about 16 bits?</li>
+    </ol>
+  </div>
+
+  <div class="activity-card">
+    <div class="act-type">🗄️ SQL Practice</div>
+    <h3>Try SQL in Your Browser</h3>
+    <p>Practice real SQL queries without installing anything. Use the free tool at <strong>sqliteonline.com</strong> to run queries against a sample database.</p>
+    <ol>
+      <li>Create a simple table: <span class="key-term">CREATE TABLE students (id INTEGER, name TEXT, grade TEXT);</span></li>
+      <li>Insert three rows with different names and grades</li>
+      <li>Use SELECT to retrieve all students</li>
+      <li>Use WHERE to filter only students with grade = 'A'</li>
+      <li>Use UPDATE to change one student's grade</li>
+      <li>Use DELETE to remove a student by id</li>
+    </ol>
+  </div>
+
+</div><!-- /panel-activities -->
+
+</div><!-- /content-area -->
+
+
+<!-- ── Tips & Careers Panel ───────────────────────────────────────── -->
+<div id="panel-tips" class="tab-panel">
+  <div class="tips-section-title">🧠 Memory Tricks & Mnemonics</div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🖥️ Hardware vs Software — The Golden Rule</div>
+      <div class="mnem-phrase">"<strong>If you can kick it, it's hardware. If you can only curse at it, it's software.</strong>"</div>
+      <div class="mnem-detail">Hardware = physical components you can touch (CPU, RAM, keyboard, monitor) · Software = programs and instructions (Windows, Chrome, Microsoft Word) · Firmware = software permanently stored in hardware chips (BIOS)</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🧠 Computer Memory Hierarchy — "CRSD"</div>
+      <div class="mnem-phrase">"<strong>Computers Remember Stuff Differently</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">⚡ <strong>C</strong>ache — fastest, smallest, inside the CPU</span>
+        <span class="mnem-step">🔵 <strong>R</strong>AM — fast, temporary, loses data when off</span>
+        <span class="mnem-step">💾 <strong>S</strong>torage (SSD/HDD) — slower, permanent, large</span>
+        <span class="mnem-step">☁️ <strong>D</strong>rive/Cloud — largest, slowest, off-device</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">📥 Input vs Output — "I-O, I-O, it's off to work we go"</div>
+      <div class="mnem-phrase">"<strong>INPUT goes INTO the computer · OUTPUT comes OUT of the computer</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">⌨️ Input: keyboard, mouse, microphone, camera, scanner</span>
+        <span class="mnem-step">🖥️ Output: monitor, printer, speakers, projector</span>
+        <span class="mnem-step">↔️ Both: touchscreen, USB drive (reads AND writes)</span>
+      </div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🌐 Network Devices — "The Highway Crew"</div>
+      <div class="mnem-phrase">"<strong>Hub = dump truck (broadcasts), Switch = smart sorter (direct delivery), Router = GPS navigator (between networks)</strong>"</div>
+      <div class="mnem-detail">Hub: sends data to everyone on the network (old, inefficient) · Switch: sends data only to the intended recipient (smart) · Router: connects different networks together (e.g., your home to the internet) · Modem: converts internet signal from your ISP into usable data</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">🔒 Security Basics — "Lock the 3 Doors"</div>
+      <div class="mnem-phrase">"<strong>Something you KNOW (password), something you HAVE (phone), something you ARE (fingerprint)</strong>"</div>
+      <div class="mnem-detail">These are the 3 authentication factors. Using 2 or more = Multi-Factor Authentication (MFA) — much more secure than just a password! Strong password = 12+ characters, mix of letters/numbers/symbols, no dictionary words.</div>
+    </div>
+
+    <div class="mnem-card">
+      <div class="mnem-title">☁️ Cloud Service Models — "Pizza as a Service"</div>
+      <div class="mnem-phrase">"<strong>IaaS = ingredients delivered · PaaS = dough made for you · SaaS = pizza delivered ready to eat</strong>"</div>
+      <div class="mnem-breakdown">
+        <span class="mnem-step">IaaS = you manage OS, apps (AWS EC2)</span>
+        <span class="mnem-step">PaaS = platform ready, you write code (Heroku)</span>
+        <span class="mnem-step">SaaS = fully managed app (Gmail, Salesforce)</span>
+      </div>
+    </div>
+
+
+    <div class="strategy-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">🎯 How to Pass the CompTIA Tech+ (FC0-U71)</h3>
+
+      <div class="strategy-grid">
+
+        <div class="strategy-card">
+          <h4>🗣️ CompTIA Question Language</h4>
+          <p>CompTIA uses specific trigger words that change the right answer. Learn to spot them:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li><strong>"MOST likely"</strong> — eliminate impossible answers; pick the best fit</li>
+            <li><strong>"BEST"</strong> — there may be 2 correct answers; one is more efficient/secure</li>
+            <li><strong>"FIRST"</strong> — follow the correct order/process (e.g., troubleshooting steps)</li>
+            <li><strong>"LEAST"</strong> / <strong>"EXCEPT"</strong> — you're looking for the <em>wrong</em> one</li>
+            <li><strong>"ALWAYS"</strong> / <strong>"NEVER"</strong> — these are usually wrong; tech rarely works in absolutes</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>✂️ Elimination Technique</h4>
+          <ol style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Read the question stem carefully — what is it <em>really</em> asking?</li>
+            <li>Cross out any answer that is obviously wrong or out of scope</li>
+            <li>If 2 answers look similar, one of them is usually correct</li>
+            <li>Look for answers that are "too extreme" — usually distractors</li>
+            <li>If completely unsure, pick the more <em>conservative/secure</em> option</li>
+          </ol>
+        </div>
+
+        <div class="strategy-card">
+          <h4>🖥️ Performance-Based Questions (PBQs)</h4>
+          <p>PBQs appear at the <strong>start</strong> of the exam and are simulations (drag-drop, click-throughs, command line scenarios). Tips:</p>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>Don't panic — skip and come back if you're unsure</li>
+            <li>Read every instruction carefully before clicking</li>
+            <li>Most PBQs test basic knowledge in a visual way</li>
+            <li>Flagging and returning with fresh eyes often helps</li>
+          </ul>
+        </div>
+
+        <div class="strategy-card">
+          <h4>📅 Day-Before Checklist</h4>
+          <ul style="margin:10px 0 0 18px;line-height:1.9;">
+            <li>✅ Review your weakest domains (check your tracker above!)</li>
+            <li>✅ Look over mnemonics one more time</li>
+            <li>✅ Get 8 hours of sleep — tired brains forget everything</li>
+            <li>✅ Eat a good breakfast before the exam</li>
+            <li>✅ Arrive early (or set up testing software ahead of time)</li>
+            <li>✅ Bring valid photo ID if testing in-person</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="strategy-card" style="margin-top:12px;">
+        <h4>📚 Free Study Resources</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+          <a href="https://www.professormesser.com" target="_blank" class="resource-link">🎓 Professor Messer (free video courses)</a>
+          <a href="https://www.comptia.org/training/resources" target="_blank" class="resource-link">📘 CompTIA Official Study Resources</a>
+          <a href="https://www.examcompass.com" target="_blank" class="resource-link">❓ ExamCompass (free practice tests)</a>
+          <a href="https://quizlet.com" target="_blank" class="resource-link">🃏 Quizlet (community flashcard sets)</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="careers-section">
+      <h3 style="color:var(--accent);margin-bottom:16px;">💼 Where This Certification Can Take You</h3>
+      <div class="careers-grid">
+      <div class="career-card-tip">
+        <div class="career-card-title">🖥️ IT Help Desk Specialist</div>
+        <div class="career-salary">$32k – $52k/yr</div>
+        <div class="career-desc">Answers tech support calls, resets passwords, and guides non-technical users through computer problems.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">🔧 Technical Support Rep</div>
+        <div class="career-salary">$35k – $58k/yr</div>
+        <div class="career-desc">Troubleshoots software and basic hardware issues for customers or employees — great entry-level role.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">📋 IT Coordinator</div>
+        <div class="career-salary">$40k – $65k/yr</div>
+        <div class="career-desc">Organizes IT purchases, tracks equipment, and coordinates with vendors and staff.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">👨‍💻 Junior Systems Admin</div>
+        <div class="career-salary">$45k – $70k/yr</div>
+        <div class="career-desc">Assists with managing servers, user accounts, and IT infrastructure under senior staff supervision.</div>
+      </div>
+      <div class="career-card-tip">
+        <div class="career-card-title">📚 Technology Trainer</div>
+        <div class="career-salary">$42k – $68k/yr</div>
+        <div class="career-desc">Teaches employees how to use software and technology tools — perfect for someone who loves explaining things.</div>
+      </div>
+      </div>
+      <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">💡 Salaries vary by location and experience. These ranges reflect US national averages (entry to mid-level). Source: Bureau of Labor Statistics / Glassdoor / LinkedIn Salary (2024–2025).</p>
+    </div>
+
+</div><!-- /panel-tips -->
+
+<script>
+// ── Tab switching ─────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Domain accordion ──────────────────────────────────────────────────────
+function toggleDomain(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// ── Flashcards ────────────────────────────────────────────────────────────
+const allCards = [
+  { term:'CPU', def:'Central Processing Unit — the main processor that executes instructions in a computer. Speed measured in GHz; multiple cores handle tasks in parallel.', cat:'hardware' },
+  { term:'RAM', def:'Random Access Memory — fast, volatile memory used by the CPU to store active program data. Cleared when power is off.', cat:'hardware' },
+  { term:'Storage', def:'Non-volatile memory that persists data permanently. Types: HDD (spinning disk), SSD (flash), NVMe (fastest flash via PCIe).', cat:'hardware' },
+  { term:'Motherboard', def:'The main circuit board that connects all computer components — CPU, RAM, storage, GPU, and expansion cards.', cat:'hardware' },
+  { term:'Input Device', def:'Hardware that sends data into a computer. Examples: keyboard, mouse, touchscreen, microphone, scanner, webcam.', cat:'hardware' },
+  { term:'Output Device', def:'Hardware that presents data from a computer to the user. Examples: monitor, printer, speakers, projector.', cat:'hardware' },
+  { term:'Operating System', def:'Software that manages computer hardware and provides services for applications. Examples: Windows, macOS, Linux, Android, iOS.', cat:'software' },
+  { term:'Application Software', def:'Programs designed for end users to perform specific tasks — web browsers, word processors, games, media players.', cat:'software' },
+  { term:'File System', def:'The method an OS uses to organize files on storage. Common types: NTFS (Windows), APFS (macOS), ext4 (Linux), FAT32 (universal).', cat:'software' },
+  { term:'IP Address', def:'A numerical label assigned to each device on a network. IPv4 uses 32-bit (e.g., 192.168.1.1); IPv6 uses 128-bit addresses.', cat:'networking' },
+  { term:'Router', def:'A network device that forwards data packets between networks, typically between your home network and the internet.', cat:'networking' },
+  { term:'Wi-Fi', def:'Wireless networking technology using radio waves (IEEE 802.11 standards) to connect devices to a local network without cables.', cat:'networking' },
+  { term:'Internet vs Intranet', def:'The Internet is the global public network. An Intranet is a private internal network accessible only within an organization.', cat:'networking' },
+  { term:'Firewall', def:'A security system (hardware or software) that monitors and controls network traffic based on security rules.', cat:'security' },
+  { term:'Password', def:'A secret string of characters used to authenticate a user. Strong passwords are long, complex, and unique per account.', cat:'security' },
+  { term:'Malware', def:'Malicious software designed to harm systems. Types: virus, worm, trojan, ransomware, spyware, adware, rootkit.', cat:'security' },
+  { term:'Phishing', def:'A social engineering attack using fake emails/messages to trick users into revealing passwords or clicking malicious links.', cat:'security' },
+  { term:'Database', def:'An organized collection of structured data stored and accessed electronically. Managed by a DBMS (Database Management System).', cat:'database' },
+  { term:'SQL', def:'Structured Query Language — used to create, read, update, and delete data in relational databases. Core commands: SELECT, INSERT, UPDATE, DELETE.', cat:'database' },
+  { term:'Cloud Computing', def:'Delivering computing services (servers, storage, software) over the internet on a pay-as-you-go basis. Providers: AWS, Azure, Google Cloud.', cat:'cloud' },
+  { term:'IaaS / PaaS / SaaS', def:'IaaS: rent virtual machines (most control). PaaS: rent app platform. SaaS: rent software via browser (least control). Responsibility shifts to provider going up the stack.', cat:'cloud' },
+  { term:'Variable', def:'A named storage location in programming that holds a value. The value can change as the program runs.', cat:'programming' },
+  { term:'Algorithm', def:'A step-by-step set of instructions to solve a problem or complete a task. The foundation of all computer programs.', cat:'programming' },
+  { term:'Binary / Bit / Byte', def:'Binary: base-2 number system using 0s and 1s. A bit is a single 0 or 1. A byte is 8 bits. Storage: KB, MB, GB, TB.', cat:'concepts' }
+];
+
+let filteredCards = [...allCards];
+let currentCard = 0;
+let isFlipped = false;
+let knownCards = new Set();
+
+function loadCards() {
+  const cat = document.getElementById('fc-category').value;
+  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  currentCard = 0; isFlipped = false; knownCards.clear();
+  showCard();
+}
+
+function showCard() {
+  if (!filteredCards.length) return;
+  const card = filteredCards[currentCard];
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length;
+  document.getElementById('fc-count').textContent = (currentCard + 1) + ' / ' + filteredCards.length;
+  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-total-count').textContent = filteredCards.length;
+  const fc = document.getElementById('flashcard');
+  if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  isFlipped = !isFlipped;
+  fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
+function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
+function markCard(known) { if (known) knownCards.add(currentCard); else knownCards.delete(currentCard); nextCard(); }
+
+// ── Quiz ──────────────────────────────────────────────────────────────────
+const quizQuestions = [
+  { q: 'Which component is considered the "brain" of a computer?', opts: ['RAM', 'CPU', 'GPU', 'SSD'], answer: 1, exp: 'The CPU (Central Processing Unit) executes program instructions and is the primary processing component of any computer.' },
+  { q: 'What type of memory loses its contents when power is removed?', opts: ['SSD', 'HDD', 'RAM', 'ROM'], answer: 2, exp: 'RAM (Random Access Memory) is volatile — its contents are lost when power is removed. SSDs and HDDs are non-volatile.' },
+  { q: 'Which of the following is an example of an OUTPUT device?', opts: ['Keyboard', 'Mouse', 'Scanner', 'Monitor'], answer: 3, exp: 'Output devices present data FROM the computer TO the user. Keyboards, mice, and scanners are input devices. Monitors display output.' },
+  { q: 'What does SQL stand for?', opts: ['Structured Query Language', 'Simple Queue Logic', 'System Query Loader', 'Sequential Question Library'], answer: 0, exp: 'SQL (Structured Query Language) is used to manage and manipulate relational databases with commands like SELECT, INSERT, UPDATE, and DELETE.' },
+  { q: 'Which cloud service model provides virtual machines and storage — giving customers the most control?', opts: ['SaaS', 'PaaS', 'IaaS', 'DBaaS'], answer: 2, exp: 'IaaS (Infrastructure as a Service) provides virtualized computing resources — VMs, storage, networking. Customers manage the OS and apps.' },
+  { q: 'A student receives an email claiming to be from school IT asking for their password. This is an example of:', opts: ['Malware', 'DDoS', 'Phishing', 'SQL Injection'], answer: 2, exp: 'Phishing uses fraudulent messages to trick users into revealing credentials. Legitimate IT staff will NEVER ask for your password via email.' },
+  { q: 'What is the primary purpose of an operating system?', opts: ['To connect to the internet', 'To manage hardware and provide services for applications', 'To store user files permanently', 'To display graphics on screen'], answer: 1, exp: 'The OS manages hardware resources (CPU, memory, storage) and provides a platform for applications to run on.' },
+  { q: 'Which numbering system uses only 0 and 1?', opts: ['Decimal', 'Hexadecimal', 'Octal', 'Binary'], answer: 3, exp: 'Binary is the base-2 number system that computers use internally. All digital data is ultimately stored as sequences of 0s and 1s.' },
+  { q: 'How many bits are in one byte?', opts: ['4', '16', '8', '32'], answer: 2, exp: '1 byte = 8 bits. A byte can represent 256 different values (2^8). This is the fundamental unit of digital storage measurement.' },
+  { q: 'What does a firewall primarily protect against?', opts: ['Physical theft', 'Unauthorized network access', 'Hardware failure', 'Power outages'], answer: 1, exp: 'A firewall monitors and controls network traffic based on security rules, protecting against unauthorized network access and malicious traffic.' },
+  { q: 'What is the difference between a virus and a worm?', opts: ['A virus encrypts files; a worm deletes them', 'A virus needs a host file and user action to spread; a worm self-spreads across networks automatically', 'A virus targets hardware; a worm targets software', 'They are the same thing'], answer: 1, exp: 'Viruses attach to files and require user action (opening the file) to spread. Worms are self-replicating and spread automatically across networks without any user interaction — like WannaCry.' },
+  { q: 'Which storage type is the fastest for reading and writing data?', opts: ['HDD (Hard Disk Drive)', 'SSD (SATA)', 'NVMe SSD (PCIe)', 'USB Flash Drive'], answer: 2, exp: 'NVMe SSDs connect via PCIe and can reach 5,000+ MB/s. SATA SSDs top out around 550 MB/s. HDDs spin at 100-200 MB/s. NVMe is the fastest consumer storage available.' },
+  { q: 'A company stores customer data in the cloud instead of on their own servers. What type of cloud deployment is this MOST likely?', opts: ['Private cloud', 'Public cloud', 'On-premises', 'Hybrid cloud'], answer: 1, exp: 'Public cloud (AWS, Azure, Google Cloud) provides shared infrastructure available to anyone over the internet. Private cloud is dedicated to one organization. Hybrid mixes both.' },
+  { q: 'What does MFA (Multi-Factor Authentication) require?', opts: ['A very long password', 'Two or more different types of verification (something you know + something you have/are)', 'Changing your password every 30 days', 'A VPN connection'], answer: 1, exp: 'MFA requires 2+ verification factors from different categories: something you know (password), something you have (phone/token), or something you are (fingerprint/face). Even if a password is stolen, MFA blocks attackers.' },
+  { q: 'In programming, what does a loop do?', opts: ['Connects to the internet', 'Stores a value for later use', 'Repeats a block of code multiple times', 'Makes a decision between two options'], answer: 2, exp: 'Loops (for, while) repeat a block of code. Example: a for loop that runs 10 times to process 10 items in a list. Without loops, programmers would have to write the same code 10 times manually.' },
+  { q: 'Which SQL command is used to RETRIEVE data from a database table?', opts: ['INSERT', 'UPDATE', 'SELECT', 'DELETE'], answer: 2, exp: 'SELECT retrieves data. INSERT adds new records. UPDATE modifies existing data. DELETE removes records. SELECT is the most commonly used SQL command — "SELECT * FROM students" gets all student records.' },
+  { q: 'What is RAM primarily used for?', opts: ['Storing your files permanently', 'Running the operating system installer', 'Holding active program data the CPU is currently using', 'Connecting to Wi-Fi networks'], answer: 2, exp: 'RAM is fast, temporary workspace. When you open Chrome, it loads into RAM so the CPU can access it in nanoseconds. More RAM = more programs open at once. When you shut down, RAM is cleared.' },
+  { q: 'A student opens their laptop and the screen shows nothing, but they can hear it starting up. What should they check first?', opts: ['Replace the CPU', 'Check that the screen brightness is not turned all the way down', 'Reinstall Windows', 'Replace the RAM'], answer: 1, exp: 'Screen brightness being at zero is the most common and simplest cause of an apparently blank screen when the device is clearly running. Always check the simplest explanations first (fn + brightness key).' },
+  { q: 'What does an algorithm ALWAYS have?', opts: ['Variables and functions', 'A defined start, step-by-step instructions, and a defined end', 'At least one loop and one condition', 'Connection to a database'], answer: 1, exp: 'Every algorithm has: a clear starting point, a finite set of steps, and a stopping condition (it must eventually end). A recipe is a real-world algorithm — it has a start, defined steps, and ends when the dish is complete.' },
+  { q: 'Which of the following BEST describes the Internet?', opts: ['A private network used only by governments', 'A global network of interconnected computers and networks', 'The same as Wi-Fi', 'A type of operating system'], answer: 1, exp: 'The Internet is a global system of interconnected networks. Wi-Fi is just a wireless technology to connect to a local network. The Internet is what that local network connects to. They are not the same thing.' },
+  { q: 'What type of software is an antivirus program?', opts: ['Application software', 'System/utility software', 'Database software', 'Development software'], answer: 1, exp: 'Antivirus is system/utility software — it manages and protects the system rather than performing end-user productivity tasks. Application software (like Word or Chrome) is designed for user tasks, not system management.' },
+  { q: 'How many unique values can 1 byte (8 bits) represent?', opts: ['8', '16', '128', '256'], answer: 3, exp: '2^8 = 256. One byte can represent 256 different values (0-255). This is why IPv4 addresses have numbers from 0-255 in each octet — each octet is one byte.' },
+  { q: 'A website uses HTTPS instead of HTTP. What does this mean?', opts: ['The website loads faster', 'The connection between your browser and the website is encrypted', 'The website requires a login', 'The website is government-approved'], answer: 1, exp: 'HTTPS uses TLS encryption to secure the connection between your browser and the server. Without it (HTTP), anyone on the same network can read your data in plaintext. HTTPS is essential for any site handling passwords or payments.' },
+  { q: 'Which component connects all other computer components together?', opts: ['CPU', 'RAM', 'Motherboard', 'GPU'], answer: 2, exp: 'The motherboard is the main circuit board that physically and electronically connects all components: CPU, RAM, storage, GPU, expansion cards, and I/O ports. Everything connects through the motherboard.' },
+  { q: 'What is the purpose of an operating system's file system?', opts: ['To connect to the internet', 'To organize and manage how files are stored and retrieved on storage devices', 'To run antivirus scans', 'To manage Wi-Fi connections'], answer: 1, exp: 'The file system (NTFS, APFS, ext4, FAT32) organizes data into files and folders on storage devices and handles reading/writing data. Without a file system, storage would be an unorganized sequence of bits.' }
+
+];
+
+let quizQs = [];
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function initQuiz() {
+  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5);
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('q-total').textContent = quizQs.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (currentQ >= quizQs.length) { showQuizResult(); return; }
+  answered = false;
+  const q = quizQs[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('quiz-progress').style.width = ((currentQ / quizQs.length) * 100) + '%';
+  const opts = q.opts.map((o, i) =>
+    '<button class="q-opt" onclick="selectAnswer(' + i + ')">' +
+    '<span class="q-letter">' + String.fromCharCode(65+i) + '.</span> ' + o + '</button>'
+  ).join('');
+  document.getElementById('question-area').innerHTML =
+    '<div class="q-number">Question ' + (currentQ+1) + ' of ' + quizQs.length + '</div>' +
+    '<div class="q-text">' + q.q + '</div>' +
+    '<div class="q-options">' + opts + '</div>' +
+    '<div class="q-explanation" id="q-exp"></div>' +
+    '<button class="q-next-btn" id="q-next" onclick="nextQuestion()">Next Question →</button>';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizQs[currentQ];
+  if (idx === q.answer) score++;
+  document.querySelectorAll('.q-opt').forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+    else if (i === idx)  b.classList.add('incorrect');
+  });
+  const exp = document.getElementById('q-exp');
+  exp.innerHTML = '<strong>' + (idx === q.answer ? '✓ Correct!' : '✗ Incorrect.') + '</strong> ' + q.exp;
+  exp.classList.add('show');
+  document.getElementById('q-next').classList.add('show');
+}
+
+function nextQuestion() { currentQ++; renderQuestion(); }
+
+function showQuizResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+}
+
+// ── Vocabulary ────────────────────────────────────────────────────────────
+const vocabTerms = [
+  { term: "Hardware", def: "Physical components of a computer system that you can touch, such as the CPU, RAM, keyboard, and monitor." },
+  { term: "Software", def: "Programs and operating systems that run on a computer. Software gives instructions to hardware. Examples: Windows, Chrome, Microsoft Word." },
+  { term: "CPU (Central Processing Unit)", def: "The 'brain' of the computer that executes instructions. Measured in GHz (gigahertz) — higher is generally faster." },
+  { term: "RAM (Random Access Memory)", def: "Temporary, fast memory used while a computer is running. When you turn the computer off, RAM is erased. More RAM = can run more programs at once." },
+  { term: "Storage (HDD/SSD)", def: "Permanent memory that keeps your files even when the computer is off. SSDs (Solid State Drives) are much faster than HDDs (Hard Disk Drives)." },
+  { term: "Operating System (OS)", def: "Software that manages all hardware and other software on a computer. Examples: Windows 11, macOS, Linux, Android, iOS." },
+  { term: "Input Device", def: "Hardware that sends data INTO the computer. Examples: keyboard, mouse, microphone, webcam, scanner, touchscreen." },
+  { term: "Output Device", def: "Hardware that presents information FROM the computer. Examples: monitor, printer, speakers, projector." },
+  { term: "Network", def: "Two or more computers connected together to share data and resources. Can be wired (Ethernet) or wireless (Wi-Fi)." },
+  { term: "IP Address", def: "A unique numerical label assigned to every device on a network, like a home address for your computer. Example: 192.168.1.10" },
+  { term: "Router", def: "A networking device that connects different networks and directs internet traffic. Your home Wi-Fi box is a router." },
+  { term: "Bandwidth", def: "The maximum amount of data that can travel through a network connection at one time. Measured in Mbps or Gbps. Higher = faster downloads." },
+  { term: "Cloud Computing", def: "Using servers, storage, and software hosted on the internet instead of your local computer. Examples: Google Drive, iCloud, Netflix." },
+  { term: "Virus", def: "Malicious software that attaches to a file and spreads when that file is opened or shared. Can corrupt or delete data." },
+  { term: "Firewall", def: "A security system (hardware or software) that monitors and controls incoming/outgoing network traffic based on rules to block threats." },
+  { term: "Encryption", def: "The process of scrambling data so only authorized parties can read it. HTTPS uses encryption to secure your web browsing." },
+  { term: "Password", def: "A secret combination of characters used to authenticate (prove) your identity. Strong passwords are 12+ characters with mixed types." },
+  { term: "Database", def: "An organized collection of structured data stored electronically. Examples: customer records, product inventories, school grades." },
+  { term: "Algorithm", def: "A step-by-step set of instructions for solving a problem or completing a task. The foundation of all programming." },
+  { term: "Binary", def: "The base-2 number system using only 0s and 1s. All computer data is ultimately stored and processed in binary." },
+  { term: "Application (App)", def: "A software program designed for end users to perform specific tasks. Examples: Calculator, Spotify, Zoom, Instagram." },
+  { term: "Browser", def: "Software used to access and navigate the World Wide Web. Examples: Chrome, Firefox, Safari, Edge." },
+  { term: "Troubleshooting", def: "A systematic process of diagnosing and fixing technical problems. Good troubleshooting starts with identifying what changed recently." },
+  { term: "Backup", def: "A copy of data stored separately in case the original is lost, damaged, or corrupted. Best practice: 3-2-1 rule (3 copies, 2 media types, 1 offsite)." },
+  { term: "Virtual Machine (VM)", def: "A software-based computer that runs inside another computer. Allows multiple operating systems to run on one physical machine." },
+  { term: "Phishing", def: "A social engineering attack where criminals send fake emails/messages pretending to be trusted sources to steal login credentials or money." },
+  { term: "Two-Factor Authentication (2FA)", def: "A security method requiring TWO forms of verification (e.g., password + text message code) to access an account. Much safer than a password alone." }
+];
+
+function buildVocab(terms) {
+  const grid = document.getElementById('vocab-grid');
+  grid.innerHTML = terms.map(v =>
+    '<div class="vocab-card">' +
+    '<div class="vocab-term">' + v.term + '</div>' +
+    '<div class="vocab-def">' + v.def + '</div>' +
+    (v.example ? '<div class="vocab-example">📌 ' + v.example + '</div>' : '') +
+    '</div>'
+  ).join('');
+}
+
+function filterVocab() {
+  const q = document.getElementById('vocab-search').value.toLowerCase();
+  const filtered = vocabTerms.filter(v =>
+    v.term.toLowerCase().includes(q) || v.def.toLowerCase().includes(q)
+  );
+  buildVocab(filtered);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  showCard();
+  buildVocab(vocabTerms);
+  initQuiz();
+});
+
+// ── Week Tracker ─────────────────────────────────────────────────────────────
+function toggleTracker() {
+  const body    = document.getElementById('tracker-body');
+  const chevron = document.getElementById('tracker-chevron');
+  const open    = body.classList.toggle('open');
+  chevron.classList.toggle('open', open);
+}
+
+function saveTracker() {
+  const state = [1,2,3,4,5].map(i => document.getElementById('task-'+i)?.checked || false);
+  localStorage.setItem('tracker_techplus', JSON.stringify(state));
+  renderTracker(state);
+}
+
+function renderTracker(state) {
+  let done = 0;
+  state.forEach((checked, i) => {
+    const cb  = document.getElementById('task-'+(i+1));
+    const day = document.getElementById('tday-'+(i+1));
+    if (cb)  cb.checked = checked;
+    if (day) day.classList.toggle('done', checked);
+    if (checked) done++;
+  });
+  const el = document.getElementById('tracker-progress');
+  if (el) el.textContent = done + ' / 5 complete';
+}
+
+function loadTracker() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tracker_techplus') || '[]');
+    if (saved.length === 5) renderTracker(saved);
+  } catch(e) {}
+}
+
+// ── Score Card builder ────────────────────────────────────────────────────────
+function buildScoreCard(score, total) {
+  const pct    = Math.round(score / total * 100);
+  const passed = pct >= 72;
+  const date   = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade  = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= 72 ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return `<div class="score-card ${passed?'pass':'fail'}">
+    <div class="score-card-header">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
+      <div class="score-card-title">CompTIA Tech+ Practice Quiz</div>
+      <div class="score-card-date">${date}</div>
+    </div>
+    <div class="score-card-numbers">
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:${passed?'var(--green)':'#e74c3c'}">${pct}%</div>
+        <div class="score-card-lbl">Score</div>
+      </div>
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:var(--blue)">${score}/${total}</div>
+        <div class="score-card-lbl">Correct</div>
+      </div>
+    </div>
+    <div class="score-card-banner ${passed?'pass':'fail'}">
+      ${passed ? '✓ Above passing threshold (72%)' : '✗ Below passing threshold — retake on Day 5'}
+    </div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
+    <div class="screenshot-prompt">
+      <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
+      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+    </div>
+    <div class="score-card-btns">
+      <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>
+    </div>
+  </div>`;
+}
+
+  loadTracker();
+</script>
+</body>
+</html>

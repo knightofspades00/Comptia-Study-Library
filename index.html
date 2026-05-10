@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Study Library</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d2e;
+    --surface2: #252840;
+    --accent-red: #e74c3c;
+    --accent-blue: #3498db;
+    --accent-green: #2ecc71;
+    --accent-purple: #9b59b6;
+    --accent-orange: #e67e22;
+    --text: #e8eaf0;
+    --text-muted: #8892b0;
+    --border: #2d3153;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 60px 30px;
+    text-align: center;
+  }
+  header .badge {
+    display: inline-block;
+    background: var(--accent-blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  header h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+  header h1 span { color: var(--accent-blue); }
+  header p { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 40px;
+    padding: 20px 60px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 1.6rem; font-weight: 700; color: var(--accent-blue); }
+  .stat .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Main content */
+  main { padding: 50px 60px; max-width: 1200px; margin: 0 auto; }
+  .section-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px; }
+
+  /* Exam cards */
+  .exam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 60px; }
+  .exam-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: var(--text);
+  }
+  .exam-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .exam-card.techplus::before { background: linear-gradient(90deg, #f39c12, #e67e22); }
+  .exam-card.aplus::before { background: linear-gradient(90deg, var(--accent-red), var(--accent-orange)); }
+  .exam-card.netplus::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
+  .exam-card.secplus::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
+  .exam-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: #3d4270; }
+  .exam-card .icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .exam-card .exam-code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .exam-card h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+  .exam-card.techplus h2 { color: #f39c12; }
+  .exam-card.aplus h2 { color: var(--accent-red); }
+  .exam-card.netplus h2 { color: var(--accent-blue); }
+  .exam-card.secplus h2 { color: var(--accent-green); }
+  .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+
+  .domain-list { list-style: none; margin-bottom: 24px; }
+  .domain-list li {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .domain-list li:last-child { border-bottom: none; }
+  .domain-list li::before { content: '▸'; font-size: 0.7rem; }
+
+  .material-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .open-btn {
+    display: block; width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .open-btn:hover { opacity: 0.85; }
+  .exam-card.techplus .open-btn { background: linear-gradient(135deg, #f39c12, #e67e22); color: white; }
+  .exam-card.aplus .open-btn { background: linear-gradient(135deg, var(--accent-red), var(--accent-orange)); color: white; }
+  .exam-card.netplus .open-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; }
+  .exam-card.secplus .open-btn { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
+
+  /* How to use section */
+  .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
+  .howto h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-blue); }
+  .howto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .howto-item { text-align: center; }
+  .howto-item .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--surface2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 700; color: var(--accent-blue);
+    margin: 0 auto 10px;
+  }
+  .howto-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+  .howto-item p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* Content types legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 50px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+  .legend-icon { font-size: 1.4rem; }
+  .legend-item h4 { font-size: 0.85rem; font-weight: 600; }
+  .legend-item p { font-size: 0.75rem; color: var(--text-muted); }
+
+  footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+  /* Week Assignment Section */
+  .assignment-section { background: var(--surface); border: 2px solid var(--accent-blue); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
+  .assignment-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .assignment-section .sub { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px; }
+  .day-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .day-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .day-card .day-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+  .day-card .day-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .day-card .day-task { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+  .day-card .day-submit { margin-top: 8px; font-size: 0.75rem; font-weight: 700; color: #f1c40f; }
+  .day-card.highlight { border-color: var(--accent-blue); }
+  .submission-note { background: rgba(241,196,15,0.08); border: 1px solid rgba(241,196,15,0.4); border-radius: 8px; padding: 14px 18px; font-size: 0.85rem; }
+  .submission-note strong { color: #f1c40f; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Study Library</div>
+  <h1>CompTIA <span>Exam Prep</span></h1>
+  <p>Interactive study materials for A+, Network+, and Security+ certifications</p>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">3</div><div class="label">Exams Covered</div></div>
+  <div class="stat"><div class="num">6</div><div class="label">Material Types</div></div>
+  <div class="stat"><div class="num">150+</div><div class="label">Practice Questions</div></div>
+  <div class="stat"><div class="num">200+</div><div class="label">Flashcards</div></div>
+</div>
+
+<main>
+
+  <div class="howto" style="margin-bottom:40px;">
+    <h3>📚 How to Use This Library</h3>
+    <div class="howto-grid">
+      <div class="howto-item">
+        <div class="step-num">1</div>
+        <h4>Pick Your Exam</h4>
+        <p>Choose which CompTIA cert you're studying for below</p>
+      </div>
+      <div class="howto-item">
+        <div class="step-num">2</div>
+        <h4>Read the Study Guide</h4>
+        <p>Work through domain-by-domain notes covering all exam objectives</p>
+      </div>
+      <div class="howto-item">
+        <div class="step-num">3</div>
+        <h4>Drill Flashcards</h4>
+        <p>Flip through key terms and acronyms until they're second nature</p>
+      </div>
+      <div class="howto-item">
+        <div class="step-num">4</div>
+        <h4>Take Practice Tests</h4>
+        <p>Test yourself with scenario-based questions and review explanations</p>
+      </div>
+      <div class="howto-item">
+        <div class="step-num">5</div>
+        <h4>Review Cheat Sheet</h4>
+        <p>Use the quick-reference sheet the day before your exam</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="assignment-section">
+    <h2>📋 Week Assignment — IT Certification Study</h2>
+    <p class="sub">Work through your chosen exam at your own pace across the week. Choose the exam that matches where you are — Tech+ is beginner-friendly, A+ / Network+ / Security+ are more advanced.</p>
+
+    <div class="day-grid">
+      <div class="day-card highlight">
+        <div class="day-num">Day 1 · Monday</div>
+        <div class="day-title">📖 Study Guide</div>
+        <div class="day-task">Pick your exam below. Open the Study Guide and read through at least 3 domain sections. Write down 5 things you didn't already know.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 2 · Tuesday</div>
+        <div class="day-title">🃏 Flashcards</div>
+        <div class="day-task">Work through all flashcard categories. Use the "Got It / Still Learning" buttons. Aim for 75%+ Got It before moving on.</div>
+        <div class="day-submit">📸 Screenshot your flashcard score</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 3 · Wednesday</div>
+        <div class="day-title">📚 Vocab + Cheat Sheet</div>
+        <div class="day-task">Open the Vocabulary tab. Search for any terms you were unsure of on flashcard day. Then review the Cheat Sheet — use it to quiz yourself.</div>
+      </div>
+      <div class="day-card highlight">
+        <div class="day-num">Day 4 · Thursday</div>
+        <div class="day-title">❓ Practice Quiz</div>
+        <div class="day-task">Take the full practice quiz. Read each explanation — even if you got it right. Target score: 72% or higher (the real CompTIA passing threshold).</div>
+        <div class="day-submit">📸 Screenshot your score card to submit</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 5 · Friday</div>
+        <div class="day-title">🔬 Activities + Retake</div>
+        <div class="day-task">Complete at least one Activity from the Activities tab. If your Thursday score was below 72%, retake the quiz and submit your best score.</div>
+        <div class="day-submit">📸 Submit best quiz score if improved</div>
+      </div>
+    </div>
+
+    <div class="submission-note">
+      <strong>📤 How to Submit:</strong> When you finish the quiz on Day 4, a score card will appear on screen with a yellow "📸 Screenshot This" prompt.
+      Take a screenshot showing your name in the browser tab, your score, and the exam name — then upload it to Google Classroom.
+      Your tracker on each exam page saves your progress automatically so you can pick up where you left off each day.
+    </div>
+  </div>
+
+  <p class="section-title">Choose Your Exam</p>
+
+  <div class="exam-grid">
+
+    <!-- Tech+ Card -->
+    <a href="techplus.html" class="exam-card techplus">
+      <div class="icon">💻</div>
+      <div class="exam-code">FC0-U71</div>
+      <h2>CompTIA Tech+</h2>
+      <p>The entry-level IT fundamentals certification — ideal for students just starting their technology journey.</p>
+      <ul class="domain-list">
+        <li>IT Concepts &amp; Terminology</li>
+        <li>Infrastructure &amp; Networking</li>
+        <li>Applications &amp; Software</li>
+        <li>Software Development Basics</li>
+        <li>Database Fundamentals</li>
+        <li>Security Essentials</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📚 Vocabulary</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">🔬 Activities</span>
+      </div>
+      <span class="open-btn">Open Tech+ Study Hub →</span>
+    </a>
+
+    <!-- A+ Card -->
+    <a href="aplus.html" class="exam-card aplus">
+      <div class="icon">🖥️</div>
+      <div class="exam-code">220-1101 / 220-1102</div>
+      <h2>CompTIA A+</h2>
+      <p>The industry-standard entry-level certification covering hardware, OS, networking, security, and troubleshooting.</p>
+      <ul class="domain-list">
+        <li>Mobile Devices &amp; Hardware</li>
+        <li>Networking Fundamentals</li>
+        <li>Virtualization &amp; Cloud</li>
+        <li>Operating Systems</li>
+        <li>Security &amp; Troubleshooting</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">🔬 Activities</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+      </div>
+      <span class="open-btn">Open A+ Study Hub →</span>
+    </a>
+
+    <!-- Network+ Card -->
+    <a href="network_plus.html" class="exam-card netplus">
+      <div class="icon">🌐</div>
+      <div class="exam-code">N10-009</div>
+      <h2>CompTIA Network+</h2>
+      <p>Validates the skills needed to design, configure, manage, and troubleshoot wired and wireless networks.</p>
+      <ul class="domain-list">
+        <li>Networking Concepts &amp; OSI Model</li>
+        <li>Network Implementation</li>
+        <li>Network Operations</li>
+        <li>Network Security</li>
+        <li>Network Troubleshooting</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">🔬 Activities</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+      </div>
+      <span class="open-btn">Open Network+ Study Hub →</span>
+    </a>
+
+    <!-- Security+ Card -->
+    <a href="security_plus.html" class="exam-card secplus">
+      <div class="icon">🔒</div>
+      <div class="exam-code">SY0-701</div>
+      <h2>CompTIA Security+</h2>
+      <p>The benchmark for best practices in IT security, covering threats, architecture, and risk management.</p>
+      <ul class="domain-list">
+        <li>General Security Concepts</li>
+        <li>Threats, Vulnerabilities &amp; Mitigations</li>
+        <li>Security Architecture</li>
+        <li>Security Operations</li>
+        <li>Security Program Management</li>
+      </ul>
+      <div class="material-chips">
+        <span cla
