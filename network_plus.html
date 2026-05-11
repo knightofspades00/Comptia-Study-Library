@@ -101,6 +101,18 @@ td strong { color: var(--text); }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--green); font-weight: 700; }
 
+/* External Resources */
+.resource-section-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.resource-section-title:first-of-type { margin-top: 0; }
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.resource-card { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+.resource-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+.resource-icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.resource-content { flex: 1; min-width: 0; }
+.resource-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+.resource-host { font-size: 0.72rem; color: var(--text-muted); font-family: 'Consolas', monospace; letter-spacing: 0.5px; margin-bottom: 6px; }
+.resource-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
 /* Performance-based questions (drag-and-drop) */
 .pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
 .pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
@@ -458,7 +470,7 @@ td strong { color: var(--text); }
 @media print {
   body { background: white !important; color: black !important; font-size: 10pt; }
   header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
-  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-notes, #panel-tips,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-resources, #panel-notes, #panel-tips,
   .mock-overlay,
   button, footer { display: none !important; }
   #panel-cheatsheet { display: block !important; padding: 0 !important; }
@@ -501,6 +513,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
   <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
+  <button class="tab-btn" onclick="showTab('resources', event)">🌐 Resources</button>
   <button class="tab-btn" onclick="showTab('notes', event)">✏️ My Notes</button>
   <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
@@ -1440,6 +1453,125 @@ td strong { color: var(--text); }
   <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
   <div class="acro-grid" id="acro-grid"></div>
 </div><!-- /panel-acronyms -->
+
+<!-- ── Resources Panel ───────────────────────────────────────── -->
+<div id="panel-resources" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🌐 Curated External Resources — Network+</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Free, high-quality study materials for the N10-009 exam, plus some hands-on tools for subnetting and packet capture.</p>
+
+  <div class="callout exam-tip" style="margin-bottom:22px;">
+    <strong>⚠️ Heads up — school filtering</strong>
+    <p>YouTube and some other sites may be blocked on school Chromebooks. If a link won't open at school, try it at home. Every category below has at least one text-based alternative.</p>
+  </div>
+
+  <h3 class="resource-section-title">📺 Free Video Courses</h3>
+  <div class="resource-grid">
+    <a href="https://www.professormesser.com/network-plus/n10-009/n10-009-video-training-course/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Professor Messer — N10-009 Course</div>
+        <div class="resource-host">professormesser.com</div>
+        <div class="resource-desc">The go-to free video course for Network+. Covers every domain in short, targeted videos. Watch in order alongside the Study Guide.</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/@PracticalNetworking" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Practical Networking (YouTube)</div>
+        <div class="resource-host">youtube.com</div>
+        <div class="resource-desc">Deeper technical explanations for topics that need them — OSPF, BGP, IPsec, VPNs. Use when Messer's overview isn't enough.</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/@NetworkChuck" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">NetworkChuck (YouTube)</div>
+        <div class="resource-host">youtube.com</div>
+        <div class="resource-desc">Energetic style, lots of hands-on demos. Good for keeping motivated during long study weeks.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">📄 Official CompTIA Materials</h3>
+  <div class="resource-grid">
+    <a href="https://www.comptia.org/certifications/network" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">CompTIA Network+ official page</div>
+        <div class="resource-host">comptia.org</div>
+        <div class="resource-desc">Download the N10-009 exam objectives PDF. Treat it as the authoritative list — anything not listed there won't be on the exam.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">❓ Free Practice Tests</h3>
+  <div class="resource-grid">
+    <a href="https://www.examcompass.com/comptia/network-plus-certification" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">ExamCompass — Network+ practice</div>
+        <div class="resource-host">examcompass.com</div>
+        <div class="resource-desc">Free practice tests organized by domain. Use to round out the Mock Exams in this library.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🛠️ Subnetting & Hands-On Tools</h3>
+  <div class="resource-grid">
+    <a href="https://subnetipv4.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Subnetting Practice (subnetipv4.com)</div>
+        <div class="resource-host">subnetipv4.com</div>
+        <div class="resource-desc">Random subnet problems with instant feedback. Practice 10 minutes daily until you can do /24, /27, /28 in your head.</div>
+      </div>
+    </a>
+    <a href="https://www.subnet-calculator.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Subnet Calculator</div>
+        <div class="resource-host">subnet-calculator.com</div>
+        <div class="resource-desc">Verify your subnetting answers. Shows network, broadcast, usable host range, and binary breakdown.</div>
+      </div>
+    </a>
+    <a href="https://www.wireshark.org" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Wireshark — Packet capture</div>
+        <div class="resource-host">wireshark.org</div>
+        <div class="resource-desc">Free network protocol analyzer. Install at home, capture your own Wi-Fi traffic, and see TCP/IP in action.</div>
+      </div>
+    </a>
+    <a href="https://www.netacad.com/courses/packet-tracer" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Cisco Packet Tracer</div>
+        <div class="resource-host">netacad.com</div>
+        <div class="resource-desc">Free network simulator. Build virtual networks with routers, switches, and end devices. Requires a free Cisco NetAcad account.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🧠 Deep Dives</h3>
+  <div class="resource-grid">
+    <a href="https://datatracker.ietf.org/doc/html/rfc1918" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">RFC 1918 — Private IP Address Space</div>
+        <div class="resource-host">ietf.org</div>
+        <div class="resource-desc">The original specification for 10/8, 172.16/12, 192.168/16. Short, readable. Reading one RFC is a rite of passage for network folks.</div>
+      </div>
+    </a>
+    <a href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">Wikipedia — OSI Model</div>
+        <div class="resource-host">wikipedia.org</div>
+        <div class="resource-desc">Quick reference for each layer with protocol examples. Accessible from most school networks even when YouTube is blocked.</div>
+      </div>
+    </a>
+  </div>
+</div><!-- /panel-resources -->
 
 <!-- ── Notes Panel ───────────────────────────────────────── -->
 <div id="panel-notes" class="tab-panel">

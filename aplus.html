@@ -129,6 +129,18 @@ td strong { color: var(--text); }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--green); font-weight: 700; }
 
+/* External Resources */
+.resource-section-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.resource-section-title:first-of-type { margin-top: 0; }
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.resource-card { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+.resource-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+.resource-icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.resource-content { flex: 1; min-width: 0; }
+.resource-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+.resource-host { font-size: 0.72rem; color: var(--text-muted); font-family: 'Consolas', monospace; letter-spacing: 0.5px; margin-bottom: 6px; }
+.resource-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
 /* Performance-based questions (drag-and-drop) */
 .pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
 .pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
@@ -505,7 +517,7 @@ td strong { color: var(--text); }
 @media print {
   body { background: white !important; color: black !important; font-size: 10pt; }
   header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
-  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-notes, #panel-tips,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-resources, #panel-notes, #panel-tips,
   .mock-overlay,
   .restart-btn, .open-btn, footer, button { display: none !important; }
   #panel-cheatsheet { display: block !important; padding: 0 !important; }
@@ -548,6 +560,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
   <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
+  <button class="tab-btn" onclick="showTab('resources', event)">🌐 Resources</button>
   <button class="tab-btn" onclick="showTab('notes', event)">✏️ My Notes</button>
   <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
@@ -1617,6 +1630,125 @@ td strong { color: var(--text); }
   <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
   <div class="acro-grid" id="acro-grid"></div>
 </div><!-- /panel-acronyms -->
+
+<!-- ── Resources Panel ───────────────────────────────────────── -->
+<div id="panel-resources" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🌐 Curated External Resources — A+</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Free, high-quality study materials for 220-1101 (Core 1) and 220-1102 (Core 2). Both exams required for A+ certification.</p>
+
+  <div class="callout exam-tip" style="margin-bottom:22px;">
+    <strong>⚠️ Heads up — school filtering</strong>
+    <p>YouTube and some other sites may be blocked on school Chromebooks. If a link won't open at school, try it at home. Every category below has at least one text-based alternative.</p>
+  </div>
+
+  <h3 class="resource-section-title">📺 Free Video Courses (Professor Messer is the gold standard)</h3>
+  <div class="resource-grid">
+    <a href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-video-training-course/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Professor Messer — 220-1101 (Core 1)</div>
+        <div class="resource-host">professormesser.com</div>
+        <div class="resource-desc">Hardware, networking, mobile devices, virtualization, hardware troubleshooting. Watch this in order alongside the Study Guide tab.</div>
+      </div>
+    </a>
+    <a href="https://www.professormesser.com/free-a-plus-training/220-1102/220-1102-video-training-course/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Professor Messer — 220-1102 (Core 2)</div>
+        <div class="resource-host">professormesser.com</div>
+        <div class="resource-desc">Operating systems, security, software troubleshooting, operational procedures. Both A+ exams are required for certification.</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/@Total-Sem" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Mike Meyers / Total Seminars (YouTube)</div>
+        <div class="resource-host">youtube.com</div>
+        <div class="resource-desc">A different teaching style — shorter targeted videos. Switch to this if Professor Messer's style isn't clicking.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">📄 Official CompTIA Materials</h3>
+  <div class="resource-grid">
+    <a href="https://www.comptia.org/certifications/a" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">CompTIA A+ official page</div>
+        <div class="resource-host">comptia.org</div>
+        <div class="resource-desc">Download the exam objectives PDFs for both Core 1 and Core 2. Memorize the percentages — the exam allocates questions by domain.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">❓ Free Practice Tests</h3>
+  <div class="resource-grid">
+    <a href="https://www.examcompass.com/comptia/a-plus-certification" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">ExamCompass — A+ practice tests</div>
+        <div class="resource-host">examcompass.com</div>
+        <div class="resource-desc">Free practice tests sectioned by domain. Use to spot weak areas between Mock Exams.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🧠 Deep Dives</h3>
+  <div class="resource-grid">
+    <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-domain-services" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">Microsoft Learn — Active Directory</div>
+        <div class="resource-host">learn.microsoft.com</div>
+        <div class="resource-desc">Official Microsoft docs on AD, GPOs, OUs. A+ Core 2 covers AD basics — read the intro pages here for accurate context.</div>
+      </div>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/windows/client-management/client-tools/windows-commands/windows-commands" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">Microsoft — Windows Commands Reference</div>
+        <div class="resource-host">learn.microsoft.com</div>
+        <div class="resource-desc">Official documentation for every Windows CLI tool — ipconfig, sfc, chkdsk, diskpart, net use. Bookmark this.</div>
+      </div>
+    </a>
+    <a href="https://support.apple.com/guide/mac-help/welcome/mac" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">Apple — macOS User Guide</div>
+        <div class="resource-host">support.apple.com</div>
+        <div class="resource-desc">Quick reference for macOS shortcuts (Cmd+Option+Esc, Disk Utility, Spotlight). A+ Core 2 covers macOS basics.</div>
+      </div>
+    </a>
+    <a href="https://linuxjourney.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">Linux Journey</div>
+        <div class="resource-host">linuxjourney.com</div>
+        <div class="resource-desc">Free, beginner-friendly Linux course. Covers the Linux commands A+ tests (ls, chmod, ps, grep, sudo).</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🛠️ Hands-On Practice</h3>
+  <div class="resource-grid">
+    <a href="https://www.virtualbox.org" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">VirtualBox — Free hypervisor</div>
+        <div class="resource-host">virtualbox.org</div>
+        <div class="resource-desc">Install Linux or Windows in a VM at home to practice OS troubleshooting commands. Type-2 hypervisor (host-installed).</div>
+      </div>
+    </a>
+    <a href="https://www.reddit.com/r/CompTIA/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">r/CompTIA on Reddit</div>
+        <div class="resource-host">reddit.com</div>
+        <div class="resource-desc">Active community sharing study tips, exam experiences, and resource recommendations. Search before posting — most questions have been answered.</div>
+      </div>
+    </a>
+  </div>
+</div><!-- /panel-resources -->
 
 <!-- ── Notes Panel ───────────────────────────────────────── -->
 <div id="panel-notes" class="tab-panel">

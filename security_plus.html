@@ -94,6 +94,18 @@ td strong { color: var(--text); }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--accent); font-weight: 700; }
 
+/* External Resources */
+.resource-section-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.resource-section-title:first-of-type { margin-top: 0; }
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.resource-card { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+.resource-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+.resource-icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.resource-content { flex: 1; min-width: 0; }
+.resource-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+.resource-host { font-size: 0.72rem; color: var(--text-muted); font-family: 'Consolas', monospace; letter-spacing: 0.5px; margin-bottom: 6px; }
+.resource-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
 /* Performance-based questions (drag-and-drop) */
 .pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
 .pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
@@ -451,7 +463,7 @@ td strong { color: var(--text); }
 @media print {
   body { background: white !important; color: black !important; font-size: 10pt; }
   header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
-  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-notes, #panel-tips,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-resources, #panel-notes, #panel-tips,
   .mock-overlay,
   button, footer { display: none !important; }
   #panel-cheatsheet { display: block !important; padding: 0 !important; }
@@ -494,6 +506,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
   <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
+  <button class="tab-btn" onclick="showTab('resources', event)">🌐 Resources</button>
   <button class="tab-btn" onclick="showTab('notes', event)">✏️ My Notes</button>
   <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
@@ -1466,6 +1479,125 @@ td strong { color: var(--text); }
   <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
   <div class="acro-grid" id="acro-grid"></div>
 </div><!-- /panel-acronyms -->
+
+<!-- ── Resources Panel ───────────────────────────────────────── -->
+<div id="panel-resources" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🌐 Curated External Resources — Security+</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Free, high-quality study materials for SY0-701, plus links to the industry frameworks Security+ tests (NIST CSF, MITRE ATT&amp;CK, OWASP).</p>
+
+  <div class="callout exam-tip" style="margin-bottom:22px;">
+    <strong>⚠️ Heads up — school filtering</strong>
+    <p>YouTube and some other sites may be blocked on school Chromebooks. If a link won't open at school, try it at home. Every category below has at least one text-based alternative.</p>
+  </div>
+
+  <h3 class="resource-section-title">📺 Free Video Courses</h3>
+  <div class="resource-grid">
+    <a href="https://www.professormesser.com/sy0-701-comptia-security-plus-training-course/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Professor Messer — SY0-701 Course</div>
+        <div class="resource-host">professormesser.com</div>
+        <div class="resource-desc">The free Security+ standard. Every objective covered in short videos. Watch in order alongside this Study Guide.</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/@JohnHammond010" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">John Hammond (YouTube)</div>
+        <div class="resource-host">youtube.com</div>
+        <div class="resource-desc">Live malware analysis, CTF walk-throughs, real-world security demos. Watch for context, not as your primary study tool.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">📄 Official CompTIA Materials</h3>
+  <div class="resource-grid">
+    <a href="https://www.comptia.org/certifications/security" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">CompTIA Security+ official page</div>
+        <div class="resource-host">comptia.org</div>
+        <div class="resource-desc">Download the SY0-701 exam objectives PDF — including the full acronym appendix that's notoriously long.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">❓ Free Practice Tests</h3>
+  <div class="resource-grid">
+    <a href="https://www.examcompass.com/comptia/security-plus-certification" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">ExamCompass — Security+ practice</div>
+        <div class="resource-host">examcompass.com</div>
+        <div class="resource-desc">Free practice tests organized by domain. Use to spot weak areas between Mock Exams.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🏛️ Industry Frameworks (memorize these)</h3>
+  <div class="resource-grid">
+    <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">NIST Cybersecurity Framework (CSF)</div>
+        <div class="resource-host">nist.gov</div>
+        <div class="resource-desc">The 5 functions (Identify, Protect, Detect, Respond, Recover) are on every Security+ exam. Bookmark this — it's free and from the source.</div>
+      </div>
+    </a>
+    <a href="https://attack.mitre.org" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">MITRE ATT&amp;CK Framework</div>
+        <div class="resource-host">attack.mitre.org</div>
+        <div class="resource-desc">The matrix of attacker tactics and techniques. Browse the Tactics tab to understand the kill-chain phases SY0-701 references.</div>
+      </div>
+    </a>
+    <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">OWASP Top 10</div>
+        <div class="resource-host">owasp.org</div>
+        <div class="resource-desc">The 10 most critical web application security risks. Security+ tests recognition of these (SQL injection, XSS, broken auth).</div>
+      </div>
+    </a>
+    <a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div class="resource-content">
+        <div class="resource-title">NIST SP 800-53 — Security Controls Catalog</div>
+        <div class="resource-host">nist.gov</div>
+        <div class="resource-desc">The reference catalog for security controls. You don't need to memorize it — skim the family list (AC, AU, CM, IR, RA, etc.) so the acronyms are familiar.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🛠️ Hands-On Practice</h3>
+  <div class="resource-grid">
+    <a href="https://tryhackme.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">TryHackMe</div>
+        <div class="resource-host">tryhackme.com</div>
+        <div class="resource-desc">Browser-based hands-on security labs. Free tier covers a lot. The "Pre-Security" and "Cyber Security 101" paths align well with SY0-701.</div>
+      </div>
+    </a>
+    <a href="https://www.hackthebox.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Hack The Box (HTB Academy)</div>
+        <div class="resource-host">hackthebox.com</div>
+        <div class="resource-desc">More advanced than TryHackMe. Browse the free intro modules. Aspirational rather than required for the exam.</div>
+      </div>
+    </a>
+    <a href="https://haveibeenpwned.com" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛠️</div>
+      <div class="resource-content">
+        <div class="resource-title">Have I Been Pwned?</div>
+        <div class="resource-host">haveibeenpwned.com</div>
+        <div class="resource-desc">Check your own emails against known breaches. Makes "credential stuffing" feel real instead of abstract.</div>
+      </div>
+    </a>
+  </div>
+</div><!-- /panel-resources -->
 
 <!-- ── Notes Panel ───────────────────────────────────────── -->
 <div id="panel-notes" class="tab-panel">
