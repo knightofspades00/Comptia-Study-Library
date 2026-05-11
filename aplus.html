@@ -37,7 +37,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .meta-item strong { color: var(--text); }
 
 /* TABS */
-.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 30px; overflow-x: auto; }
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; padding: 0 30px; }
 .tab-btn {
   background: none; border: none; color: var(--text-muted); cursor: pointer;
   padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap;
@@ -1417,6 +1417,7 @@ td strong { color: var(--text); }
       <li>For Scenario B: Which port(s) should you check? What protocol is used for outgoing vs incoming email?</li>
       <li>For Scenario C: Why can the user not reach the printer? What networking concept explains this, and what solution would fix it?</li>
     </ol>
+  </div>
 
   <div class="activity-card">
     <div class="act-type">🔬 Research Activity</div>
@@ -1435,6 +1436,7 @@ td strong { color: var(--text); }
       <span class="resource-link">🔗 support.microsoft.com — BitLocker documentation</span>
     </div>
   </div>
+</div><!-- /panel-activities -->
 
 <!-- ===== CONCEPTS & VISUALS ===== -->
 <div id="panel-concepts" class="tab-panel">
@@ -1618,9 +1620,7 @@ td strong { color: var(--text); }
 
 </div><!-- end panel-concepts -->
 
-</div>
-
-</div>
+</div><!-- /content-area -->
 
 
 <!-- ── Acronyms Panel ───────────────────────────────────────── -->
