@@ -101,6 +101,88 @@ td strong { color: var(--text); }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--green); font-weight: 700; }
 
+/* Performance-based questions (drag-and-drop) */
+.pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
+.pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.pbq-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.pbq-card > p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; }
+.pbq-board { display: grid; grid-template-columns: minmax(160px, 240px) 1fr; gap: 22px; align-items: start; }
+@media (max-width: 720px) { .pbq-board { grid-template-columns: 1fr; } }
+.pbq-pool { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 14px; min-height: 100px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.pbq-pool.over { border-color: var(--accent); }
+.pbq-chip { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 7px 14px; border-radius: 18px; font-size: 0.82rem; font-weight: 600; cursor: grab; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.pbq-chip:active { cursor: grabbing; }
+.pbq-chip.placed { opacity: 0.85; }
+.pbq-chip.correct { background: linear-gradient(135deg, var(--green), #16a085); }
+.pbq-chip.incorrect { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.pbq-targets { display: flex; flex-direction: column; gap: 8px; }
+.pbq-row { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center; }
+@media (max-width: 720px) { .pbq-row { grid-template-columns: 100px 1fr; } }
+.pbq-slot { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 7px; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+.pbq-slot.over { border-color: var(--accent); background: rgba(52,152,219,0.08); }
+.pbq-label { font-size: 0.83rem; color: var(--text); }
+.pbq-actions { margin-top: 16px; display: flex; gap: 8px; }
+.pbq-actions button { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.pbq-actions button:hover { border-color: var(--accent); color: var(--accent); }
+.pbq-result { margin-top: 14px; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; display: none; }
+.pbq-result.show { display: block; }
+.pbq-result.pass { background: rgba(46,204,113,0.15); border: 1px solid var(--green); color: var(--green); }
+.pbq-result.fail { background: rgba(231,76,60,0.15); border: 1px solid #e74c3c; color: #e74c3c; }
+
+/* Notes panel */
+.notes-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.notes-status { font-size: 0.78rem; color: var(--text-muted); }
+.notes-status.saving { color: #f39c12; }
+.notes-status.saved { color: var(--green); }
+.notes-btns { display: flex; gap: 8px; }
+.notes-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; }
+.notes-btn:hover { border-color: var(--blue); color: var(--blue); }
+.notes-btn.notes-btn-danger:hover { border-color: #e74c3c; color: #e74c3c; }
+.notes-textarea { width: 100%; min-height: 420px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 16px 18px; border-radius: 8px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.92rem; line-height: 1.6; resize: vertical; box-sizing: border-box; }
+.notes-textarea:focus { outline: 1px solid var(--blue); }
+
+/* Acronyms panel */
+.acro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.acro-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.acro-acro { font-family: 'Consolas', monospace; font-weight: 700; color: var(--blue); font-size: 0.95rem; margin-bottom: 4px; }
+.acro-full { font-size: 0.85rem; color: var(--text); margin-bottom: 4px; }
+.acro-note { font-size: 0.78rem; color: var(--text-muted); }
+
+/* Mock Exam */
+.mock-exam-btn { background: linear-gradient(135deg, #e74c3c, #f39c12); color: white; border: none; padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; }
+.mock-exam-btn:hover { opacity: 0.9; box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
+.mock-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 1000; overflow-y: auto; }
+.mock-overlay.active { display: flex; flex-direction: column; }
+.mock-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
+.mock-bar-left { display: flex; align-items: center; gap: 18px; font-size: 0.95rem; }
+.mock-bar-left strong { color: var(--accent); }
+.mock-progress-text { font-size: 0.82rem; color: var(--text-muted); }
+.mock-bar-center { flex: 1; text-align: center; }
+.mock-timer { font-family: 'Consolas', monospace; font-size: 1.6rem; font-weight: 700; color: var(--blue); letter-spacing: 2px; }
+.mock-timer.warning { color: #f39c12; }
+.mock-timer.danger { color: #e74c3c; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.mock-bar-right { display: flex; gap: 8px; }
+.mock-btn-submit { background: linear-gradient(135deg, #27ae60, #16a085); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700; }
+.mock-btn-exit { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.mock-body { max-width: 860px; margin: 0 auto; padding: 28px; flex: 1; width: 100%; box-sizing: border-box; }
+.mock-question { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+.mock-question .mock-q-num { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.mock-question .mock-q-text { font-size: 1.05rem; line-height: 1.6; margin-bottom: 22px; }
+.mock-question .mock-opts { display: flex; flex-direction: column; gap: 10px; }
+.mock-question .mock-opt { background: var(--surface2); border: 1px solid var(--border); color: var(--text); text-align: left; padding: 14px 18px; border-radius: 8px; cursor: pointer; font-size: 0.92rem; font-family: inherit; transition: all 0.15s; }
+.mock-question .mock-opt:hover { border-color: var(--blue); }
+.mock-question .mock-opt.selected { background: rgba(52,152,219,0.18); border-color: var(--blue); }
+.mock-question .mock-letter { font-weight: 700; color: var(--text-muted); margin-right: 10px; }
+.mock-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.mock-nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.mock-nav-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+.mock-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.mock-palette { display: flex; flex-wrap: wrap; gap: 4px; max-width: 560px; }
+.mock-palette-cell { width: 24px; height: 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); cursor: pointer; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+.mock-palette-cell.answered { background: rgba(52,152,219,0.4); color: white; border-color: var(--blue); }
+.mock-palette-cell.current { outline: 2px solid var(--accent); }
+
 /* Mastery bars */
 .mastery-section { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
 .mastery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
@@ -376,7 +458,8 @@ td strong { color: var(--text); }
 @media print {
   body { background: white !important; color: black !important; font-size: 10pt; }
   header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
-  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-tips,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-notes, #panel-tips,
+  .mock-overlay,
   button, footer { display: none !important; }
   #panel-cheatsheet { display: block !important; padding: 0 !important; }
   #panel-cheatsheet h2 { font-size: 16pt !important; color: black !important; }
@@ -417,6 +500,8 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
+  <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
+  <button class="tab-btn" onclick="showTab('notes', event)">✏️ My Notes</button>
   <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
 
@@ -892,8 +977,36 @@ td strong { color: var(--text); }
     <div id="question-area"></div>
   </div>
   <div id="quiz-result" class="quiz-result" style="display:none;"></div>
-  <div style="margin-top:20px;">
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
     <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;">🔄 Restart Quiz</button>
+    <button class="mock-exam-btn" onclick="startMockExam()">🎯 Take Mock Exam (90 Qs · 90 min)</button>
+  </div>
+  <div class="callout exam-tip" style="margin-top:14px;">
+    <strong>📌 Mock Exam mode</strong>
+    <p>One question at a time, no per-question feedback — just like the real N10-009 exam (max 90 questions, 90 minutes). At the end you'll see your score, time used, and missed questions with explanations. Aim for <strong>80%+</strong> before scheduling.</p>
+  </div>
+</div>
+
+<!-- Mock Exam overlay -->
+<div id="mock-exam-overlay" class="mock-overlay">
+  <div class="mock-bar">
+    <div class="mock-bar-left">
+      <strong>🎯 Network+ Mock Exam</strong>
+      <span class="mock-progress-text">Question <span id="mock-q-current">1</span> of <span id="mock-q-total">90</span></span>
+    </div>
+    <div class="mock-bar-center"><span class="mock-timer" id="mock-timer">90:00</span></div>
+    <div class="mock-bar-right">
+      <button class="mock-btn-submit" onclick="submitMockExam()">Submit Exam ✓</button>
+      <button class="mock-btn-exit" onclick="cancelMockExam()">Exit ✗</button>
+    </div>
+  </div>
+  <div class="mock-body">
+    <div class="mock-question" id="mock-question-area"></div>
+    <div class="mock-controls">
+      <button class="mock-nav-btn" id="mock-prev-btn" onclick="prevMockQ()">← Previous</button>
+      <span class="mock-palette" id="mock-palette"></span>
+      <button class="mock-nav-btn" id="mock-next-btn" onclick="nextMockQ()">Next →</button>
+    </div>
   </div>
 </div>
 
@@ -966,8 +1079,108 @@ td strong { color: var(--text); }
 
 <!-- ACTIVITIES -->
 <div id="panel-activities" class="tab-panel">
-  <h2 style="margin-bottom:6px;font-size:1.1rem;">Reading &amp; Research Activities</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Deepen your understanding through guided analysis and research</p>
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Performance Activities &amp; Research</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Drag-and-drop scenarios + research tasks. The real N10-009 exam has performance-based questions — practice the format.</p>
+
+  <!-- PBQ 1: Ports -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 1</div>
+    <h3>Match each PORT to its PROTOCOL</h3>
+    <p>Drag each port number from the pool to the slot next to the protocol that uses it.</p>
+    <div class="pbq-board" data-pbq="ports">
+      <div class="pbq-pool" id="pbq-pool-ports">
+        <div class="pbq-chip" draggable="true" data-value="22">22</div>
+        <div class="pbq-chip" draggable="true" data-value="53">53</div>
+        <div class="pbq-chip" draggable="true" data-value="80">80</div>
+        <div class="pbq-chip" draggable="true" data-value="123">123</div>
+        <div class="pbq-chip" draggable="true" data-value="161">161</div>
+        <div class="pbq-chip" draggable="true" data-value="389">389</div>
+        <div class="pbq-chip" draggable="true" data-value="443">443</div>
+        <div class="pbq-chip" draggable="true" data-value="3389">3389</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="22"></div><div class="pbq-label">SSH — secure shell</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="53"></div><div class="pbq-label">DNS — name resolution</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="80"></div><div class="pbq-label">HTTP</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="123"></div><div class="pbq-label">NTP — time sync</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="161"></div><div class="pbq-label">SNMP — monitoring</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="389"></div><div class="pbq-label">LDAP</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="443"></div><div class="pbq-label">HTTPS</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3389"></div><div class="pbq-label">RDP</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ports')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ports')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ports"></div>
+  </div>
+
+  <!-- PBQ 2: OSI layer -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 2</div>
+    <h3>Match each DEVICE or PROTOCOL to its OSI LAYER</h3>
+    <p>Drag from the pool. The right column lists OSI layers — drop each item next to the layer where it operates.</p>
+    <div class="pbq-board" data-pbq="osi">
+      <div class="pbq-pool" id="pbq-pool-osi">
+        <div class="pbq-chip" draggable="true" data-value="L1">Cables / Hubs</div>
+        <div class="pbq-chip" draggable="true" data-value="L2">Switch / MAC</div>
+        <div class="pbq-chip" draggable="true" data-value="L3">Router / IP</div>
+        <div class="pbq-chip" draggable="true" data-value="L4">TCP / UDP</div>
+        <div class="pbq-chip" draggable="true" data-value="L5">Session establishment</div>
+        <div class="pbq-chip" draggable="true" data-value="L6">TLS / Encryption</div>
+        <div class="pbq-chip" draggable="true" data-value="L7">HTTP / DNS</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L1"></div><div class="pbq-label">Layer 1 — Physical</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L2"></div><div class="pbq-label">Layer 2 — Data Link</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L3"></div><div class="pbq-label">Layer 3 — Network</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L4"></div><div class="pbq-label">Layer 4 — Transport</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L5"></div><div class="pbq-label">Layer 5 — Session</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L6"></div><div class="pbq-label">Layer 6 — Presentation</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="L7"></div><div class="pbq-label">Layer 7 — Application</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('osi')">✓ Check Answers</button>
+      <button onclick="resetPBQ('osi')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-osi"></div>
+  </div>
+
+  <!-- PBQ 3: Troubleshooting commands -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 3</div>
+    <h3>Drag each COMMAND to the SCENARIO that uses it</h3>
+    <p>A user reports each issue below. Drag the correct diagnostic command into the slot.</p>
+    <div class="pbq-board" data-pbq="cmd">
+      <div class="pbq-pool" id="pbq-pool-cmd">
+        <div class="pbq-chip" draggable="true" data-value="ping">ping</div>
+        <div class="pbq-chip" draggable="true" data-value="tracert">tracert</div>
+        <div class="pbq-chip" draggable="true" data-value="ipconfig">ipconfig /all</div>
+        <div class="pbq-chip" draggable="true" data-value="nslookup">nslookup</div>
+        <div class="pbq-chip" draggable="true" data-value="netstat">netstat -ano</div>
+        <div class="pbq-chip" draggable="true" data-value="arp">arp -a</div>
+        <div class="pbq-chip" draggable="true" data-value="iperf">iperf3</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ping"></div><div class="pbq-label">Test if a host responds</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="tracert"></div><div class="pbq-label">See every hop to a destination</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ipconfig"></div><div class="pbq-label">Show your IP, MAC, gateway, DNS</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="nslookup"></div><div class="pbq-label">Resolve a hostname manually</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="netstat"></div><div class="pbq-label">List active connections with PIDs</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="arp"></div><div class="pbq-label">View the MAC-to-IP cache</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="iperf"></div><div class="pbq-label">Measure throughput between two hosts</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('cmd')">✓ Check Answers</button>
+      <button onclick="resetPBQ('cmd')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-cmd"></div>
+  </div>
+
+  <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading &amp; Research</h3>
 
   <div class="activity-card">
     <div class="act-type">📖 Reading Comprehension</div>
@@ -1220,6 +1433,30 @@ td strong { color: var(--text); }
 </div>
 
 
+<!-- ── Acronyms Panel ───────────────────────────────────────── -->
+<div id="panel-acronyms" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">CompTIA Network+ Acronym Master List</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">Network+ is acronym-heavy. Search to find any term fast.</p>
+  <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
+  <div class="acro-grid" id="acro-grid"></div>
+</div><!-- /panel-acronyms -->
+
+<!-- ── Notes Panel ───────────────────────────────────────── -->
+<div id="panel-notes" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">✏️ My Network+ Notes</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Write your own notes here. Saves automatically in your browser. Great for subnet practice, port numbers, troubleshooting steps.</p>
+  <div class="notes-toolbar">
+    <span class="notes-status" id="notes-status">All changes saved</span>
+    <div class="notes-btns">
+      <button class="notes-btn" onclick="downloadNotes()">⬇ Download as .txt</button>
+      <button class="notes-btn" onclick="copyNotes()">📋 Copy all</button>
+      <button class="notes-btn notes-btn-danger" onclick="clearNotes()">🗑 Clear</button>
+    </div>
+  </div>
+  <textarea id="notes-text" class="notes-textarea" placeholder="Start typing your notes here..." oninput="saveNotes()" spellcheck="true"></textarea>
+</div><!-- /panel-notes -->
+
+
 <!-- ── Tips & Careers Panel ───────────────────────────────────────── -->
 <div id="panel-tips" class="tab-panel">
   <div class="tips-section-title">🧠 Memory Tricks & Mnemonics</div>
@@ -1462,6 +1699,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof loadTracker === 'function') loadTracker();
   recordVisit();
   renderMasteryBars();
+  loadNotes();
+  buildAcronyms(acronyms);
+  initPBQ();
 });
 
 function showTab(name, ev) {
@@ -1940,6 +2180,346 @@ function showResult() {
   document.getElementById('quiz-result').style.display = 'block';
   document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
   recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
+}
+
+// ─── Performance-based questions (drag-and-drop) ───────────────────────────
+let pbqDragged = null;
+function initPBQ() {
+  document.querySelectorAll('.pbq-chip').forEach(chip => {
+    chip.addEventListener('dragstart', e => { pbqDragged = chip; chip.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; });
+    chip.addEventListener('dragend', () => { chip.classList.remove('dragging'); pbqDragged = null; });
+  });
+  document.querySelectorAll('.pbq-slot, .pbq-pool').forEach(target => {
+    target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+    target.addEventListener('dragleave', () => target.classList.remove('over'));
+    target.addEventListener('drop', e => {
+      e.preventDefault();
+      target.classList.remove('over');
+      if (!pbqDragged) return;
+      if (target.classList.contains('pbq-slot')) {
+        const existing = target.querySelector('.pbq-chip');
+        if (existing) {
+          const pool = target.closest('.pbq-board').querySelector('.pbq-pool');
+          existing.classList.remove('placed', 'correct', 'incorrect');
+          pool.appendChild(existing);
+        }
+      }
+      target.appendChild(pbqDragged);
+      pbqDragged.classList.remove('correct', 'incorrect');
+      if (target.classList.contains('pbq-slot')) pbqDragged.classList.add('placed');
+      else pbqDragged.classList.remove('placed');
+    });
+  });
+}
+function checkPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]'); if (!board) return;
+  let correct = 0, total = 0;
+  board.querySelectorAll('.pbq-slot').forEach(slot => {
+    total++;
+    const chip = slot.querySelector('.pbq-chip');
+    chip?.classList.remove('correct', 'incorrect');
+    if (chip && chip.dataset.value === slot.dataset.correct) { chip.classList.add('correct'); correct++; }
+    else if (chip) chip.classList.add('incorrect');
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) {
+    const pct = total ? Math.round(correct / total * 100) : 0;
+    result.className = 'pbq-result show ' + (correct === total ? 'pass' : 'fail');
+    result.textContent = correct === total
+      ? '🎉 All ' + total + ' correct! This is what a Network+ performance-based question looks like.'
+      : '✗ ' + correct + ' / ' + total + ' (' + pct + '%). Red chips are in the wrong slot — drag them to fix, then check again.';
+  }
+}
+function resetPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]'); if (!board) return;
+  const pool = board.querySelector('.pbq-pool');
+  board.querySelectorAll('.pbq-slot .pbq-chip').forEach(chip => {
+    chip.classList.remove('placed', 'correct', 'incorrect');
+    pool.appendChild(chip);
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) { result.className = 'pbq-result'; result.textContent = ''; }
+}
+
+// ─── Notes ─────────────────────────────────────────────────────────────────
+let notesSaveTimer = null;
+function saveNotes() {
+  const text = document.getElementById('notes-text').value;
+  const status = document.getElementById('notes-status');
+  status.textContent = 'Saving…'; status.className = 'notes-status saving';
+  clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    try { localStorage.setItem('notes_netplus', text); status.textContent = 'All changes saved'; status.className = 'notes-status saved'; }
+    catch(e) { status.textContent = 'Could not save (storage full?)'; status.className = 'notes-status'; }
+  }, 300);
+}
+function loadNotes() { try { const el = document.getElementById('notes-text'); if (el) el.value = localStorage.getItem('notes_netplus') || ''; } catch(e) {} }
+function clearNotes() {
+  if (!confirm('Erase all your Network+ notes? This cannot be undone.')) return;
+  document.getElementById('notes-text').value = '';
+  localStorage.removeItem('notes_netplus');
+  document.getElementById('notes-status').textContent = 'Notes cleared';
+}
+function downloadNotes() {
+  const text = document.getElementById('notes-text').value;
+  if (!text.trim()) { alert('No notes to download yet.'); return; }
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'comptia-netplus-notes-' + new Date().toISOString().slice(0,10) + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function copyNotes() {
+  const text = document.getElementById('notes-text').value;
+  if (!text.trim()) { alert('No notes to copy yet.'); return; }
+  navigator.clipboard.writeText(text).then(
+    () => { const s = document.getElementById('notes-status'); s.textContent = '✓ Copied to clipboard'; s.className = 'notes-status saved'; },
+    () => alert('Could not copy. Try selecting and pressing Ctrl+C.')
+  );
+}
+
+// ─── Acronyms ──────────────────────────────────────────────────────────────
+const acronyms = [
+  { a: '802.1X', f: 'IEEE Port-Based Network Access Control', n: 'Authenticates devices on a network port (uses RADIUS)' },
+  { a: '802.11', f: 'IEEE Wireless LAN standards', n: 'Wi-Fi (a/b/g/n/ac/ax/be)' },
+  { a: 'ACL', f: 'Access Control List', n: 'Rules controlling traffic on a router/firewall' },
+  { a: 'AP', f: 'Access Point', n: 'Wireless AP extending a wired network' },
+  { a: 'APIPA', f: 'Automatic Private IP Addressing', n: '169.254.x.x — DHCP fallback' },
+  { a: 'ARP', f: 'Address Resolution Protocol', n: 'Maps IP to MAC on a LAN' },
+  { a: 'AS', f: 'Autonomous System', n: 'Group of IP networks under one routing policy (BGP)' },
+  { a: 'BGP', f: 'Border Gateway Protocol', n: 'Routes between Autonomous Systems on the internet' },
+  { a: 'BPDU', f: 'Bridge Protocol Data Unit', n: 'Spanning Tree message between switches' },
+  { a: 'CAM', f: 'Content Addressable Memory', n: 'Switch table mapping MACs to ports' },
+  { a: 'CDP', f: 'Cisco Discovery Protocol', n: 'L2 protocol for discovering Cisco neighbors' },
+  { a: 'CIDR', f: 'Classless Inter-Domain Routing', n: 'Prefix-length notation (e.g., /24)' },
+  { a: 'CSMA/CD', f: 'Carrier Sense Multiple Access with Collision Detection', n: 'Half-duplex Ethernet access method' },
+  { a: 'DDoS', f: 'Distributed Denial of Service', n: 'Many-to-one attack flooding a target' },
+  { a: 'DHCP', f: 'Dynamic Host Configuration Protocol', n: 'Auto-assigns IPs (DORA process: Discover, Offer, Request, Ack)' },
+  { a: 'DMZ', f: 'Demilitarized Zone', n: 'Semi-trusted zone for public-facing servers' },
+  { a: 'DNS', f: 'Domain Name System', n: 'Hostname-to-IP resolution (port 53)' },
+  { a: 'DSL', f: 'Digital Subscriber Line', n: 'Broadband over phone lines' },
+  { a: 'EIGRP', f: 'Enhanced Interior Gateway Routing Protocol', n: 'Cisco-proprietary IGP (hybrid distance-vector + link-state)' },
+  { a: 'EUI-64', f: 'Extended Unique Identifier 64-bit', n: 'IPv6 interface ID derived from MAC' },
+  { a: 'FHRP', f: 'First Hop Redundancy Protocol', n: 'Virtual gateway IP (HSRP, VRRP)' },
+  { a: 'GBIC', f: 'Gigabit Interface Converter', n: 'Legacy transceiver form factor' },
+  { a: 'HSRP', f: 'Hot Standby Router Protocol', n: 'Cisco FHRP — active/standby routers share a virtual IP' },
+  { a: 'HTTP', f: 'HyperText Transfer Protocol', n: 'Port 80 — unencrypted web' },
+  { a: 'HTTPS', f: 'HTTP Secure', n: 'Port 443 — TLS-encrypted web' },
+  { a: 'ICMP', f: 'Internet Control Message Protocol', n: 'Used by ping, traceroute, error messages' },
+  { a: 'IDS', f: 'Intrusion Detection System', n: 'Passive — alerts on suspicious traffic' },
+  { a: 'IDF', f: 'Intermediate Distribution Frame', n: 'Wiring closet (between MDF and end devices)' },
+  { a: 'IGMP', f: 'Internet Group Management Protocol', n: 'Hosts join/leave IPv4 multicast groups' },
+  { a: 'IMAP', f: 'Internet Message Access Protocol', n: 'Port 143 — email kept on server' },
+  { a: 'IPS', f: 'Intrusion Prevention System', n: 'Active — blocks suspicious traffic inline' },
+  { a: 'IPv4', f: 'Internet Protocol version 4', n: '32-bit addresses (dotted decimal)' },
+  { a: 'IPv6', f: 'Internet Protocol version 6', n: '128-bit hex addresses' },
+  { a: 'ISP', f: 'Internet Service Provider', n: 'Company providing internet access' },
+  { a: 'iSCSI', f: 'Internet Small Computer System Interface', n: 'Block storage over IP' },
+  { a: 'LACP', f: 'Link Aggregation Control Protocol', n: 'Bonds multiple physical links into one logical link' },
+  { a: 'LAN', f: 'Local Area Network', n: 'Network in one location' },
+  { a: 'LDAP', f: 'Lightweight Directory Access Protocol', n: 'Queries directory services (port 389; 636 LDAPS)' },
+  { a: 'LLDP', f: 'Link Layer Discovery Protocol', n: 'Vendor-neutral neighbor discovery (802.1AB)' },
+  { a: 'MAC', f: 'Media Access Control', n: '48-bit hardware address (Layer 2)' },
+  { a: 'MAN', f: 'Metropolitan Area Network', n: 'City-sized network' },
+  { a: 'MDF', f: 'Main Distribution Frame', n: 'Primary wiring closet for a building' },
+  { a: 'MIB', f: 'Management Information Base', n: 'SNMP database of manageable objects' },
+  { a: 'MPLS', f: 'Multiprotocol Label Switching', n: 'WAN technology using labels instead of IP lookups' },
+  { a: 'MTU', f: 'Maximum Transmission Unit', n: 'Largest frame size (Ethernet default 1500)' },
+  { a: 'NAT', f: 'Network Address Translation', n: 'Maps private to public IPs' },
+  { a: 'NIC', f: 'Network Interface Card', n: 'Hardware connecting a device to a network' },
+  { a: 'NTP', f: 'Network Time Protocol', n: 'Port 123 — clock synchronization' },
+  { a: 'OSI', f: 'Open Systems Interconnection', n: '7-layer reference model' },
+  { a: 'OSPF', f: 'Open Shortest Path First', n: 'Link-state IGP — uses Dijkstra' },
+  { a: 'OUI', f: 'Organizationally Unique Identifier', n: 'First 3 octets of a MAC — vendor ID' },
+  { a: 'PAT', f: 'Port Address Translation', n: 'NAT overload — many to one' },
+  { a: 'PoE', f: 'Power over Ethernet', n: 'Delivers power + data over one cable' },
+  { a: 'POP3', f: 'Post Office Protocol v3', n: 'Port 110 — email download + delete' },
+  { a: 'QoS', f: 'Quality of Service', n: 'Traffic prioritization (DSCP/CoS)' },
+  { a: 'RADIUS', f: 'Remote Authentication Dial-In User Service', n: 'AAA protocol; common for 802.1X / VPN' },
+  { a: 'RDP', f: 'Remote Desktop Protocol', n: 'Port 3389 — Windows remote desktop' },
+  { a: 'RIP', f: 'Routing Information Protocol', n: 'Distance-vector IGP using hop count' },
+  { a: 'RJ-45', f: 'Registered Jack 45', n: '8P8C Ethernet connector' },
+  { a: 'SD-WAN', f: 'Software-Defined WAN', n: 'Overlay routing across multiple underlays' },
+  { a: 'SFP', f: 'Small Form-factor Pluggable', n: 'Modular transceiver (SFP, SFP+, QSFP)' },
+  { a: 'SIP', f: 'Session Initiation Protocol', n: 'VoIP signaling (port 5060/5061)' },
+  { a: 'SMB', f: 'Server Message Block', n: 'Port 445 — Windows file sharing' },
+  { a: 'SMTP', f: 'Simple Mail Transfer Protocol', n: 'Port 25 (or 587) — sending email' },
+  { a: 'SNMP', f: 'Simple Network Management Protocol', n: 'Port 161 — monitor devices' },
+  { a: 'SOA', f: 'Start of Authority', n: 'DNS record with zone metadata' },
+  { a: 'SSH', f: 'Secure Shell', n: 'Port 22 — encrypted remote shell' },
+  { a: 'SSL/TLS', f: 'Secure Sockets Layer / Transport Layer Security', n: 'Encryption for HTTPS/etc. (TLS is current)' },
+  { a: 'STP', f: 'Spanning Tree Protocol', n: 'Prevents Layer 2 loops; uses BPDUs' },
+  { a: 'TACACS+', f: 'Terminal Access Controller Access-Control System Plus', n: 'AAA for network device admin; encrypts payload' },
+  { a: 'TCP', f: 'Transmission Control Protocol', n: 'Reliable, connection-oriented (3-way handshake)' },
+  { a: 'TFTP', f: 'Trivial File Transfer Protocol', n: 'Port 69 UDP — simple file transfer (PXE)' },
+  { a: 'TLS', f: 'Transport Layer Security', n: 'Modern encryption protocol' },
+  { a: 'UDP', f: 'User Datagram Protocol', n: 'Connectionless, fast (DNS, DHCP, VoIP)' },
+  { a: 'UTP', f: 'Unshielded Twisted Pair', n: 'Cat5e/Cat6 cable type' },
+  { a: 'VLAN', f: 'Virtual LAN', n: 'Logical network on shared switch hardware' },
+  { a: 'VLSM', f: 'Variable Length Subnet Masking', n: 'Different subnet sizes within one network' },
+  { a: 'VoIP', f: 'Voice over IP', n: 'Phone calls over IP networks' },
+  { a: 'VPN', f: 'Virtual Private Network', n: 'Encrypted tunnel over public network' },
+  { a: 'VRRP', f: 'Virtual Router Redundancy Protocol', n: 'Open-standard FHRP' },
+  { a: 'WAN', f: 'Wide Area Network', n: 'Geographically distributed network' },
+  { a: 'WAP', f: 'Wireless Access Point', n: 'Device extending wired network wirelessly' },
+  { a: 'WPA2/WPA3', f: 'Wi-Fi Protected Access 2/3', n: 'Current Wi-Fi security standards' }
+];
+
+function buildAcronyms(list) {
+  const g = document.getElementById('acro-grid'); if (!g) return;
+  g.innerHTML = list.map(x => '<div class="acro-card"><div class="acro-acro">' + x.a + '</div><div class="acro-full">' + x.f + '</div>' + (x.n ? '<div class="acro-note">' + x.n + '</div>' : '') + '</div>').join('');
+}
+function filterAcronyms() {
+  const q = (document.getElementById('acro-search').value || '').toLowerCase();
+  buildAcronyms(!q ? acronyms : acronyms.filter(x => x.a.toLowerCase().includes(q) || x.f.toLowerCase().includes(q) || (x.n || '').toLowerCase().includes(q)));
+}
+
+// ─── Mock Exam mode ────────────────────────────────────────────────────────
+const MOCK_DURATION_MIN = 90;
+const MOCK_PASS_PCT = 80;
+const MOCK_EXAM_LABEL = 'Network+';
+let mockQs = [];
+let mockAnswers = [];
+let mockQIdx = 0;
+let mockTimerInterval = null;
+let mockSecondsLeft = 0;
+let mockStartedAt = null;
+
+function startMockExam() {
+  if (!confirm('Start the Mock Exam? You\'ll have ' + MOCK_DURATION_MIN + ' minutes to answer ' + quizQuestions.length + ' questions. No per-question feedback until you submit.')) return;
+  mockQs = [...quizQuestions].sort(() => Math.random() - 0.5);
+  mockAnswers = new Array(mockQs.length).fill(null);
+  mockQIdx = 0;
+  mockSecondsLeft = MOCK_DURATION_MIN * 60;
+  mockStartedAt = Date.now();
+  document.getElementById('mock-q-total').textContent = mockQs.length;
+  document.getElementById('mock-exam-overlay').classList.add('active');
+  renderMockQuestion();
+  updateMockTimer();
+  if (mockTimerInterval) clearInterval(mockTimerInterval);
+  mockTimerInterval = setInterval(() => {
+    mockSecondsLeft--;
+    updateMockTimer();
+    if (mockSecondsLeft <= 0) { clearInterval(mockTimerInterval); alert('⏰ Time is up! Submitting your exam now.'); submitMockExam(true); }
+  }, 1000);
+}
+
+function updateMockTimer() {
+  const m = Math.floor(mockSecondsLeft / 60), s = mockSecondsLeft % 60;
+  const t = document.getElementById('mock-timer');
+  t.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  t.classList.toggle('warning', mockSecondsLeft <= 600 && mockSecondsLeft > 300);
+  t.classList.toggle('danger', mockSecondsLeft <= 300);
+}
+
+function renderMockQuestion() {
+  const q = mockQs[mockQIdx];
+  document.getElementById('mock-q-current').textContent = mockQIdx + 1;
+  const opts = q.opts.map((o, i) => {
+    const sel = mockAnswers[mockQIdx] === i ? ' selected' : '';
+    return '<button class="mock-opt' + sel + '" onclick="selectMockAnswer(' + i + ')"><span class="mock-letter">' + String.fromCharCode(65+i) + '.</span>' + o + '</button>';
+  }).join('');
+  document.getElementById('mock-question-area').innerHTML =
+    '<div class="mock-q-num">Question ' + (mockQIdx + 1) + ' of ' + mockQs.length + '</div>' +
+    '<div class="mock-q-text">' + q.q + '</div>' +
+    '<div class="mock-opts">' + opts + '</div>';
+  document.getElementById('mock-prev-btn').disabled = mockQIdx === 0;
+  document.getElementById('mock-next-btn').disabled = mockQIdx >= mockQs.length - 1;
+  renderMockPalette();
+}
+
+function renderMockPalette() {
+  const palette = document.getElementById('mock-palette');
+  palette.innerHTML = mockQs.map((_, i) => {
+    const answered = mockAnswers[i] !== null;
+    const current = i === mockQIdx;
+    return '<span class="mock-palette-cell' + (answered ? ' answered' : '') + (current ? ' current' : '') + '" onclick="jumpToMockQ(' + i + ')" title="Question ' + (i+1) + (answered ? ' — answered' : ' — unanswered') + '">' + (i+1) + '</span>';
+  }).join('');
+}
+
+function selectMockAnswer(idx) { mockAnswers[mockQIdx] = idx; renderMockQuestion(); }
+function nextMockQ() { if (mockQIdx < mockQs.length - 1) { mockQIdx++; renderMockQuestion(); } }
+function prevMockQ() { if (mockQIdx > 0) { mockQIdx--; renderMockQuestion(); } }
+function jumpToMockQ(i) { mockQIdx = i; renderMockQuestion(); }
+
+function cancelMockExam() {
+  if (!confirm('Exit the Mock Exam? Your progress will be discarded.')) return;
+  if (mockTimerInterval) clearInterval(mockTimerInterval);
+  document.getElementById('mock-exam-overlay').classList.remove('active');
+}
+
+function submitMockExam(timesUp) {
+  if (!timesUp) {
+    const unanswered = mockAnswers.filter(a => a === null).length;
+    if (unanswered > 0 && !confirm('You have ' + unanswered + ' unanswered question' + (unanswered === 1 ? '' : 's') + '. Submit anyway?')) return;
+  }
+  if (mockTimerInterval) clearInterval(mockTimerInterval);
+  const elapsedMs = Date.now() - mockStartedAt;
+  const elapsedMin = Math.floor(elapsedMs / 60000);
+  const elapsedSec = Math.floor((elapsedMs % 60000) / 1000);
+  let correct = 0; const missed = [];
+  mockQs.forEach((q, i) => {
+    if (mockAnswers[i] === q.answer) correct++;
+    else if (mockAnswers[i] !== null) missed.push({ ...q, userAnswer: mockAnswers[i] });
+    else missed.push({ ...q, userAnswer: -1 });
+  });
+  const pct = Math.round(correct / mockQs.length * 100);
+  const passed = pct >= MOCK_PASS_PCT;
+  document.getElementById('mock-exam-overlay').classList.remove('active');
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildMockResultCard(correct, mockQs.length, pct, passed, elapsedMin, elapsedSec) + renderMockMissed(missed);
+  recordQuizScore(pct, correct, mockQs.length);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildMockResultCard(correct, total, pct, passed, elapsedMin, elapsedSec) {
+  const date = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade = pct >= 90 ? 'Excellent! 🎉' : pct >= 85 ? 'Great Job! 👍' : pct >= MOCK_PASS_PCT ? 'Passed ✓' : pct >= 70 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return '<div class="score-card ' + (passed ? 'pass' : 'fail') + '">' +
+    '<div class="score-card-header">' +
+      '<div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">🎯 Mock Exam Results</div>' +
+      '<div class="score-card-title">CompTIA ' + MOCK_EXAM_LABEL + ' Mock Exam</div>' +
+      '<div class="score-card-date">' + date + '</div>' +
+    '</div>' +
+    '<div class="score-card-numbers">' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:' + (passed?'var(--green)':'#e74c3c') + '">' + pct + '%</div><div class="score-card-lbl">Score</div></div>' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:var(--blue)">' + correct + '/' + total + '</div><div class="score-card-lbl">Correct</div></div>' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:var(--accent2)">' + elapsedMin + ':' + String(elapsedSec).padStart(2,'0') + '</div><div class="score-card-lbl">Time</div></div>' +
+    '</div>' +
+    '<div class="score-card-banner ' + (passed ? 'pass' : 'fail') + '">' +
+      (passed ? '✓ You passed the Mock Exam at ' + pct + '% (threshold: ' + MOCK_PASS_PCT + '%)' : '✗ Below the ' + MOCK_PASS_PCT + '% passing threshold — review missed questions and retake') +
+    '</div>' +
+    '<div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">' + grade + '</div>' +
+    '<div class="screenshot-prompt">' +
+      '<div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>' +
+      '<div class="sp-sub" style="margin-bottom:8px;">Mock exam score is a great submission for finals prep.</div>' +
+      '<div class="sp-keys">' +
+        '<div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — usually 6th key from left).</div>' +
+        '<div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag.</div>' +
+        '<div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="score-card-btns">' +
+      '<button onclick="startMockExam()" style="background:linear-gradient(135deg,#e74c3c,#f39c12);color:white;">🔄 Retake Mock Exam</button>' +
+      '<button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderMockMissed(missed) {
+  if (!missed.length) return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score on the Mock Exam!</div></div>';
+  const letter = n => String.fromCharCode(65 + n);
+  const items = missed.map((m, i) => {
+    const userAns = m.userAnswer === -1 ? '<em>Skipped (unanswered)</em>' : letter(m.userAnswer) + '. ' + m.opts[m.userAnswer];
+    return '<div class="wrong-review-item">' +
+      '<div class="wri-q">' + (i+1) + '. ' + m.q + '</div>' +
+      '<div class="wri-line user">✗ Your answer: ' + userAns + '</div>' +
+      '<div class="wri-line correct">✓ Correct answer: ' + letter(m.answer) + '. ' + m.opts[m.answer] + '</div>' +
+      '<div class="wri-exp">' + m.exp + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="wrong-review"><h3>📚 Review the ' + missed.length + ' you missed</h3><p class="wr-sub">Read each explanation carefully before retaking the Mock Exam.</p>' + items + '</div>';
 }
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────
