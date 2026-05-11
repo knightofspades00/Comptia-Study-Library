@@ -42,6 +42,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
 .domain-body.open { display: block; }
+.domain-toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
+.domain-tool-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all .15s; }
+.domain-tool-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 .domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
 .domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 .domain-body ul { padding-left: 20px; }
@@ -83,6 +86,19 @@ td strong { color: var(--text); }
 .fc-unknown-btn { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--green); font-weight: 700; }
+
+/* Mastery bars */
+.mastery-section { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+.mastery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.mastery-header h3 { font-size: 1rem; font-weight: 700; }
+.mastery-reset { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; }
+.mastery-reset:hover { color: #e74c3c; border-color: #e74c3c; }
+.mastery-item { margin-bottom: 14px; }
+.mastery-item:last-child { margin-bottom: 0; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.mastery-label span { color: var(--text-muted); font-size: 0.78rem; }
+.mastery-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--green) 0%, var(--accent) 100%); border-radius: 4px; transition: width 0.4s; }
 /* Quiz */
 .quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
@@ -98,6 +114,23 @@ td strong { color: var(--text); }
 .q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
 .q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
 .q-explanation.show { display: block; }
+
+/* Wrong-answer review */
+.wrong-review { margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.wrong-review h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #e74c3c; }
+.wrong-review .wr-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+.wrong-review-item { background: var(--surface2); border-left: 3px solid #e74c3c; padding: 14px 16px; margin-bottom: 12px; border-radius: 6px; }
+.wrong-review-item .wri-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+.wrong-review-item .wri-line { font-size: 0.83rem; margin: 4px 0; }
+.wrong-review-item .wri-line.user { color: #e74c3c; }
+.wrong-review-item .wri-line.correct { color: var(--green); }
+.wrong-review-item .wri-exp { font-size: 0.83rem; line-height: 1.6; color: var(--text); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.wrong-review .perfect-msg { text-align: center; padding: 20px; color: var(--green); font-weight: 600; }
+/* Quiz controls */
+.quiz-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.quiz-controls label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-right: 4px; }
+.quiz-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; cursor: pointer; }
+.quiz-controls select:focus { outline: 1px solid var(--accent); }
 .quiz-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
 .quiz-next-btn.show { display: inline-block; }
 .quiz-result { text-align: center; padding: 50px 30px; }
@@ -322,6 +355,21 @@ td strong { color: var(--text); }
     color: var(--text);
   }
 
+@media print {
+  body { background: white !important; color: black !important; font-size: 10pt; }
+  header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-tips,
+  button, footer { display: none !important; }
+  #panel-cheatsheet { display: block !important; padding: 0 !important; }
+  #panel-cheatsheet h2 { font-size: 16pt !important; color: black !important; }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8pt !important; }
+  .cheat-card { background: white !important; border: 1px solid #ccc !important; padding: 8pt !important; page-break-inside: avoid; box-shadow: none !important; }
+  .cheat-card h3 { font-size: 11pt !important; color: black !important; border-bottom: 1px solid #999; padding-bottom: 3pt; margin-bottom: 4pt; }
+  .cheat-row { font-size: 9pt !important; border-bottom: 1px dotted #ccc !important; padding: 2pt 0 !important; }
+  .cheat-key, .cheat-val { color: black !important; }
+  .cheat-key { font-weight: 700; }
+}
+
 </style>
 </head>
 <body>
@@ -351,7 +399,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
-  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+  <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
 
 <div class="content-area">
@@ -359,7 +407,11 @@ td strong { color: var(--text); }
 <!-- STUDY GUIDE -->
 <div id="panel-guide" class="tab-panel active">
   <h2 style="margin-bottom:6px;font-size:1.1rem;">Network+ Domain Study Guide</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Click any domain to expand. Based on N10-009 exam objectives.</p>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:12px;">💡 Click any domain header (or the ▼ chevron) to expand it. Based on N10-009 exam objectives.</p>
+  <div class="domain-toolbar">
+    <button class="domain-tool-btn" onclick="toggleAllDomains(true)">⬇ Expand All</button>
+    <button class="domain-tool-btn" onclick="toggleAllDomains(false)">⬆ Collapse All</button>
+  </div>
 
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
@@ -742,26 +794,50 @@ td strong { color: var(--text); }
     <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
   </div>
   <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+
+  <div class="mastery-section">
+    <div class="mastery-header">
+      <h3>📊 Your mastery by domain</h3>
+      <button class="mastery-reset" onclick="resetMastery()">Reset progress</button>
+    </div>
+    <div id="mastery-bars"></div>
+  </div>
 </div>
 
 <!-- QUIZ -->
 <div id="panel-quiz" class="tab-panel">
+  <div style="margin-bottom:16px;">
+    <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Network+ Practice Quiz</h2>
+    <p style="color:var(--text-muted);font-size:0.88rem;">Scenario-based questions · All domains · Wrong-answer review at the end</p>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+    <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">60</span></div>
+  </div>
+  <div class="quiz-controls">
+    <label for="quiz-count">Questions:</label>
+    <select id="quiz-count" onchange="initQuiz()">
+      <option value="10">10 (quick check)</option>
+      <option value="25">25 (medium)</option>
+      <option value="60" selected>60 (full quiz)</option>
+    </select>
+  </div>
   <div id="quiz-container">
-    <div style="margin-bottom:28px;">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Network+ Practice Quiz</h2>
-      <p style="color:var(--text-muted);font-size:0.88rem;">20 questions · All domains · Immediate feedback</p>
-      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
-      <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">20</span></div>
-    </div>
     <div id="question-area"></div>
   </div>
   <div id="quiz-result" class="quiz-result" style="display:none;"></div>
+  <div style="margin-top:20px;">
+    <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;">🔄 Restart Quiz</button>
+  </div>
 </div>
 
 <!-- CHEAT SHEET -->
 <div id="panel-cheatsheet" class="tab-panel">
-  <h2 style="margin-bottom:6px;font-size:1.1rem;">Network+ Quick Reference</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Key facts for last-minute review</p>
+  <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <h2 style="margin-bottom:6px;font-size:1.1rem;">Network+ Quick Reference</h2>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Key facts for last-minute review</p>
+    </div>
+    <button onclick="window.print()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;">🖨 Print this cheat sheet</button>
+  </div>
   <div class="cheat-grid">
     <div class="cheat-card">
       <h3>🧱 OSI Layers</h3>
@@ -1286,7 +1362,39 @@ function filterVocab(query) {
   buildVocab(filtered);
 }
 
-document.addEventListener('DOMContentLoaded', function() { buildVocab(vocabTerms); });
+const EXAM_KEY = 'netplus';
+const EXAM_LABEL = 'Network+';
+function recordVisit() {
+  try {
+    localStorage.setItem('lastActive_' + EXAM_KEY, new Date().toISOString());
+    const today = new Date().toISOString().slice(0, 10);
+    const activity = JSON.parse(localStorage.getItem('studyActivity') || '[]');
+    if (!activity.includes(today)) {
+      activity.push(today);
+      localStorage.setItem('studyActivity', JSON.stringify(activity));
+    }
+  } catch(e) {}
+}
+function recordQuizScore(pct, score, total) {
+  try {
+    const key = 'bestScore_' + EXAM_KEY;
+    const prev = JSON.parse(localStorage.getItem(key) || '{"pct":0}');
+    if (pct > (prev.pct || 0)) {
+      localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
+    }
+  } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab(vocabTerms);
+  loadCards();
+  initQuiz();
+  document.querySelector('.domain-header')?.classList.add('open');
+  document.querySelector('.domain-body')?.classList.add('open');
+  if (typeof loadTracker === 'function') loadTracker();
+  recordVisit();
+  renderMasteryBars();
+});
 
 function showTab(name, ev) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -1295,10 +1403,15 @@ function showTab(name, ev) {
   if (ev && ev.target) ev.target.classList.add('active');
   if (name === 'flashcards') loadCards();
   if (name === 'quiz') initQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function toggleDomain(header) {
   header.classList.toggle('open');
   header.nextElementSibling.classList.toggle('open');
+}
+function toggleAllDomains(open) {
+  document.querySelectorAll('.domain-header').forEach(h => h.classList.toggle('open', open));
+  document.querySelectorAll('.domain-body').forEach(b => b.classList.toggle('open', open));
 }
 
 const allCards = [
@@ -1474,14 +1587,24 @@ const allCards = [
 let filteredCards = [...allCards];
 let currentCard = 0;
 let isFlipped = false;
-let knownCards = new Set();
+
+function getKnownSet() {
+  try { return new Set(JSON.parse(localStorage.getItem('knownCards_netplus') || '[]')); }
+  catch(e) { return new Set(); }
+}
+function saveKnownSet(s) { try { localStorage.setItem('knownCards_netplus', JSON.stringify([...s])); } catch(e) {} }
+function resetMastery() {
+  if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+  localStorage.removeItem('knownCards_netplus');
+  renderMasteryBars();
+  showCard();
+}
 
 function loadCards() {
   const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
   filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
   currentCard = 0;
   isFlipped = false;
-  knownCards.clear();
   showCard();
 }
 
@@ -1490,13 +1613,33 @@ function showCard() {
   const card = filteredCards[currentCard];
   const fc = document.getElementById('flashcard');
   if (!fc) return;
+  const known = getKnownSet();
+  const knownInFilter = filteredCards.filter(c => known.has(c.term)).length;
   document.getElementById('fc-term').textContent = card.term;
   document.getElementById('fc-def').textContent = card.def;
   document.getElementById('fc-progress').textContent = `Card ${currentCard + 1} of ${filteredCards.length}`;
   document.getElementById('fc-count').textContent = `${currentCard + 1} / ${filteredCards.length}`;
-  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-known-count').textContent = knownInFilter;
   document.getElementById('fc-total-count').textContent = filteredCards.length;
   if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function renderMasteryBars() {
+  const container = document.getElementById('mastery-bars');
+  if (!container) return;
+  const known = getKnownSet();
+  const labels = { osi: '📡 OSI / Protocols', physical: '🔌 Physical / Cabling', wireless: '📶 Wireless', routing: '🛣️ Routing / Switching', services: '⚙️ Services', security: '🔐 Security', operations: '📋 Operations', cloud: '☁️ Cloud', troubleshooting: '🔧 Troubleshooting' };
+  const byCat = {};
+  allCards.forEach(c => {
+    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, known: 0 };
+    byCat[c.cat].total++;
+    if (known.has(c.term)) byCat[c.cat].known++;
+  });
+  container.innerHTML = Object.keys(byCat).map(cat => {
+    const { total, known } = byCat[cat];
+    const pct = total ? Math.round(known / total * 100) : 0;
+    return '<div class="mastery-item"><div class="mastery-label"><span>' + (labels[cat] || cat) + '</span><span>' + known + ' / ' + total + ' • ' + pct + '%</span></div><div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div></div>';
+  }).join('');
 }
 
 function flipCard() {
@@ -1515,8 +1658,12 @@ function prevCard() {
 }
 
 function markCard(known) {
-  if (known) knownCards.add(currentCard);
-  else knownCards.delete(currentCard);
+  const set = getKnownSet();
+  const card = filteredCards[currentCard];
+  if (!card) return;
+  if (known) set.add(card.term); else set.delete(card.term);
+  saveKnownSet(set);
+  renderMasteryBars();
   nextCard();
 }
 
@@ -1582,16 +1729,53 @@ const quizQuestions = [
 
   { q: 'Which Wi-Fi security protocol uses SAE (Simultaneous Authentication of Equals) instead of a pre-shared key?', opts: ['WPA2-Personal', 'WPA3-Personal', 'WPA2-Enterprise', 'WEP'], answer: 1, exp: 'WPA3-Personal replaces PSK with SAE, which provides resistance to offline dictionary attacks and forward secrecy. WPA2-Personal still uses PSK.' },
   { q: 'A company needs a redundant default gateway for hosts. Which type of protocol provides this?', opts: ['STP', 'OSPF', 'FHRP (HSRP/VRRP)', 'NAT'], answer: 2, exp: 'First Hop Redundancy Protocols (FHRP) like HSRP and VRRP provide a virtual gateway IP shared by multiple routers, ensuring hosts can reach the network even if one router fails.' },
+
+  // === 30 additional questions ===
+  { q: 'A technician is troubleshooting slow file transfers between two switches connected by a single cable. The switches show CRC errors on the trunk port. What should be checked FIRST?', opts: ['Replace both switches', 'Inspect or replace the cable; check for EMI sources near the run', 'Disable spanning tree', 'Increase the MTU to 9000'], answer: 1, exp: 'CRC errors indicate physical-layer corruption. Damaged cables, bad terminations, or EMI from nearby motors, fluorescent lights, or power cables cause these errors. Test the cable first before replacing hardware.' },
+  { q: 'An analyst notices that a critical server is reachable from inside the LAN but unreachable from a remote office over the site-to-site VPN. Other servers on the same subnet ARE reachable from the remote office. What is the MOST likely cause?', opts: ['VPN tunnel is down', 'Host-based firewall on the server is blocking remote subnet traffic', 'Routing is misconfigured on the edge router', 'ISP outage'], answer: 1, exp: 'If the VPN was down or routing was broken, no servers on the subnet would be reachable. Since only one server is unreachable, the issue is local to that host — most often its built-in firewall rule set or local IP filtering.' },
+  { q: 'Which IPv6 transition technology embeds an IPv4 address inside an IPv6 address using the 2002::/16 prefix?', opts: ['ISATAP', '6to4', 'NAT64', 'Teredo'], answer: 1, exp: '6to4 uses 2002::/16 followed by 32 bits of the public IPv4 address to automatically create IPv6 connectivity over an IPv4 network. ISATAP is for intra-site, Teredo traverses NAT, NAT64 translates between protocols.' },
+  { q: 'A network technician is troubleshooting a wireless connection that drops every few minutes. The neighborhood has many overlapping 2.4 GHz networks. What is the BEST solution?', opts: ['Switch the access point to a non-overlapping channel (1, 6, or 11) or move to 5 GHz', 'Increase transmit power to maximum', 'Change to WEP for compatibility', 'Use a longer SSID name'], answer: 0, exp: 'In congested 2.4 GHz environments, channels 1, 6, and 11 are the only non-overlapping options. Moving the SSID to 5 GHz (which has many non-overlapping channels) typically resolves interference-related drops.' },
+  { q: 'Which type of NAT translates many internal addresses to a single public address using unique source port numbers?', opts: ['Static NAT', 'Dynamic NAT (one-to-one pool)', 'Port Address Translation (PAT / NAT overload)', 'Twice NAT'], answer: 2, exp: 'PAT (also called NAT overload) uses different source ports to multiplex many internal hosts behind one public IP. This is what home routers do. Static NAT is one-to-one and permanent.' },
+  { q: 'A technician is troubleshooting a network printer that has lost its DHCP-assigned IP after a power outage. Users now report they cannot print. What is the BEST permanent fix?', opts: ['Statically assign or DHCP-reserve the printer IP address', 'Replace the printer', 'Re-image every workstation with the new IP', 'Disable DHCP on the network'], answer: 0, exp: 'Network printers should have a predictable IP — either statically assigned or reserved in DHCP using the printer MAC address. This prevents the IP from changing and breaking print queues after a reboot or lease expiration.' },
+  { q: 'A SOC analyst notices repeated outbound connections from an internal host to a known malicious IP on TCP 443. The connections happen every 60 seconds. What pattern is this?', opts: ['Backup synchronization', 'Beaconing / C2 callback', 'NTP polling', 'Standard HTTPS browsing'], answer: 1, exp: 'Regular, periodic outbound connections to a fixed external IP — especially a known-bad one — is classic command-and-control beaconing. Compromised hosts call home for instructions at fixed intervals.' },
+  { q: 'Which DNS record type allows a hostname to be an ALIAS for another hostname?', opts: ['A', 'AAAA', 'CNAME', 'NS'], answer: 2, exp: 'A CNAME (Canonical Name) record points one hostname at another hostname. For example, www.example.com could be a CNAME for example.com so both resolve to the same address.' },
+  { q: 'A network admin needs to grant read-only access to switch configuration data for monitoring software. Which SNMP component defines what data is available?', opts: ['Trap', 'MIB (Management Information Base)', 'Community string', 'OID counter only'], answer: 1, exp: 'The MIB is the hierarchical database that defines all available SNMP objects on a device. Each leaf is identified by an OID. Monitoring tools poll specific OIDs to retrieve metrics like interface utilization.' },
+  { q: 'A technician is troubleshooting an issue where a server on VLAN 10 cannot reach a server on VLAN 20 in the same building. Both servers are pingable from devices in their own VLAN. What is the MOST likely cause?', opts: ['Both servers need DHCP enabled', 'Inter-VLAN routing is not configured on the Layer 3 switch or router', 'STP is blocking the path', 'The MTU is too small'], answer: 1, exp: 'By default, VLANs are isolated broadcast domains. Traffic between VLANs requires a Layer 3 device (router or Layer 3 switch) with an SVI or routed interface for each VLAN. Missing inter-VLAN routing is the classic cause.' },
+  { q: 'Which type of fiber connector is a small push-pull design commonly used in pairs on data center transceivers?', opts: ['ST (bayonet)', 'SC (square push-pull)', 'LC (small form-factor push-pull)', 'MTRJ'], answer: 2, exp: 'LC connectors are the small form-factor standard for SFP/SFP+/QSFP transceivers. They use a push-pull mechanism similar to RJ-45 latching and are typically deployed in duplex pairs.' },
+  { q: 'An analyst is reviewing logs and sees that an internal host has been performing DNS queries against an external resolver instead of the corporate DNS server. What policy change should be applied?', opts: ['Block all outbound DNS', 'Use a firewall rule or DNS sinkhole to force all internal DNS through the corporate resolver', 'Disable DNS entirely', 'Allow only UDP DNS'], answer: 1, exp: 'Allowing direct queries to external DNS bypasses corporate filtering, logging, and DNSSEC validation. Firewalls should block outbound DNS (port 53) except from the corporate resolvers, which can be monitored and filtered.' },
+  { q: 'A technician is asked to test the maximum throughput between two devices on a network. Which tool is BEST?', opts: ['ping', 'nslookup', 'iperf', 'tracert'], answer: 2, exp: 'iperf3 measures TCP and UDP throughput between two endpoints by saturating the link and reporting Mbps/Gbps. ping only measures reachability and round-trip latency, not throughput.' },
+  { q: 'A workstation receives an APIPA address even though DHCP is configured. The technician verifies the DHCP server is online and other clients are getting addresses. What is the MOST likely cause?', opts: ['DNS server is offline', 'A switching loop or VLAN isolation is preventing DHCP DISCOVER/OFFER from reaching the workstation', 'The workstation has too much RAM', 'IPv6 is enabled on the NIC'], answer: 1, exp: 'If DHCP works for others on the same subnet but fails for one host, the issue is local: VLAN assignment, bad cable, port security blocking, or a switching loop. APIPA appears because the client got no DHCP response.' },
+  { q: 'Which command displays the active TCP connections and listening ports on a Windows host with process IDs?', opts: ['ipconfig /all', 'netstat -ano', 'nslookup', 'tracert'], answer: 1, exp: 'netstat -ano shows all connections and listening ports with the owning process ID. Cross-reference the PID with Task Manager or tasklist to identify the process. -b shows the process name directly but requires admin rights.' },
+  { q: 'A technician is troubleshooting an OSPF neighbor relationship that will not form. The two routers see each other on the wire but stay in INIT state. Which mismatch is the MOST common cause?', opts: ['Different IP addresses', 'Mismatched area ID, hello/dead timers, authentication, or subnet mask', 'Different hostname', 'Different IOS version'], answer: 1, exp: 'OSPF neighbors must match on area ID, subnet/mask, hello and dead intervals, authentication, and MTU. Any mismatch stops the adjacency from completing. Use show ip ospf neighbor and show ip ospf interface to diagnose.' },
+  { q: 'A company wants to extend its on-premises network to a cloud provider with private, dedicated bandwidth. Which connection type is MOST appropriate?', opts: ['Site-to-site IPsec VPN over the internet', 'Direct cloud interconnect (AWS Direct Connect, Azure ExpressRoute)', 'Public internet only', 'NAT only'], answer: 1, exp: 'Direct cloud interconnect services like AWS Direct Connect or Azure ExpressRoute provide a private, dedicated circuit to the cloud provider, bypassing the public internet for better latency, throughput, and SLA.' },
+  { q: 'A wireless network supports the latest standard with up to 9.6 Gbps theoretical throughput and operates in the 2.4, 5, and 6 GHz bands. Which standard is this?', opts: ['802.11n (Wi-Fi 4)', '802.11ac (Wi-Fi 5)', '802.11ax (Wi-Fi 6 / 6E)', '802.11g'], answer: 2, exp: '802.11ax (Wi-Fi 6) adds OFDMA, MU-MIMO, and BSS coloring for better dense-environment performance. Wi-Fi 6E extends Wi-Fi 6 into the new 6 GHz band, which has many more clean channels.' },
+  { q: 'Which logical topology describes a network where all devices share a single transmission medium and only one device transmits at a time?', opts: ['Star', 'Bus / shared medium', 'Mesh', 'Ring'], answer: 1, exp: 'A bus or shared-medium topology shares one channel. Half-duplex Ethernet hubs and early coaxial Ethernet operated this way, using CSMA/CD to mediate access. Modern switched Ethernet creates point-to-point segments.' },
+  { q: 'An analyst observes that ARP traffic on a subnet has spiked, with many gratuitous ARP replies claiming to be the default gateway. What attack is happening?', opts: ['ARP cache poisoning / on-path attack', 'DNS amplification', 'TCP SYN flood', 'VLAN hopping'], answer: 0, exp: 'A flood of gratuitous ARP replies claiming the gateway IP is classic ARP cache poisoning. The attacker redirects traffic through their host to perform an on-path (man-in-the-middle) attack. Mitigate with Dynamic ARP Inspection.' },
+  { q: 'A network technician is asked to document the network so that future changes can be performed safely. Which document maps each cable to its endpoints and port numbers?', opts: ['Network diagram', 'Cable / wiring schedule', 'Acceptable use policy', 'Service level agreement'], answer: 1, exp: 'A cable schedule (also called a wiring schedule or port map) records each cable: source device, source port, destination device, destination port, cable type, and length. Critical for moves, adds, and changes.' },
+  { q: 'A user reports they can browse local network shares but no external websites. ping 8.8.8.8 fails. ping to the gateway succeeds. What is the MOST likely cause?', opts: ['DNS issue', 'Default gateway has lost its upstream / ISP connection or its default route', 'NIC driver corrupted', 'Subnet mask wrong'], answer: 1, exp: 'Local LAN traffic works (gateway pings), but routed traffic fails (8.8.8.8 fails). The break is at the gateway upstream: the ISP link is down or the gateway has lost its default route, so it cannot forward to the internet.' },
+  { q: 'Which protocol provides centralized authentication, authorization, and accounting (AAA) primarily for network device administration with full command-level granularity?', opts: ['RADIUS', 'TACACS+', 'Kerberos', 'LDAP'], answer: 1, exp: 'TACACS+ separates authentication, authorization, and accounting and encrypts the entire payload, making it the preferred AAA protocol for network device management. RADIUS is more common for end-user network access.' },
+  { q: 'A network is being migrated from a hub-and-spoke design to one that allows direct site-to-site traffic without backhauling to a central data center. Which technology BEST supports this?', opts: ['Frame Relay', 'Traditional MPLS Layer 3 VPN only', 'SD-WAN with dynamic path selection', 'Standard IPsec hub-and-spoke'], answer: 2, exp: 'SD-WAN builds an overlay across multiple underlay links (MPLS, broadband, LTE) and dynamically selects the best path per application, enabling direct branch-to-branch traffic without backhauling.' },
+  { q: 'A technician finds that two endpoints on the same subnet share the same IPv4 address. What is the MOST likely cause if both were set manually?', opts: ['DHCP scope exhaustion', 'Static IP misconfiguration / duplicate address', 'NAT translation error', 'Wrong VLAN'], answer: 1, exp: 'Two manually assigned addresses that collide is a configuration mistake. DHCP would not normally hand out the same address twice. Symptoms include intermittent connectivity for both hosts. Use arp -a to identify duplicates.' },
+  { q: 'Which protocol is used to discover information about directly connected Cisco devices, including hostname, IP, and platform?', opts: ['LLDP', 'CDP', 'SNMP', 'NTP'], answer: 1, exp: 'CDP (Cisco Discovery Protocol) is a Cisco-proprietary Layer 2 discovery protocol. LLDP (802.1AB) is the open-standard equivalent that works across vendors. Both reveal neighbor information.' },
+  { q: 'A technician is troubleshooting throughput problems on a 1 Gbps connection and notices the interface is running at 100 Mbps half-duplex. What is the MOST likely cause?', opts: ['Duplex mismatch / failed autonegotiation', 'Wrong VLAN', 'Cable is too long', 'STP is blocking'], answer: 0, exp: 'When one side is configured manually and the other is set to auto, autonegotiation falls back to 100 Mbps half-duplex. Late collisions and CRC errors are common symptoms. Set both sides to auto or hardcode both consistently.' },
+  { q: 'Which type of attack overwhelms a target by reflecting amplified responses from open public servers like misconfigured DNS or NTP?', opts: ['SYN flood', 'Reflection / amplification DDoS', 'ARP poisoning', 'Smurf attack only on ICMP'], answer: 1, exp: 'Reflection attacks spoof the victim source IP and query open public services (DNS, NTP, memcached) that send much larger responses back to the victim. Disable open recursion and apply BCP 38 ingress filtering.' },
+  { q: 'A help desk technician reports that an entire wing of a building has lost network connectivity. The technician confirms power is on at the IDF. Which device should be checked FIRST?', opts: ['Each user PC', 'The IDF / closet switch and its uplink to the MDF', 'The DNS server', 'The DHCP server'], answer: 1, exp: 'When an entire branch is down at once, look upstream — the IDF switch or its uplink to the MDF/core is the common cause. Check link lights, fans, and uplink fiber/copper before troubleshooting individual workstations.' },
+  { q: 'Which Layer 2 protocol exchange occurs first when a switch port comes up, before any traffic is forwarded, to detect loops?', opts: ['ARP request', 'BPDU exchange (Spanning Tree)', 'DHCP DISCOVER', 'LLDP'], answer: 1, exp: 'Spanning Tree Protocol switches exchange BPDUs (Bridge Protocol Data Units) to elect a root bridge and select which ports forward or block, preventing loops. PortFast skips this for access ports that only connect end devices.' }
 ];
 
 let quizQs = [];
 let currentQ = 0;
 let score = 0;
 let answered = false;
+let wrongAnswers = [];
 
 function initQuiz() {
-  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 60);
-  currentQ = 0; score = 0; answered = false;
+  const count = parseInt(document.getElementById('quiz-count')?.value || '60', 10);
+  const dom = document.getElementById('quiz-domain')?.value || 'all';
+  let pool = [...quizQuestions];
+  if (dom !== 'all' && typeof quizDomainFilter === 'function') pool = pool.filter(q => quizDomainFilter(q, dom));
+  quizQs = pool.sort(() => Math.random() - 0.5).slice(0, count);
+  currentQ = 0; score = 0; answered = false; wrongAnswers = [];
   document.getElementById('quiz-result').style.display = 'none';
   document.getElementById('quiz-container').style.display = 'block';
   document.getElementById('q-total').textContent = quizQs.length;
@@ -1613,6 +1797,7 @@ function selectAnswer(idx) {
   answered = true;
   const q = quizQs[currentQ];
   if (idx === q.answer) score++;
+  else wrongAnswers.push({ q: q.q, opts: q.opts, answer: q.answer, exp: q.exp, userAnswer: idx });
   const btns = document.querySelectorAll('.q-opt');
   btns.forEach((b, i) => {
     b.disabled = true;
@@ -1630,10 +1815,31 @@ function nextQuestion() {
   renderQuestion();
 }
 
+function renderWrongAnswers() {
+  if (!wrongAnswers.length) {
+    return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score — no wrong answers to review!</div></div>';
+  }
+  const letter = n => String.fromCharCode(65 + n);
+  const items = wrongAnswers.map((w, i) =>
+    `<div class="wrong-review-item">
+      <div class="wri-q">${i+1}. ${w.q}</div>
+      <div class="wri-line user">✗ Your answer: ${letter(w.userAnswer)}. ${w.opts[w.userAnswer]}</div>
+      <div class="wri-line correct">✓ Correct answer: ${letter(w.answer)}. ${w.opts[w.answer]}</div>
+      <div class="wri-exp">${w.exp}</div>
+    </div>`
+  ).join('');
+  return `<div class="wrong-review">
+    <h3>📚 Review the ${wrongAnswers.length} you missed</h3>
+    <p class="wr-sub">These are the questions where you didn't pick the right answer. Read the explanation for each one before retaking.</p>
+    ${items}
+  </div>`;
+}
+
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
+  recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
 }
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────
@@ -1706,8 +1912,6 @@ function buildScoreCard(score, total) {
     </div>
   </div>`;
 }
-
-  loadTracker();
 </script>
 </body>
 </html>

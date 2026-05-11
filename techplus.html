@@ -60,6 +60,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
 .domain-body.open { display: block; }
+.domain-toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
+.domain-tool-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all .15s; }
+.domain-tool-btn:hover { background: var(--surface); border-color: var(--accent-blue); color: var(--accent-blue); }
 .domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
 .domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 .domain-body ul { padding-left: 20px; }
@@ -101,6 +104,39 @@ td strong { color: var(--text); }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--green); font-weight: 700; }
 
+/* Tech+ → A+ bridge */
+.bridge-card { margin-top: 28px; background: linear-gradient(135deg, rgba(243,156,18,0.12), rgba(231,76,60,0.12)); border: 1px solid rgba(243,156,18,0.4); border-radius: 12px; padding: 26px 28px; }
+.bridge-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f39c12; margin-bottom: 8px; }
+.bridge-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #e74c3c; }
+.bridge-card > p { font-size: 0.9rem; color: var(--text); line-height: 1.6; margin-bottom: 20px; }
+.bridge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+@media (max-width: 700px) { .bridge-grid { grid-template-columns: 1fr; } }
+.bridge-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+.bridge-col h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; }
+.bridge-col.bridge-new h4 { color: #e74c3c; }
+.bridge-col ul { list-style: none; padding: 0; }
+.bridge-col li { font-size: 0.85rem; padding: 5px 0; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+.bridge-col li:last-child { border-bottom: none; }
+.bridge-col code { background: var(--surface2); padding: 1px 6px; border-radius: 3px; font-size: 0.78rem; color: var(--accent-blue); }
+.bridge-pathway { background: var(--surface); border-left: 3px solid #f39c12; padding: 14px 18px; border-radius: 6px; margin-bottom: 18px; font-size: 0.88rem; line-height: 1.7; }
+.bridge-pathway ol { padding-left: 20px; margin-top: 8px; color: var(--text-muted); }
+.bridge-pathway li { margin-bottom: 4px; }
+.bridge-cta { display: inline-block; background: linear-gradient(135deg, #e74c3c, #f39c12); color: white !important; padding: 11px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.bridge-cta:hover { opacity: 0.9; }
+
+/* Mastery bars */
+.mastery-section { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+.mastery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.mastery-header h3 { font-size: 1rem; font-weight: 700; }
+.mastery-reset { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; }
+.mastery-reset:hover { color: var(--accent-red, #e74c3c); border-color: var(--accent-red, #e74c3c); }
+.mastery-item { margin-bottom: 14px; }
+.mastery-item:last-child { margin-bottom: 0; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.mastery-label span { color: var(--text-muted); font-size: 0.78rem; }
+.mastery-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--green) 0%, var(--accent-blue, #3498db) 100%); border-radius: 4px; transition: width 0.4s; }
+
 .quiz-header { margin-bottom: 28px; }
 .quiz-header h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
 .quiz-header p { color: var(--text-muted); font-size: 0.88rem; }
@@ -123,6 +159,24 @@ td strong { color: var(--text); }
 .q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
 .q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
 .q-explanation.show { display: block; }
+
+/* Quiz controls */
+.quiz-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.quiz-controls label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-right: 4px; }
+.quiz-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; cursor: pointer; }
+.quiz-controls select:focus { outline: 1px solid var(--accent-blue); }
+
+/* Wrong-answer review */
+.wrong-review { margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.wrong-review h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #e74c3c; }
+.wrong-review .wr-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+.wrong-review-item { background: var(--surface2); border-left: 3px solid #e74c3c; padding: 14px 16px; margin-bottom: 12px; border-radius: 6px; }
+.wrong-review-item .wri-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+.wrong-review-item .wri-line { font-size: 0.83rem; color: var(--text-muted); margin: 4px 0; }
+.wrong-review-item .wri-line.user { color: #e74c3c; }
+.wrong-review-item .wri-line.correct { color: var(--green); }
+.wrong-review-item .wri-exp { font-size: 0.83rem; line-height: 1.6; color: var(--text); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.wrong-review .perfect-msg { text-align: center; padding: 20px; color: var(--green); font-weight: 600; }
 .q-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
 .q-next-btn.show { display: inline-block; }
 .quiz-result-box { text-align: center; padding: 50px 30px; }
@@ -328,6 +382,21 @@ td strong { color: var(--text); }
     color: var(--text);
   }
 
+@media print {
+  body { background: white !important; color: black !important; font-size: 10pt; }
+  header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-vocab, #panel-activities, #panel-tips,
+  .restart-btn, button, footer { display: none !important; }
+  #panel-cheatsheet { display: block !important; padding: 0 !important; }
+  #panel-cheatsheet h2 { font-size: 16pt !important; color: black !important; }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8pt !important; }
+  .cheat-card { background: white !important; border: 1px solid #ccc !important; padding: 8pt !important; page-break-inside: avoid; box-shadow: none !important; }
+  .cheat-card h3 { font-size: 11pt !important; color: black !important; border-bottom: 1px solid #999; padding-bottom: 3pt; margin-bottom: 4pt; }
+  .cheat-row { font-size: 9pt !important; border-bottom: 1px dotted #ccc !important; padding: 2pt 0 !important; }
+  .cheat-key, .cheat-val { color: black !important; }
+  .cheat-key { font-weight: 700; }
+}
+
 </style>
 </head>
 <body>
@@ -351,13 +420,13 @@ td strong { color: var(--text); }
 </div>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('guide')">📖 Study Guide</button>
-  <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
-  <button class="tab-btn" onclick="showTab('quiz')">❓ Practice Quiz</button>
-  <button class="tab-btn" onclick="showTab('vocab')">📚 Vocabulary</button>
-  <button class="tab-btn" onclick="showTab('cheatsheet')">📋 Cheat Sheet</button>
-  <button class="tab-btn" onclick="showTab('activities')">🔬 Activities</button>
-  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+  <button class="tab-btn active" onclick="showTab('guide', event)">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards', event)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz', event)">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('vocab', event)">📚 Vocabulary</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
 
 <div class="content-area">
@@ -366,6 +435,12 @@ td strong { color: var(--text); }
      STUDY GUIDE
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="panel-guide" class="tab-panel active">
+  <h2 style="margin-bottom:6px;font-size:1.1rem;">Tech+ Study Guide</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:12px;">💡 Click any domain header (or the ▼ chevron) to expand it. Percentages reflect exam weighting.</p>
+  <div class="domain-toolbar">
+    <button class="domain-tool-btn" onclick="toggleAllDomains(true)">⬇ Expand All</button>
+    <button class="domain-tool-btn" onclick="toggleAllDomains(false)">⬆ Collapse All</button>
+  </div>
 
   <!-- Domain 1 -->
   <div class="domain-card">
@@ -616,6 +691,14 @@ td strong { color: var(--text); }
     <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
   </div>
   <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">24</span></div>
+
+  <div class="mastery-section">
+    <div class="mastery-header">
+      <h3>📊 Your mastery by domain</h3>
+      <button class="mastery-reset" onclick="resetMastery()">Reset progress</button>
+    </div>
+    <div id="mastery-bars"></div>
+  </div>
 </div><!-- /panel-flashcards -->
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
@@ -624,11 +707,18 @@ td strong { color: var(--text); }
 <div id="panel-quiz" class="tab-panel">
   <div class="quiz-header">
     <h2>Tech+ Practice Quiz</h2>
-    <p>25 scenario-based questions covering all Tech+ domains. Explanations shown after each answer.</p>
+    <p>Scenario-based questions covering all Tech+ domains. Explanations shown after each answer.</p>
     <div class="quiz-progress-bar">
       <div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div>
     </div>
     <p style="font-size:0.8rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">25</span></p>
+  </div>
+  <div class="quiz-controls">
+    <label for="quiz-count">Questions:</label>
+    <select id="quiz-count" onchange="initQuiz()">
+      <option value="10">10 (quick check)</option>
+      <option value="25" selected>25 (full quiz)</option>
+    </select>
   </div>
   <div id="quiz-container">
     <div class="question-card" id="question-area"></div>
@@ -653,7 +743,10 @@ td strong { color: var(--text); }
      CHEAT SHEET
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="panel-cheatsheet" class="tab-panel">
-  <h2 style="margin-bottom:20px;">Tech+ Quick Reference</h2>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+    <h2 style="margin:0;">Tech+ Quick Reference</h2>
+    <button onclick="window.print()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;">🖨 Print this cheat sheet</button>
+  </div>
   <div class="cheat-grid">
 
     <div class="cheat-card">
@@ -966,15 +1059,62 @@ td strong { color: var(--text); }
       <p style="margin-top:16px;font-size:.85rem;color:var(--text-muted);">💡 Salaries vary by location and experience. These ranges reflect US national averages (entry to mid-level). Source: Bureau of Labor Statistics / Glassdoor / LinkedIn Salary (2024–2025).</p>
     </div>
 
+    <!-- Tech+ → A+ Bridge -->
+    <div class="bridge-card">
+      <div class="bridge-eyebrow">🌉 Ready for the next level?</div>
+      <h3>From Tech+ → A+</h3>
+      <p>Tech+ covers <em>what</em> the technology is. A+ covers <em>how to support it</em> — installing it, configuring it, fixing it when it breaks. If Tech+ felt comfortable, you're already ~30% of the way to A+.</p>
+
+      <div class="bridge-grid">
+        <div class="bridge-col">
+          <h4>What carries over</h4>
+          <ul>
+            <li>Hardware fundamentals (CPU, RAM, storage)</li>
+            <li>Network basics (IP, router, Wi-Fi)</li>
+            <li>OS concepts (Windows, macOS, Linux)</li>
+            <li>Security basics (malware, phishing, passwords)</li>
+            <li>Binary, file systems, cloud models</li>
+          </ul>
+        </div>
+        <div class="bridge-col bridge-new">
+          <h4>What's NEW in A+</h4>
+          <ul>
+            <li>Two exams: Core 1 (220-1101) + Core 2 (220-1102) — both required</li>
+            <li>Performance-based questions (PBQs) — drag-and-drop, simulations</li>
+            <li>Mobile device hardware &amp; troubleshooting (laptops, phones)</li>
+            <li>Windows command line: <code>sfc</code>, <code>chkdsk</code>, <code>diskpart</code>, <code>net use</code></li>
+            <li>Printers, cabling, video cards in depth</li>
+            <li>Active Directory, GPOs, account management</li>
+            <li>CompTIA's 6-step troubleshooting methodology</li>
+            <li>Professional behavior &amp; soft skills (customer service)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bridge-pathway">
+        <strong>📋 Suggested study order:</strong>
+        <ol>
+          <li>Finish Tech+ flashcards + quiz at 85%+ on this site</li>
+          <li>Watch Professor Messer's A+ Core 1 videos (free, YouTube)</li>
+          <li>Switch to the A+ tab on this site — start with the Mobile Devices &amp; Hardware domains</li>
+          <li>Practice the A+ performance-based questions in the Activities tab — those are the format that surprises most test-takers</li>
+          <li>Target 75%+ on the A+ Practice Quiz before scheduling the real exam</li>
+        </ol>
+      </div>
+
+      <a href="aplus.html" class="bridge-cta">Open the A+ Study Hub →</a>
+    </div>
+
 </div><!-- /panel-tips -->
 
 <script>
 // ── Tab switching ─────────────────────────────────────────────────────────
-function showTab(name) {
+function showTab(name, ev) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  event.target.classList.add('active');
+  if (ev && ev.target) ev.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── Domain accordion ──────────────────────────────────────────────────────
@@ -982,6 +1122,10 @@ function toggleDomain(header) {
   header.classList.toggle('open');
   const body = header.nextElementSibling;
   body.classList.toggle('open');
+}
+function toggleAllDomains(open) {
+  document.querySelectorAll('.domain-header').forEach(h => h.classList.toggle('open', open));
+  document.querySelectorAll('.domain-body').forEach(b => b.classList.toggle('open', open));
 }
 
 // ── Flashcards ────────────────────────────────────────────────────────────
@@ -1015,26 +1159,62 @@ const allCards = [
 let filteredCards = [...allCards];
 let currentCard = 0;
 let isFlipped = false;
-let knownCards = new Set();
+
+function getKnownSet() {
+  try { return new Set(JSON.parse(localStorage.getItem('knownCards_techplus') || '[]')); }
+  catch(e) { return new Set(); }
+}
+function saveKnownSet(s) {
+  try { localStorage.setItem('knownCards_techplus', JSON.stringify([...s])); } catch(e) {}
+}
+function resetMastery() {
+  if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+  localStorage.removeItem('knownCards_techplus');
+  renderMasteryBars();
+  showCard();
+}
 
 function loadCards() {
   const cat = document.getElementById('fc-category').value;
   filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
-  currentCard = 0; isFlipped = false; knownCards.clear();
+  currentCard = 0; isFlipped = false;
   showCard();
 }
 
 function showCard() {
   if (!filteredCards.length) return;
   const card = filteredCards[currentCard];
+  const known = getKnownSet();
+  const knownInFilter = filteredCards.filter(c => known.has(c.term)).length;
   document.getElementById('fc-term').textContent = card.term;
   document.getElementById('fc-def').textContent = card.def;
   document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length;
   document.getElementById('fc-count').textContent = (currentCard + 1) + ' / ' + filteredCards.length;
-  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-known-count').textContent = knownInFilter;
   document.getElementById('fc-total-count').textContent = filteredCards.length;
   const fc = document.getElementById('flashcard');
   if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function renderMasteryBars() {
+  const container = document.getElementById('mastery-bars');
+  if (!container) return;
+  const known = getKnownSet();
+  const labels = { hardware: '🔧 Hardware', software: '💿 Software', networking: '🌐 Networking', security: '🔐 Security', database: '🗄️ Databases', cloud: '☁️ Cloud', programming: '👨‍💻 Programming', concepts: '🧠 Concepts' };
+  const byCat = {};
+  allCards.forEach(c => {
+    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, known: 0 };
+    byCat[c.cat].total++;
+    if (known.has(c.term)) byCat[c.cat].known++;
+  });
+  container.innerHTML = Object.keys(byCat).map(cat => {
+    const { total, known } = byCat[cat];
+    const pct = total ? Math.round(known / total * 100) : 0;
+    return '<div class="mastery-item">' +
+      '<div class="mastery-label"><span>' + (labels[cat] || cat) + '</span><span>' + known + ' / ' + total + ' • ' + pct + '%</span></div>' +
+      '<div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div>' +
+    '</div>';
+  }).join('');
 }
 
 function flipCard() {
@@ -1045,7 +1225,15 @@ function flipCard() {
 
 function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
 function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
-function markCard(known) { if (known) knownCards.add(currentCard); else knownCards.delete(currentCard); nextCard(); }
+function markCard(known) {
+  const set = getKnownSet();
+  const card = filteredCards[currentCard];
+  if (!card) return;
+  if (known) set.add(card.term); else set.delete(card.term);
+  saveKnownSet(set);
+  renderMasteryBars();
+  nextCard();
+}
 
 // ── Quiz ──────────────────────────────────────────────────────────────────
 const quizQuestions = [
@@ -1073,7 +1261,29 @@ const quizQuestions = [
   { q: 'How many unique values can 1 byte (8 bits) represent?', opts: ['8', '16', '128', '256'], answer: 3, exp: '2^8 = 256. One byte can represent 256 different values (0-255). This is why IPv4 addresses have numbers from 0-255 in each octet — each octet is one byte.' },
   { q: 'A website uses HTTPS instead of HTTP. What does this mean?', opts: ['The website loads faster', 'The connection between your browser and the website is encrypted', 'The website requires a login', 'The website is government-approved'], answer: 1, exp: 'HTTPS uses TLS encryption to secure the connection between your browser and the server. Without it (HTTP), anyone on the same network can read your data in plaintext. HTTPS is essential for any site handling passwords or payments.' },
   { q: 'Which component connects all other computer components together?', opts: ['CPU', 'RAM', 'Motherboard', 'GPU'], answer: 2, exp: 'The motherboard is the main circuit board that physically and electronically connects all components: CPU, RAM, storage, GPU, expansion cards, and I/O ports. Everything connects through the motherboard.' },
-  { q: 'What is the purpose of an operating system\'s file system?', opts: ['To connect to the internet', 'To organize and manage how files are stored and retrieved on storage devices', 'To run antivirus scans', 'To manage Wi-Fi connections'], answer: 1, exp: 'The file system (NTFS, APFS, ext4, FAT32) organizes data into files and folders on storage devices and handles reading/writing data. Without a file system, storage would be an unorganized sequence of bits.' }
+  { q: 'What is the purpose of an operating system\'s file system?', opts: ['To connect to the internet', 'To organize and manage how files are stored and retrieved on storage devices', 'To run antivirus scans', 'To manage Wi-Fi connections'], answer: 1, exp: 'The file system (NTFS, APFS, ext4, FAT32) organizes data into files and folders on storage devices and handles reading/writing data. Without a file system, storage would be an unorganized sequence of bits.' },
+
+  // === 20 additional questions ===
+  { q: 'Which unit of measurement is the LARGEST?', opts: ['Kilobyte (KB)', 'Megabyte (MB)', 'Gigabyte (GB)', 'Terabyte (TB)'], answer: 3, exp: 'From smallest to largest: byte, KB, MB, GB, TB, PB. A terabyte equals roughly 1,000 gigabytes. Common storage today is often measured in TB.' },
+  { q: 'A student is choosing a password. Which of the following is the STRONGEST?', opts: ['password123', 'P@ssword!', 'MyDog2010', 'BlueCoffee!River42Sunset'], answer: 3, exp: 'Length is the most important factor in password strength. A long passphrase made of random unrelated words is far harder to crack than a short complex password.' },
+  { q: 'What is a MAC address?', opts: ['A logical address assigned by a router', 'A physical hardware address burned into a network card', 'A type of Apple computer identifier', 'A password used to connect to Wi-Fi'], answer: 1, exp: 'A MAC (Media Access Control) address is a unique 48-bit hardware identifier permanently assigned to each network interface card. It is used at the data link layer of a network.' },
+  { q: 'Which of the following is a relational database management system?', opts: ['Microsoft Word', 'MySQL', 'Google Chrome', 'Windows 11'], answer: 1, exp: 'MySQL is a relational database management system that stores data in tables with rows and columns. Other examples include PostgreSQL, Microsoft SQL Server, and Oracle.' },
+  { q: 'A user wants to make documents accessible to people who are blind. Which assistive technology is MOST appropriate?', opts: ['High-contrast color scheme', 'Screen reader software', 'On-screen keyboard', 'Voice dictation'], answer: 1, exp: 'Screen reader software (like JAWS or NVDA) reads on-screen text aloud, allowing blind users to navigate computers and read documents. High-contrast helps users with low vision but not blindness.' },
+  { q: 'Which file extension typically indicates a compressed archive?', opts: ['.docx', '.zip', '.mp4', '.html'], answer: 1, exp: 'A .zip file is a compressed archive containing one or more files. Compression reduces file size for storage and transfer. Other archive formats include .rar, .7z, and .tar.gz.' },
+  { q: 'In a flowchart, which shape is used to represent a decision point?', opts: ['Rectangle', 'Oval', 'Diamond', 'Parallelogram'], answer: 2, exp: 'A diamond represents a decision (yes/no, true/false branch). Rectangles represent processes, ovals represent start/end, and parallelograms represent input/output.' },
+  { q: 'A school sets up a network that covers only the campus buildings. What type of network is this?', opts: ['PAN (Personal Area Network)', 'LAN (Local Area Network)', 'WAN (Wide Area Network)', 'MAN (Metropolitan Area Network)'], answer: 1, exp: 'A LAN connects devices within a limited area such as a single building or campus. WANs cover large geographic regions like the internet. PANs cover a few meters around a single person.' },
+  { q: 'What does it mean for software to be open-source?', opts: ['It is free of charge only', 'Its source code is publicly available and may be modified and shared', 'It cannot be used commercially', 'It runs only on Linux'], answer: 1, exp: 'Open-source software publishes its source code under a license that allows users to view, modify, and redistribute it. Examples include Linux, Firefox, and LibreOffice. Open-source is not the same as free.' },
+  { q: 'A user wants to share their internet connection from their phone to their laptop using Wi-Fi. What is this feature called?', opts: ['Bluetooth pairing', 'Mobile hotspot / tethering', 'NFC', 'Airplane mode'], answer: 1, exp: 'A mobile hotspot turns a phone into a wireless access point so other devices can connect to the internet through the phone cellular data. USB tethering does the same thing over a cable.' },
+  { q: 'What is the primary function of a compiler?', opts: ['Translate source code into machine code before running', 'Run code line by line as it is read', 'Find logic errors in code', 'Format code for readability'], answer: 0, exp: 'A compiler translates an entire program written in a high-level language (like C++) into machine code that the CPU can execute directly. Interpreters, by contrast, translate and run code line by line.' },
+  { q: 'Which of the following is an example of structured data?', opts: ['A folder full of photos', 'A spreadsheet of student grades organized in rows and columns', 'A voicemail recording', 'A blog post'], answer: 1, exp: 'Structured data follows a predefined format like rows and columns in a spreadsheet or database table. Unstructured data (images, audio, free-text documents) has no rigid schema.' },
+  { q: 'A user receives a phone call from someone claiming to be from a bank, asking for their account number. What is this attack called?', opts: ['Phishing', 'Vishing', 'Smishing', 'Pharming'], answer: 1, exp: 'Vishing (voice phishing) uses phone calls to trick victims. Smishing uses SMS text messages. Phishing uses email. Legitimate banks will never call to ask for full account credentials.' },
+  { q: 'What is the difference between a variable and a constant in programming?', opts: ['A variable holds text; a constant holds numbers', 'A variable can change during program execution; a constant cannot', 'A constant is faster than a variable', 'There is no difference'], answer: 1, exp: 'A variable holds a value that can change while the program runs. A constant is assigned once and cannot be reassigned. Constants are useful for fixed values like PI or a tax rate.' },
+  { q: 'Which troubleshooting step should come FIRST?', opts: ['Establish a theory of probable cause', 'Identify the problem and gather information', 'Test the theory to determine cause', 'Document findings'], answer: 1, exp: 'The CompTIA troubleshooting model begins with identifying the problem by gathering information from the user, observing symptoms, and finding what changed. Jumping to solutions without understanding the problem wastes time.' },
+  { q: 'A teacher wants to give every student in their class read-only access to a folder of materials. Which permission is MOST appropriate?', opts: ['Full Control', 'Modify', 'Read', 'Write'], answer: 2, exp: 'Read permission allows users to view and open files but not change or delete them. Granting only the minimum required access follows the principle of least privilege.' },
+  { q: 'Which of the following is an example of personally identifiable information (PII)?', opts: ['A favorite color', 'A Social Security number', 'A list of hobbies', 'A username for a public forum'], answer: 1, exp: 'PII is data that can identify a specific person, such as a Social Security number, driver license number, or date of birth combined with other details. Protecting PII is required by many privacy laws.' },
+  { q: 'What does the acronym GUI stand for, and what does it provide?', opts: ['General User Information; account details', 'Graphical User Interface; visual icons, windows, and menus for user interaction', 'Generic Universal Interpreter; runs scripts', 'Guided User Installation; setup wizard'], answer: 1, exp: 'A Graphical User Interface (GUI) uses visual elements like icons, windows, and menus so users can interact with a computer by clicking instead of typing commands. Windows and macOS both use GUIs.' },
+  { q: 'A small business wants to back up files automatically without buying their own server. Which is the BEST option?', opts: ['Email files to themselves daily', 'Use a cloud backup service like OneDrive or Google Drive', 'Print every file as a paper copy', 'Save copies on the same hard drive in a different folder'], answer: 1, exp: 'Cloud backup services automatically sync files to remote servers, protecting against local hardware failure, theft, and disasters. Saving copies on the same drive offers no protection if that drive fails.' },
+  { q: 'Which of the following is a property of a STRONG password policy?', opts: ['Force users to change passwords every week', 'Require minimum length, complexity, and prohibit reuse of recent passwords', 'Allow users to write passwords on a sticky note', 'Require passwords to match a common dictionary word'], answer: 1, exp: 'Effective password policies enforce a minimum length (12+ characters), some complexity, and prevent reuse of recent passwords. Forcing extremely frequent changes leads to weaker passwords as users add predictable suffixes.' }
 
 ];
 
@@ -1081,10 +1291,12 @@ let quizQs = [];
 let currentQ = 0;
 let score = 0;
 let answered = false;
+let wrongAnswers = [];
 
 function initQuiz() {
-  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5);
-  currentQ = 0; score = 0; answered = false;
+  const count = parseInt(document.getElementById('quiz-count')?.value || quizQuestions.length, 10);
+  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, count);
+  currentQ = 0; score = 0; answered = false; wrongAnswers = [];
   document.getElementById('quiz-result').style.display = 'none';
   document.getElementById('quiz-container').style.display = 'block';
   document.getElementById('q-total').textContent = quizQs.length;
@@ -1114,6 +1326,7 @@ function selectAnswer(idx) {
   answered = true;
   const q = quizQs[currentQ];
   if (idx === q.answer) score++;
+  else wrongAnswers.push({ q: q.q, opts: q.opts, answer: q.answer, exp: q.exp, userAnswer: idx });
   document.querySelectorAll('.q-opt').forEach((b, i) => {
     b.disabled = true;
     if (i === q.answer) b.classList.add('correct');
@@ -1125,12 +1338,33 @@ function selectAnswer(idx) {
   document.getElementById('q-next').classList.add('show');
 }
 
+function renderWrongAnswers() {
+  if (!wrongAnswers.length) {
+    return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score — no wrong answers to review!</div></div>';
+  }
+  const items = wrongAnswers.map((w, i) => {
+    const letter = n => String.fromCharCode(65 + n);
+    return '<div class="wrong-review-item">' +
+      '<div class="wri-q">' + (i+1) + '. ' + w.q + '</div>' +
+      '<div class="wri-line user">✗ Your answer: ' + letter(w.userAnswer) + '. ' + w.opts[w.userAnswer] + '</div>' +
+      '<div class="wri-line correct">✓ Correct answer: ' + letter(w.answer) + '. ' + w.opts[w.answer] + '</div>' +
+      '<div class="wri-exp">' + w.exp + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="wrong-review">' +
+    '<h3>📚 Review the ' + wrongAnswers.length + ' you missed</h3>' +
+    '<p class="wr-sub">These are the questions where you didn\'t pick the right answer. Read the explanation for each one before retaking.</p>' +
+    items +
+  '</div>';
+}
+
 function nextQuestion() { currentQ++; renderQuestion(); }
 
 function showQuizResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
+  recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
 }
 
 // ── Vocabulary ────────────────────────────────────────────────────────────
@@ -1184,10 +1418,38 @@ function filterVocab() {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────
+const EXAM_KEY = 'techplus';
+const EXAM_LABEL = 'Tech+';
+function recordVisit() {
+  try {
+    localStorage.setItem('lastActive_' + EXAM_KEY, new Date().toISOString());
+    const today = new Date().toISOString().slice(0, 10);
+    const activity = JSON.parse(localStorage.getItem('studyActivity') || '[]');
+    if (!activity.includes(today)) {
+      activity.push(today);
+      localStorage.setItem('studyActivity', JSON.stringify(activity));
+    }
+  } catch(e) {}
+}
+function recordQuizScore(pct, score, total) {
+  try {
+    const key = 'bestScore_' + EXAM_KEY;
+    const prev = JSON.parse(localStorage.getItem(key) || '{"pct":0}');
+    if (pct > (prev.pct || 0)) {
+      localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
+    }
+  } catch(e) {}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   showCard();
   buildVocab(vocabTerms);
   initQuiz();
+  document.querySelector('.domain-header')?.classList.add('open');
+  document.querySelector('.domain-body')?.classList.add('open');
+  loadTracker();
+  recordVisit();
+  renderMasteryBars();
 });
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────
@@ -1260,8 +1522,6 @@ function buildScoreCard(score, total) {
     </div>
   </div>`;
 }
-
-  loadTracker();
 </script>
 </body>
 </html>

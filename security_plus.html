@@ -42,6 +42,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
 .domain-body.open { display: block; }
+.domain-toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
+.domain-tool-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all .15s; }
+.domain-tool-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 .domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
 .domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 .domain-body ul, .domain-body ol { padding-left: 20px; }
@@ -76,6 +79,19 @@ td strong { color: var(--text); }
 .fc-unknown-btn { background: var(--red); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
 .fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
 .fc-score span { color: var(--accent); font-weight: 700; }
+
+/* Mastery bars */
+.mastery-section { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+.mastery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.mastery-header h3 { font-size: 1rem; font-weight: 700; }
+.mastery-reset { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; }
+.mastery-reset:hover { color: #e74c3c; border-color: #e74c3c; }
+.mastery-item { margin-bottom: 14px; }
+.mastery-item:last-child { margin-bottom: 0; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.mastery-label span { color: var(--text-muted); font-size: 0.78rem; }
+.mastery-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--green) 0%, var(--accent) 100%); border-radius: 4px; transition: width 0.4s; }
 /* Quiz */
 .quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
@@ -91,6 +107,23 @@ td strong { color: var(--text); }
 .q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
 .q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
 .q-explanation.show { display: block; }
+
+/* Wrong-answer review */
+.wrong-review { margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.wrong-review h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #e74c3c; }
+.wrong-review .wr-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+.wrong-review-item { background: var(--surface2); border-left: 3px solid #e74c3c; padding: 14px 16px; margin-bottom: 12px; border-radius: 6px; }
+.wrong-review-item .wri-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+.wrong-review-item .wri-line { font-size: 0.83rem; margin: 4px 0; }
+.wrong-review-item .wri-line.user { color: #e74c3c; }
+.wrong-review-item .wri-line.correct { color: var(--green); }
+.wrong-review-item .wri-exp { font-size: 0.83rem; line-height: 1.6; color: var(--text); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.wrong-review .perfect-msg { text-align: center; padding: 20px; color: var(--green); font-weight: 600; }
+/* Quiz controls */
+.quiz-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.quiz-controls label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-right: 4px; }
+.quiz-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; cursor: pointer; }
+.quiz-controls select:focus { outline: 1px solid var(--accent); }
 .quiz-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none; }
 .quiz-next-btn.show { display: inline-block; }
 .quiz-result { text-align: center; padding: 50px 30px; }
@@ -315,6 +348,21 @@ td strong { color: var(--text); }
     color: var(--text);
   }
 
+@media print {
+  body { background: white !important; color: black !important; font-size: 10pt; }
+  header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-tips,
+  button, footer { display: none !important; }
+  #panel-cheatsheet { display: block !important; padding: 0 !important; }
+  #panel-cheatsheet h2 { font-size: 16pt !important; color: black !important; }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8pt !important; }
+  .cheat-card { background: white !important; border: 1px solid #ccc !important; padding: 8pt !important; page-break-inside: avoid; box-shadow: none !important; }
+  .cheat-card h3 { font-size: 11pt !important; color: black !important; border-bottom: 1px solid #999; padding-bottom: 3pt; margin-bottom: 4pt; }
+  .cheat-row { font-size: 9pt !important; border-bottom: 1px dotted #ccc !important; padding: 2pt 0 !important; }
+  .cheat-key, .cheat-val { color: black !important; }
+  .cheat-key { font-weight: 700; }
+}
+
 </style>
 </head>
 <body>
@@ -344,7 +392,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
-  <button class="tab-btn" onclick="showTab('tips')">🧠 Tips &amp; Careers</button>
+  <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
 
 <div class="content-area">
@@ -352,7 +400,11 @@ td strong { color: var(--text); }
 <!-- STUDY GUIDE -->
 <div id="panel-guide" class="tab-panel active">
   <h2 style="margin-bottom:6px;font-size:1.1rem;">Security+ Domain Study Guide</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Click any domain to expand. Based on SY0-701 objectives.</p>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:12px;">💡 Click any domain header (or the ▼ chevron) to expand it. Based on SY0-701 objectives.</p>
+  <div class="domain-toolbar">
+    <button class="domain-tool-btn" onclick="toggleAllDomains(true)">⬇ Expand All</button>
+    <button class="domain-tool-btn" onclick="toggleAllDomains(false)">⬆ Collapse All</button>
+  </div>
 
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
@@ -747,26 +799,50 @@ td strong { color: var(--text); }
     <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
   </div>
   <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+
+  <div class="mastery-section">
+    <div class="mastery-header">
+      <h3>📊 Your mastery by domain</h3>
+      <button class="mastery-reset" onclick="resetMastery()">Reset progress</button>
+    </div>
+    <div id="mastery-bars"></div>
+  </div>
 </div>
 
 <!-- QUIZ -->
 <div id="panel-quiz" class="tab-panel">
+  <div style="margin-bottom:16px;">
+    <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Security+ Practice Quiz</h2>
+    <p style="color:var(--text-muted);font-size:0.88rem;">Scenario-based questions · All SY0-701 domains · Wrong-answer review at the end</p>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+    <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">60</span></div>
+  </div>
+  <div class="quiz-controls">
+    <label for="quiz-count">Questions:</label>
+    <select id="quiz-count" onchange="initQuiz()">
+      <option value="10">10 (quick check)</option>
+      <option value="25">25 (medium)</option>
+      <option value="60" selected>60 (full quiz)</option>
+    </select>
+  </div>
   <div id="quiz-container">
-    <div style="margin-bottom:28px;">
-      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:6px;">Security+ Practice Quiz</h2>
-      <p style="color:var(--text-muted);font-size:0.88rem;">20 questions · All SY0-701 domains · Immediate feedback</p>
-      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
-      <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">20</span></div>
-    </div>
     <div id="question-area"></div>
   </div>
   <div id="quiz-result" class="quiz-result" style="display:none;"></div>
+  <div style="margin-top:20px;">
+    <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;">🔄 Restart Quiz</button>
+  </div>
 </div>
 
 <!-- CHEAT SHEET -->
 <div id="panel-cheatsheet" class="tab-panel">
-  <h2 style="margin-bottom:6px;font-size:1.1rem;">Security+ Quick Reference</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:24px;">Key terms, formulas, and frameworks for last-minute review</p>
+  <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <h2 style="margin-bottom:6px;font-size:1.1rem;">Security+ Quick Reference</h2>
+      <p style="color:var(--text-muted);font-size:0.88rem;">Key terms, formulas, and frameworks for last-minute review</p>
+    </div>
+    <button onclick="window.print()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;">🖨 Print this cheat sheet</button>
+  </div>
   <div class="cheat-grid">
     <div class="cheat-card">
       <h3>🔐 Cryptography Algorithms</h3>
@@ -1313,10 +1389,15 @@ function showTab(name, ev) {
   if (ev && ev.target) ev.target.classList.add('active');
   if (name === 'flashcards') loadCards();
   if (name === 'quiz') initQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function toggleDomain(h) {
   h.classList.toggle('open');
   h.nextElementSibling.classList.toggle('open');
+}
+function toggleAllDomains(open) {
+  document.querySelectorAll('.domain-header').forEach(h => h.classList.toggle('open', open));
+  document.querySelectorAll('.domain-body').forEach(b => b.classList.toggle('open', open));
 }
 
 const allCards = [
@@ -1484,12 +1565,23 @@ const allCards = [
 let filteredCards = [...allCards];
 let currentCard = 0;
 let isFlipped = false;
-let knownCards = new Set();
+
+function getKnownSet() {
+  try { return new Set(JSON.parse(localStorage.getItem('knownCards_secplus') || '[]')); }
+  catch(e) { return new Set(); }
+}
+function saveKnownSet(s) { try { localStorage.setItem('knownCards_secplus', JSON.stringify([...s])); } catch(e) {} }
+function resetMastery() {
+  if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+  localStorage.removeItem('knownCards_secplus');
+  renderMasteryBars();
+  showCard();
+}
 
 function loadCards() {
   const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
   filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
-  currentCard = 0; isFlipped = false; knownCards.clear();
+  currentCard = 0; isFlipped = false;
   showCard();
 }
 
@@ -1498,13 +1590,33 @@ function showCard() {
   const card = filteredCards[currentCard];
   const fc = document.getElementById('flashcard');
   if (!fc) return;
+  const known = getKnownSet();
+  const knownInFilter = filteredCards.filter(c => known.has(c.term)).length;
   document.getElementById('fc-term').textContent = card.term;
   document.getElementById('fc-def').textContent = card.def;
   document.getElementById('fc-progress').textContent = `Card ${currentCard + 1} of ${filteredCards.length}`;
   document.getElementById('fc-count').textContent = `${currentCard + 1} / ${filteredCards.length}`;
-  document.getElementById('fc-known-count').textContent = knownCards.size;
+  document.getElementById('fc-known-count').textContent = knownInFilter;
   document.getElementById('fc-total-count').textContent = filteredCards.length;
   if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function renderMasteryBars() {
+  const container = document.getElementById('mastery-bars');
+  if (!container) return;
+  const known = getKnownSet();
+  const labels = { governance: '⚖️ Governance', crypto: '🔐 Cryptography', threats: '⚠️ Threats & Attacks', identity: '🪪 Identity / AAA', architecture: '🏗️ Architecture', ops: '🛠️ Operations', incident: '🚨 Incident Response', risk: '📊 Risk Management', netsec: '🌐 Network Security' };
+  const byCat = {};
+  allCards.forEach(c => {
+    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, known: 0 };
+    byCat[c.cat].total++;
+    if (known.has(c.term)) byCat[c.cat].known++;
+  });
+  container.innerHTML = Object.keys(byCat).map(cat => {
+    const { total, known } = byCat[cat];
+    const pct = total ? Math.round(known / total * 100) : 0;
+    return '<div class="mastery-item"><div class="mastery-label"><span>' + (labels[cat] || cat) + '</span><span>' + known + ' / ' + total + ' • ' + pct + '%</span></div><div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div></div>';
+  }).join('');
 }
 
 function flipCard() {
@@ -1516,7 +1628,15 @@ function flipCard() {
 
 function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
 function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
-function markCard(known) { if (known) knownCards.add(currentCard); else knownCards.delete(currentCard); nextCard(); }
+function markCard(known) {
+  const set = getKnownSet();
+  const card = filteredCards[currentCard];
+  if (!card) return;
+  if (known) set.add(card.term); else set.delete(card.term);
+  saveKnownSet(set);
+  renderMasteryBars();
+  nextCard();
+}
 
 const quizQuestions = [
   { q: 'Which component of the CIA triad does encryption primarily address?', opts: ['Integrity', 'Availability', 'Confidentiality', 'Non-repudiation'], answer: 2, exp: 'Encryption prevents unauthorized disclosure, directly addressing Confidentiality. Hashing addresses Integrity; redundancy addresses Availability.' },
@@ -1579,16 +1699,53 @@ const quizQuestions = [
   { q: 'What is the FIRST step in the NIST incident response lifecycle?', opts: ['Detection', 'Preparation', 'Containment', 'Recovery'], answer: 1, exp: 'NIST SP 800-61 IR Lifecycle: 1. Preparation (policies, tools, training, playbooks), 2. Detection & Analysis, 3. Containment, 4. Eradication, 5. Recovery, 6. Post-Incident Activity.' },
   { q: 'A company uses tokenization for credit card data. What does this mean for PCI-DSS compliance scope?', opts: ['Scope is eliminated entirely', 'Scope is significantly reduced — systems holding only tokens may be out of scope', 'Scope increases because tokenization requires additional controls', 'No impact on PCI-DSS scope'], answer: 1, exp: 'Tokenization reduces PCI-DSS scope. Systems that only process tokens (not card data) may be de-scoped. The token vault holding actual card data remains in scope.' },
   { q: 'Which security control provides the highest confidence that an attacker is actively in the environment?', opts: ['SIEM alert on failed login', 'IDS signature match', 'Honeytoken access detected', 'Antivirus quarantine'], answer: 2, exp: 'Honeytoken access is a near-zero false-positive alert. Honeytokens have no legitimate use — any access definitively indicates attacker activity. Much higher confidence than signature matches.' },
+
+  // === 30 additional questions ===
+  { q: 'An analyst notices that a domain controller is generating thousands of failed Kerberos authentication events in a short period, each for a different username. What attack is MOST likely occurring?', opts: ['Pass-the-hash attack', 'Password spraying', 'Kerberoasting', 'DNS tunneling'], answer: 1, exp: 'Password spraying attempts a small number of common passwords against many usernames to avoid lockout thresholds. The signature pattern is many different usernames with a low number of failures each.' },
+  { q: 'A technician is hardening a Windows server. Which administrative control should be applied to limit the impact of a stolen service account credential?', opts: ['Disable Windows Update', 'Configure the service account with the minimum rights needed and use a group Managed Service Account (gMSA)', 'Grant Domain Admin to all service accounts', 'Disable logging'], answer: 1, exp: 'gMSAs auto-rotate passwords every 30 days and cannot be used interactively. Combined with least privilege, this minimizes both the theft risk and the impact if a credential is captured.' },
+  { q: 'Which category of security control does an employee security awareness training program represent?', opts: ['Technical control', 'Physical control', 'Administrative / managerial control', 'Compensating control'], answer: 2, exp: 'Awareness training is an administrative (also called managerial) control because it consists of policies, procedures, and education rather than technology. Firewalls and EDR are technical; locks and bollards are physical.' },
+  { q: 'An analyst is investigating a workstation that may be compromised. Which artifact should be collected FIRST to preserve evidence?', opts: ['Disk image', 'Volatile memory (RAM) capture', 'Browser history', 'Backup tapes'], answer: 1, exp: 'Order of volatility dictates capturing the most ephemeral data first. RAM contains running processes, encryption keys, network connections, and clipboard data that disappear at shutdown. Disk imaging is also performed but second.' },
+  { q: 'An analyst notices that a privileged user account is logging in from two countries within the same hour. What detection technique is identifying this?', opts: ['Signature-based detection', 'Impossible travel / geovelocity anomaly', 'Sandbox detonation', 'Static code analysis'], answer: 1, exp: 'Impossible travel (geovelocity) detections flag sign-ins from geographically distant locations within an unrealistic window. It is a high-fidelity indicator of credential theft and a core conditional access policy.' },
+  { q: 'Which type of cryptographic attack exploits two distinct inputs that produce the same hash output?', opts: ['Brute force', 'Collision attack', 'Replay attack', 'Birthday paradox is unrelated to security'], answer: 1, exp: 'A collision attack finds two different inputs that hash to the same value, breaking integrity guarantees. MD5 and SHA-1 are considered insecure due to demonstrated collisions. SHA-256 and SHA-3 are current standards.' },
+  { q: 'A company wants to validate that backup data has not been altered between backup and restore. Which control BEST provides this?', opts: ['Compress backups', 'Hash each backup at creation and re-verify the hash at restore', 'Move backups to faster storage', 'Increase backup frequency'], answer: 1, exp: 'A cryptographic hash (SHA-256 or stronger) over the backup at creation, stored separately, can be re-computed at restore time. Any modification — corruption or tampering — changes the hash.' },
+  { q: 'Which authentication factor category does a hardware security key (FIDO2/WebAuthn token) belong to?', opts: ['Something you know', 'Something you have', 'Something you are', 'Somewhere you are'], answer: 1, exp: 'A hardware security key is a possession factor (something you have). It typically holds private keys that are unlockable with a PIN or biometric and provides phishing-resistant MFA.' },
+  { q: 'A technician is implementing network segmentation for a payment processing environment to reduce PCI-DSS scope. Which architecture provides the STRONGEST isolation?', opts: ['Single flat VLAN with ACLs', 'Air-gapped or microsegmented zone with strict ingress/egress firewalls', 'Adding more switches', 'Layer 2 only with port security'], answer: 1, exp: 'Microsegmentation with strict firewall rules between the cardholder data environment and other networks minimizes the systems that must be assessed against PCI-DSS, lowering audit cost and breach impact.' },
+  { q: 'An analyst sees an alert: a domain admin account ran encoded PowerShell that downloaded a script from a public paste site. Which technique is this on the MITRE ATT&CK framework?', opts: ['Initial Access', 'Execution / Command and Scripting Interpreter', 'Lateral Movement', 'Impact'], answer: 1, exp: 'Encoded PowerShell that retrieves and runs remote code is a textbook Execution technique (T1059 Command and Scripting Interpreter, sub-technique PowerShell). Encoded commands are a strong indicator of adversary activity.' },
+  { q: 'Which mobile device deployment model lets employees use a personally owned device for work but separates corporate data into a managed container?', opts: ['COBO (Corporate Owned, Business Only)', 'COPE (Corporate Owned, Personally Enabled)', 'BYOD with containerization / work profile', 'Choose Your Own Device (CYOD)'], answer: 2, exp: 'BYOD with containerization (such as Android Work Profile or iOS managed apps) keeps corporate apps and data in a sandbox that IT can wipe without touching personal data, balancing privacy and security.' },
+  { q: 'Which type of vulnerability scan logs in to systems with credentials to enumerate installed patches and misconfigurations more accurately?', opts: ['Unauthenticated scan', 'Credentialed / authenticated scan', 'Stealth scan', 'Passive scan'], answer: 1, exp: 'Authenticated (credentialed) scans log into the target and read installed packages, registry settings, and configuration, producing far fewer false positives and far more thorough findings than unauthenticated scans.' },
+  { q: 'A SOC analyst is correlating events from firewalls, EDR, and Active Directory in one platform with alerting and search. What tool is this?', opts: ['CASB', 'SIEM', 'DLP', 'WAF'], answer: 1, exp: 'A SIEM (Security Information and Event Management) aggregates and correlates logs from disparate sources, applies detection rules, and supports investigation. SOAR layers automated response on top of SIEM detections.' },
+  { q: 'Which document outlines the responsibilities and expectations between two parties, often used for cloud services, and is legally binding?', opts: ['SOW (Statement of Work)', 'NDA (Non-Disclosure Agreement)', 'MSA (Master Service Agreement) and SLA', 'Memorandum of Understanding (MOU)'], answer: 2, exp: 'An MSA establishes general terms; SLAs specify measurable service levels (uptime, response time) with penalties. MOUs are typically non-binding. NDAs cover confidentiality only.' },
+  { q: 'An analyst notices that a public-facing web application is being probed with random alphanumeric paths that return 404 responses. What is the MOST likely activity?', opts: ['Normal CDN cache miss', 'Directory / file enumeration with a wordlist scanner', 'DDoS attack', 'TCP SYN flood'], answer: 1, exp: 'Tools like dirb, gobuster, and ffuf probe for hidden directories and backup files by brute-forcing common names. A burst of 404s with wordlist-like paths is a classic enumeration signature. Rate-limit or block the source.' },
+  { q: 'Which network device characteristic BEST distinguishes a next-generation firewall (NGFW) from a traditional stateful firewall?', opts: ['Faster throughput only', 'Deep packet inspection, application awareness, IPS, and user identity integration', 'Layer 2 only filtering', 'NAT only'], answer: 1, exp: 'NGFWs add application-layer awareness (App-ID), user identity (User-ID), integrated IPS, and TLS decryption. Traditional stateful firewalls inspect only headers and connection state, not payloads or applications.' },
+  { q: 'An analyst is hashing a downloaded ISO and comparing the hash to the value posted on the vendor website. What is being verified?', opts: ['Confidentiality', 'Integrity', 'Availability', 'Non-repudiation'], answer: 1, exp: 'A cryptographic hash comparison verifies integrity — that the file has not been altered or corrupted. Confidentiality requires encryption, and non-repudiation requires digital signatures with a private key.' },
+  { q: 'Which type of agreement specifies how an organization will share sensitive data with a third party, including handling, retention, and breach notification?', opts: ['NDA', 'Data Processing Agreement (DPA)', 'SLA', 'Statement of Work'], answer: 1, exp: 'A DPA is required by privacy regulations like GDPR when a controller shares personal data with a processor. It defines purpose, retention, subprocessors, and breach notification obligations.' },
+  { q: 'A security analyst is reviewing audit logs and notices that an administrator created a new account at 2 AM, granted it domain admin rights, and then deleted it within ten minutes. What activity does this MOST suggest?', opts: ['Normal maintenance', 'Privilege escalation and log evasion by an attacker', 'Failed software install', 'Scheduled task'], answer: 1, exp: 'Creating a high-privilege account, performing actions, then deleting it is a common attacker technique to evade attribution. Off-hours timing and short lifetime strongly suggest malicious activity, not legitimate administration.' },
+  { q: 'Which secure design principle requires that two or more individuals be involved in critical operations to prevent fraud?', opts: ['Least privilege', 'Separation of duties', 'Defense in depth', 'Implicit deny'], answer: 1, exp: 'Separation of duties splits sensitive tasks so no single person can complete them alone (for example, one person initiates a payment, another approves). It deters and detects insider fraud.' },
+  { q: 'Which type of penetration test focuses on the human element by attempting to manipulate employees into revealing information or granting access?', opts: ['Network penetration test', 'Web application test', 'Social engineering engagement', 'Red team purple team exercise only'], answer: 2, exp: 'Social engineering engagements (phishing, vishing, physical pretexting) test how susceptible staff are to manipulation. Findings drive training and process improvements like callback verification for sensitive requests.' },
+  { q: 'An analyst is asked to verify that a vendor-claimed security control is actually working in production. Which activity provides this evidence?', opts: ['Reading vendor marketing material', 'Performing a control assessment / audit with sample testing', 'Reviewing the vendor SOC 1 report only', 'Asking other customers informally'], answer: 1, exp: 'Independent control assessments — sampling and testing actual configurations against documented procedures — provide direct evidence. SOC 2 Type II reports are useful but third-party assessments confirm operating effectiveness.' },
+  { q: 'Which security concept allows a system to make access decisions in real time based on user, device posture, location, and behavior, rather than network location?', opts: ['Defense in depth', 'Zero Trust Architecture', 'DMZ', 'Air gap'], answer: 1, exp: 'Zero Trust assumes the network is hostile and authenticates every request based on identity and contextual signals. Trust is never granted by network location alone — even internal LAN traffic must be verified.' },
+  { q: 'Which key management practice prevents a compromised long-term key from compromising past communications?', opts: ['Key escrow', 'Perfect Forward Secrecy with ephemeral keys', 'Key reuse for performance', 'Storing keys in plaintext on the server'], answer: 1, exp: 'PFS generates a unique ephemeral key per session using DHE or ECDHE. Even if the long-term private key is later stolen, recorded sessions cannot be retroactively decrypted. TLS 1.3 mandates PFS.' },
+  { q: 'A user opens an email attachment and immediately their files begin renaming with a .locked extension. Which control would have MOST likely PREVENTED this?', opts: ['Backup and recovery', 'Application allowlisting that blocks unapproved executables, combined with email attachment sandboxing', 'Stronger password policy', 'Faster CPU'], answer: 1, exp: 'Allowlisting blocks any binary not on an approved list, stopping the ransomware loader from running. Email sandboxing detonates attachments in isolation before delivery. Backups recover but do not prevent.' },
+  { q: 'Which control type is BEST described as monitoring for and detecting anomalies after they occur, rather than preventing them?', opts: ['Preventive', 'Detective', 'Corrective', 'Compensating'], answer: 1, exp: 'Detective controls (IDS, SIEM, audit logs, CCTV) identify events as or after they happen. Preventive controls (firewalls, MFA) stop them. Corrective controls (restore from backup) fix damage afterward.' },
+  { q: 'Which secure protocol replaces Telnet for encrypted remote shell access on a network device?', opts: ['HTTP', 'SSH', 'SNMPv1', 'TFTP'], answer: 1, exp: 'SSH (port 22) provides authenticated, encrypted command-line access. Telnet (port 23) transmits credentials and commands in plaintext and should be disabled on any device managed across a network.' },
+  { q: 'An organization wants to ensure that if a single domain controller is compromised, attackers cannot use the captured ticket-granting ticket to access other domains. Which design BEST achieves this?', opts: ['Use the same krbtgt password across all domains', 'Establish forest trust isolation and rotate krbtgt account passwords regularly', 'Disable Kerberos and use only NTLM', 'Allow all users to be domain admins'], answer: 1, exp: 'Rotating the krbtgt password (twice, to invalidate old tickets) is the established remediation for Golden Ticket compromise. Combined with forest/domain isolation, this limits the blast radius of a single domain breach.' },
+  { q: 'Which type of testing involves giving the tester partial knowledge of a system, such as user credentials and network diagrams, but not source code?', opts: ['Black box', 'White box', 'Gray box', 'Blue team exercise'], answer: 2, exp: 'Gray box testing simulates an authenticated user or partner with some inside knowledge — a realistic insider or compromised-account scenario. Black box has no info; white box has full source and architecture access.' },
+  { q: 'A SOC analyst sees that an executive received a text message claiming to be from the IT help desk asking them to verify their Microsoft 365 password by replying. What attack is this?', opts: ['Vishing', 'Smishing (SMS phishing)', 'Whaling via email', 'Watering hole'], answer: 1, exp: 'Smishing is phishing conducted via SMS or text messaging. Because mobile users often cannot easily inspect link destinations or sender details, smishing has a higher success rate than email phishing and targets are often executives.' }
 ];
 
 let quizQs = [];
 let currentQ = 0;
 let score = 0;
 let answered = false;
+let wrongAnswers = [];
 
 function initQuiz() {
-  quizQs = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 60);
-  currentQ = 0; score = 0; answered = false;
+  const count = parseInt(document.getElementById('quiz-count')?.value || '60', 10);
+  const dom = document.getElementById('quiz-domain')?.value || 'all';
+  let pool = [...quizQuestions];
+  if (dom !== 'all' && typeof quizDomainFilter === 'function') pool = pool.filter(q => quizDomainFilter(q, dom));
+  quizQs = pool.sort(() => Math.random() - 0.5).slice(0, count);
+  currentQ = 0; score = 0; answered = false; wrongAnswers = [];
   document.getElementById('quiz-result').style.display = 'none';
   document.getElementById('quiz-container').style.display = 'block';
   document.getElementById('q-total').textContent = quizQs.length;
@@ -1610,6 +1767,7 @@ function selectAnswer(idx) {
   answered = true;
   const q = quizQs[currentQ];
   if (idx === q.answer) score++;
+  else wrongAnswers.push({ q: q.q, opts: q.opts, answer: q.answer, exp: q.exp, userAnswer: idx });
   const btns = document.querySelectorAll('.q-opt');
   btns.forEach((b, i) => {
     b.disabled = true;
@@ -1624,10 +1782,31 @@ function selectAnswer(idx) {
 
 function nextQuestion() { currentQ++; renderQuestion(); }
 
+function renderWrongAnswers() {
+  if (!wrongAnswers.length) {
+    return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score — no wrong answers to review!</div></div>';
+  }
+  const letter = n => String.fromCharCode(65 + n);
+  const items = wrongAnswers.map((w, i) =>
+    `<div class="wrong-review-item">
+      <div class="wri-q">${i+1}. ${w.q}</div>
+      <div class="wri-line user">✗ Your answer: ${letter(w.userAnswer)}. ${w.opts[w.userAnswer]}</div>
+      <div class="wri-line correct">✓ Correct answer: ${letter(w.answer)}. ${w.opts[w.answer]}</div>
+      <div class="wri-exp">${w.exp}</div>
+    </div>`
+  ).join('');
+  return `<div class="wrong-review">
+    <h3>📚 Review the ${wrongAnswers.length} you missed</h3>
+    <p class="wr-sub">These are the questions where you didn't pick the right answer. Read the explanation for each one before retaking.</p>
+    ${items}
+  </div>`;
+}
+
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length);
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
+  recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
 }
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────
@@ -1701,10 +1880,41 @@ function buildScoreCard(score, total) {
   </div>`;
 }
 
-  loadTracker();
+const EXAM_KEY = 'secplus';
+const EXAM_LABEL = 'Security+';
+function recordVisit() {
+  try {
+    localStorage.setItem('lastActive_' + EXAM_KEY, new Date().toISOString());
+    const today = new Date().toISOString().slice(0, 10);
+    const activity = JSON.parse(localStorage.getItem('studyActivity') || '[]');
+    if (!activity.includes(today)) {
+      activity.push(today);
+      localStorage.setItem('studyActivity', JSON.stringify(activity));
+    }
+  } catch(e) {}
+}
+function recordQuizScore(pct, score, total) {
+  try {
+    const key = 'bestScore_' + EXAM_KEY;
+    const prev = JSON.parse(localStorage.getItem(key) || '{"pct":0}');
+    if (pct > (prev.pct || 0)) {
+      localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
+    }
+  } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof loadTracker === 'function') loadTracker();
   if (typeof buildVocabSec === 'function' && typeof secVocabTerms !== 'undefined') {
     buildVocabSec(secVocabTerms);
   }
+  if (typeof loadCards === 'function') loadCards();
+  if (typeof initQuiz === 'function') initQuiz();
+  document.querySelector('.domain-header')?.classList.add('open');
+  document.querySelector('.domain-body')?.classList.add('open');
+  recordVisit();
+  if (typeof renderMasteryBars === 'function') renderMasteryBars();
+});
 </script>
 </body>
 </html>

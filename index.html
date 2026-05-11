@@ -159,6 +159,33 @@
 
   footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
 
+  /* Resume banner */
+  .resume-banner { display: none; background: linear-gradient(135deg, rgba(52,152,219,0.18), rgba(155,89,182,0.18)); border: 1px solid rgba(52,152,219,0.4); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 28px; }
+  .resume-banner.show { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+  .resume-banner .rb-text { flex: 1; min-width: 240px; }
+  .resume-banner .rb-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 6px; }
+  .resume-banner .rb-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .resume-banner .rb-meta { font-size: 0.82rem; color: var(--text-muted); }
+  .resume-banner .rb-meta strong { color: var(--text); }
+  .resume-banner .rb-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; padding: 11px 22px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
+  .resume-banner .rb-btn:hover { opacity: 0.9; }
+
+  /* Daily challenge */
+  .daily-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent-orange); border-radius: var(--radius); padding: 24px 26px; margin-bottom: 32px; }
+  .daily-card .dc-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-orange); margin-bottom: 6px; }
+  .daily-card .dc-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .daily-card .dc-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 16px; }
+  .daily-card .dc-q { font-size: 0.95rem; line-height: 1.55; margin-bottom: 14px; }
+  .daily-card .dc-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  @media (max-width: 600px) { .daily-card .dc-opts { grid-template-columns: 1fr; } }
+  .daily-card .dc-opt { background: var(--surface2); border: 1px solid var(--border); color: var(--text); text-align: left; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-family: inherit; transition: all 0.15s; }
+  .daily-card .dc-opt:hover:not(:disabled) { border-color: var(--accent-orange); background: var(--surface); }
+  .daily-card .dc-opt.correct { border-color: var(--accent-green); background: rgba(46,204,113,0.12); }
+  .daily-card .dc-opt.incorrect { border-color: var(--accent-red); background: rgba(231,76,60,0.12); }
+  .daily-card .dc-exp { display: none; background: rgba(52,152,219,0.08); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; line-height: 1.6; }
+  .daily-card .dc-exp.show { display: block; }
+  .daily-card .dc-tag { display: inline-block; background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; margin-bottom: 10px; }
+
   /* Week Assignment Section */
   .assignment-section { background: var(--surface); border: 2px solid var(--accent-blue); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
   .assignment-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
@@ -180,17 +207,37 @@
 <header>
   <div class="badge">Study Library</div>
   <h1>CompTIA <span>Exam Prep</span></h1>
-  <p>Interactive study materials for A+, Network+, and Security+ certifications</p>
+  <p>Interactive study materials for Tech+, A+, Network+, and Security+ certifications</p>
 </header>
 
 <div class="stats-bar">
-  <div class="stat"><div class="num">3</div><div class="label">Exams Covered</div></div>
-  <div class="stat"><div class="num">6</div><div class="label">Material Types</div></div>
-  <div class="stat"><div class="num">150+</div><div class="label">Practice Questions</div></div>
-  <div class="stat"><div class="num">200+</div><div class="label">Flashcards</div></div>
+  <div class="stat"><div class="num">4</div><div class="label">Exams Covered</div></div>
+  <div class="stat"><div class="num">7</div><div class="label">Material Types</div></div>
+  <div class="stat"><div class="num" id="stat-questions">315+</div><div class="label">Practice Questions</div></div>
+  <div class="stat"><div class="num">550+</div><div class="label">Flashcards</div></div>
+  <div class="stat"><div class="num" id="stat-streak">0🔥</div><div class="label">Day Streak</div></div>
 </div>
 
 <main>
+
+  <a id="resume-banner" class="resume-banner" href="#">
+    <div class="rb-text">
+      <div class="rb-eyebrow">📍 Welcome back</div>
+      <div class="rb-title" id="rb-title">Pick up where you left off</div>
+      <div class="rb-meta" id="rb-meta"></div>
+    </div>
+    <button class="rb-btn" id="rb-btn">Resume →</button>
+  </a>
+
+  <div class="daily-card" id="daily-card" style="display:none;">
+    <div class="dc-eyebrow">🌟 Daily Challenge</div>
+    <div class="dc-title">One question, picked fresh each day</div>
+    <div class="dc-sub" id="dc-sub">A new question shows up at midnight. Try to get a streak going.</div>
+    <span class="dc-tag" id="dc-tag">A+</span>
+    <div class="dc-q" id="dc-q"></div>
+    <div class="dc-opts" id="dc-opts"></div>
+    <div class="dc-exp" id="dc-exp"></div>
+  </div>
 
   <div class="howto" style="margin-bottom:40px;">
     <h3>📚 How to Use This Library</h3>
@@ -356,4 +403,165 @@
         <li>Security Program Management</li>
       </ul>
       <div class="material-chips">
-        <span cla
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">🔬 Activities</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+      </div>
+      <span class="open-btn">Open Security+ Study Hub →</span>
+    </a>
+
+  </div><!-- /exam-grid -->
+
+</main>
+
+<footer>
+  CompTIA Study Library · Built for the classroom · Progress saves in your browser
+</footer>
+
+<script>
+// ─── Resume banner ────────────────────────────────────────────────────────
+const EXAMS = [
+  { key: 'techplus', label: 'Tech+',     file: 'techplus.html' },
+  { key: 'aplus',    label: 'A+',        file: 'aplus.html' },
+  { key: 'netplus',  label: 'Network+',  file: 'network_plus.html' },
+  { key: 'secplus',  label: 'Security+', file: 'security_plus.html' }
+];
+
+function pickMostRecent() {
+  let best = null;
+  EXAMS.forEach(e => {
+    const ts = localStorage.getItem('lastActive_' + e.key);
+    if (ts) {
+      const t = new Date(ts).getTime();
+      if (!best || t > best.t) best = { exam: e, t, iso: ts };
+    }
+  });
+  return best;
+}
+
+function relativeDay(iso) {
+  const ms = Date.now() - new Date(iso).getTime();
+  const days = Math.floor(ms / 86400000);
+  if (days === 0) return 'today';
+  if (days === 1) return 'yesterday';
+  if (days < 7)   return days + ' days ago';
+  return new Date(iso).toLocaleDateString();
+}
+
+function renderResumeBanner() {
+  const recent = pickMostRecent();
+  if (!recent) return;
+  const { exam, iso } = recent;
+  let tracker = [];
+  try { tracker = JSON.parse(localStorage.getItem('tracker_' + exam.key) || '[]'); } catch(e) {}
+  const daysDone = tracker.filter(Boolean).length;
+  let bestScore = null;
+  try { bestScore = JSON.parse(localStorage.getItem('bestScore_' + exam.key) || 'null'); } catch(e) {}
+  document.getElementById('rb-title').textContent = 'Pick up your ' + exam.label + ' studies';
+  let meta = 'Last visited <strong>' + relativeDay(iso) + '</strong> · Week plan: <strong>' + daysDone + ' / 5 days</strong> complete';
+  if (bestScore && bestScore.pct) meta += ' · Best quiz: <strong>' + bestScore.pct + '%</strong>';
+  document.getElementById('rb-meta').innerHTML = meta;
+  const banner = document.getElementById('resume-banner');
+  banner.href = exam.file;
+  banner.classList.add('show');
+  document.getElementById('rb-btn').addEventListener('click', e => { e.preventDefault(); location.href = exam.file; });
+}
+
+// ─── Streak counter ───────────────────────────────────────────────────────
+function calcStreak() {
+  let activity = [];
+  try { activity = JSON.parse(localStorage.getItem('studyActivity') || '[]'); } catch(e) {}
+  if (!activity.length) return 0;
+  const days = new Set(activity);
+  let streak = 0;
+  const cursor = new Date();
+  const todayStr = cursor.toISOString().slice(0,10);
+  if (!days.has(todayStr)) cursor.setDate(cursor.getDate() - 1);
+  while (true) {
+    const s = cursor.toISOString().slice(0,10);
+    if (days.has(s)) { streak++; cursor.setDate(cursor.getDate() - 1); }
+    else break;
+  }
+  return streak;
+}
+
+function renderStreak() {
+  const el = document.getElementById('stat-streak');
+  if (!el) return;
+  const n = calcStreak();
+  el.textContent = n + (n > 0 ? '🔥' : '');
+}
+
+// ─── Daily challenge ──────────────────────────────────────────────────────
+const dailyQuestions = [
+  { tag: 'Tech+', q: 'What does RAM stand for, and what is its KEY characteristic?', opts: ['Random Access Memory — volatile, lost on power-off', 'Read Active Memory — permanent file storage', 'Rapid Access Module — secondary storage', 'Recurring Address Manager — networking term'], answer: 0, exp: 'RAM is the volatile working memory of a computer — contents disappear when power is lost. This is why your unsaved work in Word is gone after a hard shutdown.' },
+  { tag: 'Tech+', q: 'Which cloud model gives you the most control over the operating system?', opts: ['SaaS', 'PaaS', 'IaaS', 'FaaS'], answer: 2, exp: 'IaaS (Infrastructure as a Service) provides virtual machines where you manage the OS and apps. PaaS abstracts away the OS, and SaaS abstracts everything.' },
+  { tag: 'A+', q: 'A user reports their laptop will not power on. Battery is plugged in. What is the FIRST step in CompTIA\'s troubleshooting methodology?', opts: ['Replace the battery', 'Identify the problem', 'Document the resolution', 'Test the theory'], answer: 1, exp: 'CompTIA\'s 6-step methodology starts with: Identify the problem. You ask the user questions and gather information before forming a theory or testing anything.' },
+  { tag: 'A+', q: 'Which Windows utility would you use to repair a corrupted system file?', opts: ['chkdsk', 'diskpart', 'sfc /scannow', 'ipconfig /flushdns'], answer: 2, exp: 'SFC (System File Checker) scans and repairs corrupt or modified Windows system files. chkdsk checks disk integrity, diskpart manages partitions, ipconfig is networking.' },
+  { tag: 'Network+', q: 'What port does HTTPS use by default?', opts: ['80', '443', '22', '3389'], answer: 1, exp: '443 is HTTPS (HTTP over TLS). 80 is HTTP, 22 is SSH, 3389 is RDP. Memorize the common ports — they appear on every Net+ exam.' },
+  { tag: 'Network+', q: 'A technician notices that pings to 8.8.8.8 succeed but pings to google.com fail. What is the most likely issue?', opts: ['Bad cable', 'DNS resolution', 'Firewall blocking ICMP', 'NIC driver failure'], answer: 1, exp: 'If pings by IP work but pings by name fail, DNS is the problem — the device can\'t resolve hostnames to IPs. Layer 3 connectivity is fine; name resolution is broken.' },
+  { tag: 'Security+', q: 'Which of the CIA triad does encryption PRIMARILY protect?', opts: ['Confidentiality', 'Integrity', 'Availability', 'Authentication'], answer: 0, exp: 'Encryption scrambles data so unauthorized parties can\'t read it — that\'s confidentiality. Hashing protects integrity. Redundancy protects availability.' },
+  { tag: 'Security+', q: 'A user receives a text message claiming to be from their bank, asking them to click a link. This is BEST classified as:', opts: ['Phishing', 'Vishing', 'Smishing', 'Whaling'], answer: 2, exp: 'Smishing = SMS phishing (text-based). Vishing = voice (phone). Phishing is the general term, usually email. Whaling = phishing targeting high-value targets like execs.' },
+  { tag: 'Tech+', q: 'What is the BEST practice for creating a strong password?', opts: ['Use complex characters but make it short to remember', 'Use a long passphrase (15+ chars) that is unique per site', 'Use the same complex password everywhere', 'Use your name + birth year'], answer: 1, exp: 'Length beats complexity. A 16-character passphrase is harder to crack than an 8-character P@ssw0rd. Critically: NEVER reuse passwords across sites.' },
+  { tag: 'A+', q: 'Which file system has a 4 GB single-file size limit?', opts: ['NTFS', 'FAT32', 'exFAT', 'ext4'], answer: 1, exp: 'FAT32 maxes out at 4 GB per file (and 2 TB per volume). This is why you cannot copy a single 8 GB movie onto a FAT32 USB drive — use exFAT instead.' },
+  { tag: 'Network+', q: 'Which OSI layer do routers operate at?', opts: ['Layer 1 (Physical)', 'Layer 2 (Data Link)', 'Layer 3 (Network)', 'Layer 4 (Transport)'], answer: 2, exp: 'Routers use IP addresses to forward packets between networks — that\'s Layer 3. Switches operate at Layer 2 using MAC addresses. Hubs at Layer 1.' },
+  { tag: 'Security+', q: 'Which type of attack involves an attacker positioning themselves between two communicating parties?', opts: ['Brute force', 'On-path (MITM)', 'SQL injection', 'DDoS'], answer: 1, exp: 'On-path attack (formerly called Man-in-the-Middle / MITM) intercepts traffic between two hosts. The attacker can read or modify it. HTTPS / certificate pinning defend against this.' },
+  { tag: 'Tech+', q: 'A "byte" consists of how many bits?', opts: ['4', '8', '16', '32'], answer: 1, exp: 'One byte = 8 bits. This gives 256 possible values (2^8), which is why an IPv4 octet ranges 0-255.' },
+  { tag: 'A+', q: 'A user has no internet but pinging the default gateway succeeds. What is the next BEST step?', opts: ['Replace the NIC', 'Ping an external IP like 8.8.8.8', 'Reinstall Windows', 'Replace the Ethernet cable'], answer: 1, exp: 'You have confirmed LAN connectivity works (gateway responds). The next step is to test whether traffic escapes the LAN — ping an external IP to isolate WAN vs LAN issues.' },
+  { tag: 'Security+', q: 'Which authentication factor is "something you have"?', opts: ['Password', 'Fingerprint', 'Security token', 'Location'], answer: 2, exp: 'A security token (hardware key, phone with an authenticator app) is something you have. Password = know. Fingerprint = are. Location = somewhere you are.' }
+];
+
+function pickDailyQuestion() {
+  const dayNum = Math.floor(Date.now() / 86400000);
+  return dailyQuestions[dayNum % dailyQuestions.length];
+}
+
+function renderDailyChallenge() {
+  const card = document.getElementById('daily-card');
+  if (!card) return;
+  const q = pickDailyQuestion();
+  card.style.display = 'block';
+  document.getElementById('dc-tag').textContent = q.tag;
+  document.getElementById('dc-q').textContent = q.q;
+  const opts = document.getElementById('dc-opts');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const b = document.createElement('button');
+    b.className = 'dc-opt';
+    b.textContent = String.fromCharCode(65+i) + '. ' + o;
+    b.onclick = () => {
+      opts.querySelectorAll('.dc-opt').forEach((bb, j) => {
+        bb.disabled = true;
+        if (j === q.answer) bb.classList.add('correct');
+        else if (j === i) bb.classList.add('incorrect');
+      });
+      const exp = document.getElementById('dc-exp');
+      exp.textContent = (i === q.answer ? '✓ Correct! ' : '✗ Not quite. ') + q.exp;
+      exp.classList.add('show');
+      try {
+        const today = new Date().toISOString().slice(0,10);
+        const activity = JSON.parse(localStorage.getItem('studyActivity') || '[]');
+        if (!activity.includes(today)) {
+          activity.push(today);
+          localStorage.setItem('studyActivity', JSON.stringify(activity));
+          renderStreak();
+        }
+      } catch(e) {}
+    };
+    opts.appendChild(b);
+  });
+  document.getElementById('dc-exp').classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderResumeBanner();
+  renderStreak();
+  renderDailyChallenge();
+});
+</script>
+
+</body>
+</html>
