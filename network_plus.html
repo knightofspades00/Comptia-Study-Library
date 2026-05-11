@@ -2022,6 +2022,16 @@ const allCards = [
   { term: 'Network Segmentation', def: 'Dividing a network into smaller zones (VLANs, subnets, DMZ) to limit breach impact, reduce broadcast traffic, and improve security. Microsegmentation: fine-grained controls down to individual workloads (zero trust).', cat: 'security' },
   { term: '5G / Cellular WAN', def: 'LTE/5G used as WAN backup or primary for mobile/remote sites. 5G NR: sub-6 GHz (coverage) and mmWave (speed, short range). Useful for SD-WAN failover, temporary sites, IoT connectivity. Higher latency than fiber.', cat: 'physical' },
   { term: 'Zero Trust Network Access (ZTNA)', def: 'Replaces traditional VPN. Grants application-level access (not network-level) based on identity, device posture, and context. Never trusts, always verifies. Microsegmentation limits lateral movement.', cat: 'security' },
+  { term: 'TCP Flags', def: 'Single-bit fields in the TCP header: SYN (start), ACK (acknowledge), FIN (finish), RST (reset), PSH (push), URG (urgent). The 3-way handshake uses SYN, then SYN-ACK, then ACK.', cat: 'osi' },
+  { term: 'Cable Tester vs Toner Probe', def: 'Cable tester verifies end-to-end wiring and continuity (pins terminated correctly). Toner probe traces where an unlabeled cable runs through walls/ceilings. Different jobs, often kept in the same toolkit.', cat: 'physical' },
+  { term: 'IPv4 Loopback (127.0.0.0/8)', def: '127.0.0.0/8 is reserved for loopback — 127.0.0.1 is your own host. Works without a NIC. Pinging 127.0.0.1 tests the local TCP/IP stack first before suspecting the network.', cat: 'osi' },
+  { term: 'NTP Stratum', def: 'NTP server hierarchy. Stratum 0 = reference clocks (atomic, GPS). Stratum 1 = servers directly attached to stratum 0. Lower number = more accurate. Most clients sync with stratum 2 or 3.', cat: 'services' },
+  { term: 'IPv6 SLAAC', def: 'Stateless Address Auto-Configuration. Hosts generate their own IPv6 address using the router-advertised prefix plus an EUI-64 derived from their MAC. No DHCP needed.', cat: 'osi' },
+  { term: 'Cable Crimper', def: 'Tool to attach an RJ-45 (or other) connector to the end of twisted-pair cable. After crimping, always test with a cable tester before deploying.', cat: 'physical' },
+  { term: 'DHCP Reservation vs Static IP', def: 'Reservation: DHCP server always assigns the same IP to a specific MAC. Static: client is configured manually. Reservation is easier to manage at scale because all changes happen on the server.', cat: 'services' },
+  { term: 'GBIC vs SFP', def: 'Both are modular optical transceivers. SFP (Small Form-factor Pluggable) replaced GBIC and is much smaller. SFP+ supports 10 Gbps. QSFP supports 40/100 Gbps.', cat: 'physical' },
+  { term: 'Jumbo Frames', def: 'Ethernet frames larger than the standard 1500-byte MTU — typically 9000 bytes. Reduces per-frame overhead for big data transfers (SAN, backups). All devices in the path must support the same MTU.', cat: 'physical' },
+  { term: 'TFTP', def: 'Trivial File Transfer Protocol — port 69 UDP. Simple, no authentication, no encryption. Used by network devices to load configs or firmware (often via PXE boot).', cat: 'services' }
 ];
 
 let filteredCards = [...allCards];

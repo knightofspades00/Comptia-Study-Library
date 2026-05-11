@@ -1585,7 +1585,17 @@ const allCards = [
   { term:'IaaS / PaaS / SaaS', def:'IaaS: rent virtual machines (most control). PaaS: rent app platform. SaaS: rent software via browser (least control). Responsibility shifts to provider going up the stack.', cat:'cloud' },
   { term:'Variable', def:'A named storage location in programming that holds a value. The value can change as the program runs.', cat:'programming' },
   { term:'Algorithm', def:'A step-by-step set of instructions to solve a problem or complete a task. The foundation of all computer programs.', cat:'programming' },
-  { term:'Binary / Bit / Byte', def:'Binary: base-2 number system using 0s and 1s. A bit is a single 0 or 1. A byte is 8 bits. Storage: KB, MB, GB, TB.', cat:'concepts' }
+  { term:'Binary / Bit / Byte', def:'Binary: base-2 number system using 0s and 1s. A bit is a single 0 or 1. A byte is 8 bits. Storage: KB, MB, GB, TB.', cat:'concepts' },
+  { term:'BIOS / UEFI', def:'Firmware that initializes hardware at boot, before the OS loads. UEFI replaces older BIOS — supports Secure Boot, large drives (>2 TB), faster boot times.', cat:'hardware' },
+  { term:'Driver', def:'Software that lets the OS talk to a specific piece of hardware (printer, GPU, scanner). Outdated drivers cause many "device not working" issues.', cat:'software' },
+  { term:'Boolean Logic', def:'Logic using only TRUE/FALSE values combined with AND, OR, NOT operations. Foundational for programming conditionals and digital circuits.', cat:'programming' },
+  { term:'Cookie', def:'A small piece of data a website saves in your browser to remember preferences, login status, or tracking info. Manageable in browser settings.', cat:'concepts' },
+  { term:'Encryption (Symmetric vs Asymmetric)', def:'Symmetric: same key encrypts and decrypts (fast — used for bulk data). Asymmetric: public key encrypts, private key decrypts (slower — used for key exchange and signatures).', cat:'security' },
+  { term:'IP vs MAC Address', def:'IP = logical address assigned by the network (changes when you move). MAC = physical hardware address burned into the NIC (does not change).', cat:'networking' },
+  { term:'NoSQL', def:'Databases that do not use SQL or fixed table schemas. Types: document (MongoDB), key-value (Redis), graph. Used for unstructured / rapidly-changing data.', cat:'database' },
+  { term:'Patch / Update', def:'A small software change that fixes bugs, security flaws, or adds features. Apply regularly — unpatched software is the #1 attack vector.', cat:'security' },
+  { term:'Function', def:'A reusable named block of code that performs a specific task. Call by name, pass inputs, get output. Avoids repeating the same code in multiple places.', cat:'programming' },
+  { term:'Compressed Archive', def:'A file (.zip, .rar, .7z) that contains other files in a smaller-than-original form. Saves space and transfer time; must extract before use.', cat:'concepts' }
 ];
 
 let filteredCards = [...allCards];
