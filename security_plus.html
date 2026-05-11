@@ -2483,7 +2483,27 @@ const acronyms = [
   { a: 'WPA3', f: 'Wi-Fi Protected Access 3', n: 'Current Wi-Fi security (uses SAE for Personal)' },
   { a: 'XDR', f: 'Extended Detection and Response', n: 'EDR extended across network, cloud, email' },
   { a: 'XSS', f: 'Cross-Site Scripting', n: 'Injecting scripts into web pages viewed by others' },
-  { a: 'ZTNA', f: 'Zero Trust Network Access', n: 'Replaces VPN — app-level access based on identity/context' }
+  { a: 'ZTNA', f: 'Zero Trust Network Access', n: 'Replaces VPN — app-level access based on identity/context' },
+  { a: 'APT', f: 'Advanced Persistent Threat', n: 'Stealthy, long-term, well-resourced threat actor' },
+  { a: 'BEC', f: 'Business Email Compromise', n: 'Spear-phish posing as an executive to authorize fraud' },
+  { a: 'CSPM', f: 'Cloud Security Posture Management', n: 'Continuously scans cloud config for misconfigurations' },
+  { a: 'C2', f: 'Command and Control', n: 'Infrastructure attackers use to control compromised hosts' },
+  { a: 'DKIM', f: 'DomainKeys Identified Mail', n: 'Email signing — proves the sender domain' },
+  { a: 'DMARC', f: 'Domain-based Message Authentication, Reporting & Conformance', n: 'Policy for what to do with failing SPF/DKIM email' },
+  { a: 'DSS', f: 'Digital Signature Standard', n: 'NIST standard for digital signatures (DSA, RSA, ECDSA)' },
+  { a: 'ECDHE', f: 'Elliptic Curve Diffie-Hellman Ephemeral', n: 'Modern key-exchange with Perfect Forward Secrecy' },
+  { a: 'EOL', f: 'End of Life', n: 'Vendor stops selling — security patches may still come' },
+  { a: 'EOS', f: 'End of Service / Support', n: 'No more security patches — high-risk to keep running' },
+  { a: 'EAP', f: 'Extensible Authentication Protocol', n: 'Auth framework for 802.1X (EAP-TLS most secure)' },
+  { a: 'GPG/PGP', f: 'GNU Privacy Guard / Pretty Good Privacy', n: 'Public-key email and file encryption' },
+  { a: 'HOTP', f: 'HMAC-based One-Time Password', n: 'Counter-based OTP (RFC 4226) — TOTP is the time-based version' },
+  { a: 'IDP/IdP', f: 'Identity Provider', n: 'System that authenticates users for SSO/federation (Okta, Azure AD)' },
+  { a: 'IOC', f: 'Indicator of Compromise', n: 'Evidence of intrusion (file hash, IP, domain)' },
+  { a: 'MSSP', f: 'Managed Security Service Provider', n: 'Outsourced security operations (monitoring, IR)' },
+  { a: 'PHI', f: 'Protected Health Information', n: 'HIPAA-protected medical data' },
+  { a: 'SOC 2', f: 'Service Organization Control 2', n: 'Audit report on a service provider\'s controls (Type II covers operating effectiveness)' },
+  { a: 'SPF', f: 'Sender Policy Framework', n: 'DNS record listing which servers may send mail for a domain' },
+  { a: 'SRTP', f: 'Secure Real-time Transport Protocol', n: 'Encrypted voice/video media (VoIP)' }
 ];
 
 function buildAcronyms(list) {
