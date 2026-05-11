@@ -59,7 +59,21 @@ td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--tex
 tr:last-child td { border-bottom: none; }
 td strong { color: var(--text); }
 /* Flashcards */
-.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+.fc-toggle input { vertical-align: middle; margin-right: 4px; }
+.fc-kbd-hint { font-size: 0.78rem; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; margin-bottom: 20px; }
+.fc-kbd-hint kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 0.75rem; color: var(--text); margin: 0 2px; }
+
+/* Callout boxes */
+.callout { margin: 16px 0; border-radius: 8px; padding: 12px 16px; border-left: 4px solid; }
+.callout strong:first-child { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.callout p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.callout.exam-tip { background: rgba(52,152,219,0.08); border-color: #3498db; }
+.callout.exam-tip strong:first-child { color: #3498db; }
+.callout.real-world { background: rgba(46,204,113,0.08); border-color: #2ecc71; }
+.callout.real-world strong:first-child { color: #2ecc71; }
+.callout.mnemonic { background: rgba(241,196,15,0.08); border-color: #f1c40f; }
+.callout.mnemonic strong:first-child { color: #f1c40f; }
 .fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; }
 .flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
 .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
@@ -228,6 +242,10 @@ td strong { color: var(--text); }
   }
   .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
   .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .screenshot-prompt .sp-keys { text-align: left; margin-top: 6px; }
+  .screenshot-prompt .sp-key-line { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; padding: 2px 0; }
+  .screenshot-prompt .sp-key-line strong { color: var(--text); }
+  .screenshot-prompt kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
   .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
 
@@ -421,6 +439,14 @@ td strong { color: var(--text); }
         <li><strong>Defense in Depth:</strong> Multiple overlapping security layers — no single point of failure</li>
         <li><strong>Zero Trust:</strong> Never trust, always verify. No implicit trust based on network location</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — match the goal to the CIA letter</strong>
+        <p>Every Security+ question can be mapped to <strong>C</strong>, <strong>I</strong>, or <strong>A</strong>. Encryption → C (Confidentiality). Hashing, digital signatures → I (Integrity). Backups, redundancy, DDoS mitigation → A (Availability). When you see "ensure data was not modified," the answer involves hashing or signing — not encryption.</p>
+      </div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — zero trust in the wild</strong>
+        <p>Google's BeyondCorp, Microsoft's conditional access, AWS IAM — all zero-trust implementations. Every login decision considers: <em>who</em> is asking, from <em>what device</em>, in <em>what location</em>, doing <em>what action</em>. The old model ("inside the firewall = trusted") is dead — modern attackers assume they'll get past the perimeter, so each request has to re-prove itself.</p>
+      </div>
       <h4>Cryptography Fundamentals</h4>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>Key Structure</th><th>Speed</th><th>Use Case</th></tr>
@@ -436,6 +462,10 @@ td strong { color: var(--text); }
         <li><strong>ECC:</strong> Elliptic Curve Cryptography. Smaller keys, same security as RSA. Used in mobile/IoT</li>
         <li><strong>Diffie-Hellman:</strong> Key exchange protocol. Allows two parties to establish shared secret over unsecured channel</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — hashing ≠ encryption</strong>
+        <p>Both scramble data, but only encryption is <em>reversible</em>. A hash is one-way: there's no "unhash" function. That's why passwords are stored as hashes (a stolen database doesn't reveal the original passwords) and why hashes verify file integrity (download an ISO, compute SHA-256, compare to the vendor's published hash — if they match, the file wasn't tampered with).</p>
+      </div>
       <h4>PKI (Public Key Infrastructure)</h4>
       <ul>
         <li><strong>Certificate Authority (CA):</strong> Trusted entity that issues digital certificates</li>
@@ -472,6 +502,15 @@ td strong { color: var(--text); }
         <li><strong>Pass the Hash:</strong> Captured hashed credentials used directly for authentication without cracking</li>
         <li><strong>Credential Stuffing:</strong> Automated use of stolen username/password pairs from breaches</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — name the attack from the scenario</strong>
+        <p>Scenario → Attack:<br>
+        • "User input includes <code>' OR '1'='1</code>" → <strong>SQL Injection</strong><br>
+        • "Malicious script in a forum post runs when others view it" → <strong>Stored XSS</strong><br>
+        • "Logged-in user clicks a link and unknowingly transfers money" → <strong>CSRF</strong><br>
+        • "Attacker captures session cookie and replays it" → <strong>Replay attack / Session hijacking</strong><br>
+        • "Stolen NTLM hash used to authenticate without cracking" → <strong>Pass the Hash</strong></p>
+      </div>
       <h4>Vulnerability Management</h4>
       <ul>
         <li><strong>CVE:</strong> Common Vulnerabilities and Exposures — unique ID for known vulnerabilities</li>
@@ -553,12 +592,20 @@ td strong { color: var(--text); }
         <li><strong>Recovery:</strong> Restore systems, validate functionality</li>
         <li><strong>Lessons Learned:</strong> Post-incident review, update policies and procedures</li>
       </ol>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — IR 6 phases</strong>
+        <p>"<strong>P</strong>eople <strong>I</strong>nside <strong>C</strong>ompany <strong>E</strong>at <strong>R</strong>eal <strong>L</strong>unch" = Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned. CompTIA exam favorite: "What is the FIRST step after detecting an incident?" → <em>Containment</em>, not "remove the malware." Always stop the spread first.</p>
+      </div>
       <h4>Digital Forensics</h4>
       <ul>
         <li><strong>Order of Volatility:</strong> CPU registers/cache → RAM → Swap/page file → Hard drive → Remote logs → Backups. Collect most volatile first</li>
         <li><strong>Chain of custody:</strong> Document who handled evidence and when. Required for legal proceedings</li>
         <li><strong>Legal hold:</strong> Suspend normal data deletion when litigation is anticipated</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — order of volatility traps</strong>
+        <p>"What should you collect FIRST during a forensic investigation?" → Always the most volatile data: <strong>RAM / memory contents</strong>, not the hard drive. RAM disappears the instant you power off. Disks survive a reboot, backups survive deletion. CompTIA wants to see that you preserve evidence in vanishing-soonest order.</p>
+      </div>
     </div>
   </div>
 
@@ -665,6 +712,10 @@ td strong { color: var(--text); }
         <li><strong>Separation of Duties:</strong> No single person should be able to complete a critical task alone. E.g., developer cannot deploy their own code to production.</li>
         <li><strong>Mandatory Vacation / Job Rotation:</strong> Forces handoff of duties — detects fraud and hidden malicious activity.</li>
       </ul>
+      <div class="callout real-world">
+        <strong>💼 Real-world — why mandatory vacations catch fraud</strong>
+        <p>Sounds weird, but it works. If an accountant is hiding fraud (cooking the books, embezzling), they have to keep manipulating records daily to cover it. When they're forced to take a 2-week vacation, their replacement notices the anomalies. Many financial-industry compliance rules (SOX, banking regs) <em>require</em> mandatory time off for this exact reason.</p>
+      </div>
     </div>
   </div>
 
@@ -736,6 +787,10 @@ td strong { color: var(--text); }
         <li><strong>Insecure APIs:</strong> Cloud resources exposed via APIs without proper auth. Enforce API keys, OAuth, rate limiting.</li>
         <li><strong>Side-channel attacks:</strong> Shared compute resources (VMs on same host) — theoretical risk of data leakage between VMs via CPU cache timing attacks.</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — shared responsibility memory hook</strong>
+        <p>"The lower in the stack the service, the more <em>YOU</em> are responsible." IaaS = you handle OS upward. PaaS = you handle the app upward. SaaS = you just handle the data and who can see it. <strong>You always own your data and your IAM</strong> — even in SaaS. CompTIA loves "Who is responsible for X in SaaS?" answers.</p>
+      </div>
     </div>
   </div>
 
@@ -755,6 +810,10 @@ td strong { color: var(--text); }
         <tr><td><strong>WPA3-Personal</strong></td><td>CCMP/AES-128</td><td>SAE (Dragonfly)</td><td>Current standard — immune to offline attacks</td></tr>
         <tr><td><strong>WPA3-Enterprise</strong></td><td>GCMP/AES-256</td><td>802.1X/RADIUS</td><td>Highest security — 192-bit mode available</td></tr>
       </table></div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — WPA2 vs WPA3 in one sentence</strong>
+        <p><strong>WPA2-Personal</strong> can have its password captured during the 4-way handshake and cracked offline. <strong>WPA3-Personal</strong> uses SAE (Simultaneous Authentication of Equals), which is immune to offline attacks — every guess requires a fresh online interaction. If a question describes "captured handshake / cracked Wi-Fi password," the answer involves moving to WPA3 (or 802.1X / WPA2-Enterprise so there's no shared password to crack).</p>
+      </div>
       <h4>Network Security Zones</h4>
       <ul>
         <li><strong>Intranet:</strong> Internal corporate network — trusted zone</li>
@@ -763,6 +822,10 @@ td strong { color: var(--text); }
         <li><strong>Guest network:</strong> Isolated network for visitors. No access to internal resources. Implemented via separate VLAN + firewall rules</li>
         <li><strong>Out-of-band management:</strong> Separate dedicated network/interface for managing devices. Isolates management traffic from production</li>
       </ul>
+      <div class="callout real-world">
+        <strong>💼 Real-world — what a real DMZ looks like</strong>
+        <p>Your company hosts a website. The web server <em>has</em> to be reachable from the internet — but you don't want it on the same network as your internal HR or payroll systems. So you put it in a <strong>DMZ</strong> (a separate VLAN/segment) with two firewall rules: external → DMZ is allowed (port 443 only), but DMZ → internal is allowed only for specific application traffic (database queries, etc.). If the public web server gets hacked, the attacker is stuck in the DMZ.</p>
+      </div>
       <h4>Data Loss Prevention (DLP)</h4>
       <ul>
         <li><strong>Network DLP:</strong> Inspects network traffic for sensitive data patterns (SSNs, credit cards, keywords). Can block or quarantine</li>
@@ -776,6 +839,7 @@ td strong { color: var(--text); }
 <!-- FLASHCARDS -->
 <div id="panel-flashcards" class="tab-panel">
   <div class="fc-controls">
+    <div>
     <select class="category-select" id="fc-category" onchange="loadCards()">
       <option value="all">All Categories</option>
       <option value="crypto">Cryptography</option>
@@ -783,7 +847,14 @@ td strong { color: var(--text); }
       <option value="ops">Security Operations</option>
       <option value="governance">Governance &amp; Risk</option>
     </select>
+    <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Include cards I've mastered
+    </label>
+    </div>
     <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+  <div class="fc-kbd-hint">
+    💡 Keyboard shortcuts: <kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> prev/next · <kbd>G</kbd> Got it · <kbd>S</kbd> Still learning
   </div>
   <div class="flashcard-scene" onclick="flipCard()">
     <div class="flashcard" id="flashcard">
@@ -1580,7 +1651,11 @@ function resetMastery() {
 
 function loadCards() {
   const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
-  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  const known = getKnownSet();
+  const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  filteredCards = showAll ? inCategory : inCategory.filter(c => !known.has(c.term));
+  if (!filteredCards.length) filteredCards = inCategory;
   currentCard = 0; isFlipped = false;
   showCard();
 }
@@ -1635,8 +1710,36 @@ function markCard(known) {
   if (known) set.add(card.term); else set.delete(card.term);
   saveKnownSet(set);
   renderMasteryBars();
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  if (known && !showAll) {
+    filteredCards.splice(currentCard, 1);
+    if (!filteredCards.length) {
+      document.getElementById('fc-term').textContent = '🎉 Deck cleared!';
+      document.getElementById('fc-def').textContent = 'You marked every card in this category as "Got It". Toggle "Include cards I\'ve mastered" above to review them, or pick another category.';
+      document.getElementById('fc-progress').textContent = 'All cards mastered';
+      document.getElementById('fc-count').textContent = '✓';
+      return;
+    }
+    if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+    isFlipped = false;
+    showCard();
+    return;
+  }
   nextCard();
 }
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('panel-flashcards')?.classList.contains('active')) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  switch (e.key) {
+    case ' ': e.preventDefault(); flipCard(); break;
+    case 'ArrowRight': e.preventDefault(); nextCard(); break;
+    case 'ArrowLeft': e.preventDefault(); prevCard(); break;
+    case 'g': case 'G': case '1': e.preventDefault(); markCard(true); break;
+    case 's': case 'S': case '2': e.preventDefault(); markCard(false); break;
+  }
+});
 
 const quizQuestions = [
   { q: 'Which component of the CIA triad does encryption primarily address?', opts: ['Integrity', 'Availability', 'Confidentiality', 'Non-repudiation'], answer: 2, exp: 'Encryption prevents unauthorized disclosure, directly addressing Confidentiality. Hashing addresses Integrity; redundancy addresses Availability.' },
@@ -1871,7 +1974,12 @@ function buildScoreCard(score, total) {
     <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
     <div class="screenshot-prompt">
       <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
-      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+      <div class="sp-sub" style="margin-bottom:8px;">Upload to Google Classroom as your Day 4 submission. Make sure your name is visible in the browser tab.</div>
+      <div class="sp-keys">
+        <div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — a rectangle with two stripes beside it, usually 6th key from the left where F5 would be) for full screen. Add <kbd>Shift</kbd> to drag-select a region.</div>
+        <div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag to select.</div>
+        <div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>
+      </div>
     </div>
     <div class="score-card-btns">
       <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>

@@ -65,7 +65,21 @@ td strong { color: var(--text); }
 .osi-name { flex: 1; }
 .osi-example { font-size: 0.75rem; font-weight: 400; opacity: 0.75; text-align: right; }
 /* Flashcards */
-.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+.fc-toggle input { vertical-align: middle; margin-right: 4px; }
+.fc-kbd-hint { font-size: 0.78rem; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; margin-bottom: 20px; }
+.fc-kbd-hint kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 0.75rem; color: var(--text); margin: 0 2px; }
+
+/* Callout boxes */
+.callout { margin: 16px 0; border-radius: 8px; padding: 12px 16px; border-left: 4px solid; }
+.callout strong:first-child { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.callout p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.callout.exam-tip { background: rgba(52,152,219,0.08); border-color: #3498db; }
+.callout.exam-tip strong:first-child { color: #3498db; }
+.callout.real-world { background: rgba(46,204,113,0.08); border-color: #2ecc71; }
+.callout.real-world strong:first-child { color: #2ecc71; }
+.callout.mnemonic { background: rgba(241,196,15,0.08); border-color: #f1c40f; }
+.callout.mnemonic strong:first-child { color: #f1c40f; }
 .fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; }
 .fc-progress { font-size: 0.85rem; color: var(--text-muted); }
 .flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
@@ -235,6 +249,10 @@ td strong { color: var(--text); }
   }
   .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
   .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .screenshot-prompt .sp-keys { text-align: left; margin-top: 6px; }
+  .screenshot-prompt .sp-key-line { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; padding: 2px 0; }
+  .screenshot-prompt .sp-key-line strong { color: var(--text); }
+  .screenshot-prompt kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
   .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
 
@@ -430,6 +448,12 @@ td strong { color: var(--text); }
         <div class="osi-layer" style="background:rgba(127,140,141,0.2);border:1px solid rgba(127,140,141,0.4)"><span class="osi-num">1</span><span class="osi-name">Physical</span><span class="osi-example">Cables, hubs, bits</span></div>
       </div>
       <p style="font-size:0.82rem;color:var(--text-muted);">Mnemonic (top→bottom): <strong>All People Seem To Need Data Processing</strong></p>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — OSI in both directions</strong>
+        <p>Top → Bottom (7→1): <strong>All People Seem To Need Data Processing</strong><br>
+        Bottom → Top (1→7): <strong>Please Do Not Throw Sausage Pizza Away</strong><br>
+        On the exam, ask yourself: "Which Layer X does ___?" Routers = 3 (Network). Switches = 2 (Data Link). Cables = 1 (Physical). TCP/UDP = 4 (Transport). HTTP = 7 (Application).</p>
+      </div>
       <h4>TCP vs UDP</h4>
       <div class="table-wrap"><table>
         <tr><th>Feature</th><th>TCP</th><th>UDP</th></tr>
@@ -438,6 +462,10 @@ td strong { color: var(--text); }
         <tr><td>Speed</td><td>Slower (overhead)</td><td>Faster (no overhead)</td></tr>
         <tr><td>Use Cases</td><td>HTTP, FTP, SSH, email</td><td>DNS, DHCP, VoIP, streaming, TFTP</td></tr>
       </table></div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — when to use TCP vs UDP</strong>
+        <p><strong>Need every packet to arrive in order?</strong> → TCP (file transfer, email, web). <strong>Speed matters more than perfection?</strong> → UDP (live video, voice, gaming, DNS lookups). VoIP sounds occasionally choppy precisely <em>because</em> it's UDP — a dropped packet just means a tiny glitch, faster than waiting for a retransmit.</p>
+      </div>
       <h4>IP Addressing Deep Dive</h4>
       <ul>
         <li><strong>Classful addressing (legacy):</strong> Class A (/8, 16M hosts), Class B (/16, 65K hosts), Class C (/24, 254 hosts)</li>
@@ -445,6 +473,10 @@ td strong { color: var(--text); }
         <li><strong>IPv6:</strong> 128-bit, 8 groups of 4 hex digits. :: = consecutive zeros. ::1 = loopback. fe80:: = link-local</li>
         <li><strong>NAT:</strong> Network Address Translation — maps private IPs to public IPs. PAT (Port Address Translation) = most common form (many-to-one)</li>
       </ul>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — RFC 1918 private ranges</strong>
+        <p>"<strong>10</strong> <strong>1</strong>72 <strong>192</strong>" → 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Memorize these three blocks — they're <em>never</em> routed on the public internet. The /12 on 172 means 172.<strong>16</strong>–172.<strong>31</strong>, not all of 172.x — a common trap.</p>
+      </div>
       <h4>Network Topologies</h4>
       <ul>
         <li><strong>Bus:</strong> All devices on one cable, single point of failure (legacy)</li>
@@ -531,6 +563,10 @@ td strong { color: var(--text); }
         <tr><td><strong>SOA</strong></td><td>Start of Authority — zone metadata</td></tr>
         <tr><td><strong>NS</strong></td><td>Name server records for a zone</td></tr>
       </table></div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — "ping IP works, ping name fails"</strong>
+        <p>Classic CompTIA scenario. If a host can ping <strong>8.8.8.8</strong> but not <strong>google.com</strong>, the network is fine — <strong>DNS resolution</strong> is broken. Check the client's DNS server setting (<code>ipconfig /all</code>), try <code>nslookup google.com</code>, or set DNS to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare) as a quick test.</p>
+      </div>
     </div>
   </div>
 
@@ -557,6 +593,10 @@ td strong { color: var(--text); }
         <li><strong>Port scanning:</strong> Discovering open ports and services (Nmap)</li>
         <li><strong>Evil twin:</strong> Rogue AP that mimics legitimate SSID</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — "DoS" vs "DDoS" precisely</strong>
+        <p><strong>DoS</strong> = one source attacking one target. <strong>DDoS</strong> = many distributed sources (usually a botnet) attacking one target. The defense is different: DoS can sometimes be blocked at the firewall (single IP); DDoS requires upstream scrubbing (Cloudflare, Akamai) because there are too many sources to block individually.</p>
+      </div>
       <h4>VPN Types</h4>
       <ul>
         <li><strong>Site-to-site VPN:</strong> Connects two networks permanently. Uses IPSec</li>
@@ -584,6 +624,10 @@ td strong { color: var(--text); }
         <li>Verify full functionality</li>
         <li>Document findings and resolution</li>
       </ol>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — bottom-up vs top-down troubleshooting</strong>
+        <p><strong>Bottom-up</strong> (Layer 1 → 7): check the cable, the link light, the switch port first. Best when you suspect physical/hardware issues. <strong>Top-down</strong> (Layer 7 → 1): start with the app (browser, email client), work down. Best when one user reports an app issue but others work fine. CompTIA loves asking which approach fits a scenario.</p>
+      </div>
       <h4>Key Troubleshooting Commands</h4>
       <ul>
         <li><span class="key-term">ping</span> — test Layer 3 connectivity</li>
@@ -607,6 +651,14 @@ td strong { color: var(--text); }
         <tr><td>Can't reach outside network</td><td>Default gateway wrong, routing issue, firewall block</td></tr>
         <tr><td>APIPA address (169.254.x.x)</td><td>DHCP server unreachable</td></tr>
       </table></div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — APIPA = "I couldn't find a DHCP server"</strong>
+        <p>A 169.254.x.x address is the OS giving up and assigning itself a link-local address because no DHCP server responded. Causes: DHCP server is down, cable unplugged or bad, switch port disabled, VLAN mismatch, or a switching loop is dropping DHCP DISCOVER packets. <strong>It is never the right IP for normal operation</strong> — always investigate.</p>
+      </div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — what real network troubleshooting looks like</strong>
+        <p>A user says "the internet is broken." The fastest first move at any help desk: <code>ping 127.0.0.1</code> (NIC working?) → <code>ping default-gateway</code> (LAN OK?) → <code>ping 8.8.8.8</code> (WAN OK?) → <code>ping google.com</code> (DNS OK?). In ~20 seconds you've localized the problem to one of 4 zones. This is the most-used 30-second diagnostic in IT.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -664,6 +716,10 @@ td strong { color: var(--text); }
         <tr><td><strong>802.3bt Type 3 (PoE++)</strong></td><td>60W (51W delivered)</td><td>Video conferencing cameras, 802.11ax APs</td></tr>
         <tr><td><strong>802.3bt Type 4</strong></td><td>100W (71.3W delivered)</td><td>Thin clients, laptops</td></tr>
       </table></div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — PoE saves cable runs</strong>
+        <p>PoE delivers <em>data and power</em> over a single Ethernet cable. A school can mount a Wi-Fi access point in the ceiling with no electrical outlet — the PoE switch in the closet powers it through the Cat6 cable. Same idea for security cameras, VoIP phones, and door access readers. On the exam: if a question says "no nearby electrical outlet," the answer is PoE.</p>
+      </div>
     </div>
   </div>
 
@@ -738,6 +794,10 @@ td strong { color: var(--text); }
         <li><strong>Band steering:</strong> Pushes capable clients to 5 GHz to reduce 2.4 GHz congestion.</li>
         <li><strong>802.11r:</strong> Fast BSS Transition — enables faster roaming between APs (important for VoIP).</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — 2.4 GHz vs 5 GHz vs 6 GHz</strong>
+        <p><strong>2.4 GHz</strong> = longer range, slower, congested (3 non-overlapping channels: 1, 6, 11). <strong>5 GHz</strong> = faster, shorter range, much less congestion. <strong>6 GHz</strong> (Wi-Fi 6E) = newest, most channels, very short range. If the question describes a crowded apartment building with dropping connections, the fix is "switch to 5 GHz" or "use channels 1, 6, or 11 only."</p>
+      </div>
     </div>
   </div>
 
@@ -771,6 +831,7 @@ td strong { color: var(--text); }
 <!-- FLASHCARDS -->
 <div id="panel-flashcards" class="tab-panel">
   <div class="fc-controls">
+    <div>
     <select class="category-select" id="fc-category" onchange="loadCards()">
       <option value="all">All Categories</option>
       <option value="osi">OSI / Protocols</option>
@@ -778,7 +839,14 @@ td strong { color: var(--text); }
       <option value="security">Security</option>
       <option value="troubleshooting">Troubleshooting</option>
     </select>
+    <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Include cards I've mastered
+    </label>
+    </div>
     <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+  <div class="fc-kbd-hint">
+    💡 Keyboard shortcuts: <kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> prev/next · <kbd>G</kbd> Got it · <kbd>S</kbd> Still learning
   </div>
   <div class="flashcard-scene" onclick="flipCard()">
     <div class="flashcard" id="flashcard">
@@ -1602,7 +1670,11 @@ function resetMastery() {
 
 function loadCards() {
   const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
-  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  const known = getKnownSet();
+  const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  filteredCards = showAll ? inCategory : inCategory.filter(c => !known.has(c.term));
+  if (!filteredCards.length) filteredCards = inCategory;
   currentCard = 0;
   isFlipped = false;
   showCard();
@@ -1657,6 +1729,19 @@ function prevCard() {
   if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); }
 }
 
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('panel-flashcards')?.classList.contains('active')) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  switch (e.key) {
+    case ' ': e.preventDefault(); flipCard(); break;
+    case 'ArrowRight': e.preventDefault(); nextCard(); break;
+    case 'ArrowLeft': e.preventDefault(); prevCard(); break;
+    case 'g': case 'G': case '1': e.preventDefault(); markCard(true); break;
+    case 's': case 'S': case '2': e.preventDefault(); markCard(false); break;
+  }
+});
+
 function markCard(known) {
   const set = getKnownSet();
   const card = filteredCards[currentCard];
@@ -1664,6 +1749,21 @@ function markCard(known) {
   if (known) set.add(card.term); else set.delete(card.term);
   saveKnownSet(set);
   renderMasteryBars();
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  if (known && !showAll) {
+    filteredCards.splice(currentCard, 1);
+    if (!filteredCards.length) {
+      document.getElementById('fc-term').textContent = '🎉 Deck cleared!';
+      document.getElementById('fc-def').textContent = 'You marked every card in this category as "Got It". Toggle "Include cards I\'ve mastered" above to review them, or pick another category.';
+      document.getElementById('fc-progress').textContent = 'All cards mastered';
+      document.getElementById('fc-count').textContent = '✓';
+      return;
+    }
+    if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+    isFlipped = false;
+    showCard();
+    return;
+  }
   nextCard();
 }
 
@@ -1904,7 +2004,12 @@ function buildScoreCard(score, total) {
     <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
     <div class="screenshot-prompt">
       <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
-      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+      <div class="sp-sub" style="margin-bottom:8px;">Upload to Google Classroom as your Day 4 submission. Make sure your name is visible in the browser tab.</div>
+      <div class="sp-keys">
+        <div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — a rectangle with two stripes beside it, usually 6th key from the left where F5 would be) for full screen. Add <kbd>Shift</kbd> to drag-select a region.</div>
+        <div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag to select.</div>
+        <div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>
+      </div>
     </div>
     <div class="score-card-btns">
       <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>

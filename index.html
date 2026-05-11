@@ -197,8 +197,9 @@
   .day-card .day-task { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
   .day-card .day-submit { margin-top: 8px; font-size: 0.75rem; font-weight: 700; color: #f1c40f; }
   .day-card.highlight { border-color: var(--accent-blue); }
-  .submission-note { background: rgba(241,196,15,0.08); border: 1px solid rgba(241,196,15,0.4); border-radius: 8px; padding: 14px 18px; font-size: 0.85rem; }
+  .submission-note { background: rgba(241,196,15,0.08); border: 1px solid rgba(241,196,15,0.4); border-radius: 8px; padding: 14px 18px; font-size: 0.85rem; line-height: 1.55; }
   .submission-note strong { color: #f1c40f; }
+  .submission-note kbd.kbd-inline { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
 
 </style>
 </head>
@@ -306,9 +307,15 @@
     </div>
 
     <div class="submission-note">
-      <strong>📤 How to Submit:</strong> When you finish the quiz on Day 4, a score card will appear on screen with a yellow "📸 Screenshot This" prompt.
-      Take a screenshot showing your name in the browser tab, your score, and the exam name — then upload it to Google Classroom.
-      Your tracker on each exam page saves your progress automatically so you can pick up where you left off each day.
+      <strong>📤 How to Submit:</strong> When you finish the quiz on Day 4, a score card will appear with the screenshot keys for your device.
+      Make sure your name in the browser tab, your score, and the exam name are all visible — then upload to Google Classroom.
+      Your progress saves automatically in your browser so you can pick up where you left off each day.
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(241,196,15,0.3);font-size:0.78rem;">
+        <strong style="color:#f1c40f;">💻 On a Chromebook:</strong> Hold <kbd class="kbd-inline">Ctrl</kbd> + the <strong>Show Windows</strong> key — the one near the top of the keyboard that looks like a small rectangle with two stripes next to it (usually the 6th key from the left, where F5 would be on a regular keyboard). Add <kbd class="kbd-inline">Shift</kbd> to drag-select a region instead of the whole screen.
+      </div>
+      <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(241,196,15,0.15);font-size:0.75rem;color:var(--text-muted);">
+        <strong>⚠️ Heads up about progress saving:</strong> Your streak, mastery, and quiz scores save in this browser only. If your Chromebook clears browser data when you sign out (some school accounts do this), progress will reset. The site still works fine — you just start each day fresh. Check with your IT department if you want progress to persist.
+      </div>
     </div>
   </div>
 

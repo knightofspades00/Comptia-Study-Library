@@ -77,7 +77,21 @@ td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--tex
 tr:last-child td { border-bottom: none; }
 td strong { color: var(--text); }
 
-.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+.fc-toggle input { vertical-align: middle; margin-right: 4px; }
+.fc-kbd-hint { font-size: 0.78rem; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; margin-bottom: 20px; }
+.fc-kbd-hint kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 0.75rem; color: var(--text); margin: 0 2px; }
+
+/* Callout boxes — shared between exam pages */
+.callout { margin: 16px 0; border-radius: 8px; padding: 12px 16px; border-left: 4px solid; }
+.callout strong:first-child { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.callout p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.callout.exam-tip { background: rgba(52,152,219,0.08); border-color: #3498db; }
+.callout.exam-tip strong:first-child { color: #3498db; }
+.callout.real-world { background: rgba(46,204,113,0.08); border-color: #2ecc71; }
+.callout.real-world strong:first-child { color: #2ecc71; }
+.callout.mnemonic { background: rgba(241,196,15,0.08); border-color: #f1c40f; }
+.callout.mnemonic strong:first-child { color: #f1c40f; }
 .fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; cursor: pointer; }
 .fc-progress { font-size: 0.85rem; color: var(--text-muted); }
 .flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
@@ -262,6 +276,10 @@ td strong { color: var(--text); }
   }
   .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
   .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .screenshot-prompt .sp-keys { text-align: left; margin-top: 6px; }
+  .screenshot-prompt .sp-key-line { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; padding: 2px 0; }
+  .screenshot-prompt .sp-key-line strong { color: var(--text); }
+  .screenshot-prompt kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
   .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
 
@@ -460,6 +478,11 @@ td strong { color: var(--text); }
       </ul>
       <div class="info-box">💡 <strong>Volatile vs Non-Volatile:</strong> RAM is volatile (lost on power-off). Storage (SSD, HDD) is non-volatile (persists). This is a common exam question!</div>
 
+      <div class="callout real-world">
+        <strong>💼 Real-world</strong>
+        <p>When you're shopping for a laptop, the three specs that decide how it actually feels to use are: <strong>CPU</strong> (how fast it thinks), <strong>RAM</strong> (how many things it can think about at once — 8 GB is the floor today, 16 GB is comfortable), and <strong>storage type</strong> (SSD beats HDD by a mile; an old laptop with an SSD upgrade often feels brand new).</p>
+      </div>
+
       <h4>Input &amp; Output Devices</h4>
       <ul>
         <li><strong>Input devices</strong> send data INTO the computer: keyboard, mouse, microphone, scanner, webcam, touchscreen.</li>
@@ -483,6 +506,14 @@ td strong { color: var(--text); }
           <tr><td><strong>Terabyte (TB)</strong></td><td>1,024 GB</td><td>Hard drive capacity</td></tr>
         </table>
       </div>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — storage sizes</strong>
+        <p>"<strong>K</strong>ids <strong>M</strong>ake <strong>G</strong>ood <strong>T</strong>eachers <strong>P</strong>roud" = KB → MB → GB → TB → PB. Each step is roughly ×1,000 (technically ×1,024, but rounded numbers are fine for exam ordering questions).</p>
+      </div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — bits vs bytes</strong>
+        <p>An <strong>uppercase B</strong> = byte. A <strong>lowercase b</strong> = bit. Internet speed is in megabits per second (Mbps) — 100 Mbps = 12.5 MB/s, not 100. CompTIA tests whether you can spot the difference.</p>
+      </div>
     </div>
   </div>
 
@@ -501,6 +532,10 @@ td strong { color: var(--text); }
         <li><strong>Wi-Fi:</strong> IEEE 802.11 wireless networking. Common standards: 802.11ac (Wi-Fi 5) and 802.11ax (Wi-Fi 6). Uses radio waves; speed affected by distance and interference.</li>
         <li><strong>Internet vs. Intranet:</strong> The Internet is the global public network. An Intranet is a private internal network (like a company's internal website) accessible only from inside the organization.</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — router vs switch</strong>
+        <p>A <strong>switch connects devices inside one network</strong>; a <strong>router connects different networks</strong>. Your home Wi-Fi box is technically both — a router + switch + wireless access point in one. On the exam, "between networks" → router. "Within the same network" → switch.</p>
+      </div>
 
       <h4>Cloud Computing</h4>
       <ul>
@@ -518,6 +553,10 @@ td strong { color: var(--text); }
         </table>
       </div>
       <div class="warn-box">⚠️ <strong>Exam Tip:</strong> "Which model gives you most control?" → IaaS. "Which requires least management?" → SaaS. The more you go up (IaaS → PaaS → SaaS), the more the provider manages.</div>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — pizza analogy</strong>
+        <p>Picture making pizza. <strong>IaaS</strong> = renting the kitchen (you bring everything else). <strong>PaaS</strong> = a pizza-making kit (dough &amp; sauce included; you add toppings). <strong>SaaS</strong> = delivered pizza (you just eat it). The fancier the service, the less work for you — and the less control.</p>
+      </div>
     </div>
   </div>
 
@@ -548,6 +587,10 @@ td strong { color: var(--text); }
           <tr><td><strong>FAT32</strong></td><td>Universal</td><td>Works on all OS; max 4 GB file size</td></tr>
           <tr><td><strong>exFAT</strong></td><td>USB drives</td><td>Cross-platform, no 4 GB limit</td></tr>
         </table>
+      </div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — the 4 GB FAT32 gotcha</strong>
+        <p>You can't copy a single file larger than 4 GB onto a FAT32 USB drive — even if the drive is 64 GB total. This catches students every time. Format the drive as <strong>exFAT</strong> for large files that also need to work on both Mac and Windows.</p>
       </div>
 
       <h4>Application Software vs. System Software</h4>
@@ -632,6 +675,10 @@ td strong { color: var(--text); }
         <li><strong>Phishing:</strong> Fake emails/messages designed to steal passwords or trick you into clicking malicious links. The #1 method attackers use to compromise accounts.</li>
         <li><strong>Social Engineering:</strong> Manipulating people (not computers) to give up information. Phishing is a type of social engineering.</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — phishing variants</strong>
+        <p>Same trick, different channel. <strong>Phishing</strong> = email. <strong>Smishing</strong> = SMS / text. <strong>Vishing</strong> = voice / phone. <strong>Whaling</strong> = phishing aimed at executives. If a question describes a fake text message, the answer is <em>smishing</em>, not "phishing."</p>
+      </div>
 
       <h4>Protection Methods</h4>
       <ul>
@@ -642,6 +689,10 @@ td strong { color: var(--text); }
         <li><strong>Software Updates / Patches:</strong> Fix security vulnerabilities. Unpatched software is one of the most common attack vectors.</li>
       </ul>
       <div class="warn-box">⚠️ <strong>Real-World Rule:</strong> Never share your password — not even with "IT support." Legitimate IT staff never need your password. This is the #1 phishing social engineering script.</div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — why MFA matters</strong>
+        <p>Even a "leaked" password is mostly useless against an account with MFA, because the attacker still needs your second factor (phone, security key, biometric). Turn on MFA for your email first — your email is the master key to password resets for every other account.</p>
+      </div>
     </div>
   </div>
 
@@ -665,8 +716,14 @@ td strong { color: var(--text); }
         <option value="programming">Programming</option>
         <option value="concepts">Concepts</option>
       </select>
+      <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+        <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Include cards I've mastered
+      </label>
     </div>
     <span class="fc-progress" id="fc-progress">Card 1 of 24</span>
+  </div>
+  <div class="fc-kbd-hint">
+    💡 Keyboard shortcuts: <kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> prev/next · <kbd>G</kbd> Got it · <kbd>S</kbd> Still learning
   </div>
 
   <div class="flashcard-scene" onclick="flipCard()">
@@ -1176,7 +1233,11 @@ function resetMastery() {
 
 function loadCards() {
   const cat = document.getElementById('fc-category').value;
-  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  const known = getKnownSet();
+  const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  filteredCards = showAll ? inCategory : inCategory.filter(c => !known.has(c.term));
+  if (!filteredCards.length) filteredCards = inCategory; // fall back if everything mastered
   currentCard = 0; isFlipped = false;
   showCard();
 }
@@ -1232,8 +1293,38 @@ function markCard(known) {
   if (known) set.add(card.term); else set.delete(card.term);
   saveKnownSet(set);
   renderMasteryBars();
+  // Spaced repetition: if "Got It" and we're hiding mastered cards, remove from deck
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  if (known && !showAll) {
+    filteredCards.splice(currentCard, 1);
+    if (!filteredCards.length) {
+      document.getElementById('fc-term').textContent = '🎉 Deck cleared!';
+      document.getElementById('fc-def').textContent = 'You marked every card in this category as "Got It". Toggle "Include cards I\'ve mastered" above to review them, or pick another category.';
+      document.getElementById('fc-progress').textContent = 'All cards mastered';
+      document.getElementById('fc-count').textContent = '✓';
+      return;
+    }
+    if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+    isFlipped = false;
+    showCard();
+    return;
+  }
   nextCard();
 }
+
+// ── Keyboard shortcuts (only when flashcards tab is active) ───────────────
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('panel-flashcards')?.classList.contains('active')) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  switch (e.key) {
+    case ' ': e.preventDefault(); flipCard(); break;
+    case 'ArrowRight': e.preventDefault(); nextCard(); break;
+    case 'ArrowLeft': e.preventDefault(); prevCard(); break;
+    case 'g': case 'G': case '1': e.preventDefault(); markCard(true); break;
+    case 's': case 'S': case '2': e.preventDefault(); markCard(false); break;
+  }
+});
 
 // ── Quiz ──────────────────────────────────────────────────────────────────
 const quizQuestions = [
@@ -1514,7 +1605,12 @@ function buildScoreCard(score, total) {
     <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
     <div class="screenshot-prompt">
       <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
-      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+      <div class="sp-sub" style="margin-bottom:8px;">Upload to Google Classroom as your Day 4 submission. Make sure your name is visible in the browser tab.</div>
+      <div class="sp-keys">
+        <div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — a rectangle with two stripes beside it, usually 6th key from the left where F5 would be) for full screen. Add <kbd>Shift</kbd> to drag-select a region.</div>
+        <div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag to select.</div>
+        <div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>
+      </div>
     </div>
     <div class="score-card-btns">
       <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>

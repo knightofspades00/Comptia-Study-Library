@@ -84,7 +84,21 @@ tr:last-child td { border-bottom: none; }
 td strong { color: var(--text); }
 
 /* FLASHCARDS */
-.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+.fc-toggle input { vertical-align: middle; margin-right: 4px; }
+.fc-kbd-hint { font-size: 0.78rem; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; margin-bottom: 20px; }
+.fc-kbd-hint kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 0.75rem; color: var(--text); margin: 0 2px; }
+
+/* Callout boxes */
+.callout { margin: 16px 0; border-radius: 8px; padding: 12px 16px; border-left: 4px solid; }
+.callout strong:first-child { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.callout p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.callout.exam-tip { background: rgba(52,152,219,0.08); border-color: #3498db; }
+.callout.exam-tip strong:first-child { color: #3498db; }
+.callout.real-world { background: rgba(46,204,113,0.08); border-color: #2ecc71; }
+.callout.real-world strong:first-child { color: #2ecc71; }
+.callout.mnemonic { background: rgba(241,196,15,0.08); border-color: #f1c40f; }
+.callout.mnemonic strong:first-child { color: #f1c40f; }
 .fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; cursor: pointer; }
 .fc-progress { font-size: 0.85rem; color: var(--text-muted); }
 .flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
@@ -307,6 +321,10 @@ td strong { color: var(--text); }
   }
   .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
   .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .screenshot-prompt .sp-keys { text-align: left; margin-top: 6px; }
+  .screenshot-prompt .sp-key-line { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; padding: 2px 0; }
+  .screenshot-prompt .sp-key-line strong { color: var(--text); }
+  .screenshot-prompt kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
   .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
 
@@ -518,6 +536,10 @@ td strong { color: var(--text); }
       <h4>Mobile OS Comparisons</h4>
       <p>iOS: Closed ecosystem, App Store only, tighter security, no sideloading (without MDM). Android: Open source (AOSP), sideloading allowed, more fragmentation. Both support MDM, VPN, remote wipe.</p>
       <div class="warn-box">⚠️ <strong>Exam tip:</strong> Know the difference between iOS and Android app sources. iOS = App Store only. Android = Play Store + APK sideloading.</div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — the lint-in-the-charging-port fix</strong>
+        <p>The #1 most common "my phone won't charge" support ticket isn't a bad cable or a dead battery — it's pocket lint packed into the charging port. Take a flashlight, look in the port; if you see fuzz, gently scrape it out with a wooden toothpick (never metal). This single trick fixes ~50% of "won't charge" complaints and saves real money on unnecessary repairs.</p>
+      </div>
     </div>
   </div>
 
@@ -552,6 +574,10 @@ td strong { color: var(--text); }
           <tr><td><strong>443</strong></td><td>HTTPS</td><td>Encrypted web (TLS)</td></tr>
           <tr><td><strong>3389</strong></td><td>RDP</td><td>Windows remote desktop</td></tr>
         </table>
+      </div>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — ports show up everywhere</strong>
+        <p>Memorize these. CompTIA combines port knowledge into scenario questions: "A user can browse HTTP sites but not HTTPS — which port should you check?" → 443. "Email arrives but won't send" → SMTP / port 25 (or 587 for secure). Two-letter pairs that often confuse: <strong>POP3 (110)</strong> vs <strong>IMAP (143)</strong> — POP3 downloads-and-deletes, IMAP keeps a synced copy on the server.</p>
       </div>
       <h4>Network Devices</h4>
       <ul>
@@ -637,6 +663,10 @@ td strong { color: var(--text); }
         <li><strong>Hypervisor Type 2:</strong> Hosted (VirtualBox, VMware Workstation) — runs as app on OS</li>
         <li><strong>VM vs Container:</strong> VMs virtualize full hardware; containers share host OS kernel (Docker)</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — Type 1 vs Type 2 hypervisors</strong>
+        <p>If the question describes a <strong>data center</strong>, production server, or enterprise virtualization → Type 1 (bare-metal). If it describes a <strong>laptop</strong>, student lab, or "test this on your own PC" → Type 2 (hosted). The keyword "<strong>directly on the hardware</strong>" always points to Type 1.</p>
+      </div>
     </div>
   </div>
 
@@ -673,6 +703,18 @@ td strong { color: var(--text); }
         <li><span class="key-term">gpupdate /force</span> — force Group Policy refresh</li>
         <li><span class="key-term">diskpart</span> — CLI disk partitioning</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — sfc vs chkdsk vs DISM</strong>
+        <p>All three "fix Windows" commands, but they fix different things:<br>
+        • <strong>sfc /scannow</strong> = repairs corrupted <em>system files</em> (DLLs, EXEs)<br>
+        • <strong>chkdsk /f</strong> = repairs <em>disk/file-system</em> errors (bad sectors, lost clusters)<br>
+        • <strong>DISM</strong> = repairs the underlying <em>Windows component store</em> when sfc can't finish<br>
+        Order when troubleshooting: <strong>sfc</strong> first → if it can't fix, run <strong>DISM /Online /Cleanup-Image /RestoreHealth</strong> → then sfc again.</p>
+      </div>
+      <div class="callout real-world">
+        <strong>💼 Real-world — try these now</strong>
+        <p>Open Command Prompt (Win+R, type <code>cmd</code>) and try <code>ipconfig /all</code> — that's every networking setting on your computer. Then <code>ping google.com</code>. These are the first two commands a help-desk tech runs when a user says "internet isn't working." Knowing them cold is a job-day-one skill.</p>
+      </div>
       <h4>Windows File Systems</h4>
       <ul>
         <li><strong>NTFS:</strong> Default for Windows drives. Supports permissions, encryption (EFS), journaling, large files</li>
@@ -714,6 +756,10 @@ td strong { color: var(--text); }
         <li><strong>Shoulder surfing:</strong> Watching someone enter credentials</li>
         <li><strong>Dumpster diving:</strong> Finding sensitive info in trash</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — "BEST" answer pattern</strong>
+        <p>When a question asks for the <strong>BEST</strong> response (often after "User clicks a suspicious link"), CompTIA expects: <strong>disconnect the device from the network first</strong> (containment), then scan/remove, then re-image if needed. Pulling the plug is the cheap, correct first step — it stops lateral spread.</p>
+      </div>
       <h4>Windows Security Features</h4>
       <ul>
         <li><strong>BitLocker:</strong> Full-disk encryption. Requires TPM 1.2+ or USB key. Pro/Enterprise only</li>
@@ -742,6 +788,14 @@ td strong { color: var(--text); }
         <li><strong>Verify full system functionality</strong> — test, and implement preventive measures</li>
         <li><strong>Document findings, actions, and outcomes</strong> — update ticket, knowledge base</li>
       </ol>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — "FIRST step" always means step 1</strong>
+        <p>If a question asks "What is the <strong>FIRST</strong> step?" — the answer is almost always <strong>Identify the problem</strong>. CompTIA is checking that you don't skip ahead to "Replace the part" or "Reinstall Windows" without diagnosing first. When unsure, pick the option about <em>asking the user</em> or <em>checking what changed</em>.</p>
+      </div>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — 6 steps</strong>
+        <p>"<strong>I</strong>'ll <strong>T</strong>ry <strong>T</strong>o <strong>P</strong>lan <strong>I</strong>n <strong>V</strong>ery <strong>D</strong>etailed-ways" = Identify → Theory → Test → Plan → Implement → Verify → Document. CompTIA technically labels Verify & Document as separate, but most resources count it as 6 steps with documentation rolled into the last.</p>
+      </div>
       <h4>Power Issues</h4>
       <ul>
         <li><strong>No power at all:</strong> Check outlet, PSU switch, power cable, surge protector. Try known-good PSU.</li>
@@ -847,6 +901,10 @@ td strong { color: var(--text); }
         <li><strong>Educate user</strong> on how infection occurred</li>
       </ol>
       <div class="info-box">💡 <strong>Rootkit note:</strong> If a rootkit is suspected, offline scanning (bootable AV media) is required — the rootkit hides from a running OS scan.</div>
+      <div class="callout mnemonic">
+        <strong>🎯 Mnemonic — malware removal order (7 steps)</strong>
+        <p>"<strong>I Q</strong>uickly <strong>S</strong>can <strong>R</strong>emove, <strong>R</strong>epair, <strong>S</strong>chedule, <strong>E</strong>ducate" = Identify → Quarantine → Safe mode → Remove → Remediate → Schedule scans → Educate. Note: <strong>Quarantine comes BEFORE running the scan</strong> — disconnect first so malware can't spread or update itself during the scan.</p>
+      </div>
       <h4>Browser Issues</h4>
       <ul>
         <li><strong>Browser hijack:</strong> Homepage/search engine changed without permission. Remove suspicious extensions, reset browser settings, run malware scan</li>
@@ -890,6 +948,10 @@ td strong { color: var(--text); }
         <li><strong>Backout plan / rollback:</strong> How to undo the change if something goes wrong</li>
         <li><strong>Documentation:</strong> Record what was done, when, by whom, and the outcome</li>
       </ul>
+      <div class="callout real-world">
+        <strong>💼 Real-world — why CompTIA hammers change management</strong>
+        <p>The single biggest cause of outages in real IT departments is "someone made a change without telling anyone." Change management exists so that when something breaks at 2 AM, the on-call person can look at the change log and know <em>what changed in the last 24 hours</em> — that's almost always the cause. On the exam, the right answer is usually "document the change" or "submit a change request," not "just fix it quickly."</p>
+      </div>
       <h4>Backup and Recovery</h4>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>What it backs up</th><th>Restore time</th><th>Storage use</th></tr>
@@ -899,6 +961,10 @@ td strong { color: var(--text); }
         <tr><td><strong>Synthetic full</strong></td><td>Combines full + incrementals into new full</td><td>Fast</td><td>Medium</td></tr>
       </table></div>
       <p><strong>3-2-1 Rule:</strong> 3 copies of data, on 2 different media types, with 1 offsite copy.</p>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — incremental vs differential</strong>
+        <p>The trick: with <strong>differential</strong>, every backup contains <em>everything since the last full</em>, so it gets bigger every day, but you only need 2 tapes to restore. With <strong>incremental</strong>, each backup only has changes since <em>any</em> previous backup, so files are smaller but a restore needs the full + every incremental since. CompTIA often asks: "Which has the slowest restore?" → Incremental.</p>
+      </div>
       <h4>Safety Procedures</h4>
       <ul>
         <li><strong>ESD (Electrostatic Discharge):</strong> Can destroy components with static as low as 10V (undetectable by humans). Use ESD wrist strap connected to ground, ESD mat, anti-static bags for components</li>
@@ -908,6 +974,10 @@ td strong { color: var(--text); }
         <li><strong>Fire suppression:</strong> Server rooms use FM-200 or CO₂ (not water). Know the location of fire extinguishers</li>
         <li><strong>MSDS/SDS:</strong> Material Safety Data Sheet — required for hazardous substances. Toner, batteries, cleaning agents</li>
       </ul>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — ESD precautions</strong>
+        <p>You can't feel a static shock under 3,000 volts, but a chip can fail at <strong>10 volts</strong>. Always assume your hands are charged. The cheap, exam-perfect order: <strong>1)</strong> Unplug the system. <strong>2)</strong> Wear an ESD wrist strap clipped to a ground point or the chassis. <strong>3)</strong> Place components on an ESD mat or in an anti-static bag — not on a regular plastic bag (which generates static).</p>
+      </div>
       <h4>Scripting Basics</h4>
       <div class="table-wrap"><table>
         <tr><th>Script Type</th><th>Extension</th><th>Shell</th><th>Use Case</th></tr>
@@ -944,6 +1014,7 @@ td strong { color: var(--text); }
 <!-- ===== FLASHCARDS ===== -->
 <div id="panel-flashcards" class="tab-panel">
   <div class="fc-controls">
+    <div>
     <select class="category-select" id="fc-category" onchange="loadCards()">
       <option value="all">All Categories</option>
       <option value="hardware">Hardware</option>
@@ -952,7 +1023,14 @@ td strong { color: var(--text); }
       <option value="security">Security</option>
       <option value="acronyms">Acronyms</option>
     </select>
+    <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Include cards I've mastered
+    </label>
+    </div>
     <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
+  </div>
+  <div class="fc-kbd-hint">
+    💡 Keyboard shortcuts: <kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> prev/next · <kbd>G</kbd> Got it · <kbd>S</kbd> Still learning
   </div>
 
   <div class="flashcard-scene" onclick="flipCard()">
@@ -1855,7 +1933,11 @@ function resetMastery() {
 
 function loadCards() {
   const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
-  filteredCards = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  const known = getKnownSet();
+  const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  filteredCards = showAll ? inCategory : inCategory.filter(c => !known.has(c.term));
+  if (!filteredCards.length) filteredCards = inCategory;
   currentCard = 0; isFlipped = false;
   showCard();
 }
@@ -1910,8 +1992,36 @@ function markCard(known) {
   if (known) set.add(card.term); else set.delete(card.term);
   saveKnownSet(set);
   renderMasteryBars();
+  const showAll = document.getElementById('fc-show-all')?.checked;
+  if (known && !showAll) {
+    filteredCards.splice(currentCard, 1);
+    if (!filteredCards.length) {
+      document.getElementById('fc-term').textContent = '🎉 Deck cleared!';
+      document.getElementById('fc-def').textContent = 'You marked every card in this category as "Got It". Toggle "Include cards I\'ve mastered" above to review them, or pick another category.';
+      document.getElementById('fc-progress').textContent = 'All cards mastered';
+      document.getElementById('fc-count').textContent = '✓';
+      return;
+    }
+    if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+    isFlipped = false;
+    showCard();
+    return;
+  }
   nextCard();
 }
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('panel-flashcards')?.classList.contains('active')) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  switch (e.key) {
+    case ' ': e.preventDefault(); flipCard(); break;
+    case 'ArrowRight': e.preventDefault(); nextCard(); break;
+    case 'ArrowLeft': e.preventDefault(); prevCard(); break;
+    case 'g': case 'G': case '1': e.preventDefault(); markCard(true); break;
+    case 's': case 'S': case '2': e.preventDefault(); markCard(false); break;
+  }
+});
 
 const quizQuestions = [
   { q: 'A laser printer is producing faint ghost images from previous print jobs. Which component is most likely failing?', opts: ['Toner cartridge', 'Fuser assembly', 'Imaging drum', 'Transfer belt'], answer: 1, exp: 'Ghost images (shadow of previous pages) indicate a worn fuser that is not cleaning up residual toner between passes. Replace the fuser assembly.' },
@@ -2258,7 +2368,12 @@ function buildScoreCard(score, total) {
     <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
     <div class="screenshot-prompt">
       <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
-      <div class="sp-sub">Take a screenshot and upload to Google Classroom as your Day 4 submission</div>
+      <div class="sp-sub" style="margin-bottom:8px;">Upload to Google Classroom as your Day 4 submission. Make sure your name is visible in the browser tab.</div>
+      <div class="sp-keys">
+        <div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — a rectangle with two stripes beside it, usually 6th key from the left where F5 would be) for full screen. Add <kbd>Shift</kbd> to drag-select a region.</div>
+        <div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag to select.</div>
+        <div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>
+      </div>
     </div>
     <div class="score-card-btns">
       <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
