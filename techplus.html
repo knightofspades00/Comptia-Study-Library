@@ -62,6 +62,27 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
 .domain-body.open { display: block; }
+/* Global search overlay */
+.gs-overlay { position: fixed; inset: 0; background: rgba(15,17,23,0.85); z-index: 2000; display: none; align-items: flex-start; justify-content: center; padding-top: 80px; }
+.gs-overlay.show { display: flex; }
+.gs-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; width: 92%; max-width: 640px; max-height: 70vh; display: flex; flex-direction: column; gap: 12px; }
+.gs-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; outline: none; }
+.gs-input:focus { border-color: var(--accent-blue, #3498db); }
+.gs-results { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.gs-result { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+.gs-result:hover { border-color: var(--accent-blue, #3498db); }
+.gs-kind { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-blue, #3498db); margin-bottom: 2px; }
+.gs-title { font-size: 0.92rem; font-weight: 600; }
+.gs-snippet { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+.gs-empty { color: var(--text-muted); text-align: center; padding: 20px; font-size: 0.9rem; }
+.gs-hint { font-size: 0.72rem; color: var(--text-muted); text-align: center; }
+
+.study-toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px; position: sticky; top: 6px; z-index: 50; align-items: center; }
+.toc-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-right: 6px; }
+.toc-item { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.76rem; padding: 4px 10px; border-radius: 12px; cursor: pointer; }
+.toc-item:hover { border-color: var(--accent-blue, #3498db); color: var(--accent-blue, #3498db); }
+.toc-item.active { background: var(--accent-blue, #3498db); border-color: var(--accent-blue, #3498db); color: white; }
+
 .domain-toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
 .domain-tool-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all .15s; }
 .domain-tool-btn:hover { background: var(--surface); border-color: var(--accent-blue); color: var(--accent-blue); }
@@ -1670,6 +1691,14 @@ td strong { color: var(--text); }
 
 </div><!-- /panel-tips -->
 
+<div id="global-search" class="gs-overlay" onclick="if(event.target.id==='global-search')closeGlobalSearch()">
+  <div class="gs-modal">
+    <input id="gs-input" class="gs-input" type="text" placeholder="Search flashcards, acronyms, vocabulary, study guide..." />
+    <div class="gs-results" id="gs-results"></div>
+    <div class="gs-hint">⌨ Ctrl+K (Cmd+K on Mac) to open · Esc to close · Click a result to jump there</div>
+  </div>
+</div>
+
 <script>
 // ── Tab switching ─────────────────────────────────────────────────────────
 function showTab(name, ev) {
@@ -1704,6 +1733,103 @@ function toggleDomain(header) {
 function toggleAllDomains(open) {
   document.querySelectorAll('.domain-header').forEach(h => h.classList.toggle('open', open));
   document.querySelectorAll('.domain-body').forEach(b => b.classList.toggle('open', open));
+}
+
+// ── Global search (Ctrl/Cmd+K) ───────────────────────────────────────────
+function openGlobalSearch() {
+  const overlay = document.getElementById('global-search');
+  if (!overlay) return;
+  overlay.classList.add('show');
+  const input = document.getElementById('gs-input');
+  input.value = '';
+  document.getElementById('gs-results').innerHTML = '<div class="gs-empty">Type to search across flashcards, acronyms, vocab, and Study Guide.</div>';
+  setTimeout(() => input.focus(), 50);
+}
+function closeGlobalSearch() {
+  document.getElementById('global-search')?.classList.remove('show');
+}
+function gsSearch(q) {
+  q = (q || '').toLowerCase().trim();
+  const out = document.getElementById('gs-results');
+  if (!out) return;
+  if (q.length < 2) { out.innerHTML = '<div class="gs-empty">Type to search across flashcards, acronyms, vocab, and Study Guide.</div>'; return; }
+  const results = [];
+  (typeof allCards !== 'undefined' ? allCards : []).forEach(c => {
+    if (c.term.toLowerCase().includes(q) || c.def.toLowerCase().includes(q)) {
+      results.push({ kind: 'Flashcard', title: c.term, snippet: c.def.slice(0, 120), action: 'flashcards' });
+    }
+  });
+  (typeof acronyms !== 'undefined' ? acronyms : []).forEach(a => {
+    if (a.a.toLowerCase().includes(q) || a.f.toLowerCase().includes(q) || (a.n || '').toLowerCase().includes(q)) {
+      results.push({ kind: 'Acronym', title: a.a + ' — ' + a.f, snippet: a.n || '', action: 'acronyms' });
+    }
+  });
+  (typeof vocabTerms !== 'undefined' ? vocabTerms : []).forEach(v => {
+    if (v.term.toLowerCase().includes(q) || v.def.toLowerCase().includes(q)) {
+      results.push({ kind: 'Vocabulary', title: v.term, snippet: v.def.slice(0, 120), action: 'vocab' });
+    }
+  });
+  document.querySelectorAll('#panel-guide .domain-card .domain-header h3').forEach((h, i) => {
+    if (h.textContent.toLowerCase().includes(q)) {
+      results.push({ kind: 'Study Guide', title: h.textContent.trim(), snippet: 'Jump to this domain', action: 'domain:' + i });
+    }
+  });
+  if (!results.length) { out.innerHTML = '<div class="gs-empty">No matches for "' + escapeHTML(q) + '".</div>'; return; }
+  out.innerHTML = results.slice(0, 30).map((r, i) =>
+    '<div class="gs-result" data-action="' + r.action + '"><div class="gs-kind">' + r.kind + '</div><div class="gs-title">' + escapeHTML(r.title) + '</div>' + (r.snippet ? '<div class="gs-snippet">' + escapeHTML(r.snippet) + '</div>' : '') + '</div>'
+  ).join('');
+  out.querySelectorAll('.gs-result').forEach(el => {
+    el.addEventListener('click', () => gsGo(el.dataset.action));
+  });
+}
+function escapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+function gsGo(action) {
+  closeGlobalSearch();
+  if (action === 'flashcards' || action === 'vocab' || action === 'acronyms') {
+    const tabName = action === 'vocab' ? 'Vocabulary' : (action === 'flashcards' ? 'Flashcards' : 'Acronyms');
+    const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes(tabName));
+    btn?.click();
+  } else if (action.startsWith('domain:')) {
+    const idx = parseInt(action.slice(7), 10);
+    const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes('Study Guide'));
+    btn?.click();
+    setTimeout(() => {
+      const card = document.querySelectorAll('#panel-guide .domain-card')[idx];
+      if (!card) return;
+      card.querySelector('.domain-header')?.classList.add('open');
+      card.querySelector('.domain-body')?.classList.add('open');
+      const y = card.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 100);
+  }
+}
+
+function buildStudyTOC() {
+  const guide = document.getElementById('panel-guide');
+  if (!guide) return;
+  if (guide.querySelector('.study-toc')) return;
+  const headers = guide.querySelectorAll('.domain-card .domain-header h3');
+  if (headers.length < 2) return;
+  const toc = document.createElement('nav');
+  toc.className = 'study-toc';
+  toc.innerHTML = '<span class="toc-label">Jump to:</span>' +
+    Array.from(headers).map((h, i) => {
+      const txt = h.textContent.replace(/\s+\d+%\s*$/, '').trim();
+      return '<button class="toc-item" data-idx="' + i + '">' + txt + '</button>';
+    }).join('');
+  const firstDomain = guide.querySelector('.domain-card');
+  if (firstDomain) guide.insertBefore(toc, firstDomain);
+  toc.querySelectorAll('.toc-item').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const card = guide.querySelectorAll('.domain-card')[i];
+      const header = card.querySelector('.domain-header');
+      const body = card.querySelector('.domain-body');
+      header.classList.add('open');
+      body.classList.add('open');
+      const y = card.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
 }
 
 // ── Flashcards ────────────────────────────────────────────────────────────
@@ -2562,6 +2688,17 @@ document.addEventListener('DOMContentLoaded', function() {
   loadNotes();
   buildAcronyms(acronyms);
   initPBQ();
+  buildStudyTOC();
+  document.getElementById('gs-input')?.addEventListener('input', e => gsSearch(e.target.value));
+});
+
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+    e.preventDefault();
+    openGlobalSearch();
+  } else if (e.key === 'Escape' && document.getElementById('global-search')?.classList.contains('show')) {
+    closeGlobalSearch();
+  }
 });
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────
