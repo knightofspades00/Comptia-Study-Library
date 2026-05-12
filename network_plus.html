@@ -1821,6 +1821,15 @@ function recordQuizScore(pct, score, total) {
     }
   } catch(e) {}
 }
+function recordMockScore(pct, score, total) {
+  try {
+    const key = 'bestMockScore_' + EXAM_KEY;
+    const prev = JSON.parse(localStorage.getItem(key) || '{"pct":0}');
+    if (pct > (prev.pct || 0)) {
+      localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
+    }
+  } catch(e) {}
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   buildVocab(vocabTerms);
@@ -1841,8 +1850,9 @@ function showTab(name, ev) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   if (ev && ev.target) ev.target.classList.add('active');
-  if (name === 'flashcards') loadCards();
-  if (name === 'quiz') initQuiz();
+  // Lazy-init only if the panel hasn't been populated yet — never reset in-progress state
+  if (name === 'flashcards' && (!filteredCards || filteredCards.length === 0)) loadCards();
+  if (name === 'quiz' && (!quizQs || quizQs.length === 0)) initQuiz();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -2641,7 +2651,11 @@ function renderMockPalette() {
   }).join('');
 }
 
-function selectMockAnswer(idx) { mockAnswers[mockQIdx] = idx; renderMockQuestion(); }
+function selectMockAnswer(idx) {
+  mockAnswers[mockQIdx] = idx;
+  document.querySelectorAll('.mock-question .mock-opt').forEach((b, i) => { b.classList.toggle('selected', i === idx); });
+  renderMockPalette();
+}
 function nextMockQ() { if (mockQIdx < mockQs.length - 1) { mockQIdx++; renderMockQuestion(); } }
 function prevMockQ() { if (mockQIdx > 0) { mockQIdx--; renderMockQuestion(); } }
 function jumpToMockQ(i) { mockQIdx = i; renderMockQuestion(); }
@@ -2673,7 +2687,7 @@ function submitMockExam(timesUp) {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('quiz-result').style.display = 'block';
   document.getElementById('quiz-result').innerHTML = buildMockResultCard(correct, mockQs.length, pct, passed, elapsedMin, elapsedSec) + renderMockMissed(missed);
-  recordQuizScore(pct, correct, mockQs.length);
+  recordMockScore(pct, correct, mockQs.length);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (passed) celebrate();
 }

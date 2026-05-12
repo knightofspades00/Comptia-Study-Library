@@ -465,11 +465,13 @@ function renderResumeBanner() {
   let tracker = [];
   try { tracker = JSON.parse(localStorage.getItem('tracker_' + exam.key) || '[]'); } catch(e) {}
   const daysDone = tracker.filter(Boolean).length;
-  let bestScore = null;
-  try { bestScore = JSON.parse(localStorage.getItem('bestScore_' + exam.key) || 'null'); } catch(e) {}
+  let bestQuiz = null, bestMock = null;
+  try { bestQuiz = JSON.parse(localStorage.getItem('bestScore_' + exam.key) || 'null'); } catch(e) {}
+  try { bestMock = JSON.parse(localStorage.getItem('bestMockScore_' + exam.key) || 'null'); } catch(e) {}
   document.getElementById('rb-title').textContent = 'Pick up your ' + exam.label + ' studies';
   let meta = 'Last visited <strong>' + relativeDay(iso) + '</strong> · Week plan: <strong>' + daysDone + ' / 5 days</strong> complete';
-  if (bestScore && bestScore.pct) meta += ' · Best quiz: <strong>' + bestScore.pct + '%</strong>';
+  if (bestQuiz && bestQuiz.pct) meta += ' · Best quiz: <strong>' + bestQuiz.pct + '%</strong>';
+  if (bestMock && bestMock.pct) meta += ' · Best mock: <strong>' + bestMock.pct + '%</strong>';
   document.getElementById('rb-meta').innerHTML = meta;
   const banner = document.getElementById('resume-banner');
   banner.href = exam.file;
