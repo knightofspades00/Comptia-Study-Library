@@ -532,6 +532,17 @@ function renderDailyChallenge() {
   const card = document.getElementById('daily-card');
   if (!card) return;
   const q = pickDailyQuestion();
+  const today = new Date().toISOString().slice(0, 10);
+  const todayKey = 'dailyAnswered_' + today;
+  let previousAnswer = null;
+  try {
+    const stored = localStorage.getItem(todayKey);
+    if (stored !== null && stored !== '') {
+      const n = parseInt(stored, 10);
+      if (!isNaN(n) && n >= 0 && n < q.opts.length) previousAnswer = n;
+    }
+  } catch(e) {}
+
   card.style.display = 'block';
   document.getElementById('dc-tag').textContent = q.tag;
   document.getElementById('dc-q').textContent = q.q;
@@ -541,7 +552,13 @@ function renderDailyChallenge() {
     const b = document.createElement('button');
     b.className = 'dc-opt';
     b.textContent = String.fromCharCode(65+i) + '. ' + o;
+    if (previousAnswer !== null) {
+      b.disabled = true;
+      if (i === q.answer) b.classList.add('correct');
+      else if (i === previousAnswer) b.classList.add('incorrect');
+    }
     b.onclick = () => {
+      try { localStorage.setItem(todayKey, String(i)); } catch(e) {}
       opts.querySelectorAll('.dc-opt').forEach((bb, j) => {
         bb.disabled = true;
         if (j === q.answer) bb.classList.add('correct');
@@ -551,7 +568,6 @@ function renderDailyChallenge() {
       exp.textContent = (i === q.answer ? '✓ Correct! ' : '✗ Not quite. ') + q.exp;
       exp.classList.add('show');
       try {
-        const today = new Date().toISOString().slice(0,10);
         const activity = JSON.parse(localStorage.getItem('studyActivity') || '[]');
         if (!activity.includes(today)) {
           activity.push(today);
@@ -562,7 +578,15 @@ function renderDailyChallenge() {
     };
     opts.appendChild(b);
   });
-  document.getElementById('dc-exp').classList.remove('show');
+
+  const exp = document.getElementById('dc-exp');
+  if (previousAnswer !== null) {
+    exp.textContent = (previousAnswer === q.answer ? '✓ Correct! ' : '✗ Not quite. ') + q.exp;
+    exp.classList.add('show');
+    document.getElementById('dc-sub').innerHTML = '<strong>✓ Answered today.</strong> Come back tomorrow for a new question.';
+  } else {
+    exp.classList.remove('show');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

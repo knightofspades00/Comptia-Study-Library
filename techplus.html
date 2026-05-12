@@ -35,6 +35,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .meta-item strong { color: var(--text); }
 
 .tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; padding: 0 30px; }
+.tab-btn { position: relative; }
+.progress-badge { position: absolute; top: 5px; right: 5px; background: #f39c12; color: white; font-size: 0.62rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; line-height: 1.2; pointer-events: none; }
 .tab-btn {
   background: none; border: none; color: var(--text-muted); cursor: pointer;
   padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap;
@@ -1818,6 +1820,7 @@ function initQuiz() {
   document.getElementById('quiz-container').style.display = 'block';
   document.getElementById('q-total').textContent = quizQs.length;
   renderQuestion();
+  updateQuizBadge();
 }
 
 function renderQuestion() {
@@ -1875,13 +1878,27 @@ function renderWrongAnswers() {
   '</div>';
 }
 
-function nextQuestion() { currentQ++; renderQuestion(); }
+function nextQuestion() { currentQ++; renderQuestion(); updateQuizBadge(); }
 
 function showQuizResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('quiz-result').style.display = 'block';
   document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
   recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
+  updateQuizBadge();
+}
+
+function updateQuizBadge() {
+  const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes('Practice Quiz'));
+  if (!btn) return;
+  let badge = btn.querySelector('.progress-badge');
+  const inProgress = quizQs && quizQs.length > 0 && currentQ > 0 && currentQ < quizQs.length && document.getElementById('quiz-result')?.style.display !== 'block';
+  if (inProgress) {
+    if (!badge) { badge = document.createElement('span'); badge.className = 'progress-badge'; btn.appendChild(badge); }
+    badge.textContent = (currentQ + 1) + '/' + quizQs.length;
+  } else if (badge) {
+    badge.remove();
+  }
 }
 
 // ─── Notes (per-exam persistent textarea) ──────────────────────────────────
