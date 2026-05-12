@@ -550,6 +550,20 @@ td strong { color: var(--text); }
   .cheat-row { font-size: 9pt !important; border-bottom: 1px dotted #ccc !important; padding: 2pt 0 !important; }
   .cheat-key, .cheat-val { color: black !important; }
   .cheat-key { font-weight: 700; }
+
+  /* Full Study Guide print mode */
+  body.printing-guide #panel-guide { display: block !important; padding: 0 !important; }
+  body.printing-guide #panel-guide .domain-body { display: block !important; }
+  body.printing-guide #panel-guide .domain-card { page-break-inside: avoid; margin-bottom: 10pt; border: 1px solid #999 !important; background: white !important; }
+  body.printing-guide #panel-guide .domain-header { background: white !important; padding: 6pt 10pt !important; }
+  body.printing-guide #panel-guide .domain-header h3 { color: black !important; font-size: 13pt !important; }
+  body.printing-guide #panel-guide .domain-header .domain-pct { background: white !important; color: black !important; border: 1px solid #ccc !important; }
+  body.printing-guide #panel-guide .chevron { display: none; }
+  body.printing-guide #panel-guide .domain-toolbar, body.printing-guide #panel-guide .study-toc { display: none !important; }
+  body.printing-guide #panel-guide h4 { font-size: 11pt !important; color: #333 !important; margin-top: 8pt !important; }
+  body.printing-guide #panel-guide p, body.printing-guide #panel-guide li { color: black !important; font-size: 10pt !important; }
+  body.printing-guide #panel-guide .info-box, body.printing-guide #panel-guide .callout, body.printing-guide #panel-guide .warn-box { background: #f8f8f8 !important; border: 1px solid #ccc !important; color: black !important; page-break-inside: avoid; }
+  body.printing-guide #panel-cheatsheet { display: none !important; }
 }
 
 </style>
@@ -596,6 +610,7 @@ td strong { color: var(--text); }
   <div class="domain-toolbar">
     <button class="domain-tool-btn" onclick="toggleAllDomains(true)">⬇ Expand All</button>
     <button class="domain-tool-btn" onclick="toggleAllDomains(false)">⬆ Collapse All</button>
+    <button class="domain-tool-btn" onclick="printStudyGuide()">🖨 Print full guide</button>
   </div>
 
   <!-- CORE 1 -->
@@ -2040,6 +2055,15 @@ function toggleDomain(h) {
 function toggleAllDomains(open) {
   document.querySelectorAll('.domain-header').forEach(h => h.classList.toggle('open', open));
   document.querySelectorAll('.domain-body').forEach(b => b.classList.toggle('open', open));
+}
+
+function printStudyGuide() {
+  toggleAllDomains(true);
+  document.body.classList.add('printing-guide');
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => document.body.classList.remove('printing-guide'), 800);
+  }, 150);
 }
 
 // ── Global search (Ctrl/Cmd+K) ───────────────────────────────────────────
