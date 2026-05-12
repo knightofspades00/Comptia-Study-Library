@@ -158,6 +158,34 @@ td strong { color: var(--text); }
 .acro-full { font-size: 0.85rem; color: var(--text); margin-bottom: 4px; }
 .acro-note { font-size: 0.78rem; color: var(--text-muted); }
 
+/* Performance-based questions (drag-and-drop) */
+.pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
+.pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-blue, #3498db); margin-bottom: 8px; }
+.pbq-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.pbq-card > p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; }
+.pbq-board { display: grid; grid-template-columns: minmax(180px, 280px) 1fr; gap: 22px; align-items: start; }
+@media (max-width: 720px) { .pbq-board { grid-template-columns: 1fr; } }
+.pbq-pool { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 14px; min-height: 100px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.pbq-pool.over { border-color: var(--accent-blue, #3498db); }
+.pbq-chip { background: linear-gradient(135deg, var(--accent-blue, #3498db), var(--accent-purple, #9b59b6)); color: white; padding: 7px 14px; border-radius: 18px; font-size: 0.82rem; font-weight: 600; cursor: grab; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.pbq-chip:active { cursor: grabbing; }
+.pbq-chip.placed { opacity: 0.85; }
+.pbq-chip.correct { background: linear-gradient(135deg, var(--green), #16a085); }
+.pbq-chip.incorrect { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.pbq-targets { display: flex; flex-direction: column; gap: 8px; }
+.pbq-row { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: center; }
+@media (max-width: 720px) { .pbq-row { grid-template-columns: 110px 1fr; } }
+.pbq-slot { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 7px; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+.pbq-slot.over { border-color: var(--accent-blue, #3498db); background: rgba(52,152,219,0.08); }
+.pbq-label { font-size: 0.83rem; color: var(--text); }
+.pbq-actions { margin-top: 16px; display: flex; gap: 8px; }
+.pbq-actions button { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.pbq-actions button:hover { border-color: var(--accent-blue, #3498db); color: var(--accent-blue, #3498db); }
+.pbq-result { margin-top: 14px; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; display: none; }
+.pbq-result.show { display: block; }
+.pbq-result.pass { background: rgba(46,204,113,0.15); border: 1px solid var(--green); color: var(--green); }
+.pbq-result.fail { background: rgba(231,76,60,0.15); border: 1px solid #e74c3c; color: #e74c3c; }
+
 /* Mock Exam button */
 .mock-exam-btn { background: linear-gradient(135deg, #e74c3c, #f39c12); color: white; border: none; padding: 12px 22px; border-radius: 8px; cursor: pointer; font-size: 0.92rem; font-weight: 700; }
 .mock-exam-btn:hover { opacity: 0.9; box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
@@ -1004,7 +1032,108 @@ td strong { color: var(--text); }
      ACTIVITIES
 ═══════════════════════════════════════════════════════════════════════════ -->
 <div id="panel-activities" class="tab-panel">
-  <h2 style="margin-bottom:20px;">Learning Activities</h2>
+  <h2 style="margin-bottom:6px;">Performance Activities &amp; Hands-On</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:22px;">Tech+ doesn't have performance-based questions on the real exam, but these drag-and-drop drills help connect the vocabulary you've been learning to real-world groupings. Great practice for the multiple-choice exam too.</p>
+
+  <!-- PBQ 1: Hardware vs Software vs Network -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 1</div>
+    <h3>Sort each ITEM into its CATEGORY</h3>
+    <p>Drag each item from the pool into the correct category slot. Each slot accepts items of one type only.</p>
+    <div class="pbq-board" data-pbq="categories">
+      <div class="pbq-pool" id="pbq-pool-categories">
+        <div class="pbq-chip" draggable="true" data-value="hw">CPU</div>
+        <div class="pbq-chip" draggable="true" data-value="hw">RAM</div>
+        <div class="pbq-chip" draggable="true" data-value="hw">Hard Drive</div>
+        <div class="pbq-chip" draggable="true" data-value="sw">Windows 11</div>
+        <div class="pbq-chip" draggable="true" data-value="sw">Microsoft Word</div>
+        <div class="pbq-chip" draggable="true" data-value="sw">Antivirus</div>
+        <div class="pbq-chip" draggable="true" data-value="net">Router</div>
+        <div class="pbq-chip" draggable="true" data-value="net">Switch</div>
+        <div class="pbq-chip" draggable="true" data-value="net">DNS Server</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hw"></div><div class="pbq-label">HARDWARE — physical components</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hw"></div><div class="pbq-label">HARDWARE — physical components</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hw"></div><div class="pbq-label">HARDWARE — physical components</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="sw"></div><div class="pbq-label">SOFTWARE — programs / OS</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="sw"></div><div class="pbq-label">SOFTWARE — programs / OS</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="sw"></div><div class="pbq-label">SOFTWARE — programs / OS</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="net"></div><div class="pbq-label">NETWORK — moves data</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="net"></div><div class="pbq-label">NETWORK — moves data</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="net"></div><div class="pbq-label">NETWORK — moves data</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('categories')">✓ Check Answers</button>
+      <button onclick="resetPBQ('categories')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-categories"></div>
+  </div>
+
+  <!-- PBQ 2: Number system match -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 2</div>
+    <h3>Match each VALUE to its NUMBER SYSTEM</h3>
+    <p>Drag each value to the number system it belongs in. Hex uses 0–9 + A–F. Binary uses only 0s and 1s.</p>
+    <div class="pbq-board" data-pbq="numbers">
+      <div class="pbq-pool" id="pbq-pool-numbers">
+        <div class="pbq-chip" draggable="true" data-value="bin">10101010</div>
+        <div class="pbq-chip" draggable="true" data-value="bin">11110000</div>
+        <div class="pbq-chip" draggable="true" data-value="dec">42</div>
+        <div class="pbq-chip" draggable="true" data-value="dec">255</div>
+        <div class="pbq-chip" draggable="true" data-value="hex">FF</div>
+        <div class="pbq-chip" draggable="true" data-value="hex">3A7C</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="bin"></div><div class="pbq-label">BINARY (base 2)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="bin"></div><div class="pbq-label">BINARY (base 2)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="dec"></div><div class="pbq-label">DECIMAL (base 10)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="dec"></div><div class="pbq-label">DECIMAL (base 10)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hex"></div><div class="pbq-label">HEXADECIMAL (base 16)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hex"></div><div class="pbq-label">HEXADECIMAL (base 16)</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('numbers')">✓ Check Answers</button>
+      <button onclick="resetPBQ('numbers')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-numbers"></div>
+  </div>
+
+  <!-- PBQ 3: Cloud service models -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 3</div>
+    <h3>Match each EXAMPLE to its CLOUD MODEL</h3>
+    <p>Drag each real-world example to the cloud service model it represents.</p>
+    <div class="pbq-board" data-pbq="cloud">
+      <div class="pbq-pool" id="pbq-pool-cloud">
+        <div class="pbq-chip" draggable="true" data-value="iaas">AWS EC2 virtual machine</div>
+        <div class="pbq-chip" draggable="true" data-value="iaas">Azure Virtual Machines</div>
+        <div class="pbq-chip" draggable="true" data-value="paas">Heroku (build &amp; deploy app)</div>
+        <div class="pbq-chip" draggable="true" data-value="paas">Google App Engine</div>
+        <div class="pbq-chip" draggable="true" data-value="saas">Gmail</div>
+        <div class="pbq-chip" draggable="true" data-value="saas">Microsoft 365 (web)</div>
+        <div class="pbq-chip" draggable="true" data-value="saas">Netflix</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="iaas"></div><div class="pbq-label">IaaS — rent the kitchen</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="iaas"></div><div class="pbq-label">IaaS — rent the kitchen</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="paas"></div><div class="pbq-label">PaaS — kit with ingredients</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="paas"></div><div class="pbq-label">PaaS — kit with ingredients</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="saas"></div><div class="pbq-label">SaaS — delivered pizza</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="saas"></div><div class="pbq-label">SaaS — delivered pizza</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="saas"></div><div class="pbq-label">SaaS — delivered pizza</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('cloud')">✓ Check Answers</button>
+      <button onclick="resetPBQ('cloud')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-cloud"></div>
+  </div>
+
+  <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading / Research Activities</h3>
 
   <div class="activity-card">
     <div class="act-type">🔬 Hands-On Activity</div>
@@ -1901,6 +2030,65 @@ function updateQuizBadge() {
   }
 }
 
+// ─── Performance-based questions (drag-and-drop) ───────────────────────────
+let pbqDragged = null;
+function initPBQ() {
+  document.querySelectorAll('.pbq-chip').forEach(chip => {
+    chip.addEventListener('dragstart', e => { pbqDragged = chip; chip.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; });
+    chip.addEventListener('dragend', () => { chip.classList.remove('dragging'); pbqDragged = null; });
+  });
+  document.querySelectorAll('.pbq-slot, .pbq-pool').forEach(target => {
+    target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+    target.addEventListener('dragleave', () => target.classList.remove('over'));
+    target.addEventListener('drop', e => {
+      e.preventDefault();
+      target.classList.remove('over');
+      if (!pbqDragged) return;
+      if (target.classList.contains('pbq-slot')) {
+        const existing = target.querySelector('.pbq-chip');
+        if (existing) {
+          const pool = target.closest('.pbq-board').querySelector('.pbq-pool');
+          existing.classList.remove('placed', 'correct', 'incorrect');
+          pool.appendChild(existing);
+        }
+      }
+      target.appendChild(pbqDragged);
+      pbqDragged.classList.remove('correct', 'incorrect');
+      if (target.classList.contains('pbq-slot')) pbqDragged.classList.add('placed');
+      else pbqDragged.classList.remove('placed');
+    });
+  });
+}
+function checkPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]'); if (!board) return;
+  let correct = 0, total = 0;
+  board.querySelectorAll('.pbq-slot').forEach(slot => {
+    total++;
+    const chip = slot.querySelector('.pbq-chip');
+    chip?.classList.remove('correct', 'incorrect');
+    if (chip && chip.dataset.value === slot.dataset.correct) { chip.classList.add('correct'); correct++; }
+    else if (chip) chip.classList.add('incorrect');
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) {
+    const pct = total ? Math.round(correct / total * 100) : 0;
+    result.className = 'pbq-result show ' + (correct === total ? 'pass' : 'fail');
+    result.textContent = correct === total
+      ? '🎉 All ' + total + ' correct! Great categorical thinking — drag-and-drop matching is a core Tech+ skill.'
+      : '✗ ' + correct + ' / ' + total + ' (' + pct + '%). Red chips are in the wrong slot — drag them to fix, then check again.';
+  }
+}
+function resetPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]'); if (!board) return;
+  const pool = board.querySelector('.pbq-pool');
+  board.querySelectorAll('.pbq-slot .pbq-chip').forEach(chip => {
+    chip.classList.remove('placed', 'correct', 'incorrect');
+    pool.appendChild(chip);
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) { result.className = 'pbq-result'; result.textContent = ''; }
+}
+
 // ─── Notes (per-exam persistent textarea) ──────────────────────────────────
 let notesSaveTimer = null;
 function saveNotes() {
@@ -2373,6 +2561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderMasteryBars();
   loadNotes();
   buildAcronyms(acronyms);
+  initPBQ();
 });
 
 // ── Week Tracker ─────────────────────────────────────────────────────────────

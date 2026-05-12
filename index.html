@@ -170,6 +170,33 @@
   .resume-banner .rb-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; padding: 11px 22px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
   .resume-banner .rb-btn:hover { opacity: 0.9; }
 
+  /* Port game */
+  .port-game { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent-purple); border-radius: var(--radius); padding: 24px 26px; margin-bottom: 32px; }
+  .port-game .pg-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-purple); margin-bottom: 6px; }
+  .port-game .pg-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .port-game .pg-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 16px; }
+  .port-game .pg-display { display: grid; grid-template-columns: 1fr 220px; gap: 18px; align-items: center; }
+  @media (max-width: 600px) { .port-game .pg-display { grid-template-columns: 1fr; } }
+  .port-game .pg-question { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: center; }
+  .port-game .pg-prompt { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .port-game .pg-protocol { font-size: 2rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 12px; font-family: 'Consolas', monospace; }
+  .port-game .pg-input { width: 130px; padding: 10px 14px; background: var(--surface); border: 2px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.1rem; font-family: 'Consolas', monospace; text-align: center; }
+  .port-game .pg-input:focus { outline: none; border-color: var(--accent-purple); }
+  .port-game .pg-stats { display: flex; flex-direction: column; gap: 10px; }
+  .port-game .pg-stat { background: var(--surface2); border: 1px solid var(--border); padding: 12px 14px; border-radius: 8px; text-align: center; }
+  .port-game .pg-stat-num { font-size: 1.6rem; font-weight: 700; }
+  .port-game .pg-stat-num.timer { color: var(--accent-orange); }
+  .port-game .pg-stat-num.score { color: var(--green); }
+  .port-game .pg-stat-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .port-game .pg-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .port-game .pg-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; }
+  .port-game .pg-btn:hover { opacity: 0.9; }
+  .port-game .pg-feedback { margin-top: 12px; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; display: none; }
+  .port-game .pg-feedback.show { display: block; }
+  .port-game .pg-feedback.correct { background: rgba(46,204,113,0.15); border: 1px solid var(--green); color: var(--green); }
+  .port-game .pg-feedback.incorrect { background: rgba(231,76,60,0.15); border: 1px solid var(--accent-red); color: var(--accent-red); }
+  .port-game .pg-best { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; text-align: center; }
+
   /* Daily challenge */
   .daily-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent-orange); border-radius: var(--radius); padding: 24px 26px; margin-bottom: 32px; }
   .daily-card .dc-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-orange); margin-bottom: 6px; }
@@ -229,6 +256,28 @@
     </div>
     <button class="rb-btn" id="rb-btn">Resume →</button>
   </a>
+
+  <div class="port-game" id="port-game" style="display:none;">
+    <div class="pg-eyebrow">⚡ 30-Second Port Drill</div>
+    <div class="pg-title">Type the port number for each protocol</div>
+    <div class="pg-sub">Memorizing ports is the difference between Net+/Sec+ pass and fail. 30 seconds, as many as you can get right. Best score saves locally.</div>
+    <div class="pg-display">
+      <div class="pg-question">
+        <div class="pg-prompt">What port is</div>
+        <div class="pg-protocol" id="pg-protocol">—</div>
+        <input id="pg-input" class="pg-input" type="text" inputmode="numeric" placeholder="port #" autocomplete="off">
+      </div>
+      <div class="pg-stats">
+        <div class="pg-stat"><div class="pg-stat-num timer" id="pg-timer">30</div><div class="pg-stat-lbl">Seconds</div></div>
+        <div class="pg-stat"><div class="pg-stat-num score" id="pg-score">0</div><div class="pg-stat-lbl">Correct</div></div>
+      </div>
+    </div>
+    <div class="pg-actions">
+      <button class="pg-btn" id="pg-start" onclick="startPortGame()">▶ Start drill</button>
+    </div>
+    <div class="pg-feedback" id="pg-feedback"></div>
+    <div class="pg-best" id="pg-best"></div>
+  </div>
 
   <div class="daily-card" id="daily-card" style="display:none;">
     <div class="dc-eyebrow">🌟 Daily Challenge</div>
@@ -589,10 +638,106 @@ function renderDailyChallenge() {
   }
 }
 
+// ─── Port-matching mini-game ──────────────────────────────────────────────
+const portList = [
+  { name: 'HTTP', port: '80' }, { name: 'HTTPS', port: '443' },
+  { name: 'SSH', port: '22' }, { name: 'Telnet', port: '23' },
+  { name: 'FTP (control)', port: '21' }, { name: 'DNS', port: '53' },
+  { name: 'SMTP', port: '25' }, { name: 'POP3', port: '110' },
+  { name: 'IMAP', port: '143' }, { name: 'IMAPS', port: '993' },
+  { name: 'SMTPS (implicit TLS)', port: '465' }, { name: 'SMTP submission', port: '587' },
+  { name: 'POP3S', port: '995' }, { name: 'DHCP server', port: '67' },
+  { name: 'DHCP client', port: '68' }, { name: 'TFTP', port: '69' },
+  { name: 'NTP', port: '123' }, { name: 'SNMP', port: '161' },
+  { name: 'LDAP', port: '389' }, { name: 'LDAPS', port: '636' },
+  { name: 'RDP', port: '3389' }, { name: 'SMB', port: '445' },
+  { name: 'MySQL', port: '3306' }, { name: 'PostgreSQL', port: '5432' }
+];
+
+let pgTimerInterval = null, pgSecondsLeft = 30, pgScore = 0, pgCurrent = null;
+
+function startPortGame() {
+  pgSecondsLeft = 30; pgScore = 0;
+  document.getElementById('pg-timer').textContent = '30';
+  document.getElementById('pg-score').textContent = '0';
+  document.getElementById('pg-feedback').className = 'pg-feedback';
+  document.getElementById('pg-feedback').textContent = '';
+  document.getElementById('pg-start').textContent = '⏸ Running…';
+  document.getElementById('pg-start').disabled = true;
+  document.getElementById('pg-input').disabled = false;
+  document.getElementById('pg-input').focus();
+  pgNextQuestion();
+  if (pgTimerInterval) clearInterval(pgTimerInterval);
+  pgTimerInterval = setInterval(() => {
+    pgSecondsLeft--;
+    document.getElementById('pg-timer').textContent = pgSecondsLeft;
+    if (pgSecondsLeft <= 0) endPortGame();
+  }, 1000);
+}
+
+function pgNextQuestion() {
+  pgCurrent = portList[Math.floor(Math.random() * portList.length)];
+  document.getElementById('pg-protocol').textContent = pgCurrent.name;
+  document.getElementById('pg-input').value = '';
+}
+
+function pgCheckAnswer(val) {
+  if (!pgCurrent || pgSecondsLeft <= 0) return;
+  const trimmed = String(val).trim();
+  if (trimmed === pgCurrent.port) {
+    pgScore++;
+    document.getElementById('pg-score').textContent = pgScore;
+    const fb = document.getElementById('pg-feedback');
+    fb.className = 'pg-feedback show correct';
+    fb.textContent = '✓ Correct! ' + pgCurrent.name + ' = ' + pgCurrent.port;
+    pgNextQuestion();
+  } else if (trimmed.length >= String(pgCurrent.port).length) {
+    const fb = document.getElementById('pg-feedback');
+    fb.className = 'pg-feedback show incorrect';
+    fb.textContent = '✗ ' + pgCurrent.name + ' is ' + pgCurrent.port + ', not ' + trimmed;
+    setTimeout(pgNextQuestion, 700);
+    document.getElementById('pg-input').value = '';
+  }
+}
+
+function endPortGame() {
+  if (pgTimerInterval) clearInterval(pgTimerInterval);
+  document.getElementById('pg-start').textContent = '▶ Play again';
+  document.getElementById('pg-start').disabled = false;
+  document.getElementById('pg-input').disabled = true;
+  document.getElementById('pg-protocol').textContent = '—';
+  let best = 0;
+  try { best = parseInt(localStorage.getItem('portGameBest') || '0', 10); } catch(e) {}
+  const newBest = pgScore > best;
+  if (newBest) {
+    try { localStorage.setItem('portGameBest', String(pgScore)); } catch(e) {}
+  }
+  const fb = document.getElementById('pg-feedback');
+  fb.className = 'pg-feedback show ' + (pgScore >= 10 ? 'correct' : 'incorrect');
+  fb.textContent = (newBest ? '🏆 New best! ' : '⏰ Time! ') + 'You got ' + pgScore + ' in 30 seconds.';
+  renderPortBest();
+}
+
+function renderPortBest() {
+  let best = 0;
+  try { best = parseInt(localStorage.getItem('portGameBest') || '0', 10); } catch(e) {}
+  const el = document.getElementById('pg-best');
+  if (el) el.textContent = best > 0 ? '🏆 Personal best: ' + best : 'No score yet — start a drill to set a high score.';
+}
+
+function initPortGame() {
+  document.getElementById('port-game').style.display = 'block';
+  document.getElementById('pg-input').disabled = true;
+  document.getElementById('pg-input').addEventListener('input', e => pgCheckAnswer(e.target.value));
+  document.getElementById('pg-input').addEventListener('keydown', e => { if (e.key === 'Enter') pgCheckAnswer(e.target.value); });
+  renderPortBest();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   renderResumeBanner();
   renderStreak();
   renderDailyChallenge();
+  initPortGame();
 });
 </script>
 
