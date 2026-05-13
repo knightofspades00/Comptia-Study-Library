@@ -86,6 +86,15 @@
   .exam-card.aplus::before { background: linear-gradient(90deg, var(--accent-red), var(--accent-orange)); }
   .exam-card.netplus::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
   .exam-card.secplus::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
+  .exam-card.htmlcss::before { background: linear-gradient(90deg, #e34c26, #2965f1); }
+  .exam-card.coming-soon { opacity: 0.55; pointer-events: none; }
+  .exam-card.coming-soon::before { background: linear-gradient(90deg, #555, #777); }
+  .exam-card.coming-soon .icon { filter: grayscale(0.5); }
+  .pillar-title { margin: 0 0 18px; font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
+  .pillar-title::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--accent-blue); }
+  .pillar-section { margin-bottom: 44px; }
+  .pillar-section .exam-grid { margin-bottom: 0; }
+  .coming-soon-badge { position: absolute; top: 14px; right: 14px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 10px; }
   .exam-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: #3d4270; }
   .exam-card .icon { font-size: 2.4rem; margin-bottom: 16px; }
   .exam-card .exam-code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
@@ -94,6 +103,8 @@
   .exam-card.aplus h2 { color: var(--accent-red); }
   .exam-card.netplus h2 { color: var(--accent-blue); }
   .exam-card.secplus h2 { color: var(--accent-green); }
+  .exam-card.htmlcss h2 { background: linear-gradient(90deg, #e34c26, #2965f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .exam-card.coming-soon h2 { color: var(--text-muted); }
   .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
   .domain-list { list-style: none; margin-bottom: 24px; }
@@ -134,6 +145,7 @@
   .exam-card.aplus .open-btn { background: linear-gradient(135deg, var(--accent-red), var(--accent-orange)); color: white; }
   .exam-card.netplus .open-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; }
   .exam-card.secplus .open-btn { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
+  .exam-card.htmlcss .open-btn { background: linear-gradient(135deg, #e34c26, #2965f1); color: white; }
 
   /* How to use section */
   .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
@@ -368,8 +380,10 @@
     </div>
   </div>
 
-  <p class="section-title">Choose Your Exam</p>
+  <p class="section-title">Choose Your Hub</p>
 
+  <div class="pillar-section">
+  <h2 class="pillar-title">🛡️ IT Foundations — CompTIA Track</h2>
   <div class="exam-grid">
 
     <!-- Tech+ Card -->
@@ -470,6 +484,91 @@
     </a>
 
   </div><!-- /exam-grid -->
+  </div><!-- /pillar-section IT Foundations -->
+
+
+  <div class="pillar-section">
+  <h2 class="pillar-title">🎨 Web Dev — Build the Page</h2>
+  <div class="exam-grid">
+
+    <!-- HTML/CSS Card -->
+    <a href="htmlcss.html" class="exam-card htmlcss">
+      <div class="icon">🎨</div>
+      <div class="exam-code">W3Schools HTML &amp; CSS Certs</div>
+      <h2>HTML &amp; CSS Specialist</h2>
+      <p>Build the structure of every web page, then style it. One combined hub prepping for both W3Schools certifications.</p>
+      <ul class="domain-list">
+        <li>HTML Foundations &amp; Document Structure</li>
+        <li>Text, Links &amp; Media</li>
+        <li>Tables, Forms &amp; Input</li>
+        <li>Semantic HTML5 &amp; Web APIs</li>
+        <li>CSS Selectors, Box Model, Position</li>
+        <li>Flexbox, Grid, Responsive, Animations</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+        <span class="chip">🧠 Walk-Me-Through</span>
+      </div>
+      <span class="open-btn">Open HTML &amp; CSS Study Hub →</span>
+    </a>
+
+  </div><!-- /exam-grid -->
+  </div><!-- /pillar-section Web Dev -->
+
+
+  <div class="pillar-section">
+  <h2 class="pillar-title">🐍 Programming — Write the Code</h2>
+  <div class="exam-grid">
+
+    <!-- Python PCAP — coming soon -->
+    <div class="exam-card coming-soon">
+      <span class="coming-soon-badge">Coming soon</span>
+      <div class="icon">🐍</div>
+      <div class="exam-code">PCAP-31-03</div>
+      <h2>Python PCAP</h2>
+      <p>Python Institute's Certified Associate in Python Programming. Variables, control flow, functions, modules, OOP, file I/O — a year-long programming course in one cert.</p>
+      <ul class="domain-list">
+        <li>Data types &amp; control flow</li>
+        <li>Functions, scope &amp; modules</li>
+        <li>Exceptions &amp; file I/O</li>
+        <li>Object-oriented Python</li>
+        <li>Lists, dicts, tuples, sets</li>
+      </ul>
+      <span class="open-btn">In progress — next build</span>
+    </div>
+
+  </div><!-- /exam-grid -->
+  </div><!-- /pillar-section Programming -->
+
+
+  <div class="pillar-section">
+  <h2 class="pillar-title">🌍 Digital Citizen — Think Critically</h2>
+  <div class="exam-grid">
+
+    <!-- AI + Digital Literacy — coming soon -->
+    <div class="exam-card coming-soon">
+      <span class="coming-soon-badge">Coming soon</span>
+      <div class="icon">🤖</div>
+      <div class="exam-code">AI Literacy + Digital Citizenship</div>
+      <h2>AI &amp; Digital Literacy</h2>
+      <p>Modern students hit AI tools and online sources in the same browser tab — this combined hub treats them as one set of skills, not two.</p>
+      <ul class="domain-list">
+        <li>How AI works (and how it fails)</li>
+        <li>Prompt literacy &amp; evaluating output</li>
+        <li>AI ethics, bias &amp; hallucinations</li>
+        <li>Evaluating online sources</li>
+        <li>Digital footprint &amp; privacy</li>
+        <li>Healthy tech habits</li>
+      </ul>
+      <span class="open-btn">In progress — third build</span>
+    </div>
+
+  </div><!-- /exam-grid -->
+  </div><!-- /pillar-section Digital Citizen -->
 
 </main>
 
@@ -480,10 +579,11 @@
 <script>
 // ─── Resume banner ────────────────────────────────────────────────────────
 const EXAMS = [
-  { key: 'techplus', label: 'Tech+',     file: 'techplus.html' },
-  { key: 'aplus',    label: 'A+',        file: 'aplus.html' },
-  { key: 'netplus',  label: 'Network+',  file: 'network_plus.html' },
-  { key: 'secplus',  label: 'Security+', file: 'security_plus.html' }
+  { key: 'techplus', label: 'Tech+',         file: 'techplus.html' },
+  { key: 'aplus',    label: 'A+',            file: 'aplus.html' },
+  { key: 'netplus',  label: 'Network+',      file: 'network_plus.html' },
+  { key: 'secplus',  label: 'Security+',     file: 'security_plus.html' },
+  { key: 'htmlcss',  label: 'HTML & CSS',    file: 'htmlcss.html' }
 ];
 
 function pickMostRecent() {
