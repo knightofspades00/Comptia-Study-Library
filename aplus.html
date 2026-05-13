@@ -578,6 +578,33 @@ td strong { color: var(--text); }
   body.printing-guide #panel-guide .info-box, body.printing-guide #panel-guide .callout, body.printing-guide #panel-guide .warn-box { background: #f8f8f8 !important; border: 1px solid #ccc !important; color: black !important; page-break-inside: avoid; }
   body.printing-guide #panel-cheatsheet { display: none !important; }
 }
+  /* ── Walk-me-through expandable panels ── */
+  .walkthrough { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin: 10px 0; transition: border-color .15s; }
+  .walkthrough[open] { border-color: var(--accent); background: var(--surface2); }
+  .walkthrough summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+  .walkthrough summary::-webkit-details-marker, .walkthrough summary::marker { display: none; content: ''; }
+  .walkthrough summary::after { content: '▾'; margin-left: auto; color: var(--text-muted); transition: transform .2s; font-size: 0.85rem; }
+  .walkthrough[open] summary::after { transform: rotate(180deg); }
+  .walkthrough summary:hover { color: var(--accent2, var(--accent)); }
+  .walkthrough .wt-emoji { font-size: 1.05rem; }
+  .walkthrough-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.87rem; color: var(--text); line-height: 1.65; }
+  .walkthrough-body p { margin-bottom: 10px; color: var(--text-muted); }
+  .walkthrough-body p strong { color: var(--text); }
+  .walkthrough-body ol, .walkthrough-body ul { padding-left: 22px; margin: 8px 0 12px; }
+  .walkthrough-body ol > li, .walkthrough-body ul > li { margin-bottom: 8px; color: var(--text-muted); }
+  .walkthrough-body code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.85em; color: #e8eaf0; }
+  .wt-scenario { background: rgba(6, 182, 212, 0.08); border-left: 3px solid #06b6d4; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.88rem; color: #e8eaf0; }
+  .wt-scenario strong { color: #06b6d4; }
+  .wt-step { background: var(--surface2); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; }
+  .wt-step-label { color: var(--accent); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .wt-answer { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .wt-answer-label { color: #22c55e; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .wt-answer p, .wt-answer li { color: #d4f4dd; }
+  .wt-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+  .wt-table th { background: var(--surface2); color: var(--accent); padding: 8px 10px; text-align: left; border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wt-table td { padding: 8px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .wt-table td strong { color: var(--text); }
+
 
 </style>
 </head>
@@ -1897,6 +1924,135 @@ td strong { color: var(--text); }
       <tr><td>Lightning (Apple)</td><td>Cable</td><td>Up to 480 Mbps (USB 2.0 speed)</td><td>Legacy Apple device charging and sync</td></tr>
       <tr><td>Thunderbolt 4</td><td>Cable (passive up to 0.8m)</td><td>40 Gbps</td><td>Daisy-chain monitors, docks, high-speed storage</td></tr>
     </table>
+  </div>
+
+  <!-- WALK ME THROUGH IT -->
+  <div class="concepts-section">
+    <h2>🧠 Walk Me Through It — Step-by-Step Workings</h2>
+    <p>The three scenarios A+ candidates fail most often in role-play questions. Click any panel to expand the worked example.</p>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">💾</span><span>Drive 2 of my RAID 5 array failed — now what?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> A 3-drive RAID 5 array holding company file shares. Drive 2 reports a failure. The server stays up. What's happening behind the scenes?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Array enters "degraded" state</span>
+          <p>RAID 5 stripes data and parity across all drives. When one drive dies, the surviving 2 drives still have enough info to rebuild the missing data on the fly using parity (XOR math).</p>
+          <p>Users keep working — but every read for data that was on Drive 2 forces the controller to <em>calculate</em> that data from parity on the other drives. Performance drops noticeably.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Critical risk window</span>
+          <p>A second drive failure now = total data loss. There is no parity to reconstruct two missing drives. Back up immediately if you haven't already.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Replace the failed drive</span>
+          <p>Most servers support <strong>hot-swap</strong> — pull the bad drive, slot a new identical (or larger) drive into the same bay. The controller detects it and starts the rebuild automatically. A pre-configured <strong>hot spare</strong> would have started this instantly.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Rebuild process</span>
+          <p>The controller reads data + parity from the surviving drives, XORs them, and writes the reconstructed blocks to the new drive. This can take <strong>hours to days</strong> depending on drive size — performance is degraded throughout.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">What to remember on exam day</span>
+          <ul>
+            <li>RAID 5 survives <strong>one</strong> drive failure (not two)</li>
+            <li>The array is <strong>degraded</strong> until rebuild completes</li>
+            <li>Hot-spare drives auto-replace immediately, shrinking the risk window</li>
+            <li>RAID ≠ backup — RAID protects against drive failure, not file deletion, ransomware, or fire</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">💙</span><span>BSOD <code>0x0000007B</code> — where do I start?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Windows boots part-way then crashes with <code>INACCESSIBLE_BOOT_DEVICE</code> (stop code <code>0x7B</code>). What does it mean and how do you fix it?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Decode the stop code</span>
+          <p><code>0x7B</code> = INACCESSIBLE_BOOT_DEVICE. Windows loaded enough to start the kernel, but then couldn't read from the disk holding its system files. The CPU and RAM are fine; the path to the boot drive is broken.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Most likely causes (in order of frequency)</span>
+          <ol>
+            <li><strong>SATA mode changed</strong> in BIOS (AHCI ↔ IDE/RAID) — the driver Windows installed with no longer matches the controller</li>
+            <li><strong>Missing or corrupt storage driver</strong> — recent driver update, or imaged onto incompatible hardware</li>
+            <li><strong>Drive failing</strong> — bad sectors in the boot region</li>
+            <li><strong>BCD / MBR / boot record corruption</strong> — power loss during update, malware</li>
+          </ol>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Fix attempts, cheapest first</span>
+          <ol>
+            <li>Reboot into BIOS/UEFI. Confirm SATA mode is what it used to be (almost always AHCI)</li>
+            <li>Try <strong>Last Known Good Configuration</strong> / <strong>Startup Repair</strong> from WinRE</li>
+            <li>From WinRE Command Prompt: <code>bootrec /fixmbr</code> · <code>bootrec /fixboot</code> · <code>bootrec /rebuildbcd</code></li>
+            <li><code>sfc /scannow</code> and <code>chkdsk /f /r</code> to check system files and disk surface</li>
+            <li>Still failing? Swap to a known-good drive and reimage — the disk hardware is suspect</li>
+          </ol>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Exam favorite</span>
+          <p>If the question says "<em>technician changed BIOS settings, now BSOD on boot</em>" the answer is almost always: <strong>SATA mode changed</strong>. Switch it back, the system boots.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🗂️</span><span>User can read but not save to a shared folder. Why?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> A user reports they can open files on <code>\\fileserver\team-docs</code> but every save fails with "access denied." You're logged in as an admin and everything works for you. What do you check?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Two permission systems are at play</span>
+          <p>Anything shared on Windows is gated by <strong>two</strong> permission lists:</p>
+          <ul>
+            <li><strong>Share permissions</strong> — apply when accessing the resource over the network</li>
+            <li><strong>NTFS permissions</strong> — apply regardless of how you access (local or network)</li>
+          </ul>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — The "most restrictive wins" rule</span>
+          <p>When a user connects over the network, Windows checks BOTH lists and applies the <strong>most restrictive</strong> combination.</p>
+          <table class="wt-table">
+            <tr><th>Share perm</th><th>NTFS perm</th><th>Effective</th></tr>
+            <tr><td>Full Control</td><td>Read</td><td><strong>Read</strong></td></tr>
+            <tr><td>Read</td><td>Full Control</td><td><strong>Read</strong></td></tr>
+            <tr><td>Change</td><td>Modify</td><td><strong>Modify</strong></td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Diagnose this scenario</span>
+          <p>"Reads but can't write" + "admin works fine" usually means one of:</p>
+          <ol>
+            <li><strong>Share is set to Read-only</strong> for everyone except admins → fix on the Share tab → Permissions</li>
+            <li><strong>NTFS Modify denied</strong> on the folder for this user/group → fix on the Security tab</li>
+            <li>User is in a group with an <strong>explicit Deny</strong> entry — Deny always wins, even over Allow</li>
+          </ol>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Check the effective permissions</span>
+          <p>Right-click the folder → Properties → Security → Advanced → <strong>Effective Access</strong> → select the user. Windows shows you exactly what they can/can't do, accounting for every group membership.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Exam takeaway</span>
+          <p>Question says "user accessing over the network, effective permission unexpected" → answer is almost always <strong>more restrictive of Share vs NTFS</strong>. When accessing the file <em>locally</em>, only NTFS applies — share perms are bypassed entirely.</p>
+        </div>
+      </div>
+    </details>
   </div>
 
   <!-- VOCABULARY GLOSSARY -->

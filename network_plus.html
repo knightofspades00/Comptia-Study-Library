@@ -562,6 +562,33 @@ td strong { color: var(--text); }
   body.printing-guide #panel-guide .info-box, body.printing-guide #panel-guide .callout, body.printing-guide #panel-guide .warn-box { background: #f8f8f8 !important; border: 1px solid #ccc !important; color: black !important; page-break-inside: avoid; }
   body.printing-guide #panel-cheatsheet { display: none !important; }
 }
+  /* ── Walk-me-through expandable panels ── */
+  .walkthrough { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin: 10px 0; transition: border-color .15s; }
+  .walkthrough[open] { border-color: var(--accent); background: var(--surface2); }
+  .walkthrough summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+  .walkthrough summary::-webkit-details-marker, .walkthrough summary::marker { display: none; content: ''; }
+  .walkthrough summary::after { content: '▾'; margin-left: auto; color: var(--text-muted); transition: transform .2s; font-size: 0.85rem; }
+  .walkthrough[open] summary::after { transform: rotate(180deg); }
+  .walkthrough summary:hover { color: var(--accent2, var(--accent)); }
+  .walkthrough .wt-emoji { font-size: 1.05rem; }
+  .walkthrough-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.87rem; color: var(--text); line-height: 1.65; }
+  .walkthrough-body p { margin-bottom: 10px; color: var(--text-muted); }
+  .walkthrough-body p strong { color: var(--text); }
+  .walkthrough-body ol, .walkthrough-body ul { padding-left: 22px; margin: 8px 0 12px; }
+  .walkthrough-body ol > li, .walkthrough-body ul > li { margin-bottom: 8px; color: var(--text-muted); }
+  .walkthrough-body code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.85em; color: #e8eaf0; }
+  .wt-scenario { background: rgba(6, 182, 212, 0.08); border-left: 3px solid #06b6d4; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.88rem; color: #e8eaf0; }
+  .wt-scenario strong { color: #06b6d4; }
+  .wt-step { background: var(--surface2); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; }
+  .wt-step-label { color: var(--accent); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .wt-answer { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .wt-answer-label { color: #22c55e; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .wt-answer p, .wt-answer li { color: #d4f4dd; }
+  .wt-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+  .wt-table th { background: var(--surface2); color: var(--accent); padding: 8px 10px; text-align: left; border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wt-table td { padding: 8px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .wt-table td strong { color: var(--text); }
+
 
 </style>
 </head>
@@ -1897,6 +1924,173 @@ td strong { color: var(--text); }
         <tr><td><strong>VLAN Segmentation</strong></td><td>L2</td><td>Lateral broadcast/access</td><td>Isolates traffic by department; requires L3 routing for inter-VLAN</td></tr>
       </table>
     </div>
+  </div>
+
+  <!-- WALK ME THROUGH IT -->
+  <div class="concepts-section">
+    <h2>🧠 Walk Me Through It — Step-by-Step Workings</h2>
+    <p>Three scenarios that map to performance-based questions on the N10-009. Click any panel to expand the worked example.</p>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🌐</span><span>What actually happens when I type <code>google.com</code>?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Trace one HTTPS request from your browser to Google's server through every layer of the OSI model — and see how those layers map to the simpler TCP/IP model. You'll need both on the exam.</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">OSI top-down: what each layer adds</span>
+          <table class="wt-table">
+            <tr><th>L#</th><th>Layer</th><th>What happens for <code>google.com</code></th><th>PDU</th></tr>
+            <tr><td><strong>7</strong></td><td>Application</td><td>Browser forms an HTTP <code>GET / HTTP/1.1</code> request. DNS lookup resolves <code>google.com</code> → an IP.</td><td>Data</td></tr>
+            <tr><td><strong>6</strong></td><td>Presentation</td><td>TLS 1.3 negotiates a session key, encrypts the HTTP request, compresses if enabled.</td><td>Data</td></tr>
+            <tr><td><strong>5</strong></td><td>Session</td><td>TLS session established and kept alive across multiple requests (HTTP keep-alive).</td><td>Data</td></tr>
+            <tr><td><strong>4</strong></td><td>Transport</td><td>TCP cuts the encrypted blob into <em>segments</em>, adds source port (49152+) and dest port 443, opens connection via 3-way handshake.</td><td>Segment</td></tr>
+            <tr><td><strong>3</strong></td><td>Network</td><td>IP wraps each segment in a <em>packet</em> with source IP (your laptop) and dest IP (Google), sets TTL=64.</td><td>Packet</td></tr>
+            <tr><td><strong>2</strong></td><td>Data Link</td><td>Ethernet wraps the packet in a <em>frame</em> with source MAC (your NIC) and dest MAC (your default gateway). ARP resolves IP→MAC.</td><td>Frame</td></tr>
+            <tr><td><strong>1</strong></td><td>Physical</td><td>NIC converts the frame to electrical pulses (copper), light (fiber), or radio waves (Wi-Fi). Bits hit the wire.</td><td>Bits</td></tr>
+          </table>
+          <p>At the receiving end, the layers <strong>unwrap in reverse</strong>: bits → frame → packet → segment → encrypted data → decrypted HTTP request → app server.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">OSI vs TCP/IP — same idea, fewer layers</span>
+          <p>The TCP/IP model came first (and matches real-world protocols). OSI is the academic 7-layer reference. Both describe the same encapsulation process.</p>
+          <table class="wt-table">
+            <tr><th>OSI</th><th>TCP/IP (4-layer)</th><th>Example protocols</th></tr>
+            <tr><td>7 Application<br>6 Presentation<br>5 Session</td><td><strong>Application</strong></td><td>HTTP, HTTPS, DNS, FTP, SMTP, SSH, TLS</td></tr>
+            <tr><td>4 Transport</td><td><strong>Transport</strong></td><td>TCP, UDP</td></tr>
+            <tr><td>3 Network</td><td><strong>Internet</strong></td><td>IPv4, IPv6, ICMP, OSPF, BGP</td></tr>
+            <tr><td>2 Data Link<br>1 Physical</td><td><strong>Network Access</strong> (also called Link)</td><td>Ethernet, Wi-Fi (802.11), MAC, ARP, cables</td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Quick layer-decision questions</span>
+          <ul>
+            <li>"Router won't forward packets" → <strong>L3</strong> (Network / Internet)</li>
+            <li>"Switch port has no link light" → <strong>L1</strong> (Physical)</li>
+            <li>"VLAN tagging is wrong" → <strong>L2</strong> (Data Link)</li>
+            <li>"Browser shows a TLS cert error" → <strong>L6</strong> in OSI / <strong>Application</strong> in TCP/IP</li>
+            <li>"Port 443 is blocked at the firewall" → <strong>L4</strong> (Transport)</li>
+          </ul>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Memorize both — they appear together on the exam</span>
+          <p>OSI mnemonic (top-down): <em>All People Seem To Need Data Processing</em> — Application, Presentation, Session, Transport, Network, Data Link, Physical. TCP/IP mnemonic: <em>Awesome Tropical Internet Networks</em> — Application, Transport, Internet, Network Access. On exam day you'll need to translate a TCP/IP-named term into an OSI layer — practice mapping HTTP ↔ L7, TCP ↔ L4, IP ↔ L3, Ethernet ↔ L2.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🗺️</span><span>3 office sites in different cities. Which routing protocol?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Your company opens offices in Boston, Denver, and Seattle. Each has its own LAN. They're connected by MPLS WAN links. Which interior routing protocol fits?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Internal vs external routing</span>
+          <p>Routing protocols split into two camps:</p>
+          <ul>
+            <li><strong>IGP (Interior Gateway Protocols)</strong>: inside one organization — RIP, OSPF, EIGRP, IS-IS</li>
+            <li><strong>EGP (Exterior Gateway Protocols)</strong>: between organizations / ASNs — BGP is the only one in use today</li>
+          </ul>
+          <p>Three sites under one company = <strong>IGP</strong>.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Compare the IGP candidates</span>
+          <table class="wt-table">
+            <tr><th>Protocol</th><th>Algorithm</th><th>Admin distance</th><th>Vendor</th><th>Convergence</th><th>Best for</th></tr>
+            <tr><td><strong>RIP v2</strong></td><td>Distance-vector</td><td>120</td><td>Open</td><td>Slow (30s updates)</td><td>Tiny networks, legacy</td></tr>
+            <tr><td><strong>OSPF</strong></td><td>Link-state (Dijkstra)</td><td>110</td><td>Open</td><td>Fast</td><td><strong>Multi-vendor enterprise</strong></td></tr>
+            <tr><td><strong>EIGRP</strong></td><td>Hybrid (DUAL)</td><td>90</td><td>Cisco*</td><td>Fast</td><td>Single-vendor Cisco shops</td></tr>
+            <tr><td><strong>IS-IS</strong></td><td>Link-state</td><td>115</td><td>Open</td><td>Fast</td><td>ISP cores</td></tr>
+          </table>
+          <p style="font-size:0.78rem;color:var(--text-muted);">*EIGRP was open-sourced in 2013 but adoption outside Cisco is minimal.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Apply to the scenario</span>
+          <p>Three sites, presumably mixed-vendor (or future-proofed for it), needs fast convergence. RIP is too slow and capped at 15 hops. EIGRP locks you into Cisco. <strong>OSPF</strong> is the safe answer — open standard, fast, scales to thousands of routers via areas.</p>
+          <p>If every device is Cisco and that's a hard requirement → EIGRP is a defensible choice (slightly simpler config, similar speed).</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — When BGP enters</span>
+          <p>BGP only shows up when you're peering with another organization — an ISP, a SaaS provider's private peering, multi-cloud transit. Multi-site within your own org = IGP, not BGP.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Exam shortcuts</span>
+          <ul>
+            <li>"<em>Open standard, link-state, multi-vendor</em>" → <strong>OSPF</strong></li>
+            <li>"<em>Cisco-only, hybrid, fast convergence</em>" → <strong>EIGRP</strong></li>
+            <li>"<em>Between autonomous systems</em>" → <strong>BGP</strong></li>
+            <li>"<em>Legacy, distance-vector, 15-hop limit</em>" → <strong>RIP</strong></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🔧</span><span>"Internet is down!" — top-down or bottom-up?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> A user calls saying "the internet is down." You also get an email from another user reporting the same thing. Where do you start troubleshooting?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Identify the scope FIRST</span>
+          <p>Before picking an approach, ask: <em>who is affected?</em></p>
+          <ul>
+            <li>One user → likely <strong>top-down</strong> (start at their application)</li>
+            <li>One floor / VLAN → likely <strong>bottom-up</strong> from their switch / cabling</li>
+            <li>Entire site → bottom-up at the router or ISP demarc</li>
+          </ul>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Top-down approach</span>
+          <p>Start at Layer 7 (Application) and work downward. Best when one user, one app, or one service is failing.</p>
+          <ol>
+            <li>Test the app — can the user open a different website? A different protocol (HTTP vs HTTPS)?</li>
+            <li>DNS — <code>nslookup google.com</code>. Resolution failing? Check DNS settings.</li>
+            <li>TCP / port — can you Telnet to port 443? Firewall rule changed?</li>
+            <li>IP / routing — <code>ping</code> the default gateway, then a public IP like <code>8.8.8.8</code></li>
+            <li>Physical — finally, check the cable and link light</li>
+          </ol>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Bottom-up approach</span>
+          <p>Start at Layer 1 (Physical) and work upward. Best when nothing works at all, or many users are affected.</p>
+          <ol>
+            <li>Cable, link light, port status — anything physically disconnected?</li>
+            <li>Switch / VLAN — interface up? VLAN assignment correct?</li>
+            <li>IP — does the host have a valid IP? APIPA (169.254.x.x) = DHCP problem</li>
+            <li>Default gateway — <code>ping</code> it. Can the host reach the router?</li>
+            <li>External — <code>ping 8.8.8.8</code> → <code>tracert</code> if it fails. Where does the trace die?</li>
+            <li>App layer only after the lower layers verify</li>
+          </ol>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Apply to "two users report it"</span>
+          <p>Two users on different parts of the network suggests it's beyond their machines — likely a shared resource (DNS, gateway, ISP). Start <strong>bottom-up from a shared infrastructure component</strong>: ping the gateway, check the firewall, look at WAN status. If the gateway is reachable and external IPs aren't, escalate to the ISP.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">CompTIA 7-step methodology (always)</span>
+          <ol>
+            <li>Identify the problem (gather info, scope)</li>
+            <li>Establish a theory of probable cause</li>
+            <li>Test the theory</li>
+            <li>Establish a plan of action</li>
+            <li>Implement the solution (or escalate)</li>
+            <li>Verify full system functionality + preventive measures</li>
+            <li>Document findings, actions, outcomes</li>
+          </ol>
+          <p>Top-down vs bottom-up is just <em>which OSI layer you start theorizing at</em> in steps 2–3.</p>
+        </div>
+      </div>
+    </details>
   </div>
 
   <!-- SEARCHABLE VOCABULARY -->

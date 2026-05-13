@@ -568,6 +568,33 @@ td strong { color: var(--text); }
   body.printing-guide #panel-guide .info-box, body.printing-guide #panel-guide .callout, body.printing-guide #panel-guide .warn-box { background: #f8f8f8 !important; border: 1px solid #ccc !important; color: black !important; page-break-inside: avoid; }
   body.printing-guide #panel-cheatsheet { display: none !important; }
 }
+  /* ── Walk-me-through expandable panels ── */
+  .walkthrough { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin: 10px 0; transition: border-color .15s; }
+  .walkthrough[open] { border-color: var(--accent); background: var(--surface2); }
+  .walkthrough summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+  .walkthrough summary::-webkit-details-marker, .walkthrough summary::marker { display: none; content: ''; }
+  .walkthrough summary::after { content: '▾'; margin-left: auto; color: var(--text-muted); transition: transform .2s; font-size: 0.85rem; }
+  .walkthrough[open] summary::after { transform: rotate(180deg); }
+  .walkthrough summary:hover { color: var(--accent2, var(--accent)); }
+  .walkthrough .wt-emoji { font-size: 1.05rem; }
+  .walkthrough-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.87rem; color: var(--text); line-height: 1.65; }
+  .walkthrough-body p { margin-bottom: 10px; color: var(--text-muted); }
+  .walkthrough-body p strong { color: var(--text); }
+  .walkthrough-body ol, .walkthrough-body ul { padding-left: 22px; margin: 8px 0 12px; }
+  .walkthrough-body ol > li, .walkthrough-body ul > li { margin-bottom: 8px; color: var(--text-muted); }
+  .walkthrough-body code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.85em; color: #e8eaf0; }
+  .wt-scenario { background: rgba(6, 182, 212, 0.08); border-left: 3px solid #06b6d4; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.88rem; color: #e8eaf0; }
+  .wt-scenario strong { color: #06b6d4; }
+  .wt-step { background: var(--surface2); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; }
+  .wt-step-label { color: var(--accent); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .wt-answer { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .wt-answer-label { color: #22c55e; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .wt-answer p, .wt-answer li { color: #d4f4dd; }
+  .wt-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+  .wt-table th { background: var(--surface2); color: var(--accent); padding: 8px 10px; text-align: left; border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wt-table td { padding: 8px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .wt-table td strong { color: var(--text); }
+
 
 </style>
 </head>
@@ -1691,6 +1718,132 @@ td strong { color: var(--text); }
       <text x="495" y="332" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">— one line of SQL replaces hours</text>
     </svg>
     <p>Databases use <strong>SQL</strong> to ask precise questions of structured data: "give me every customer in Boston" is one line of SQL but a tedious manual search across a folder of files.</p>
+  </div>
+
+  <!-- WALK ME THROUGH IT -->
+  <div class="cv-card">
+    <h3>🧠 Walk Me Through It — Step-by-Step Workings</h3>
+    <p>The three concepts students most often get stuck on. Click any panel to expand the worked example.</p>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🔢</span><span>How do I convert decimal ↔ binary?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Convert <code>130</code> to binary, then turn <code>10110101</code> back into decimal.</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Memorize the powers of 2</span>
+          <p>Each bit position holds a power of 2. For an 8-bit byte:</p>
+          <table class="wt-table">
+            <tr><th>Bit pos</th><td>7</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+            <tr><th>Value</th><td><strong>128</strong></td><td><strong>64</strong></td><td><strong>32</strong></td><td><strong>16</strong></td><td><strong>8</strong></td><td><strong>4</strong></td><td><strong>2</strong></td><td><strong>1</strong></td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Decimal → Binary: 130</span>
+          <p>Walk left to right. Subtract the biggest power of 2 you can; write a 1. If you can't, write 0.</p>
+          <ul>
+            <li>130 − <strong>128</strong> = 2  → bit 7 = <code>1</code></li>
+            <li>2 < 64, 32, 16, 8, 4 → bits 6, 5, 4, 3, 2 = <code>0</code></li>
+            <li>2 − <strong>2</strong> = 0 → bit 1 = <code>1</code></li>
+            <li>bit 0 = <code>0</code></li>
+          </ul>
+          <p>Result: <code>10000010</code></p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Binary → Decimal: 10110101</span>
+          <p>Add the values of every position that has a 1.</p>
+          <ul>
+            <li>bit 7 (128) + bit 5 (32) + bit 4 (16) + bit 2 (4) + bit 0 (1)</li>
+            <li>128 + 32 + 16 + 4 + 1 = <strong>181</strong></li>
+          </ul>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Answers</span>
+          <p>130 ⇒ <code>10000010</code> · <code>10110101</code> ⇒ 181</p>
+          <p>This same routine works for every octet of every IPv4 address — practice until it's automatic.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🌐</span><span>Why does /24 mean 256 addresses?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Your teacher writes <code>192.168.1.0/24</code> on the board. What does the <code>/24</code> mean and how big is that network?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — IPs are 32 bits</span>
+          <p>An IPv4 address is just 32 bits, written as 4 octets of 8 bits each. The slash tells you how many bits from the left are <em>fixed</em> as the network part.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — /24 means "first 24 bits are network"</span>
+          <p>That leaves 32 − 24 = 8 bits free to identify hosts inside the network.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Count the host combinations</span>
+          <p>Each free bit doubles the count. 8 free bits → 2⁸ = <strong>256 total addresses</strong> (numbered .0 through .255).</p>
+          <p>Two of those are reserved: the <strong>network address</strong> (.0, all host bits 0) and the <strong>broadcast address</strong> (.255, all host bits 1). So <strong>254 usable hosts</strong>.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Takeaway</span>
+          <p>The general formula: <code>usable hosts = 2^(32 − prefix) − 2</code>. Smaller prefix = bigger network. Bigger prefix = smaller network. /24 is a typical home or small-office LAN size.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🔐</span><span>What do file permissions <code>rwxr-x---</code> actually mean?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> You see <code>-rwxr-x---</code> next to a file on a Linux box. Who can do what?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Break it into 4 parts</span>
+          <table class="wt-table">
+            <tr><th>Chars</th><th>Position</th><th>Meaning</th></tr>
+            <tr><td><code>-</code></td><td>File type</td><td><code>-</code> file · <code>d</code> directory · <code>l</code> symlink</td></tr>
+            <tr><td><code>rwx</code></td><td>Owner</td><td>The user who owns the file</td></tr>
+            <tr><td><code>r-x</code></td><td>Group</td><td>Members of the file's group</td></tr>
+            <tr><td><code>---</code></td><td>Other</td><td>Everyone else</td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Decode each set of 3</span>
+          <p><strong>r</strong> = read, <strong>w</strong> = write, <strong>x</strong> = execute. A dash means that permission is denied.</p>
+          <ul>
+            <li>Owner has <code>rwx</code> → can read, write, run it</li>
+            <li>Group has <code>r-x</code> → can read and run, NOT modify</li>
+            <li>Other has <code>---</code> → no access at all</li>
+          </ul>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Octal shortcut</span>
+          <p>Each set of 3 maps to an octal digit: r=4, w=2, x=1. Add them up.</p>
+          <ul>
+            <li><code>rwx</code> = 4+2+1 = <strong>7</strong></li>
+            <li><code>r-x</code> = 4+0+1 = <strong>5</strong></li>
+            <li><code>---</code> = 0+0+0 = <strong>0</strong></li>
+          </ul>
+          <p>So <code>rwxr-x---</code> = <code>chmod 750</code>.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Cheat sheet</span>
+          <ul>
+            <li><code>chmod 777</code> = everyone gets everything (rarely correct — dangerous)</li>
+            <li><code>chmod 755</code> = owner full, everyone read+execute (typical script)</li>
+            <li><code>chmod 700</code> = private to the owner only (SSH keys, secrets)</li>
+            <li><code>chmod 644</code> = owner can write, everyone else can read (config files)</li>
+          </ul>
+        </div>
+      </div>
+    </details>
   </div>
 </div><!-- /panel-concepts -->
 
