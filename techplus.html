@@ -58,6 +58,19 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header:hover { background: var(--surface2); }
 .domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
 .domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+
+.messer-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.74rem; font-weight: 600;
+  color: #ff4d4d; text-decoration: none;
+  background: rgba(255, 77, 77, 0.10);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  padding: 4px 10px; border-radius: 999px;
+  white-space: nowrap; margin: 0 14px 0 auto;
+  transition: background .15s, border-color .15s;
+}
+.messer-link:hover { background: rgba(255, 77, 77, 0.20); border-color: #ff4d4d; }
+@media print { .messer-link { display: none !important; } }
 .chevron { transition: transform 0.2s; color: var(--text-muted); }
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
@@ -610,6 +623,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>💻 IT Concepts &amp; Terminology <span class="domain-pct">17%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -667,6 +681,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🌐 Infrastructure <span class="domain-pct">22%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -710,6 +725,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>📱 Applications &amp; Software <span class="domain-pct">18%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -751,6 +767,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>💾 Software Development <span class="domain-pct">12%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -778,6 +795,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🗄️ Database Fundamentals <span class="domain-pct">11%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -812,6 +830,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🔐 Security <span class="domain-pct">20%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-tech-plus-training/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -1248,134 +1267,430 @@ td strong { color: var(--text); }
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:22px;">Diagrams and analogies that turn abstract concepts into mental pictures. If a topic isn't clicking from the study guide, look for it here.</p>
 
   <div class="cv-card">
-    <h3>🖥️ How a computer works (in 5 boxes)</h3>
-    <pre class="cv-diagram">
-   ┌──────────────────────────────────────────────────────┐
-   │                      CPU                             │  ← The "brain"
-   │   (executes instructions, measured in GHz)           │     Reads RAM
-   └────────────┬──────────────────────────┬──────────────┘
-                │                          │
-                ▼                          ▼
-   ┌────────────────────┐    ┌────────────────────────────┐
-   │      RAM           │    │        Storage             │
-   │  (fast, volatile)  │    │   (slow, non-volatile)     │  ← HDD/SSD/NVMe
-   │  lost on power off │    │   keeps data after off     │
-   └────────────────────┘    └────────────────────────────┘
-                │                          │
-                └───────────┬──────────────┘
-                            ▼
-                  ┌─────────────────────┐
-                  │     Motherboard     │  ← connects everything
-                  └──────────┬──────────┘
-                             │
-            ┌────────────────┼────────────────┐
-            ▼                ▼                ▼
-         Input          GPU/Display        Network (NIC)
-         devices                              (Wi-Fi/Ethernet)</pre>
-    <p>When you open a program: the OS reads it from <strong>Storage</strong> into <strong>RAM</strong> so the <strong>CPU</strong> can execute it fast. Output (your screen/speakers) is updated continuously. Pull the plug — RAM contents vanish, but Storage keeps your files.</p>
+    <h3>🖥️ How a computer works — the IPOS cycle</h3>
+    <svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <defs>
+        <marker id="a1In" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#06b6d4"/></marker>
+        <marker id="a1Proc" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b35"/></marker>
+        <marker id="a1Out" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#22c55e"/></marker>
+        <marker id="a1Store" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#a855f7"/></marker>
+      </defs>
+      <rect x="14" y="36" width="170" height="148" rx="10" fill="#252840" stroke="#06b6d4" stroke-width="2.5"/>
+      <circle cx="40" cy="60" r="14" fill="#06b6d4"/>
+      <text x="40" y="65" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">1</text>
+      <text x="99" y="65" text-anchor="middle" fill="#06b6d4" font-size="17" font-weight="800">INPUT</text>
+      <text x="99" y="100" text-anchor="middle" fill="#e8eaf0" font-size="11">⌨️ Keyboard · Mouse</text>
+      <text x="99" y="120" text-anchor="middle" fill="#e8eaf0" font-size="11">🎤 Mic · Camera</text>
+      <text x="99" y="140" text-anchor="middle" fill="#e8eaf0" font-size="11">👆 Touch · Sensors</text>
+      <text x="99" y="168" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Data flowing IN</text>
+      <line x1="186" y1="110" x2="226" y2="110" stroke="#06b6d4" stroke-width="3" marker-end="url(#a1In)"/>
+      <rect x="230" y="36" width="200" height="148" rx="10" fill="#3a2418" stroke="#ff6b35" stroke-width="2.5"/>
+      <circle cx="256" cy="60" r="14" fill="#ff6b35"/>
+      <text x="256" y="65" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">2</text>
+      <text x="330" y="65" text-anchor="middle" fill="#ff6b35" font-size="17" font-weight="800">PROCESS</text>
+      <text x="330" y="100" text-anchor="middle" fill="#e8eaf0" font-size="11">🧠 CPU executes</text>
+      <text x="330" y="120" text-anchor="middle" fill="#e8eaf0" font-size="11">⚡ RAM = working memory</text>
+      <text x="330" y="140" text-anchor="middle" fill="#e8eaf0" font-size="11">🚌 Bus carries signals</text>
+      <text x="330" y="168" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">The brain — does the work</text>
+      <line x1="432" y1="110" x2="472" y2="110" stroke="#22c55e" stroke-width="3" marker-end="url(#a1Out)"/>
+      <rect x="476" y="36" width="170" height="148" rx="10" fill="#252840" stroke="#22c55e" stroke-width="2.5"/>
+      <circle cx="502" cy="60" r="14" fill="#22c55e"/>
+      <text x="502" y="65" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">3</text>
+      <text x="561" y="65" text-anchor="middle" fill="#22c55e" font-size="17" font-weight="800">OUTPUT</text>
+      <text x="561" y="100" text-anchor="middle" fill="#e8eaf0" font-size="11">🖥️ Display</text>
+      <text x="561" y="120" text-anchor="middle" fill="#e8eaf0" font-size="11">🔊 Speakers</text>
+      <text x="561" y="140" text-anchor="middle" fill="#e8eaf0" font-size="11">🌐 Network · Printer</text>
+      <text x="561" y="168" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Data flowing OUT</text>
+      <line x1="310" y1="184" x2="310" y2="222" stroke="#a855f7" stroke-width="2.5" marker-end="url(#a1Store)"/>
+      <line x1="350" y1="222" x2="350" y2="184" stroke="#ff6b35" stroke-width="2.5" marker-end="url(#a1Proc)"/>
+      <text x="296" y="208" text-anchor="middle" fill="#a855f7" font-size="9" font-weight="700">save</text>
+      <text x="365" y="208" text-anchor="middle" fill="#ff6b35" font-size="9" font-weight="700">load</text>
+      <rect x="190" y="226" width="280" height="80" rx="10" fill="#252840" stroke="#a855f7" stroke-width="2.5"/>
+      <circle cx="216" cy="250" r="14" fill="#a855f7"/>
+      <text x="216" y="255" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">4</text>
+      <text x="330" y="255" text-anchor="middle" fill="#a855f7" font-size="17" font-weight="800">STORAGE</text>
+      <text x="330" y="280" text-anchor="middle" fill="#e8eaf0" font-size="11">💾 HDD · SSD · NVMe — files, OS, apps</text>
+      <text x="330" y="297" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Slow but permanent — survives power off</text>
+      <line x1="20" y1="332" x2="640" y2="332" stroke="#2d3153" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="330" y="356" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="800">🔄 Inside PROCESS — the fetch–execute cycle</text>
+      <text x="330" y="372" text-anchor="middle" fill="#8892b0" font-size="10">The CPU repeats these four steps billions of times per second. Clock speed (GHz) = cycles per second.</text>
+      <path d="M 570 398 C 570 384 90 384 90 398" fill="none" stroke="#ff6b35" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#a1Proc)"/>
+      <text x="330" y="392" text-anchor="middle" fill="#ff6b35" font-size="10" font-weight="700">repeat</text>
+      <rect x="20" y="400" width="140" height="86" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="1.75"/>
+      <text x="90" y="422" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">1 · FETCH</text>
+      <text x="90" y="443" text-anchor="middle" fill="#e8eaf0" font-size="10">CPU grabs the next</text>
+      <text x="90" y="457" text-anchor="middle" fill="#e8eaf0" font-size="10">instruction from RAM</text>
+      <text x="90" y="475" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"What do I do next?"</text>
+      <line x1="162" y1="443" x2="178" y2="443" stroke="#ff6b35" stroke-width="2.5" marker-end="url(#a1Proc)"/>
+      <rect x="180" y="400" width="140" height="86" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="1.75"/>
+      <text x="250" y="422" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">2 · DECODE</text>
+      <text x="250" y="443" text-anchor="middle" fill="#e8eaf0" font-size="10">CPU translates the</text>
+      <text x="250" y="457" text-anchor="middle" fill="#e8eaf0" font-size="10">instruction into actions</text>
+      <text x="250" y="475" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"What does it mean?"</text>
+      <line x1="322" y1="443" x2="338" y2="443" stroke="#ff6b35" stroke-width="2.5" marker-end="url(#a1Proc)"/>
+      <rect x="340" y="400" width="140" height="86" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="1.75"/>
+      <text x="410" y="422" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">3 · EXECUTE</text>
+      <text x="410" y="443" text-anchor="middle" fill="#e8eaf0" font-size="10">CPU performs math,</text>
+      <text x="410" y="457" text-anchor="middle" fill="#e8eaf0" font-size="10">logic or move ops</text>
+      <text x="410" y="475" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"Do the work"</text>
+      <line x1="482" y1="443" x2="498" y2="443" stroke="#ff6b35" stroke-width="2.5" marker-end="url(#a1Proc)"/>
+      <rect x="500" y="400" width="140" height="86" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="1.75"/>
+      <text x="570" y="422" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">4 · STORE</text>
+      <text x="570" y="443" text-anchor="middle" fill="#e8eaf0" font-size="10">Result written back</text>
+      <text x="570" y="457" text-anchor="middle" fill="#e8eaf0" font-size="10">to RAM or a register</text>
+      <text x="570" y="475" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"Save the answer"</text>
+    </svg>
+    <p><strong>IPOS</strong> is the model every computer follows: <strong>I</strong>nput → <strong>P</strong>rocess → <strong>O</strong>utput, with <strong>S</strong>torage feeding the cycle. The CPU's job (inside PROCESS) is its own tiny loop — fetch, decode, execute, store — billions of times per second. When you "open a program," the OS loads it from Storage into RAM, then the CPU runs the fetch-execute cycle until you close it. Pull the plug — RAM clears, but Storage keeps your work.</p>
   </div>
 
   <div class="cv-card">
-    <h3>📏 Storage size scale</h3>
-    <pre class="cv-diagram">
-1 bit  → 0 or 1                  (smallest unit)
-8 bits → 1 byte                  (one keyboard character)
-1 KB   → 1,024 bytes             (a short text file)
-1 MB   → 1,024 KB                (~1 song)
-1 GB   → 1,024 MB                (~1 HD movie, RAM module)
-1 TB   → 1,024 GB                (consumer hard drive)
-1 PB   → 1,024 TB                (large datacenter)</pre>
-    <p>Each step is roughly ×1,000 (technically ×1,024 in binary math). Internet speed uses lowercase <strong>b</strong> (bits/s); file size uses uppercase <strong>B</strong> (bytes). 100 Mbps internet ≈ 12 MB/s download.</p>
+    <h3>📏 Storage size scale — from a bit to a petabyte</h3>
+    <svg viewBox="0 0 660 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <text x="66" y="36" text-anchor="end" fill="#06b6d4" font-size="12" font-weight="800">1 bit</text>
+      <rect x="76" y="22" width="50" height="22" rx="3" fill="#06b6d4" opacity="0.85"/>
+      <text x="101" y="38" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">0 or 1</text>
+      <text x="135" y="38" fill="#8892b0" font-size="10" font-style="italic">— smallest unit · one transistor on/off</text>
+
+      <text x="66" y="66" text-anchor="end" fill="#1abc9c" font-size="12" font-weight="800">1 byte</text>
+      <rect x="76" y="52" width="70" height="22" rx="3" fill="#1abc9c" opacity="0.85"/>
+      <text x="111" y="68" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 8 bits</text>
+      <text x="155" y="68" fill="#8892b0" font-size="10" font-style="italic">— one keyboard character</text>
+
+      <text x="66" y="96" text-anchor="end" fill="#22c55e" font-size="12" font-weight="800">1 KB</text>
+      <rect x="76" y="82" width="100" height="22" rx="3" fill="#22c55e" opacity="0.85"/>
+      <text x="126" y="98" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 1,024 bytes</text>
+      <text x="185" y="98" fill="#8892b0" font-size="10" font-style="italic">— a short text file</text>
+
+      <text x="66" y="126" text-anchor="end" fill="#f1c40f" font-size="12" font-weight="800">1 MB</text>
+      <rect x="76" y="112" width="140" height="22" rx="3" fill="#f1c40f" opacity="0.9"/>
+      <text x="146" y="128" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 1,024 KB</text>
+      <text x="225" y="128" fill="#8892b0" font-size="10" font-style="italic">— roughly one MP3 song</text>
+
+      <text x="66" y="156" text-anchor="end" fill="#f39c12" font-size="12" font-weight="800">1 GB</text>
+      <rect x="76" y="142" width="200" height="22" rx="3" fill="#f39c12" opacity="0.9"/>
+      <text x="176" y="158" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 1,024 MB</text>
+      <text x="285" y="158" fill="#8892b0" font-size="10" font-style="italic">— one HD movie · one RAM stick</text>
+
+      <text x="66" y="186" text-anchor="end" fill="#e67e22" font-size="12" font-weight="800">1 TB</text>
+      <rect x="76" y="172" width="280" height="22" rx="3" fill="#e67e22" opacity="0.9"/>
+      <text x="216" y="188" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 1,024 GB</text>
+      <text x="365" y="188" fill="#8892b0" font-size="10" font-style="italic">— consumer hard drive</text>
+
+      <text x="66" y="216" text-anchor="end" fill="#e74c3c" font-size="12" font-weight="800">1 PB</text>
+      <rect x="76" y="202" width="380" height="22" rx="3" fill="#e74c3c" opacity="0.9"/>
+      <text x="266" y="218" text-anchor="middle" fill="#0f1117" font-size="10" font-weight="700">= 1,024 TB</text>
+      <text x="465" y="218" fill="#8892b0" font-size="10" font-style="italic">— large datacenter</text>
+
+      <line x1="76" y1="242" x2="640" y2="242" stroke="#3d4270" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="330" y="262" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Each step is roughly ×1,000 bigger (×1,024 in binary math)</text>
+      <text x="330" y="288" text-anchor="middle" fill="#e8eaf0" font-size="11">⚠️ <tspan font-weight="700" fill="#f1c40f">Network speed</tspan> uses lowercase <tspan font-weight="700">b</tspan>its/sec · <tspan font-weight="700" fill="#f1c40f">File size</tspan> uses uppercase <tspan font-weight="700">B</tspan>ytes</text>
+      <text x="330" y="306" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">100 Mbps internet ≈ 12 MB/s download</text>
+    </svg>
+    <p>Bars are scaled visually so the jump from <strong>bit</strong> to <strong>PB</strong> reads at a glance — but remember each real step is ~1,000× bigger than the one before. Internet speed uses lowercase <strong>b</strong> (bits/s); file size uses uppercase <strong>B</strong> (bytes). 100 Mbps internet ≈ 12 MB/s download.</p>
   </div>
 
   <div class="cv-card">
     <h3>☁️ Cloud service models — who manages what</h3>
-    <pre class="cv-diagram">
-                  On-Prem    IaaS     PaaS     SaaS
-                  ───────   ──────   ──────   ──────
-   Apps             YOU      YOU      YOU      cloud
-   Data             YOU      YOU      YOU      YOU
-   Runtime          YOU      YOU      cloud    cloud
-   OS               YOU      YOU      cloud    cloud
-   Virtualization   YOU      cloud    cloud    cloud
-   Servers          YOU      cloud    cloud    cloud
-   Storage          YOU      cloud    cloud    cloud
-   Network          YOU      cloud    cloud    cloud
+    <svg viewBox="0 0 660 410" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <defs>
+        <marker id="a3L" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 Z" fill="#8892b0"/></marker>
+        <marker id="a3R" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#8892b0"/></marker>
+      </defs>
+      <text x="235" y="46" text-anchor="middle" fill="#06b6d4" font-size="13" font-weight="800">On-Prem</text>
+      <text x="355" y="46" text-anchor="middle" fill="#1abc9c" font-size="13" font-weight="800">IaaS</text>
+      <text x="475" y="46" text-anchor="middle" fill="#f39c12" font-size="13" font-weight="800">PaaS</text>
+      <text x="595" y="46" text-anchor="middle" fill="#e74c3c" font-size="13" font-weight="800">SaaS</text>
 
-    More control ←──────────────────────→ Less work</pre>
-    <p>Think pizza: <strong>IaaS</strong> = rent the kitchen, <strong>PaaS</strong> = kit with dough &amp; sauce, <strong>SaaS</strong> = delivered pizza. You always own your <em>data</em>, even on SaaS — that's a CompTIA exam favorite.</p>
+      <text x="170" y="78" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Applications</text>
+      <rect x="180" y="62" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="83" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="62" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="355" y="83" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="420" y="62" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="475" y="83" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="540" y="62" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="83" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="112" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Data</text>
+      <rect x="180" y="96" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="117" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="96" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="355" y="117" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="420" y="96" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="475" y="117" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="540" y="96" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="595" y="117" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+
+      <text x="170" y="146" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Runtime</text>
+      <rect x="180" y="130" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="151" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="130" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="355" y="151" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="420" y="130" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="151" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="130" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="151" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="180" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">OS</text>
+      <rect x="180" y="164" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="185" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="164" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="355" y="185" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="420" y="164" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="185" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="164" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="185" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="214" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Virtualization</text>
+      <rect x="180" y="198" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="219" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="198" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="355" y="219" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="420" y="198" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="219" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="198" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="219" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="248" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Servers</text>
+      <rect x="180" y="232" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="253" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="232" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="355" y="253" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="420" y="232" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="253" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="232" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="253" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="282" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Storage</text>
+      <rect x="180" y="266" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="287" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="266" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="355" y="287" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="420" y="266" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="287" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="266" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="287" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <text x="170" y="316" text-anchor="end" fill="#e8eaf0" font-size="11" font-weight="700">Network</text>
+      <rect x="180" y="300" width="110" height="32" rx="4" fill="#ff6b35" opacity="0.85"/><text x="235" y="321" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">YOU</text>
+      <rect x="300" y="300" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="355" y="321" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="420" y="300" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="475" y="321" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+      <rect x="540" y="300" width="110" height="32" rx="4" fill="#3498db" opacity="0.7"/><text x="595" y="321" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">cloud</text>
+
+      <rect x="180" y="348" width="14" height="12" fill="#ff6b35" opacity="0.85"/>
+      <text x="200" y="358" fill="#e8eaf0" font-size="10">YOU manage</text>
+      <rect x="282" y="348" width="14" height="12" fill="#3498db" opacity="0.7"/>
+      <text x="302" y="358" fill="#e8eaf0" font-size="10">cloud manages</text>
+
+      <line x1="400" y1="354" x2="500" y2="354" stroke="#8892b0" stroke-width="1.5" marker-start="url(#a3L)"/>
+      <text x="450" y="358" text-anchor="middle" fill="#8892b0" font-size="10">more control</text>
+      <line x1="510" y1="354" x2="640" y2="354" stroke="#8892b0" stroke-width="1.5" marker-end="url(#a3R)"/>
+      <text x="575" y="358" text-anchor="middle" fill="#8892b0" font-size="10">less work</text>
+
+      <text x="330" y="390" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="700">🍕 Pizza analogy: IaaS = rent the kitchen · PaaS = pizza kit · SaaS = delivery</text>
+    </svg>
+    <p>You always own your <strong>data</strong>, even on SaaS — a CompTIA exam favorite. As you move right (IaaS → SaaS) you give up control but gain convenience.</p>
   </div>
 
   <div class="cv-card">
-    <h3>🌐 Local network vs the Internet</h3>
-    <pre class="cv-diagram">
-   Your laptop ──┐
-   Your phone  ──┼── Switch ── Router ── Modem ── Internet
-   Smart TV    ──┘    (LAN)     (gateway)         (WAN)
-                       ↑          ↑
-                       │          │
-              Sends data only to  Connects different
-              the destination     networks (your LAN
-              device on this LAN  to the ISP, and on
-                                  to the rest of the world)</pre>
-    <p>A <strong>switch</strong> talks within your network. A <strong>router</strong> talks <em>between</em> networks. Your home Wi-Fi box is usually all three in one: router + switch + access point.</p>
+    <h3>🌐 Local network vs the internet</h3>
+    <svg viewBox="0 0 660 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <defs>
+        <marker id="a4Arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#3d4270"/></marker>
+      </defs>
+
+      <rect x="10" y="20" width="100" height="44" rx="6" fill="#252840" stroke="#22c55e" stroke-width="1.75"/>
+      <text x="60" y="48" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">💻 Laptop</text>
+
+      <rect x="10" y="86" width="100" height="44" rx="6" fill="#252840" stroke="#22c55e" stroke-width="1.75"/>
+      <text x="60" y="114" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">📱 Phone</text>
+
+      <rect x="10" y="152" width="100" height="44" rx="6" fill="#252840" stroke="#22c55e" stroke-width="1.75"/>
+      <text x="60" y="180" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">📺 Smart TV</text>
+
+      <line x1="110" y1="42" x2="148" y2="98" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+      <line x1="110" y1="108" x2="148" y2="108" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+      <line x1="110" y1="174" x2="148" y2="118" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+
+      <rect x="150" y="80" width="110" height="60" rx="8" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+      <text x="205" y="100" text-anchor="middle" fill="#06b6d4" font-size="13" font-weight="800">🔀 Switch</text>
+      <text x="205" y="118" text-anchor="middle" fill="#e8eaf0" font-size="9">talks WITHIN</text>
+      <text x="205" y="131" text-anchor="middle" fill="#e8eaf0" font-size="9">your network</text>
+
+      <line x1="262" y1="110" x2="288" y2="110" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+
+      <rect x="290" y="80" width="110" height="60" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="2"/>
+      <text x="345" y="100" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">🌐 Router</text>
+      <text x="345" y="118" text-anchor="middle" fill="#e8eaf0" font-size="9">talks BETWEEN</text>
+      <text x="345" y="131" text-anchor="middle" fill="#e8eaf0" font-size="9">networks (gateway)</text>
+
+      <line x1="402" y1="110" x2="428" y2="110" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+
+      <rect x="430" y="80" width="110" height="60" rx="8" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+      <text x="485" y="100" text-anchor="middle" fill="#f1c40f" font-size="13" font-weight="800">📡 Modem</text>
+      <text x="485" y="118" text-anchor="middle" fill="#e8eaf0" font-size="9">connects to your</text>
+      <text x="485" y="131" text-anchor="middle" fill="#e8eaf0" font-size="9">ISP (WAN side)</text>
+
+      <line x1="542" y1="110" x2="568" y2="110" stroke="#3d4270" stroke-width="2" marker-end="url(#a4Arr)"/>
+
+      <ellipse cx="610" cy="110" rx="45" ry="40" fill="#252840" stroke="#a855f7" stroke-width="2"/>
+      <text x="610" y="106" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="800">☁️ Internet</text>
+      <text x="610" y="124" text-anchor="middle" fill="#e8eaf0" font-size="9">rest of</text>
+      <text x="610" y="136" text-anchor="middle" fill="#e8eaf0" font-size="9">the world</text>
+
+      <line x1="6" y1="218" x2="266" y2="218" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="135" y="235" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">LAN — your local network</text>
+
+      <line x1="296" y1="218" x2="654" y2="218" stroke="#a855f7" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="475" y="235" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="700">WAN — everything beyond</text>
+
+      <text x="330" y="262" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Your home Wi-Fi box is usually all three in one: Router + Switch + Modem + Wi-Fi access point</text>
+    </svg>
+    <p>A <strong>switch</strong> talks within your network. A <strong>router</strong> talks <em>between</em> networks. A <strong>modem</strong> translates between your router and the ISP. Most home Wi-Fi boxes combine all three.</p>
   </div>
 
   <div class="cv-card">
-    <h3>🔐 What HTTPS actually does (in one picture)</h3>
-    <pre class="cv-diagram">
-   Plain HTTP (port 80):
-   You ────────► google.com    Anyone on the Wi-Fi can read every
-       Hello!                  word — passwords, messages, cookies.
-       My password is X        ⚠️ Don't use for anything private.
+    <h3>🔐 HTTPS — what encryption actually does</h3>
+    <svg viewBox="0 0 660 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <defs>
+        <marker id="a5Red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ef4444"/></marker>
+        <marker id="a5Grn" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#22c55e"/></marker>
+      </defs>
 
-   HTTPS (port 443):
-   You ──[encrypted]──► google.com
-       █▓▒░│▓░█▒│▒█░│   Encrypted with TLS. Eavesdroppers see
-       │░▒█▓│░█▒│▓░█│   gibberish. The padlock 🔒 in the browser
-       └─────────────┘   means the connection is encrypted AND the
-                         server's identity has been verified.</pre>
-    <p>This is why public Wi-Fi is fine for HTTPS sites but dangerous for HTTP. Most browsers now warn loudly when a site uses plain HTTP.</p>
+      <rect x="10" y="14" width="640" height="170" rx="10" fill="#2a1818" stroke="#ef4444" stroke-width="2"/>
+      <rect x="10" y="14" width="640" height="32" rx="10" fill="#ef4444"/>
+      <text x="330" y="36" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">❌ Plain HTTP · port 80</text>
+
+      <rect x="30" y="80" width="100" height="40" rx="20" fill="#252840" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="80" y="104" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">👤 You</text>
+
+      <rect x="530" y="80" width="120" height="40" rx="20" fill="#252840" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="590" y="104" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">🌐 google.com</text>
+
+      <rect x="150" y="80" width="370" height="40" rx="6" fill="#ef4444" fill-opacity="0.18" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="335" y="104" text-anchor="middle" fill="#ffb3b3" font-size="11" font-weight="700" font-family="Consolas,monospace">username=jane &amp; password=hunter2</text>
+
+      <line x1="130" y1="140" x2="530" y2="140" stroke="#ef4444" stroke-width="2" marker-end="url(#a5Red)"/>
+      <text x="330" y="170" text-anchor="middle" fill="#ffb3b3" font-size="11" font-style="italic">👀 Anyone on the same Wi-Fi can read every word</text>
+
+      <rect x="10" y="200" width="640" height="170" rx="10" fill="#0f2a1a" stroke="#22c55e" stroke-width="2"/>
+      <rect x="10" y="200" width="640" height="32" rx="10" fill="#22c55e"/>
+      <text x="330" y="222" text-anchor="middle" fill="#0a1a14" font-size="13" font-weight="800">🔒 HTTPS · port 443</text>
+
+      <rect x="30" y="266" width="100" height="40" rx="20" fill="#252840" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="80" y="290" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">👤 You</text>
+
+      <rect x="530" y="266" width="120" height="40" rx="20" fill="#252840" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="590" y="290" text-anchor="middle" fill="#e8eaf0" font-size="12" font-weight="700">🌐 google.com</text>
+
+      <rect x="150" y="266" width="370" height="40" rx="6" fill="#22c55e" fill-opacity="0.18" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="335" y="290" text-anchor="middle" fill="#b3ffcb" font-size="11" font-weight="700" font-family="Consolas,monospace">█▓▒░│▓░█▒│▒█░│▒█░│██▓░█▒│▓█░░█│</text>
+
+      <line x1="130" y1="326" x2="530" y2="326" stroke="#22c55e" stroke-width="2" marker-end="url(#a5Grn)"/>
+      <text x="330" y="356" text-anchor="middle" fill="#b3ffcb" font-size="11" font-style="italic">🛡️ Encrypted with TLS · padlock means server identity was verified</text>
+    </svg>
+    <p>HTTP and HTTPS send the same data — only HTTPS scrambles it on the wire. The padlock 🔒 in the address bar means TLS is on <em>and</em> the certificate matched the site. That's why public Wi-Fi is safe for HTTPS but risky for plain HTTP.</p>
   </div>
 
   <div class="cv-card">
     <h3>🛡️ Malware family tree (simplified)</h3>
-    <pre class="cv-diagram">
-                      MALWARE
-                         │
-       ┌─────────────────┼─────────────────┐
-       │                 │                 │
-   Self-spreading    Needs help        Stealthy
-       │             to spread        info-stealer
-       │                 │                 │
-     WORM           VIRUS            SPYWARE / KEYLOGGER
-   (no host)       (attaches            (silent
-                    to files)            observer)
+    <svg viewBox="0 0 660 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <defs>
+        <marker id="a6Arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ef4444"/></marker>
+      </defs>
 
-   Variants that lock or extort:
-     • RANSOMWARE — encrypts files, demands payment
-     • TROJAN — disguised as legit software you install
-     • ROOTKIT — hides BELOW the OS to evade detection</pre>
-    <p>The key distinction CompTIA tests: <strong>virus</strong> needs a host file and a user to spread; <strong>worm</strong> spreads itself across networks. Treat any installed software as a trojan suspect if you didn't get it from a verified source.</p>
+      <rect x="260" y="14" width="140" height="60" rx="10" fill="#2a1818" stroke="#ef4444" stroke-width="2.5"/>
+      <text x="330" y="40" text-anchor="middle" fill="#ef4444" font-size="16" font-weight="800">⚠️ MALWARE</text>
+      <text x="330" y="58" text-anchor="middle" fill="#ffb3b3" font-size="10" font-style="italic">software with malicious intent</text>
+
+      <line x1="295" y1="74" x2="130" y2="130" stroke="#ef4444" stroke-width="2" marker-end="url(#a6Arr)"/>
+      <line x1="330" y1="74" x2="330" y2="130" stroke="#ef4444" stroke-width="2" marker-end="url(#a6Arr)"/>
+      <line x1="365" y1="74" x2="530" y2="130" stroke="#ef4444" stroke-width="2" marker-end="url(#a6Arr)"/>
+
+      <rect x="30" y="140" width="200" height="80" rx="10" fill="#252840" stroke="#e67e22" stroke-width="2"/>
+      <text x="130" y="162" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="800">🪱 WORM</text>
+      <text x="130" y="180" text-anchor="middle" fill="#e8eaf0" font-size="10">Self-spreading</text>
+      <text x="130" y="195" text-anchor="middle" fill="#e8eaf0" font-size="10">no host file needed</text>
+      <text x="130" y="212" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Crawls networks on its own</text>
+
+      <rect x="230" y="140" width="200" height="80" rx="10" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+      <text x="330" y="162" text-anchor="middle" fill="#f1c40f" font-size="13" font-weight="800">🦠 VIRUS</text>
+      <text x="330" y="180" text-anchor="middle" fill="#e8eaf0" font-size="10">Needs help to spread</text>
+      <text x="330" y="195" text-anchor="middle" fill="#e8eaf0" font-size="10">attaches to files</text>
+      <text x="330" y="212" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Activates when host runs</text>
+
+      <rect x="430" y="140" width="200" height="80" rx="10" fill="#252840" stroke="#9b59b6" stroke-width="2"/>
+      <text x="530" y="162" text-anchor="middle" fill="#9b59b6" font-size="13" font-weight="800">👁️ SPYWARE</text>
+      <text x="530" y="180" text-anchor="middle" fill="#e8eaf0" font-size="10">Stealthy info-stealer</text>
+      <text x="530" y="195" text-anchor="middle" fill="#e8eaf0" font-size="10">keyloggers · screen capture</text>
+      <text x="530" y="212" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Silent observer</text>
+
+      <line x1="30" y1="244" x2="630" y2="244" stroke="#3d4270" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="330" y="266" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="800">⚠️ Variants that extort, disguise, or hide</text>
+
+      <rect x="30" y="278" width="200" height="80" rx="8" fill="#252840" stroke="#ef4444" stroke-width="1.75"/>
+      <text x="130" y="300" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="800">🔐 RANSOMWARE</text>
+      <text x="130" y="318" text-anchor="middle" fill="#e8eaf0" font-size="10">Encrypts your files</text>
+      <text x="130" y="333" text-anchor="middle" fill="#e8eaf0" font-size="10">demands payment</text>
+      <text x="130" y="350" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"Pay or lose your data"</text>
+
+      <rect x="230" y="278" width="200" height="80" rx="8" fill="#252840" stroke="#ef4444" stroke-width="1.75"/>
+      <text x="330" y="300" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="800">🎁 TROJAN</text>
+      <text x="330" y="318" text-anchor="middle" fill="#e8eaf0" font-size="10">Disguised as legit</text>
+      <text x="330" y="333" text-anchor="middle" fill="#e8eaf0" font-size="10">software you install</text>
+      <text x="330" y="350" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"Looks safe — isn't"</text>
+
+      <rect x="430" y="278" width="200" height="80" rx="8" fill="#252840" stroke="#ef4444" stroke-width="1.75"/>
+      <text x="530" y="300" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="800">🥷 ROOTKIT</text>
+      <text x="530" y="318" text-anchor="middle" fill="#e8eaf0" font-size="10">Hides BELOW the OS</text>
+      <text x="530" y="333" text-anchor="middle" fill="#e8eaf0" font-size="10">evades antivirus</text>
+      <text x="530" y="350" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">"Lives at kernel level"</text>
+    </svg>
+    <p>The key CompTIA distinction: a <strong>virus</strong> needs a host file and a user to spread; a <strong>worm</strong> spreads itself across networks. Treat any installed software as a trojan suspect if you didn't get it from a verified source.</p>
   </div>
 
   <div class="cv-card">
     <h3>🗄️ Database vs file storage</h3>
-    <pre class="cv-diagram">
-   A FOLDER OF FILES                A DATABASE TABLE
-   (unstructured)                   (structured)
+    <svg viewBox="0 0 660 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <rect x="10" y="14" width="310" height="332" rx="10" fill="#252840" stroke="#e67e22" stroke-width="2"/>
+      <rect x="10" y="14" width="310" height="32" rx="10" fill="#e67e22"/>
+      <text x="165" y="36" text-anchor="middle" fill="#0f1117" font-size="12" font-weight="800">📂 Folder of files (unstructured)</text>
 
-   📄 customer-jane.txt           ┌──────┬─────────┬─────────┐
-   📄 order-001.docx              │  ID  │  Name   │  City   │
-   📄 invoice-2024.xlsx           ├──────┼─────────┼─────────┤
-   ...                            │ 1    │ Jane    │ Boston  │
-   To find Jane's orders:         │ 2    │ Marco   │ Denver  │
-   open each file and search      │ 3    │ Linh    │ Boston  │
-                                  └──────┴─────────┴─────────┘
-                                  SELECT * FROM customers
-                                  WHERE city = 'Boston';
-                                  → returns Jane + Linh instantly</pre>
-    <p>Databases use SQL to ask precise questions of structured data: "give me every customer in Boston" is one line of SQL but a tedious manual search across a folder of files.</p>
+      <rect x="30" y="62" width="270" height="30" rx="6" fill="#3a3024" stroke="#e67e22" stroke-width="1"/>
+      <text x="165" y="82" text-anchor="middle" fill="#e8eaf0" font-size="11" font-family="Consolas,monospace">📄 customer-jane.txt</text>
+
+      <rect x="30" y="98" width="270" height="30" rx="6" fill="#3a3024" stroke="#e67e22" stroke-width="1"/>
+      <text x="165" y="118" text-anchor="middle" fill="#e8eaf0" font-size="11" font-family="Consolas,monospace">📄 order-001-jane.docx</text>
+
+      <rect x="30" y="134" width="270" height="30" rx="6" fill="#3a3024" stroke="#e67e22" stroke-width="1"/>
+      <text x="165" y="154" text-anchor="middle" fill="#e8eaf0" font-size="11" font-family="Consolas,monospace">📄 invoice-2024-Q1.xlsx</text>
+
+      <rect x="30" y="170" width="270" height="30" rx="6" fill="#3a3024" stroke="#e67e22" stroke-width="1"/>
+      <text x="165" y="190" text-anchor="middle" fill="#e8eaf0" font-size="11" font-family="Consolas,monospace">📄 customer-linh.txt</text>
+
+      <rect x="30" y="206" width="270" height="30" rx="6" fill="#3a3024" stroke="#e67e22" stroke-width="1"/>
+      <text x="165" y="226" text-anchor="middle" fill="#e8eaf0" font-size="11" font-family="Consolas,monospace">📄 order-002-linh.docx</text>
+
+      <text x="165" y="278" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="700">🔍 Find Jane's orders?</text>
+      <text x="165" y="298" text-anchor="middle" fill="#e8eaf0" font-size="10" font-style="italic">Open each file. Search manually.</text>
+      <text x="165" y="314" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Slow · error-prone · no filtering</text>
+      <text x="165" y="332" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">— breaks at scale</text>
+
+      <rect x="340" y="14" width="310" height="332" rx="10" fill="#252840" stroke="#22c55e" stroke-width="2"/>
+      <rect x="340" y="14" width="310" height="32" rx="10" fill="#22c55e"/>
+      <text x="495" y="36" text-anchor="middle" fill="#0a1a14" font-size="12" font-weight="800">🗄️ Database table (structured)</text>
+
+      <rect x="360" y="62" width="60" height="28" fill="#1a4d2e" stroke="#22c55e" stroke-width="1"/>
+      <text x="390" y="80" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="800">ID</text>
+      <rect x="420" y="62" width="100" height="28" fill="#1a4d2e" stroke="#22c55e" stroke-width="1"/>
+      <text x="470" y="80" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="800">Name</text>
+      <rect x="520" y="62" width="110" height="28" fill="#1a4d2e" stroke="#22c55e" stroke-width="1"/>
+      <text x="575" y="80" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="800">City</text>
+
+      <rect x="360" y="90" width="60" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="390" y="108" text-anchor="middle" fill="#e8eaf0" font-size="11">1</text>
+      <rect x="420" y="90" width="100" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="470" y="108" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Jane</text>
+      <rect x="520" y="90" width="110" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="575" y="108" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Boston</text>
+
+      <rect x="360" y="116" width="60" height="26" fill="#2c2f49" stroke="#22c55e" stroke-width="1"/>
+      <text x="390" y="134" text-anchor="middle" fill="#e8eaf0" font-size="11">2</text>
+      <rect x="420" y="116" width="100" height="26" fill="#2c2f49" stroke="#22c55e" stroke-width="1"/>
+      <text x="470" y="134" text-anchor="middle" fill="#e8eaf0" font-size="11">Marco</text>
+      <rect x="520" y="116" width="110" height="26" fill="#2c2f49" stroke="#22c55e" stroke-width="1"/>
+      <text x="575" y="134" text-anchor="middle" fill="#e8eaf0" font-size="11">Denver</text>
+
+      <rect x="360" y="142" width="60" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="390" y="160" text-anchor="middle" fill="#e8eaf0" font-size="11">3</text>
+      <rect x="420" y="142" width="100" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="470" y="160" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Linh</text>
+      <rect x="520" y="142" width="110" height="26" fill="#252840" stroke="#22c55e" stroke-width="1"/>
+      <text x="575" y="160" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Boston</text>
+
+      <rect x="360" y="190" width="270" height="68" rx="6" fill="#0a1a14" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="495" y="212" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700" font-family="Consolas,monospace">SELECT * FROM customers</text>
+      <text x="495" y="230" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700" font-family="Consolas,monospace">WHERE city = 'Boston';</text>
+      <text x="495" y="250" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">↓ instant filter</text>
+
+      <text x="495" y="280" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">✓ Returns Jane + Linh</text>
+      <text x="495" y="300" text-anchor="middle" fill="#e8eaf0" font-size="10" font-style="italic">Structured · filterable · fast</text>
+      <text x="495" y="316" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Scales to millions of rows</text>
+      <text x="495" y="332" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">— one line of SQL replaces hours</text>
+    </svg>
+    <p>Databases use <strong>SQL</strong> to ask precise questions of structured data: "give me every customer in Boston" is one line of SQL but a tedious manual search across a folder of files.</p>
   </div>
 </div><!-- /panel-concepts -->
 

@@ -64,6 +64,19 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .domain-header:hover { background: var(--surface2); }
 .domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
 .domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+
+.messer-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.74rem; font-weight: 600;
+  color: #ff4d4d; text-decoration: none;
+  background: rgba(255, 77, 77, 0.10);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  padding: 4px 10px; border-radius: 999px;
+  white-space: nowrap; margin: 0 14px 0 auto;
+  transition: background .15s, border-color .15s;
+}
+.messer-link:hover { background: rgba(255, 77, 77, 0.20); border-color: #ff4d4d; }
+@media print { .messer-link { display: none !important; } }
 .chevron { transition: transform 0.2s; color: var(--text-muted); }
 .domain-header.open .chevron { transform: rotate(180deg); }
 .domain-body { display: none; padding: 0 22px 22px; }
@@ -619,6 +632,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>📱 1.0 — Mobile Devices <span class="domain-pct">15%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -655,6 +669,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🌐 2.0 — Networking <span class="domain-pct">20%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -715,6 +730,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🔧 3.0 — Hardware <span class="domain-pct">25%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -727,6 +743,22 @@ td strong { color: var(--text); }
         <li><strong>Storage interfaces:</strong> SATA III (6 Gbps), M.2 NVMe (up to 32 Gbps PCIe 4.0 x4)</li>
         <li><strong>BIOS/UEFI:</strong> Firmware that initializes hardware on boot. UEFI supports GPT, Secure Boot, faster POST</li>
       </ul>
+      <h4>MBR vs GPT — Disk Partition Schemes</h4>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Feature</th><th>MBR (Master Boot Record)</th><th>GPT (GUID Partition Table)</th></tr>
+          <tr><td><strong>Era / Firmware</strong></td><td>Legacy BIOS</td><td>Modern UEFI</td></tr>
+          <tr><td><strong>Max disk size</strong></td><td>2 TB</td><td>~9.4 ZB (effectively unlimited)</td></tr>
+          <tr><td><strong>Max primary partitions</strong></td><td>4 (or 3 + 1 extended)</td><td>128</td></tr>
+          <tr><td><strong>Partition table copies</strong></td><td>One (at disk start)</td><td>Two — start + end, recoverable</td></tr>
+          <tr><td><strong>Secure Boot</strong></td><td>No</td><td>Yes (with UEFI)</td></tr>
+          <tr><td><strong>Windows 11 requirement</strong></td><td>Not supported</td><td>Required</td></tr>
+        </table>
+      </div>
+      <div class="callout exam-tip">
+        <strong>📌 Conversion tip</strong>
+        <p>Use <code>mbr2gpt /convert</code> from an admin Command Prompt to convert MBR → GPT in Windows <em>without data loss</em>. The classic exam scenario: "Drive is 3 TB but Windows only sees 2 TB" → that disk was initialized as MBR; convert to GPT to use the full space.</p>
+      </div>
       <h4>RAM Types</h4>
       <div class="table-wrap">
         <table>
@@ -750,6 +782,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>☁️ 4.0 — Virtualization &amp; Cloud <span class="domain-pct">11%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -785,6 +818,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>💻 1.0 — Operating Systems <span class="domain-pct">31%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1102/220-1102-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -842,6 +876,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🔐 2.0 — Security <span class="domain-pct">25%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1102/220-1102-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -883,6 +918,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🔧 5.0 — Hardware &amp; Network Troubleshooting (Core 1) <span class="domain-pct">29%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1101/220-1101-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -968,6 +1004,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>🛠️ 3.0 — Software Troubleshooting (Core 2) <span class="domain-pct">22%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1102/220-1102-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -1035,6 +1072,7 @@ td strong { color: var(--text); }
   <div class="domain-card">
     <div class="domain-header" onclick="toggleDomain(this)">
       <h3>📋 4.0 — Operational Procedures (Core 2) <span class="domain-pct">22%</span></h3>
+      <a class="messer-link" href="https://www.professormesser.com/free-a-plus-training/220-1102/220-1102-training-course/" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="Free Professor Messer training videos for this domain">📺 Messer videos</a>
       <span class="chevron">▼</span>
     </div>
     <div class="domain-body">
@@ -1478,6 +1516,88 @@ td strong { color: var(--text); }
 <!-- ===== CONCEPTS & VISUALS ===== -->
 <div id="panel-concepts" class="tab-panel">
 
+  <!-- MOTHERBOARD LAYOUT -->
+  <div class="concepts-section">
+    <h2>🔧 ATX Motherboard Layout</h2>
+    <p>A+ Core 1 expects you to identify motherboard components by sight. This is a typical ATX layout — exact positions vary by vendor, but the relationships are consistent. Color-coded by function: 🟠 compute · 🟡 memory · 🔵 expansion · 🟣 storage · 🟢 power.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 660 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <rect x="20" y="20" width="620" height="440" rx="8" fill="#0e2818" stroke="#1a4d2e" stroke-width="3"/>
+        <circle cx="35" cy="35" r="5" fill="#0a1a14" stroke="#1a4d2e"/>
+        <circle cx="625" cy="35" r="5" fill="#0a1a14" stroke="#1a4d2e"/>
+        <circle cx="35" cy="445" r="5" fill="#0a1a14" stroke="#1a4d2e"/>
+        <circle cx="625" cy="445" r="5" fill="#0a1a14" stroke="#1a4d2e"/>
+
+        <rect x="40" y="30" width="240" height="36" rx="3" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="160" y="52" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">I/O panel — USB · Ethernet · audio · video out</text>
+
+        <rect x="80" y="100" width="130" height="110" rx="4" fill="#3a2418" stroke="#ff6b35" stroke-width="2"/>
+        <text x="145" y="128" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="800">CPU socket</text>
+        <text x="145" y="146" text-anchor="middle" fill="#e8eaf0" font-size="9">LGA · AM4 · AM5</text>
+        <line x1="100" y1="170" x2="190" y2="170" stroke="#ff6b35" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="100" y1="180" x2="190" y2="180" stroke="#ff6b35" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="100" y1="190" x2="190" y2="190" stroke="#ff6b35" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <text x="145" y="225" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">CPU + heatsink mount here</text>
+
+        <rect x="260" y="100" width="14" height="120" rx="2" fill="#3a2418" stroke="#f1c40f" stroke-width="1.5"/>
+        <rect x="278" y="100" width="14" height="120" rx="2" fill="#3a2418" stroke="#f1c40f" stroke-width="1.5"/>
+        <rect x="296" y="100" width="14" height="120" rx="2" fill="#3a2418" stroke="#f1c40f" stroke-width="1.5"/>
+        <rect x="314" y="100" width="14" height="120" rx="2" fill="#3a2418" stroke="#f1c40f" stroke-width="1.5"/>
+        <text x="294" y="92" text-anchor="middle" fill="#f1c40f" font-size="11" font-weight="700">DIMM slots (RAM)</text>
+        <text x="294" y="240" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">install matched pairs (dual-channel)</text>
+
+        <rect x="500" y="80" width="35" height="100" rx="3" fill="#1a2e1a" stroke="#22c55e" stroke-width="2"/>
+        <text x="517" y="200" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">24-pin ATX</text>
+        <text x="517" y="214" text-anchor="middle" fill="#22c55e" font-size="10">power</text>
+
+        <rect x="555" y="100" width="32" height="50" rx="3" fill="#1a2e1a" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="571" y="170" text-anchor="middle" fill="#22c55e" font-size="9" font-weight="700">8-pin CPU</text>
+        <text x="571" y="183" text-anchor="middle" fill="#22c55e" font-size="9">power</text>
+
+        <rect x="160" y="270" width="80" height="60" rx="4" fill="#3a2418" stroke="#ff6b35" stroke-width="1.5"/>
+        <line x1="170" y1="280" x2="170" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="180" y1="280" x2="180" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="190" y1="280" x2="190" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="200" y1="280" x2="200" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="210" y1="280" x2="210" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="220" y1="280" x2="220" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <line x1="230" y1="280" x2="230" y2="320" stroke="#ff6b35" stroke-width="0.5"/>
+        <text x="200" y="305" text-anchor="middle" fill="#ff6b35" font-size="11" font-weight="700">Chipset</text>
+        <text x="200" y="345" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">routes PCIe + SATA + USB</text>
+
+        <circle cx="290" cy="300" r="22" fill="#1a1d2e" stroke="#9b59b6" stroke-width="1.5"/>
+        <text x="290" y="305" text-anchor="middle" fill="#9b59b6" font-size="10" font-weight="700">CR2032</text>
+        <text x="290" y="345" text-anchor="middle" fill="#9b59b6" font-size="9" font-weight="700">CMOS battery</text>
+
+        <rect x="80" y="360" width="320" height="14" rx="2" fill="#1a1d2e" stroke="#3498db" stroke-width="1.5"/>
+        <text x="240" y="352" text-anchor="middle" fill="#3498db" font-size="11" font-weight="700">PCIe x16 — GPU slot</text>
+
+        <rect x="80" y="385" width="80" height="12" rx="2" fill="#1a1d2e" stroke="#3498db" stroke-width="1.5"/>
+        <text x="120" y="412" text-anchor="middle" fill="#3498db" font-size="9" font-weight="700">PCIe x1</text>
+
+        <rect x="180" y="385" width="200" height="10" rx="2" fill="#3a2418" stroke="#f1c40f" stroke-width="1.5"/>
+        <text x="280" y="412" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">M.2 slot (NVMe SSD)</text>
+
+        <rect x="540" y="240" width="28" height="14" rx="2" fill="#3a1a3a" stroke="#a855f7" stroke-width="1.5"/>
+        <rect x="540" y="258" width="28" height="14" rx="2" fill="#3a1a3a" stroke="#a855f7" stroke-width="1.5"/>
+        <rect x="540" y="276" width="28" height="14" rx="2" fill="#3a1a3a" stroke="#a855f7" stroke-width="1.5"/>
+        <rect x="540" y="294" width="28" height="14" rx="2" fill="#3a1a3a" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="585" y="265" fill="#a855f7" font-size="11" font-weight="700">SATA ×4</text>
+        <text x="585" y="282" fill="#8892b0" font-size="9">2.5" SSD · HDD</text>
+
+        <rect x="440" y="400" width="40" height="20" rx="2" fill="#1a1d2e" stroke="#06b6d4" stroke-width="1"/>
+        <text x="460" y="414" text-anchor="middle" fill="#06b6d4" font-size="8" font-weight="700">F_USB</text>
+
+        <rect x="500" y="400" width="60" height="20" rx="2" fill="#1a1d2e" stroke="#06b6d4" stroke-width="1"/>
+        <text x="530" y="414" text-anchor="middle" fill="#06b6d4" font-size="8" font-weight="700">F_PANEL</text>
+        <text x="500" y="438" fill="#8892b0" font-size="9" font-style="italic">power/reset/HDD LED headers</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Identification Tips</div>
+      The biggest socket is the <strong>CPU</strong>. The tall thin slots beside it are <strong>RAM (DIMM)</strong>. The longest horizontal slot is <strong>PCIe x16</strong> — that's where the GPU goes. The little coin-shaped battery is the <strong>CMOS battery</strong>; pull it to reset BIOS settings. <strong>M.2</strong> looks like a long thin slot for a tiny stick — NVMe SSDs live there.
+    </div>
+  </div>
+
   <!-- LASER PRINTER PROCESS -->
   <div class="concepts-section">
     <h2>🖨️ Laser Printer: The 7-Step Imaging Process</h2>
@@ -1559,6 +1679,138 @@ td strong { color: var(--text); }
       <tr><td>RAID 10</td><td>Any</td><td>Fast read/write</td><td>4+ drives</td><td>RAID 1+0: mirrored pairs then striped; good performance + redundancy</td></tr>
     </table>
     <div class="tip-box"><div class="tip-label">Key Distinction</div>M.2 is a <strong>form factor</strong> (physical slot/size), not a speed standard. An M.2 slot can hold a SATA drive (slow) or an NVMe drive (fast). Check the key notch: M-key supports NVMe, B+M-key supports SATA.</div>
+  </div>
+
+  <!-- RAID LEVELS -->
+  <div class="concepts-section">
+    <h2>💾 RAID Levels — Visual Comparison</h2>
+    <p>RAID combines multiple drives for speed, redundancy, or both. The level determines how data is split and whether failures are survivable. Color blocks below show how data is distributed: 🟠 set A · 🔵 set B · 🟢 set C · 🟣 parity.</p>
+    <div class="infographic-wrap">
+      <svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+
+        <rect x="6" y="10" width="648" height="105" rx="10" fill="#1a1d2e" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="20" y="34" fill="#ff6b35" font-size="15" font-weight="800">RAID 0 — Striping</text>
+        <text x="20" y="56" fill="#e8eaf0" font-size="11">Min drives: 2 · Capacity: 100%</text>
+        <text x="20" y="74" fill="#ef4444" font-size="11" font-weight="700">⚠️ ZERO fault tolerance</text>
+        <text x="20" y="96" fill="#8892b0" font-size="10" font-style="italic">Fast — data alternates across drives</text>
+
+        <rect x="350" y="22" width="80" height="80" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="390" y="38" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 1</text>
+        <rect x="358" y="46" width="64" height="16" fill="#ff6b35"/>
+        <text x="390" y="58" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="358" y="66" width="64" height="16" fill="#ff6b35"/>
+        <text x="390" y="78" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A3</text>
+        <rect x="358" y="86" width="64" height="16" fill="#ff6b35"/>
+        <text x="390" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A5</text>
+
+        <rect x="450" y="22" width="80" height="80" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="490" y="38" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 2</text>
+        <rect x="458" y="46" width="64" height="16" fill="#ff6b35"/>
+        <text x="490" y="58" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A2</text>
+        <rect x="458" y="66" width="64" height="16" fill="#ff6b35"/>
+        <text x="490" y="78" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A4</text>
+        <rect x="458" y="86" width="64" height="16" fill="#ff6b35"/>
+        <text x="490" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A6</text>
+
+        <rect x="6" y="125" width="648" height="105" rx="10" fill="#1a1d2e" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="20" y="149" fill="#22c55e" font-size="15" font-weight="800">RAID 1 — Mirroring</text>
+        <text x="20" y="171" fill="#e8eaf0" font-size="11">Min drives: 2 · Capacity: 50%</text>
+        <text x="20" y="189" fill="#22c55e" font-size="11" font-weight="700">✓ Survives 1 drive failure</text>
+        <text x="20" y="211" fill="#8892b0" font-size="10" font-style="italic">Identical copies — read fast, write slow</text>
+
+        <rect x="350" y="137" width="80" height="80" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="390" y="153" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 1</text>
+        <rect x="358" y="161" width="64" height="16" fill="#ff6b35"/>
+        <text x="390" y="173" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="358" y="181" width="64" height="16" fill="#06b6d4"/>
+        <text x="390" y="193" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B1</text>
+        <rect x="358" y="201" width="64" height="16" fill="#22c55e"/>
+        <text x="390" y="213" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C1</text>
+
+        <rect x="450" y="137" width="80" height="80" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="490" y="153" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 2 (copy)</text>
+        <rect x="458" y="161" width="64" height="16" fill="#ff6b35"/>
+        <text x="490" y="173" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="458" y="181" width="64" height="16" fill="#06b6d4"/>
+        <text x="490" y="193" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B1</text>
+        <rect x="458" y="201" width="64" height="16" fill="#22c55e"/>
+        <text x="490" y="213" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C1</text>
+
+        <text x="440" y="180" text-anchor="middle" fill="#22c55e" font-size="16" font-weight="800">⇄</text>
+
+        <rect x="6" y="240" width="648" height="120" rx="10" fill="#1a1d2e" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="20" y="264" fill="#a855f7" font-size="15" font-weight="800">RAID 5 — Striping + Distributed Parity</text>
+        <text x="20" y="286" fill="#e8eaf0" font-size="11">Min drives: 3 · Capacity: (n-1)/n  (~67% for 3 drives)</text>
+        <text x="20" y="304" fill="#22c55e" font-size="11" font-weight="700">✓ Survives 1 drive failure</text>
+        <text x="20" y="326" fill="#8892b0" font-size="10" font-style="italic">Parity cycles between drives — any one drive can fail and rebuild</text>
+        <text x="20" y="345" fill="#a855f7" font-size="10" font-weight="700">🟣 P = parity (XOR redundancy)</text>
+
+        <rect x="280" y="252" width="70" height="100" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="315" y="268" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 1</text>
+        <rect x="288" y="276" width="54" height="16" fill="#ff6b35"/>
+        <text x="315" y="288" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="288" y="296" width="54" height="16" fill="#06b6d4"/>
+        <text x="315" y="308" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B1</text>
+        <rect x="288" y="316" width="54" height="16" fill="#a855f7"/>
+        <text x="315" y="328" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Pc</text>
+
+        <rect x="370" y="252" width="70" height="100" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="405" y="268" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 2</text>
+        <rect x="378" y="276" width="54" height="16" fill="#ff6b35"/>
+        <text x="405" y="288" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A2</text>
+        <rect x="378" y="296" width="54" height="16" fill="#a855f7"/>
+        <text x="405" y="308" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Pb</text>
+        <rect x="378" y="316" width="54" height="16" fill="#22c55e"/>
+        <text x="405" y="328" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C1</text>
+
+        <rect x="460" y="252" width="70" height="100" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="495" y="268" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="700">Drive 3</text>
+        <rect x="468" y="276" width="54" height="16" fill="#a855f7"/>
+        <text x="495" y="288" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Pa</text>
+        <rect x="468" y="296" width="54" height="16" fill="#06b6d4"/>
+        <text x="495" y="308" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B2</text>
+        <rect x="468" y="316" width="54" height="16" fill="#22c55e"/>
+        <text x="495" y="328" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C2</text>
+
+        <rect x="6" y="370" width="648" height="120" rx="10" fill="#1a1d2e" stroke="#f1c40f" stroke-width="1.5"/>
+        <text x="20" y="394" fill="#f1c40f" font-size="15" font-weight="800">RAID 10 — Mirror + Stripe (1+0)</text>
+        <text x="20" y="416" fill="#e8eaf0" font-size="11">Min drives: 4 · Capacity: 50%</text>
+        <text x="20" y="434" fill="#22c55e" font-size="11" font-weight="700">✓ Survives 1 drive per mirror pair</text>
+        <text x="20" y="456" fill="#8892b0" font-size="10" font-style="italic">Mirror first, then stripe the mirrors</text>
+        <text x="20" y="475" fill="#f1c40f" font-size="10" font-weight="700">Fastest fault-tolerant RAID — databases love it</text>
+
+        <rect x="250" y="392" width="70" height="90" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="285" y="408" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="700">Drive 1</text>
+        <rect x="258" y="416" width="54" height="16" fill="#ff6b35"/>
+        <text x="285" y="428" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="258" y="436" width="54" height="16" fill="#ff6b35"/>
+        <text x="285" y="448" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A2</text>
+
+        <rect x="324" y="392" width="70" height="90" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="359" y="408" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="700">Drive 2 mirror</text>
+        <rect x="332" y="416" width="54" height="16" fill="#ff6b35"/>
+        <text x="359" y="428" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A1</text>
+        <rect x="332" y="436" width="54" height="16" fill="#ff6b35"/>
+        <text x="359" y="448" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A2</text>
+
+        <text x="404" y="445" text-anchor="middle" fill="#f1c40f" font-size="14" font-weight="800">+</text>
+
+        <rect x="414" y="392" width="70" height="90" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="449" y="408" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="700">Drive 3</text>
+        <rect x="422" y="416" width="54" height="16" fill="#22c55e"/>
+        <text x="449" y="428" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B1</text>
+        <rect x="422" y="436" width="54" height="16" fill="#22c55e"/>
+        <text x="449" y="448" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B2</text>
+
+        <rect x="488" y="392" width="70" height="90" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="523" y="408" text-anchor="middle" fill="#06b6d4" font-size="9" font-weight="700">Drive 4 mirror</text>
+        <rect x="496" y="416" width="54" height="16" fill="#22c55e"/>
+        <text x="523" y="428" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B1</text>
+        <rect x="496" y="436" width="54" height="16" fill="#22c55e"/>
+        <text x="523" y="448" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B2</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Capacity Trade-off</div>RAID 0 keeps all of N drives but zero safety. RAID 1 halves your capacity for one copy. RAID 5 is the sweet spot for small servers — you "lose" one drive's worth to parity. RAID 10 needs 4+ drives but is the fastest fault-tolerant option.</div>
   </div>
 
   <!-- BOOT PROCESS -->
