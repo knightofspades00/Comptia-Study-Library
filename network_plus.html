@@ -323,6 +323,38 @@ td strong { color: var(--text); }
   .warn-box { background: var(--surface2); border: 1px solid #7a3a1a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
   .warn-box .warn-label { color: #e67e22; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
 
+  /* ── Interactive Subnet Calculator ── */
+  .subnet-calc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 14px 0; }
+  .snc-form { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 16px; }
+  .snc-label { display: flex; flex-direction: column; gap: 4px; font-size: 0.78rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .snc-cidr-row { display: flex; align-items: flex-end; gap: 0; }
+  .snc-cidr-row .snc-slash { font-size: 1.4rem; color: var(--text-muted); padding: 0 4px 6px; font-weight: 700; }
+  .snc-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; color: var(--text); font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; }
+  .snc-input:focus { outline: none; border-color: #06b6d4; box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2); }
+  #snc-ip { width: 180px; }
+  #snc-cidr { width: 70px; text-align: center; }
+  .snc-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; align-items: flex-end; }
+  .snc-presets-label { font-size: 0.7rem; color: var(--text-muted); align-self: center; margin-right: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .snc-preset { background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.3); color: #06b6d4; padding: 6px 10px; border-radius: 6px; font-size: 0.76rem; font-family: 'Consolas', monospace; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .snc-preset:hover { background: rgba(6, 182, 212, 0.2); border-color: #06b6d4; }
+  .snc-error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.4); color: #ff7777; padding: 8px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 0.85rem; }
+  .snc-results { display: grid; grid-template-columns: 150px 1fr; gap: 10px 18px; font-size: 0.86rem; align-items: baseline; }
+  .snc-row-label { color: var(--text-muted); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .snc-row-value { color: var(--text); font-family: 'Consolas', 'Courier New', monospace; font-weight: 700; }
+  .snc-row-value .snc-decimal { display: inline-block; min-width: 130px; }
+  .snc-binary { font-family: 'Consolas', 'Courier New', monospace; font-size: 0.82rem; letter-spacing: 0.5px; margin-left: 6px; }
+  .snc-net { color: #ff6b35; }
+  .snc-host { color: #06b6d4; }
+  .snc-sep { color: #8892b0; }
+  .snc-divider { grid-column: 1 / -1; border-top: 1px dashed var(--border); margin: 4px 0; }
+  .snc-highlight { background: rgba(34, 197, 94, 0.15); padding: 1px 6px; border-radius: 3px; color: #22c55e; }
+  .snc-note { color: var(--text-muted); font-style: italic; font-weight: 400; font-family: system-ui, sans-serif; font-size: 0.78rem; margin-left: 6px; }
+  @media (max-width: 600px) {
+    .snc-results { grid-template-columns: 1fr; gap: 4px; }
+    .snc-row-label { margin-top: 8px; }
+    #snc-ip { width: 140px; }
+  }
+
   /* ── Week Assignment Tracker ── */
   .week-tracker {
     background: var(--surface); border-bottom: 2px solid var(--accent);
@@ -1698,6 +1730,140 @@ td strong { color: var(--text); }
       For any prefix, <strong>usable hosts = 2^(host bits) − 2</strong>. /24 = 2^8 − 2 = 254. /26 = 2^6 − 2 = 62. /28 = 2^4 − 2 = 14. /30 = 2^2 − 2 = 2 (minimum, used for point-to-point links). The exception: <strong>/31</strong> (RFC 3021) has 2 addresses with NO subtraction — both are usable, designed specifically for P2P links.
     </div>
   </div>
+
+  <!-- INTERACTIVE SUBNET CALCULATOR -->
+  <div class="concepts-section">
+    <h2>🧮 Interactive Subnet Calculator</h2>
+    <p>Type any IP + CIDR — the math updates live so you can check your worked-out answers. <span style="color:#ff6b35;font-weight:700">Orange bits</span> are network; <span style="color:#06b6d4;font-weight:700">cyan bits</span> are host. The boundary moves as you change the prefix.</p>
+    <div class="subnet-calc">
+      <div class="snc-form">
+        <label class="snc-label">IP address
+          <input type="text" id="snc-ip" class="snc-input" value="192.168.10.130" autocomplete="off" spellcheck="false" />
+        </label>
+        <label class="snc-label">CIDR prefix
+          <div class="snc-cidr-row">
+            <span class="snc-slash">/</span>
+            <input type="number" id="snc-cidr" class="snc-input" value="26" min="0" max="32" />
+          </div>
+        </label>
+        <div class="snc-presets">
+          <span class="snc-presets-label">try:</span>
+          <button type="button" class="snc-preset" data-ip="10.0.50.200" data-cidr="20">10.0.50.200/20</button>
+          <button type="button" class="snc-preset" data-ip="172.16.5.130" data-cidr="22">172.16.5.130/22</button>
+          <button type="button" class="snc-preset" data-ip="192.168.1.55" data-cidr="28">192.168.1.55/28</button>
+          <button type="button" class="snc-preset" data-ip="10.10.10.10" data-cidr="30">10.10.10.10/30</button>
+        </div>
+      </div>
+      <div class="snc-error" id="snc-error" hidden></div>
+      <div class="snc-results" id="snc-results"></div>
+    </div>
+    <div class="tip-box"><div class="tip-label">How to use this on the exam</div>
+      You won't have this calculator on test day — but you <em>will</em> have scratch paper. Practice the binary conversion until it's automatic: convert the relevant octet to binary, split at the CIDR boundary, network bits = network address, host bits all-zero = network, all-one = broadcast. The calculator is here so you can sanity-check your hand math instantly.
+    </div>
+  </div>
+  <script>
+  (function() {
+    const ipInput = document.getElementById('snc-ip');
+    const cidrInput = document.getElementById('snc-cidr');
+    const errorEl = document.getElementById('snc-error');
+    const resultsEl = document.getElementById('snc-results');
+    if (!ipInput) return;
+
+    function parseIP(s) {
+      s = s.trim();
+      const parts = s.split('.');
+      if (parts.length !== 4) return null;
+      const oct = parts.map(p => /^\d+$/.test(p) ? parseInt(p, 10) : NaN);
+      if (oct.some(o => isNaN(o) || o < 0 || o > 255)) return null;
+      return oct;
+    }
+    function ipToInt(oct) {
+      return (oct[0] * 0x1000000 + (oct[1] << 16) + (oct[2] << 8) + oct[3]) >>> 0;
+    }
+    function intToIP(n) {
+      return [(n >>> 24) & 0xFF, (n >>> 16) & 0xFF, (n >>> 8) & 0xFF, n & 0xFF].join('.');
+    }
+    function toBin(n) {
+      return n.toString(2).padStart(32, '0');
+    }
+    function colorBinary(binStr, cidr) {
+      let out = '';
+      for (let i = 0; i < 32; i++) {
+        if (i > 0 && i % 8 === 0) out += '<span class="snc-sep">.</span>';
+        const cls = i < cidr ? 'snc-net' : 'snc-host';
+        out += '<span class="' + cls + '">' + binStr[i] + '</span>';
+      }
+      return out;
+    }
+    function render() {
+      errorEl.hidden = true;
+      errorEl.textContent = '';
+      resultsEl.innerHTML = '';
+      const oct = parseIP(ipInput.value);
+      const cidr = parseInt(cidrInput.value, 10);
+      if (!oct) {
+        errorEl.hidden = false;
+        errorEl.textContent = 'Invalid IP — format must be 0-255.0-255.0-255.0-255';
+        return;
+      }
+      if (isNaN(cidr) || cidr < 0 || cidr > 32) {
+        errorEl.hidden = false;
+        errorEl.textContent = 'CIDR must be 0 – 32';
+        return;
+      }
+      const ipInt = ipToInt(oct);
+      const mask = cidr === 0 ? 0 : (0xFFFFFFFF << (32 - cidr)) >>> 0;
+      const network = (ipInt & mask) >>> 0;
+      const broadcast = (network | ((~mask) >>> 0)) >>> 0;
+      const total = broadcast - network + 1;
+      let firstUsable, lastUsable, usableHosts, usableNote = '';
+      if (cidr === 32) {
+        firstUsable = lastUsable = network;
+        usableHosts = 1;
+        usableNote = ' <span class="snc-note">(single-host route)</span>';
+      } else if (cidr === 31) {
+        firstUsable = network;
+        lastUsable = broadcast;
+        usableHosts = 2;
+        usableNote = ' <span class="snc-note">(RFC 3021 — both addresses usable for P2P)</span>';
+      } else {
+        firstUsable = network + 1;
+        lastUsable = broadcast - 1;
+        usableHosts = total - 2;
+      }
+      const wildcard = (~mask) >>> 0;
+      const rows = [
+        ['IP', '<span class="snc-decimal">' + oct.join('.') + '</span><span class="snc-binary">' + colorBinary(toBin(ipInt), cidr) + '</span>'],
+        ['Subnet mask', '<span class="snc-decimal">' + intToIP(mask) + '</span><span class="snc-binary">' + colorBinary(toBin(mask), cidr) + '</span>'],
+        ['Wildcard mask', '<span class="snc-decimal">' + intToIP(wildcard) + '</span><span class="snc-binary">' + colorBinary(toBin(wildcard), cidr) + '</span>'],
+        [null],
+        ['Network', '<span class="snc-highlight snc-decimal">' + intToIP(network) + '</span><span class="snc-binary">' + colorBinary(toBin(network), cidr) + '</span>'],
+        ['Broadcast', '<span class="snc-highlight snc-decimal">' + intToIP(broadcast) + '</span><span class="snc-binary">' + colorBinary(toBin(broadcast), cidr) + '</span>'],
+        [null],
+        ['First usable', '<strong>' + intToIP(firstUsable) + '</strong>'],
+        ['Last usable', '<strong>' + intToIP(lastUsable) + '</strong>'],
+        ['Total addresses', total.toLocaleString()],
+        ['Usable hosts', '<strong>' + usableHosts.toLocaleString() + '</strong>' + usableNote],
+      ];
+      let html = '';
+      for (const row of rows) {
+        if (row[0] === null) { html += '<div class="snc-divider"></div>'; continue; }
+        html += '<div class="snc-row-label">' + row[0] + '</div><div class="snc-row-value">' + row[1] + '</div>';
+      }
+      resultsEl.innerHTML = html;
+    }
+    ipInput.addEventListener('input', render);
+    cidrInput.addEventListener('input', render);
+    document.querySelectorAll('.snc-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        ipInput.value = btn.dataset.ip;
+        cidrInput.value = btn.dataset.cidr;
+        render();
+      });
+    });
+    render();
+  })();
+  </script>
 
   <!-- IPv6 -->
   <div class="concepts-section">
