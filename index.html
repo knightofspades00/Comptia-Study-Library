@@ -87,6 +87,7 @@
   .exam-card.netplus::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
   .exam-card.secplus::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
   .exam-card.htmlcss::before { background: linear-gradient(90deg, #e34c26, #2965f1); }
+  .exam-card.pcap::before { background: linear-gradient(90deg, #3776ab, #ffd43b); }
   .exam-card.coming-soon { opacity: 0.55; pointer-events: none; }
   .exam-card.coming-soon::before { background: linear-gradient(90deg, #555, #777); }
   .exam-card.coming-soon .icon { filter: grayscale(0.5); }
@@ -104,6 +105,7 @@
   .exam-card.netplus h2 { color: var(--accent-blue); }
   .exam-card.secplus h2 { color: var(--accent-green); }
   .exam-card.htmlcss h2 { background: linear-gradient(90deg, #e34c26, #2965f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .exam-card.pcap h2 { background: linear-gradient(90deg, #3776ab, #ffd43b); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.coming-soon h2 { color: var(--text-muted); }
   .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
@@ -146,6 +148,7 @@
   .exam-card.netplus .open-btn { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; }
   .exam-card.secplus .open-btn { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
   .exam-card.htmlcss .open-btn { background: linear-gradient(135deg, #e34c26, #2965f1); color: white; }
+  .exam-card.pcap .open-btn { background: linear-gradient(135deg, #3776ab, #ffd43b); color: #1a1d2e; }
 
   /* How to use section */
   .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
@@ -524,22 +527,29 @@
   <h2 class="pillar-title">🐍 Programming — Write the Code</h2>
   <div class="exam-grid">
 
-    <!-- Python PCAP — coming soon -->
-    <div class="exam-card coming-soon">
-      <span class="coming-soon-badge">Coming soon</span>
+    <!-- Python PCAP Card -->
+    <a href="python_pcap.html" class="exam-card pcap">
       <div class="icon">🐍</div>
       <div class="exam-code">PCAP-31-03</div>
       <h2>Python PCAP</h2>
-      <p>Python Institute's Certified Associate in Python Programming. Variables, control flow, functions, modules, OOP, file I/O — a year-long programming course in one cert.</p>
+      <p>Python Institute's Certified Associate in Python Programming. Variables, control flow, modules, exceptions, OOP, file I/O — a year-long programming course in one cert.</p>
       <ul class="domain-list">
-        <li>Data types &amp; control flow</li>
-        <li>Functions, scope &amp; modules</li>
-        <li>Exceptions &amp; file I/O</li>
-        <li>Object-oriented Python</li>
-        <li>Lists, dicts, tuples, sets</li>
+        <li>Modules, Packages &amp; PIP</li>
+        <li>Exceptions &amp; Error Handling</li>
+        <li>Strings, Lists, Dicts &amp; Sets</li>
+        <li>Object-Oriented Programming (34%)</li>
+        <li>Generators, Iterators, Files</li>
       </ul>
-      <span class="open-btn">In progress — next build</span>
-    </div>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+        <span class="chip">🧠 Walk-Me-Through</span>
+      </div>
+      <span class="open-btn">Open Python PCAP Study Hub →</span>
+    </a>
 
   </div><!-- /exam-grid -->
   </div><!-- /pillar-section Programming -->
@@ -583,7 +593,8 @@ const EXAMS = [
   { key: 'aplus',    label: 'A+',            file: 'aplus.html' },
   { key: 'netplus',  label: 'Network+',      file: 'network_plus.html' },
   { key: 'secplus',  label: 'Security+',     file: 'security_plus.html' },
-  { key: 'htmlcss',  label: 'HTML & CSS',    file: 'htmlcss.html' }
+  { key: 'htmlcss',  label: 'HTML & CSS',    file: 'htmlcss.html' },
+  { key: 'pcap',     label: 'Python PCAP',   file: 'python_pcap.html' }
 ];
 
 function pickMostRecent() {
