@@ -88,6 +88,7 @@
   .exam-card.secplus::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); }
   .exam-card.htmlcss::before { background: linear-gradient(90deg, #e34c26, #2965f1); }
   .exam-card.pcap::before { background: linear-gradient(90deg, #3776ab, #ffd43b); }
+  .exam-card.ailit::before { background: linear-gradient(90deg, #7c3aed, #06b6d4); }
   .exam-card.coming-soon { opacity: 0.55; pointer-events: none; }
   .exam-card.coming-soon::before { background: linear-gradient(90deg, #555, #777); }
   .exam-card.coming-soon .icon { filter: grayscale(0.5); }
@@ -106,6 +107,7 @@
   .exam-card.secplus h2 { color: var(--accent-green); }
   .exam-card.htmlcss h2 { background: linear-gradient(90deg, #e34c26, #2965f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.pcap h2 { background: linear-gradient(90deg, #3776ab, #ffd43b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .exam-card.ailit h2 { background: linear-gradient(90deg, #7c3aed, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.coming-soon h2 { color: var(--text-muted); }
   .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
@@ -149,6 +151,7 @@
   .exam-card.secplus .open-btn { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
   .exam-card.htmlcss .open-btn { background: linear-gradient(135deg, #e34c26, #2965f1); color: white; }
   .exam-card.pcap .open-btn { background: linear-gradient(135deg, #3776ab, #ffd43b); color: #1a1d2e; }
+  .exam-card.ailit .open-btn { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: white; }
 
   /* How to use section */
   .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
@@ -559,23 +562,30 @@
   <h2 class="pillar-title">🌍 Digital Citizen — Think Critically</h2>
   <div class="exam-grid">
 
-    <!-- AI + Digital Literacy — coming soon -->
-    <div class="exam-card coming-soon">
-      <span class="coming-soon-badge">Coming soon</span>
+    <!-- AI + Digital Literacy Card -->
+    <a href="ai_literacy.html" class="exam-card ailit">
       <div class="icon">🤖</div>
       <div class="exam-code">AI Literacy + Digital Citizenship</div>
       <h2>AI &amp; Digital Literacy</h2>
       <p>Modern students hit AI tools and online sources in the same browser tab — this combined hub treats them as one set of skills, not two.</p>
       <ul class="domain-list">
-        <li>How AI works (and how it fails)</li>
-        <li>Prompt literacy &amp; evaluating output</li>
-        <li>AI ethics, bias &amp; hallucinations</li>
-        <li>Evaluating online sources</li>
-        <li>Digital footprint &amp; privacy</li>
-        <li>Healthy tech habits</li>
+        <li>How AI Actually Works</li>
+        <li>Prompt Literacy — Talk to AI Well</li>
+        <li>AI Ethics, Bias &amp; Academic Honesty</li>
+        <li>Evaluating Online Sources</li>
+        <li>Digital Footprint, Privacy &amp; Safety</li>
+        <li>Digital Citizenship &amp; Wellbeing</li>
       </ul>
-      <span class="open-btn">In progress — third build</span>
-    </div>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Self-Assessment</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+        <span class="chip">🧠 Walk-Me-Through</span>
+      </div>
+      <span class="open-btn">Open AI &amp; Digital Literacy Hub →</span>
+    </a>
 
   </div><!-- /exam-grid -->
   </div><!-- /pillar-section Digital Citizen -->
@@ -594,7 +604,8 @@ const EXAMS = [
   { key: 'netplus',  label: 'Network+',      file: 'network_plus.html' },
   { key: 'secplus',  label: 'Security+',     file: 'security_plus.html' },
   { key: 'htmlcss',  label: 'HTML & CSS',    file: 'htmlcss.html' },
-  { key: 'pcap',     label: 'Python PCAP',   file: 'python_pcap.html' }
+  { key: 'pcap',     label: 'Python PCAP',   file: 'python_pcap.html' },
+  { key: 'ailit',    label: 'AI &amp; Digital', file: 'ai_literacy.html' }
 ];
 
 function pickMostRecent() {
