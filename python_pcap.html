@@ -643,16 +643,6 @@ td strong { color: var(--text); }
   </div>
 </div>
 
-  <h1><span>CompTIA A+</span> Study Hub</h1>
-  <p>Complete study materials for both A+ Core exams</p>
-  <div class="exam-meta">
-    <div class="meta-item"><strong>Format:</strong> 90 questions per exam</div>
-    <div class="meta-item"><strong>Duration:</strong> 90 minutes each</div>
-    <div class="meta-item"><strong>Passing Score:</strong> 675/900</div>
-    <div class="meta-item"><strong>Exam Types:</strong> Multiple choice, performance-based</div>
-  </div>
-</div>
-
 <div class="tab-bar">
   <button class="tab-btn active" onclick="showTab('guide', event)">📖 Study Guide</button>
   <button class="tab-btn" onclick="showTab('flashcards', event)">🃏 Flashcards</button>
@@ -1406,8 +1396,8 @@ os.makedirs("data/users", exist_ok=True)  # create nested dirs</code></pre>
 <!-- ===== QUIZ ===== -->
 <div id="panel-quiz" class="tab-panel">
   <div class="quiz-header" style="margin-bottom:16px;">
-    <h2>CompTIA A+ Practice Quiz</h2>
-    <p>Mixed Core 1 &amp; Core 2 questions · Immediate feedback · Wrong-answer review at the end</p>
+    <h2>Python PCAP Practice Quiz</h2>
+    <p>Python PCAP-31-03 practice — Immediate feedback · Wrong-answer review at the end</p>
     <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
     <div style="font-size:0.82rem;color:var(--text-muted);">Question <span id="q-current">1</span> of <span id="q-total">60</span></div>
   </div>
@@ -1429,7 +1419,7 @@ os.makedirs("data/users", exist_ok=True)  # create nested dirs</code></pre>
   </div>
   <div class="callout exam-tip" style="margin-top:14px;">
     <strong>📌 Mock Exam mode</strong>
-    <p>One question at a time, no per-question feedback — just like the real A+ exam (the real test is two cores, 90 questions each, 90 minutes each). At the end you get your score, time used, and which questions you missed. Aim for <strong>75%+</strong> before scheduling the real exam.</p>
+    <p>One question at a time, no per-question feedback — just like the real PCAP-31-03 exam (40 questions, 65 minutes, 70% to pass). At the end you get your score, time used, and which questions you missed. Aim for <strong>75%+</strong> before scheduling the cert.</p>
   </div>
 </div>
 
@@ -1437,7 +1427,7 @@ os.makedirs("data/users", exist_ok=True)  # create nested dirs</code></pre>
 <div id="mock-exam-overlay" class="mock-overlay">
   <div class="mock-bar">
     <div class="mock-bar-left">
-      <strong>🎯 A+ Mock Exam</strong>
+      <strong>🎯 Python PCAP Mock Exam</strong>
       <span class="mock-progress-text">Question <span id="mock-q-current">1</span> of <span id="mock-q-total">90</span></span>
     </div>
     <div class="mock-bar-center"><span class="mock-timer" id="mock-timer">90:00</span></div>
@@ -2080,8 +2070,8 @@ for o in orders:
 
 <!-- ────────────────────────────────────────────── -->
 <div id="panel-acronyms" class="tab-panel">
-  <h2 style="font-size:1.1rem;margin-bottom:6px;">CompTIA A+ Acronym Master List</h2>
-  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">CompTIA publishes a full A+ acronym list with the exam objectives. These are the high-frequency ones — search to find any term fast.</p>
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">Python Acronyms &amp; Conventions</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">High-frequency Python terms, error names, and PEP references — search to find any term fast.</p>
   <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
   <div class="acro-grid" id="acro-grid"></div>
 </div><!-- /panel-acronyms -->
@@ -2154,7 +2144,7 @@ for o in orders:
 
 <!-- ────────────────────────────────────────────── -->
 <div id="panel-notes" class="tab-panel">
-  <h2 style="font-size:1.1rem;margin-bottom:6px;">✏️ My A+ Notes</h2>
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">✏️ My Python PCAP Notes</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Write your own notes here. Saves automatically in your browser. Great for command-line snippets, error codes you've seen, or things to ask in class.</p>
   <div class="notes-toolbar">
     <span class="notes-status" id="notes-status">All changes saved</span>
@@ -2789,7 +2779,7 @@ function saveNotes() {
 }
 function loadNotes() { try { const el = document.getElementById('notes-text'); if (el) el.value = localStorage.getItem('notes_pcap') || ''; } catch(e) {} }
 function clearNotes() {
-  if (!confirm('Erase all your A+ notes? This cannot be undone.')) return;
+  if (!confirm('Erase all your Python PCAP notes? This cannot be undone.')) return;
   document.getElementById('notes-text').value = '';
   localStorage.removeItem('notes_pcap');
   document.getElementById('notes-status').textContent = 'Notes cleared';
@@ -3013,7 +3003,7 @@ function buildMockResultCard(correct, total, pct, passed, elapsedMin, elapsedSec
   return '<div class="score-card ' + (passed ? 'pass' : 'fail') + '">' +
     '<div class="score-card-header">' +
       '<div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">🎯 Mock Exam Results</div>' +
-      '<div class="score-card-title">CompTIA ' + MOCK_EXAM_LABEL + ' Mock Exam</div>' +
+      '<div class="score-card-title">' + MOCK_EXAM_LABEL + ' Mock Exam</div>' +
       '<div class="score-card-date">' + date + '</div>' +
     '</div>' +
     '<div class="score-card-numbers">' +
@@ -3232,7 +3222,7 @@ function buildScoreCard(score, total) {
   return `<div class="score-card ${passed?'pass':'fail'}">
     <div class="score-card-header">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
-      <div class="score-card-title">CompTIA A+ Practice Quiz</div>
+      <div class="score-card-title">Python PCAP Practice Quiz</div>
       <div class="score-card-date">${date}</div>
     </div>
     <div class="score-card-numbers">
