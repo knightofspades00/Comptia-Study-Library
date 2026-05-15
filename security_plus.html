@@ -242,13 +242,15 @@ td strong { color: var(--text); }
 .q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
 .q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
 .q-options { display: flex; flex-direction: column; gap: 10px; }
-.q-opt { background: var(--surface2); border: 2px solid var(--border); border-radius: 8px; padding: 13px 16px; cursor: pointer; transition: all 0.15s; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; }
+.q-opt { background: var(--surface2); border: 2px solid var(--border); border-radius: 8px; padding: 13px 16px; cursor: pointer; transition: all 0.15s; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; color: var(--text); text-align: left; font-family: inherit; }
 .q-opt:hover:not(.disabled) { border-color: var(--accent); background: rgba(46,204,113,0.08); }
 .q-opt.correct { border-color: var(--accent); background: rgba(46,204,113,0.12); }
 .q-opt.incorrect { border-color: var(--red); background: rgba(231,76,60,0.1); }
 .q-opt.disabled { cursor: default; }
 .q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
 .q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2, var(--accent))); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 16px; font-family: inherit; }
+.q-next-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 .q-explanation.show { display: block; }
 
 /* Wrong-answer review */
