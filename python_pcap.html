@@ -1603,6 +1603,110 @@ raise NewErr(...) from prev</code></pre>
   <h2 style="font-size:1.1rem;margin-bottom:6px;">🔬 Hands-On Activities</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Python is best learned by typing code. These exercises drive home the most-tested concepts.</p>
 
+  <div class="pbq-intro" style="margin-bottom:22px;">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">🧩 Drag-and-Drop Challenges</h3>
+    <p style="color:var(--text-muted);font-size:0.86rem;">Drag each chip into the correct slot, then press Check. Green = right, red = wrong. These mirror the performance-based question style used on real certification exams.</p>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 1</div>
+    <h3>Match the value to its Python data type</h3>
+    <p>Drag each type name to the literal value of that type.</p>
+    <div class="pbq-board" data-pbq="py-types">
+      <div class="pbq-pool" id="pbq-pool-py-types">
+        <div class="pbq-chip" draggable="true" data-value="int">int</div>
+        <div class="pbq-chip" draggable="true" data-value="float">float</div>
+        <div class="pbq-chip" draggable="true" data-value="str">str</div>
+        <div class="pbq-chip" draggable="true" data-value="bool">bool</div>
+        <div class="pbq-chip" draggable="true" data-value="list">list</div>
+        <div class="pbq-chip" draggable="true" data-value="tuple">tuple</div>
+        <div class="pbq-chip" draggable="true" data-value="dict">dict</div>
+        <div class="pbq-chip" draggable="true" data-value="set">set</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="int"></div><div class="pbq-label"><code>42</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="float"></div><div class="pbq-label"><code>3.14</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="str"></div><div class="pbq-label"><code>"hello"</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="bool"></div><div class="pbq-label"><code>True</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="list"></div><div class="pbq-label"><code>[1, 2, 3]</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="tuple"></div><div class="pbq-label"><code>(1, 2, 3)</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="dict"></div><div class="pbq-label"><code>{"a": 1, "b": 2}</code></div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="set"></div><div class="pbq-label"><code>{1, 2, 3}</code></div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-types')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-types')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-types"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 2</div>
+    <h3>Match the operator to what it does</h3>
+    <p>Drag each Python operator to its description.</p>
+    <div class="pbq-board" data-pbq="py-ops">
+      <div class="pbq-pool" id="pbq-pool-py-ops">
+        <div class="pbq-chip" draggable="true" data-value="floordiv">//</div>
+        <div class="pbq-chip" draggable="true" data-value="mod">%</div>
+        <div class="pbq-chip" draggable="true" data-value="pow">**</div>
+        <div class="pbq-chip" draggable="true" data-value="eq">==</div>
+        <div class="pbq-chip" draggable="true" data-value="and">and</div>
+        <div class="pbq-chip" draggable="true" data-value="in">in</div>
+        <div class="pbq-chip" draggable="true" data-value="assign">=</div>
+        <div class="pbq-chip" draggable="true" data-value="plus">+</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="floordiv"></div><div class="pbq-label">Floor (integer) division — discards the remainder</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="mod"></div><div class="pbq-label">Modulo — returns the remainder</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pow"></div><div class="pbq-label">Exponentiation (raise to a power)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="eq"></div><div class="pbq-label">Equality comparison — returns True / False</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="and"></div><div class="pbq-label">Logical AND — True only if both sides are true</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="in"></div><div class="pbq-label">Membership test — is a value inside a collection</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="assign"></div><div class="pbq-label">Assignment — bind a value to a name</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="plus"></div><div class="pbq-label">Addition (and string / list concatenation)</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-ops')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-ops')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-ops"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 3</div>
+    <h3>Match the keyword to its role</h3>
+    <p>Drag each Python keyword to what it does.</p>
+    <div class="pbq-board" data-pbq="py-kw">
+      <div class="pbq-pool" id="pbq-pool-py-kw">
+        <div class="pbq-chip" draggable="true" data-value="def">def</div>
+        <div class="pbq-chip" draggable="true" data-value="return">return</div>
+        <div class="pbq-chip" draggable="true" data-value="try">try</div>
+        <div class="pbq-chip" draggable="true" data-value="except">except</div>
+        <div class="pbq-chip" draggable="true" data-value="for">for</div>
+        <div class="pbq-chip" draggable="true" data-value="while">while</div>
+        <div class="pbq-chip" draggable="true" data-value="import">import</div>
+        <div class="pbq-chip" draggable="true" data-value="class">class</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="def"></div><div class="pbq-label">Defines a function</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="return"></div><div class="pbq-label">Sends a value back out of a function</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="try"></div><div class="pbq-label">Begins a block of code that might raise an error</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="except"></div><div class="pbq-label">Handles an exception that was raised</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="for"></div><div class="pbq-label">Loops over the items of a sequence</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="while"></div><div class="pbq-label">Loops until a condition becomes False</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="import"></div><div class="pbq-label">Brings code from another module into scope</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="class"></div><div class="pbq-label">Defines a blueprint for creating objects</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-kw')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-kw')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-kw"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💻 REPL Drill — 30 minutes</div>
     <h3>Activity 1: Live-fire data structure practice</h3>

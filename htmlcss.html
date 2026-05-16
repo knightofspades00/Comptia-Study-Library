@@ -1589,6 +1589,110 @@ grid-template-columns: 200px 1fr;</code></pre>
   <h2 style="font-size:1.1rem;margin-bottom:6px;">🔬 Hands-On Activities</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">The interactive Code Playground is being built — until then, here are recommended practice exercises and external sandboxes.</p>
 
+  <div class="pbq-intro" style="margin-bottom:22px;">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">🧩 Drag-and-Drop Challenges</h3>
+    <p style="color:var(--text-muted);font-size:0.86rem;">Drag each chip into the correct slot, then press Check. Green = right, red = wrong. These mirror the performance-based question style used on real certification exams.</p>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 1</div>
+    <h3>Match the HTML element to its job</h3>
+    <p>Drag each semantic HTML5 element to the description of what it represents.</p>
+    <div class="pbq-board" data-pbq="hc-tags">
+      <div class="pbq-pool" id="pbq-pool-hc-tags">
+        <div class="pbq-chip" draggable="true" data-value="main">&lt;main&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="nav">&lt;nav&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="article">&lt;article&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="aside">&lt;aside&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="header">&lt;header&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="footer">&lt;footer&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="figure">&lt;figure&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="table">&lt;table&gt;</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="main"></div><div class="pbq-label">The primary content of the page — only one per document</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="nav"></div><div class="pbq-label">Major site navigation links</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="article"></div><div class="pbq-label">Self-contained, distributable content (a blog post, a comment)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="aside"></div><div class="pbq-label">Tangential content — sidebars, pull quotes</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="header"></div><div class="pbq-label">Introductory content / site banner</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="footer"></div><div class="pbq-label">Closing content — copyright, contact, related links</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="figure"></div><div class="pbq-label">An illustration or code listing plus its caption</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="table"></div><div class="pbq-label">Rows and columns of genuinely tabular data</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-tags')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-tags')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-tags"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 2</div>
+    <h3>Match the CSS property to what it controls</h3>
+    <p>Drag each CSS property to the thing it changes.</p>
+    <div class="pbq-board" data-pbq="hc-props">
+      <div class="pbq-pool" id="pbq-pool-hc-props">
+        <div class="pbq-chip" draggable="true" data-value="color">color</div>
+        <div class="pbq-chip" draggable="true" data-value="padding">padding</div>
+        <div class="pbq-chip" draggable="true" data-value="margin">margin</div>
+        <div class="pbq-chip" draggable="true" data-value="border">border</div>
+        <div class="pbq-chip" draggable="true" data-value="display">display</div>
+        <div class="pbq-chip" draggable="true" data-value="position">position</div>
+        <div class="pbq-chip" draggable="true" data-value="z-index">z-index</div>
+        <div class="pbq-chip" draggable="true" data-value="gap">gap</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="color"></div><div class="pbq-label">The text (foreground) color</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="padding"></div><div class="pbq-label">Inner space between content and the border</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="margin"></div><div class="pbq-label">Outer space between an element and its neighbors</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="border"></div><div class="pbq-label">The line drawn around the padding</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="display"></div><div class="pbq-label">Whether an element is block, inline, flex, or grid</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="position"></div><div class="pbq-label">static / relative / absolute / fixed behavior</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="z-index"></div><div class="pbq-label">Stacking order of overlapping positioned elements</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="gap"></div><div class="pbq-label">Space between flex or grid items</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-props')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-props')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-props"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 3</div>
+    <h3>Match the CSS selector to what it targets</h3>
+    <p>Drag each selector to the elements it would select.</p>
+    <div class="pbq-board" data-pbq="hc-sel">
+      <div class="pbq-pool" id="pbq-pool-hc-sel">
+        <div class="pbq-chip" draggable="true" data-value="cls">.box</div>
+        <div class="pbq-chip" draggable="true" data-value="id">#nav</div>
+        <div class="pbq-chip" draggable="true" data-value="desc">nav a</div>
+        <div class="pbq-chip" draggable="true" data-value="child">nav &gt; a</div>
+        <div class="pbq-chip" draggable="true" data-value="first">li:first-child</div>
+        <div class="pbq-chip" draggable="true" data-value="pseudo">p::first-line</div>
+        <div class="pbq-chip" draggable="true" data-value="univ">*</div>
+        <div class="pbq-chip" draggable="true" data-value="attr">[type="email"]</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="cls"></div><div class="pbq-label">Every element with class="box"</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="id"></div><div class="pbq-label">The one element with id="nav"</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="desc"></div><div class="pbq-label">Any &lt;a&gt; anywhere inside a &lt;nav&gt;</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="child"></div><div class="pbq-label">Only &lt;a&gt; that are DIRECT children of &lt;nav&gt;</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="first"></div><div class="pbq-label">An &lt;li&gt; that is the first child of its parent</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pseudo"></div><div class="pbq-label">The first line of text in every paragraph</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="univ"></div><div class="pbq-label">Every single element on the page</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="attr"></div><div class="pbq-label">Inputs whose type attribute equals email</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-sel')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-sel')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-sel"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💻 External Sandbox</div>
     <h3>Activity 1: Build a personal homepage</h3>

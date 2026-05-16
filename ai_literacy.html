@@ -1397,6 +1397,110 @@ td strong { color: var(--text); }
   <h2 style="font-size:1.1rem;margin-bottom:6px;">🔬 Hands-On Activities</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Apply each domain to your actual digital life. Most take 15 minutes; you'll come back to them.</p>
 
+  <div class="pbq-intro" style="margin-bottom:22px;">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">🧩 Drag-and-Drop Challenges</h3>
+    <p style="color:var(--text-muted);font-size:0.86rem;">Drag each chip into the correct slot, then press Check. Green = right, red = wrong. These mirror the performance-based question style used on real certification exams.</p>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 1</div>
+    <h3>Match the AI term to its definition</h3>
+    <p>Drag each term to the description that fits it.</p>
+    <div class="pbq-board" data-pbq="ai-terms">
+      <div class="pbq-pool" id="pbq-pool-ai-terms">
+        <div class="pbq-chip" draggable="true" data-value="halluc">Hallucination</div>
+        <div class="pbq-chip" draggable="true" data-value="token">Token</div>
+        <div class="pbq-chip" draggable="true" data-value="training">Training data</div>
+        <div class="pbq-chip" draggable="true" data-value="prompt">Prompt</div>
+        <div class="pbq-chip" draggable="true" data-value="llm">LLM</div>
+        <div class="pbq-chip" draggable="true" data-value="bias">Bias</div>
+        <div class="pbq-chip" draggable="true" data-value="deepfake">Deepfake</div>
+        <div class="pbq-chip" draggable="true" data-value="params">Parameters</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="halluc"></div><div class="pbq-label">A confident but false AI output — an invented fact or citation</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="token"></div><div class="pbq-label">A small chunk of text (~half a word) an LLM processes at a time</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="training"></div><div class="pbq-label">The text and images a model learned its patterns from</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="prompt"></div><div class="pbq-label">What you type to instruct an AI</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="llm"></div><div class="pbq-label">A model trained to predict the next token of text</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="bias"></div><div class="pbq-label">Skewed, unfair output caused by skewed training data</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="deepfake"></div><div class="pbq-label">AI-generated media designed to look like a real person</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="params"></div><div class="pbq-label">The billions of internal numbers a model adjusts while training</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-terms')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-terms')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-terms"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 2</div>
+    <h3>Match the attack to its description</h3>
+    <p>Drag each attack type to how it works.</p>
+    <div class="pbq-board" data-pbq="ai-attacks">
+      <div class="pbq-pool" id="pbq-pool-ai-attacks">
+        <div class="pbq-chip" draggable="true" data-value="phish">Phishing</div>
+        <div class="pbq-chip" draggable="true" data-value="smish">Smishing</div>
+        <div class="pbq-chip" draggable="true" data-value="vish">Vishing</div>
+        <div class="pbq-chip" draggable="true" data-value="spear">Spear phishing</div>
+        <div class="pbq-chip" draggable="true" data-value="social">Social engineering</div>
+        <div class="pbq-chip" draggable="true" data-value="dox">Doxxing</div>
+        <div class="pbq-chip" draggable="true" data-value="breach">Data breach</div>
+        <div class="pbq-chip" draggable="true" data-value="mitm">On-path attack</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="phish"></div><div class="pbq-label">Fraud via email pretending to be a trusted sender</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="smish"></div><div class="pbq-label">Phishing carried out through text messages</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="vish"></div><div class="pbq-label">Phishing carried out through phone calls</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="spear"></div><div class="pbq-label">Targeted phishing using details specific to you</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="social"></div><div class="pbq-label">Tricking a person (not a system) into granting access</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="dox"></div><div class="pbq-label">Publishing someone's private identity to enable harassment</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="breach"></div><div class="pbq-label">When an organization's stored data is stolen or exposed</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="mitm"></div><div class="pbq-label">An attacker secretly positioned between two communicating parties</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-attacks')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-attacks')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-attacks"></div>
+  </div>
+
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 3</div>
+    <h3>Match the digital-literacy concept</h3>
+    <p>Drag each concept to its definition.</p>
+    <div class="pbq-board" data-pbq="ai-verify">
+      <div class="pbq-pool" id="pbq-pool-ai-verify">
+        <div class="pbq-chip" draggable="true" data-value="lateral">Lateral reading</div>
+        <div class="pbq-chip" draggable="true" data-value="primary">Primary source</div>
+        <div class="pbq-chip" draggable="true" data-value="misinfo">Misinformation</div>
+        <div class="pbq-chip" draggable="true" data-value="disinfo">Disinformation</div>
+        <div class="pbq-chip" draggable="true" data-value="reverse">Reverse image search</div>
+        <div class="pbq-chip" draggable="true" data-value="twofa">2FA</div>
+        <div class="pbq-chip" draggable="true" data-value="pwmgr">Password manager</div>
+        <div class="pbq-chip" draggable="true" data-value="craap">CRAAP test</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="lateral"></div><div class="pbq-label">Leaving a page to check what other independent sources say</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="primary"></div><div class="pbq-label">An original, firsthand record of an event</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="misinfo"></div><div class="pbq-label">False information shared WITHOUT intent to deceive</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="disinfo"></div><div class="pbq-label">False information shared deliberately to deceive</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="reverse"></div><div class="pbq-label">Finding where an online image first appeared</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="twofa"></div><div class="pbq-label">A second proof of identity beyond a password</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pwmgr"></div><div class="pbq-label">Software that generates and stores unique passwords</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="craap"></div><div class="pbq-label">Currency, Relevance, Authority, Accuracy, Purpose checklist</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-verify')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-verify')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-verify"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💬 Prompt Lab — 30 min</div>
     <h3>Activity 1: Bad prompt → good prompt</h3>
