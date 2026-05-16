@@ -536,6 +536,29 @@ td strong { color: var(--text); }
     color: var(--text);
   }
 
+
+/* ── Mobile / small-screen responsive ── */
+@media (max-width: 640px) {
+  .content-area { padding: 22px 14px; }
+  .exam-header { padding: 22px 18px; }
+  .exam-header h1 { font-size: 1.5rem; line-height: 1.2; }
+  .exam-header .code { font-size: 0.66rem; }
+  .exam-header p { font-size: 0.88rem; }
+  .exam-meta { gap: 12px; }
+  .tab-btn { padding: 12px 12px; font-size: 0.82rem; }
+  .content-area table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  .domain-header { padding: 14px 16px; }
+  .domain-header h3 { font-size: 0.92rem; }
+  .domain-body { padding: 0 16px 18px; }
+  .infographic-wrap, .table-wrap { overflow-x: auto; }
+  .fc-nav { flex-wrap: wrap; gap: 8px; }
+  .fc-card { min-height: 200px; }
+  .mnem-step { white-space: normal; }
+  .mnem-breakdown { gap: 6px; }
+  .cheat-key { min-width: 0; }
+  .cheat-val { min-width: 0; overflow-wrap: anywhere; text-align: right; }
+}
+
 @media print {
   body { background: white !important; color: black !important; font-size: 10pt; }
   header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
