@@ -541,6 +541,12 @@ td strong { color: var(--text); }
   }
 
 
+
+/* ── Accessibility ── */
+.skip-link { position: absolute; left: 8px; top: -52px; z-index: 3000; background: var(--accent); color: #fff; padding: 10px 18px; border-radius: 0 0 8px 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: top .15s; }
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 3px solid #6cb6ff; outline-offset: 2px; }
+.domain-header { border-radius: 4px; }
 /* ── Mobile / small-screen responsive ── */
 @media (max-width: 640px) {
   .content-area { padding: 22px 14px; }
@@ -624,6 +630,7 @@ td strong { color: var(--text); }
 </head>
 <body>
 
+<a href="#hub-main" class="skip-link">Skip to main content</a>
 <div class="top-nav">
   <a href="index.html" class="back-link">← Library Home</a>
   <span class="nav-title">CompTIA Tech+ Study Hub</span>
@@ -656,7 +663,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
 </div>
 
-<div class="content-area">
+<div class="content-area" id="hub-main">
 
 <!-- ═══════════════════════════════════════════════════════════════════════════
      STUDY GUIDE
@@ -3292,6 +3299,27 @@ function buildScoreCard(score, total) {
     </div>
   </div>`;
 }
+
+/* ── Accessibility: keyboard-operable accordions ─────────────────── */
+(function() {
+  document.querySelectorAll('.domain-header').forEach(function(h) {
+    h.setAttribute('tabindex', '0');
+    h.setAttribute('role', 'button');
+    function sync() {
+      h.setAttribute('aria-expanded', h.classList.contains('open') ? 'true' : 'false');
+    }
+    sync();
+    h.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        h.click();
+      }
+    });
+    try {
+      new MutationObserver(sync).observe(h, { attributes: true, attributeFilter: ['class'] });
+    } catch (e) {}
+  });
+})();
 </script>
 </body>
 </html>
