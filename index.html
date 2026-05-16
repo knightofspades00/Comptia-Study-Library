@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CompTIA Study Library</title>
+<title>IT &amp; Digital Skills Library</title>
 <style>
   :root {
     --bg: #0f1117;
@@ -252,15 +252,15 @@
 
 <header>
   <div class="badge">Study Library</div>
-  <h1>CompTIA <span>Exam Prep</span></h1>
-  <p>Interactive study materials for Tech+, A+, Network+, and Security+ certifications</p>
+  <h1>IT &amp; Digital <span>Skills Library</span></h1>
+  <p>Interactive study hubs for CompTIA certs, web development, Python, and AI &amp; digital literacy</p>
 </header>
 
 <div class="stats-bar">
-  <div class="stat"><div class="num">4</div><div class="label">Exams Covered</div></div>
-  <div class="stat"><div class="num">7</div><div class="label">Material Types</div></div>
-  <div class="stat"><div class="num" id="stat-questions">315+</div><div class="label">Practice Questions</div></div>
-  <div class="stat"><div class="num">550+</div><div class="label">Flashcards</div></div>
+  <div class="stat"><div class="num">7</div><div class="label">Study Hubs</div></div>
+  <div class="stat"><div class="num">10</div><div class="label">Material Types</div></div>
+  <div class="stat"><div class="num" id="stat-questions">560+</div><div class="label">Practice Questions</div></div>
+  <div class="stat"><div class="num">800+</div><div class="label">Flashcards</div></div>
   <div class="stat"><div class="num" id="stat-streak">0🔥</div><div class="label">Day Streak</div></div>
 </div>
 
@@ -593,7 +593,7 @@
 </main>
 
 <footer>
-  CompTIA Study Library · Built for the classroom · Progress saves in your browser
+  IT &amp; Digital Skills Library · Built for the classroom · Progress saves in your browser
 </footer>
 
 <script>
@@ -691,7 +691,16 @@ const dailyQuestions = [
   { tag: 'Security+', q: 'Which type of attack involves an attacker positioning themselves between two communicating parties?', opts: ['Brute force', 'On-path (MITM)', 'SQL injection', 'DDoS'], answer: 1, exp: 'On-path attack (formerly called Man-in-the-Middle / MITM) intercepts traffic between two hosts. The attacker can read or modify it. HTTPS / certificate pinning defend against this.' },
   { tag: 'Tech+', q: 'A "byte" consists of how many bits?', opts: ['4', '8', '16', '32'], answer: 1, exp: 'One byte = 8 bits. This gives 256 possible values (2^8), which is why an IPv4 octet ranges 0-255.' },
   { tag: 'A+', q: 'A user has no internet but pinging the default gateway succeeds. What is the next BEST step?', opts: ['Replace the NIC', 'Ping an external IP like 8.8.8.8', 'Reinstall Windows', 'Replace the Ethernet cable'], answer: 1, exp: 'You have confirmed LAN connectivity works (gateway responds). The next step is to test whether traffic escapes the LAN — ping an external IP to isolate WAN vs LAN issues.' },
-  { tag: 'Security+', q: 'Which authentication factor is "something you have"?', opts: ['Password', 'Fingerprint', 'Security token', 'Location'], answer: 2, exp: 'A security token (hardware key, phone with an authenticator app) is something you have. Password = know. Fingerprint = are. Location = somewhere you are.' }
+  { tag: 'Security+', q: 'Which authentication factor is "something you have"?', opts: ['Password', 'Fingerprint', 'Security token', 'Location'], answer: 2, exp: 'A security token (hardware key, phone with an authenticator app) is something you have. Password = know. Fingerprint = are. Location = somewhere you are.' },
+  { tag: 'HTML & CSS', q: 'In the CSS box model, what does box-sizing: border-box change?', opts: ['Removes the border entirely', 'Makes the declared width include padding and border', 'Doubles every margin', 'Disables the box model'], answer: 1, exp: 'With border-box, width:300px renders exactly 300px wide — padding and border are counted inside it. The default (content-box) adds padding and border on top of the declared width.' },
+  { tag: 'HTML & CSS', q: 'Which CSS centers a child both horizontally AND vertically inside its parent?', opts: ['text-align: center', 'float: center', 'display:flex; justify-content:center; align-items:center on the parent', 'margin-top: 50%'], answer: 2, exp: 'On the parent: display:flex, justify-content:center (main axis), align-items:center (cross axis). float:center does not exist; text-align only handles inline content.' },
+  { tag: 'HTML & CSS', q: 'Which HTML element should wrap a site\'s primary navigation links?', opts: ['<div class="nav">', '<nav>', '<menu>', '<aside>'], answer: 1, exp: '<nav> is the semantic HTML5 element for navigation. Screen readers expose it as a "navigation" landmark — a plain <div> gives them no such signal.' },
+  { tag: 'Python', q: 'What is the key difference between a Python list and a tuple?', opts: ['Lists are ordered, tuples are not', 'Lists are mutable, tuples are immutable', 'Tuples can only hold numbers', 'There is no difference'], answer: 1, exp: 'Both are ordered sequences. The core difference: a list can be changed after creation (mutable); a tuple cannot (immutable). Use a tuple when the data should not change.' },
+  { tag: 'Python', q: 'Which block handles a runtime error so the program does not crash?', opts: ['if / else', 'try / except', 'for / in', 'def / return'], answer: 1, exp: 'try/except catches exceptions: code in the try block runs, and if it raises an error, the matching except block handles it instead of crashing the program.' },
+  { tag: 'Python', q: 'What does len("Python") return?', opts: ['5', '6', '7', 'An error'], answer: 1, exp: 'len() returns the number of items — for a string, the character count. "Python" has 6 characters: P-y-t-h-o-n.' },
+  { tag: 'AI Literacy', q: 'An AI chatbot confidently cites a research paper that does not exist. This is called:', opts: ['A glitch', 'A hallucination', 'A syntax error', 'A timeout'], answer: 1, exp: 'A hallucination is when AI generates plausible-sounding but false information — invented citations, fake statistics. It happens because the model predicts likely text; it does not verify facts.' },
+  { tag: 'AI Literacy', q: 'What is the BEST first step to verify a striking claim you see online?', opts: ['Re-read the page carefully', 'Check if the site looks professional', 'Open a new tab and see what other independent sources say', 'Share it so others can help check'], answer: 2, exp: 'Lateral reading — leaving the page to check what other independent sources say — is what professional fact-checkers do. A site\'s own design tells you nothing about its credibility.' },
+  { tag: 'AI Literacy', q: 'Beyond a strong password, what is the single best everyday account protection?', opts: ['Changing your password every month', 'Two-factor authentication (2FA)', 'A longer username', 'Using one password everywhere so you remember it'], answer: 1, exp: '2FA requires a second proof (a phone code or authenticator app), so a stolen password alone is not enough to get in. Turn it on for email, main social, and banking at minimum.' }
 ];
 
 function pickDailyQuestion() {

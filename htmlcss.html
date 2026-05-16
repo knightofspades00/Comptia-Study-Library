@@ -669,7 +669,7 @@ td strong { color: var(--text); }
   <div class="domain-toolbar">
     <button class="domain-tool-btn" onclick="expandAllDomains()">↕ Expand All</button>
     <button class="domain-tool-btn" onclick="collapseAllDomains()">↕ Collapse All</button>
-    <button class="domain-tool-btn" onclick="printFullGuide()">🖨 Print full guide</button>
+    <button class="domain-tool-btn" onclick="printStudyGuide()">🖨 Print full guide</button>
   </div>
 
   <div class="domain-card">
@@ -1427,7 +1427,7 @@ localStorage.removeItem('username');</code></pre>
 
   <h2 style="font-size:1.1rem;margin-bottom:6px;">📋 HTML &amp; CSS Cheat Sheet</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Print this for the exam day. Hidden in print: side nav, tabs, footer.</p>
-  <button class="print-cheat-btn" onclick="printCheatSheet()">🖨 Print this cheat sheet</button>
+  <button class="print-cheat-btn" onclick="window.print()">🖨 Print this cheat sheet</button>
 
   <div class="cheat-grid">
     <div class="cheat-card">
