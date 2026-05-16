@@ -188,3 +188,24 @@ function updateQuizBadge() {
     badge.remove();
   }
 }
+
+function applyTheme(theme) {
+  const light = theme === 'light';
+  document.documentElement.classList.toggle('theme-light', light);
+  document.querySelectorAll('.theme-toggle').forEach(btn => {
+    btn.textContent = light ? '🌙' : '☀️';
+    const label = light ? 'Switch to dark mode' : 'Switch to light mode';
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+  });
+}
+
+function toggleTheme() {
+  const next = document.documentElement.classList.contains('theme-light') ? 'dark' : 'light';
+  try { localStorage.setItem('theme', next); } catch (e) {}
+  applyTheme(next);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme(document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
+});

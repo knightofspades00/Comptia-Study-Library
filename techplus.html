@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
 <title>CompTIA Tech+ Study Hub</title>
 <style>
 :root {
@@ -12,6 +13,29 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+/* === Light theme === */
+:root.theme-light {
+  --bg: #eceff3; --surface: #ffffff; --surface2: #f0f2f6; --surface3: #e3e7ee;
+  --text: #1c1f2e; --text-muted: #5b6474; --border: #d3d8e0;
+}
+:root.theme-light .exam-header,
+:root.theme-light .walkthrough {
+  --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --text: #e8eaf0; --text-muted: #8892b0; --border: #2d3153;
+  color: #e8eaf0;
+}
+:root.theme-light .infographic-wrap { background: #161a2c; border-color: #2a2f4a; }
+:root.theme-light .cv-card svg { background: #161a2c; border-radius: 8px; }
+:root.theme-light .fc-back { background: var(--surface2); }
+.theme-toggle {
+  background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 8px; width: 32px; height: 32px; font-size: 0.95rem; line-height: 1;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; flex-shrink: 0; transition: border-color .15s, transform .1s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle:active { transform: scale(0.9); }
 
 .top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
 .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
@@ -635,6 +659,7 @@ td strong { color: var(--text); }
   <a href="index.html" class="back-link">← Library Home</a>
   <span class="nav-title">CompTIA Tech+ Study Hub</span>
   <span class="nav-badge">FC0-U71</span>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle color theme" title="Toggle color theme">☀️</button>
 </div>
 
 <div class="exam-header">
