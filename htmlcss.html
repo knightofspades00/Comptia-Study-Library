@@ -309,6 +309,22 @@ td strong { color: var(--text); }
 .career-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
 .career-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
 .career-card .career-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+/* ── Code Playground ── */
+.pg-presets { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 16px; }
+.pg-presets-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.pg-preset { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-family: inherit; transition: all .15s; }
+.pg-preset:hover { border-color: var(--accent); color: var(--accent); }
+.pg-preset.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.pg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pg-editors { display: flex; flex-direction: column; gap: 12px; }
+.pg-editor-wrap, .pg-preview-wrap { display: flex; flex-direction: column; gap: 5px; }
+.pg-editor-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+.pg-editor { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Consolas', 'Courier New', monospace; font-size: 0.84rem; line-height: 1.55; padding: 12px; resize: vertical; min-height: 165px; tab-size: 2; }
+.pg-editor:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(231,76,60,0.18); }
+.pg-preview { background: #fff; border: 1px solid var(--border); border-radius: 8px; width: 100%; min-height: 360px; height: 100%; }
+.pg-actions { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.pg-saved-note { font-size: 0.78rem; color: var(--green); font-weight: 600; }
+@media (max-width: 800px) { .pg-layout { grid-template-columns: 1fr; } .pg-preview { min-height: 300px; } }
 .q-explanation.show { display: block; }
 
 /* Wrong-answer review */
@@ -649,6 +665,7 @@ td strong { color: var(--text); }
   <button class="tab-btn" onclick="showTab('quiz', event)">❓ Practice Quiz</button>
   <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
   <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('playground', event)">🛝 Code Playground</button>
   <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
   <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
   <button class="tab-btn" onclick="showTab('resources', event)">🌐 Resources</button>
@@ -1585,6 +1602,50 @@ grid-template-columns: 200px 1fr;</code></pre>
     </ol>
   </div>
 
+</div>
+
+
+<!-- ────────────────────────────────────────────── -->
+<div id="panel-playground" class="tab-panel">
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🛝 Code Playground</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Write HTML and CSS, watch it render live. Pick a starter below or start blank. Your code auto-saves in this browser.</p>
+
+  <div class="pg-presets">
+    <span class="pg-presets-label">Starters:</span>
+    <button type="button" class="pg-preset" data-preset="blank">Blank page</button>
+    <button type="button" class="pg-preset" data-preset="boxmodel">Box model</button>
+    <button type="button" class="pg-preset" data-preset="flexbox">Flexbox</button>
+    <button type="button" class="pg-preset" data-preset="grid">CSS Grid</button>
+    <button type="button" class="pg-preset" data-preset="card">Card component</button>
+    <button type="button" class="pg-preset" data-preset="responsive">Responsive</button>
+  </div>
+
+  <div class="pg-layout">
+    <div class="pg-editors">
+      <div class="pg-editor-wrap">
+        <label class="pg-editor-label" for="pg-html">HTML</label>
+        <textarea id="pg-html" class="pg-editor" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+      </div>
+      <div class="pg-editor-wrap">
+        <label class="pg-editor-label" for="pg-css">CSS</label>
+        <textarea id="pg-css" class="pg-editor" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+      </div>
+    </div>
+    <div class="pg-preview-wrap">
+      <label class="pg-editor-label">Live Preview</label>
+      <iframe id="pg-preview" class="pg-preview" title="Live preview of your code"></iframe>
+    </div>
+  </div>
+
+  <div class="pg-actions">
+    <button type="button" id="pg-reset" class="domain-tool-btn">↺ Reset to starter</button>
+    <span class="pg-saved-note" id="pg-saved-note"></span>
+  </div>
+
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 How to use this</strong>
+    <p>Type in either box — the preview updates instantly. Try breaking things on purpose: change <code>box-sizing</code>, swap <code>flex-direction</code>, delete a closing tag. The fastest way to learn HTML/CSS is to experiment and watch what happens. The preview is sandboxed, so nothing you type here can affect the rest of the site.</p>
+  </div>
 </div>
 
 
@@ -3030,6 +3091,119 @@ function buildScoreCard(score, total) {
     </div>
   </div>`;
 }
+
+/* ── Code Playground ───────────────────────────────────────────── */
+(function() {
+  const htmlEd = document.getElementById('pg-html');
+  const cssEd = document.getElementById('pg-css');
+  const preview = document.getElementById('pg-preview');
+  const savedNote = document.getElementById('pg-saved-note');
+  const resetBtn = document.getElementById('pg-reset');
+  if (!htmlEd || !cssEd || !preview) return;
+
+  const PRESETS = {
+    blank: {
+      html: '<h1>Hello!</h1>\n<p>Start editing the HTML and CSS boxes.</p>',
+      css: 'body {\n  font-family: system-ui, sans-serif;\n  padding: 24px;\n  color: #1a1d2e;\n}'
+    },
+    boxmodel: {
+      html: '<div class="box">\n  Change the values in the CSS and\n  watch the box resize.\n</div>',
+      css: '/* Try switching box-sizing between\n   content-box and border-box */\n.box {\n  box-sizing: content-box;\n  width: 240px;\n  padding: 20px;\n  border: 6px solid #e74c3c;\n  margin: 30px;\n  background: #f1c40f;\n  font-family: sans-serif;\n}'
+    },
+    flexbox: {
+      html: '<div class="row">\n  <div class="item">1</div>\n  <div class="item">2</div>\n  <div class="item">3</div>\n</div>',
+      css: '/* Try: justify-content, align-items,\n   flex-direction, gap */\n.row {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 12px;\n  min-height: 160px;\n  background: #ecf0f1;\n  padding: 16px;\n}\n.item {\n  background: #3498db;\n  color: #fff;\n  font-family: sans-serif;\n  font-size: 24px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 70px;\n  height: 70px;\n  border-radius: 8px;\n}'
+    },
+    grid: {
+      html: '<div class="grid">\n  <div class="cell">A</div>\n  <div class="cell">B</div>\n  <div class="cell">C</div>\n  <div class="cell">D</div>\n  <div class="cell">E</div>\n  <div class="cell">F</div>\n</div>',
+      css: '/* Try changing repeat(3, 1fr) */\n.grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 10px;\n  padding: 16px;\n  font-family: sans-serif;\n}\n.cell {\n  background: #9b59b6;\n  color: #fff;\n  font-size: 22px;\n  padding: 28px;\n  text-align: center;\n  border-radius: 8px;\n}'
+    },
+    card: {
+      html: '<div class="card">\n  <div class="card-img">🎨</div>\n  <div class="card-body">\n    <h3>Card Title</h3>\n    <p>A reusable card component built\n       with flexbox and the box model.</p>\n    <button>Learn more</button>\n  </div>\n</div>',
+      css: 'body { background: #ecf0f1; padding: 30px;\n  font-family: system-ui, sans-serif; }\n.card {\n  max-width: 320px;\n  background: #fff;\n  border-radius: 12px;\n  overflow: hidden;\n  box-shadow: 0 8px 24px rgba(0,0,0,0.12);\n  margin: 0 auto;\n}\n.card-img {\n  background: #3498db;\n  font-size: 64px;\n  text-align: center;\n  padding: 28px;\n}\n.card-body { padding: 20px; }\n.card-body h3 { margin: 0 0 8px; }\n.card-body p { color: #555; line-height: 1.6;\n  font-size: 14px; }\n.card-body button {\n  margin-top: 12px;\n  background: #3498db;\n  color: #fff;\n  border: none;\n  padding: 10px 18px;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 14px;\n}'
+    },
+    responsive: {
+      html: '<div class="panel">\n  <h2>Resize the preview!</h2>\n  <p>Drag the preview pane narrower\n     (or shrink your window). At 500px\n     the background changes color and\n     the layout switches.</p>\n</div>',
+      css: '/* A media query in action */\n.panel {\n  background: #2ecc71;\n  color: #fff;\n  font-family: sans-serif;\n  padding: 30px;\n  border-radius: 10px;\n}\n@media (max-width: 500px) {\n  .panel {\n    background: #e74c3c;\n    padding: 16px;\n  }\n  .panel h2 { font-size: 18px; }\n}'
+    }
+  };
+
+  const STORAGE_KEY = 'playground_htmlcss';
+  let saveTimer = null;
+
+  function render() {
+    const doc = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>' +
+      cssEd.value + '</style></head><body>' + htmlEd.value + '</body></html>';
+    preview.srcdoc = doc;
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ html: htmlEd.value, css: cssEd.value }));
+      savedNote.textContent = '✓ Saved';
+      clearTimeout(savedNote._t);
+      savedNote._t = setTimeout(function() { savedNote.textContent = ''; }, 1600);
+    } catch (e) {}
+  }
+
+  function onInput() {
+    render();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(save, 700);
+  }
+
+  function loadPreset(name) {
+    const p = PRESETS[name] || PRESETS.blank;
+    htmlEd.value = p.html;
+    cssEd.value = p.css;
+    render();
+    save();
+  }
+
+  // Tab key inserts two spaces instead of leaving the textarea
+  function tabHandler(e) {
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+    const el = e.target;
+    const s = el.selectionStart, en = el.selectionEnd;
+    el.value = el.value.slice(0, s) + '  ' + el.value.slice(en);
+    el.selectionStart = el.selectionEnd = s + 2;
+    onInput();
+  }
+
+  // Restore saved code, or default to the card starter
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) {}
+  if (saved && typeof saved.html === 'string') {
+    htmlEd.value = saved.html;
+    cssEd.value = saved.css || '';
+  } else {
+    const p = PRESETS.card;
+    htmlEd.value = p.html;
+    cssEd.value = p.css;
+    const cb = document.querySelector('.pg-preset[data-preset="card"]');
+    if (cb) cb.classList.add('active');
+  }
+  render();
+
+  htmlEd.addEventListener('input', onInput);
+  cssEd.addEventListener('input', onInput);
+  htmlEd.addEventListener('keydown', tabHandler);
+  cssEd.addEventListener('keydown', tabHandler);
+
+  document.querySelectorAll('.pg-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      loadPreset(btn.dataset.preset);
+      document.querySelectorAll('.pg-preset').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
+  resetBtn.addEventListener('click', function() {
+    const active = document.querySelector('.pg-preset.active');
+    loadPreset(active ? active.dataset.preset : 'card');
+  });
+})();
 </script>
 </body>
 </html>
