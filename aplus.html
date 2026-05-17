@@ -40,6 +40,24 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .theme-toggle:hover { border-color: var(--accent); }
 .theme-toggle:active { transform: scale(0.9); }
 
+/* === Exam-date planner === */
+.exam-planner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 22px; }
+.ep-set { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ep-icon { font-size: 1.4rem; }
+.ep-set-label { font-size: 0.9rem; color: var(--text-muted); flex: 1; min-width: 200px; }
+.ep-input { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-family: inherit; font-size: 0.85rem; }
+.ep-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; border-radius: 6px; padding: 8px 16px; font-weight: 700; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
+.ep-live { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.ep-count { text-align: center; min-width: 92px; padding: 10px 14px; background: var(--surface2); border-radius: 8px; }
+.ep-num { font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.ep-unit { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-top: 5px; }
+.ep-body { flex: 1; min-width: 240px; }
+.ep-date-line { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
+.ep-date-line strong { color: var(--text); }
+.ep-tip { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+.ep-link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; text-decoration: underline; font-family: inherit; padding: 0; }
+.ep-streak { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.83rem; color: var(--text-muted); }
+
 /* NAV */
 .top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
 .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
@@ -706,6 +724,7 @@ td strong { color: var(--text); }
 
 <!-- ===== STUDY GUIDE ===== -->
 <div id="panel-guide" class="tab-panel active">
+  <div class="exam-planner" id="exam-planner"></div>
   <h2 style="margin-bottom:6px;font-size:1.1rem;">Domain-by-Domain Study Guide</h2>
   <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:12px;">💡 Click any domain header (or the ▼ chevron) to expand it. Percentages reflect exam weighting.</p>
   <div class="domain-toolbar">

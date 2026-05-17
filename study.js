@@ -210,10 +210,80 @@ function toggleTheme() {
 
 document.addEventListener('DOMContentLoaded', () => {
   applyTheme(document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
+  renderExamPlanner();
 });
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   });
+}
+
+/* === Exam-date planner ==============================================
+ * Countdown + pace tip shown at the top of the Study Guide. Stored per
+ * hub in examDate_<EXAM_KEY> as a YYYY-MM-DD string. */
+function examPlannerTip(days) {
+  if (days > 45) return 'Plenty of runway. Work through one study-guide domain at a time and let the spaced-repetition flashcards build your recall.';
+  if (days > 21) return 'Good pace. Aim for a practice quiz every couple of days and clear your due flashcards as they come up.';
+  if (days > 10) return 'Getting close. Do a practice quiz most days, review every question you miss, and keep your flashcards current.';
+  if (days > 3)  return 'Crunch time. Take a full timed mock exam, then drill the domains and questions you score lowest on.';
+  return 'Final stretch. Do a light review, re-read your missed questions, skim the cheat sheet, and rest well the night before.';
+}
+
+function examPlannerStreak() {
+  let act = [];
+  try { act = JSON.parse(localStorage.getItem('studyActivity') || '[]'); } catch (e) {}
+  const recent = new Set(act);
+  let n = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    if (recent.has(d.toISOString().slice(0, 10))) n++;
+  }
+  if (!n) return '';
+  return '<div class="ep-streak">🔥 You have studied ' + n + ' of the last 7 days' + (n >= 5 ? ' — great consistency!' : '') + '</div>';
+}
+
+function renderExamPlanner() {
+  const host = document.getElementById('exam-planner');
+  if (!host) return;
+  let date = '';
+  try { date = localStorage.getItem('examDate_' + EXAM_KEY) || ''; } catch (e) {}
+  const streak = examPlannerStreak();
+  if (!date) {
+    host.innerHTML =
+      '<div class="ep-set"><span class="ep-icon">📅</span>' +
+      '<label class="ep-set-label" for="ep-date">Got an exam booked? Set the date for a countdown and pace tips:</label>' +
+      '<input type="date" id="ep-date" class="ep-input">' +
+      '<button class="ep-btn" onclick="setExamDate()">Set date</button></div>' + streak;
+    return;
+  }
+  const exam = new Date(date + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const days = Math.round((exam - today) / 86400000);
+  const dateStr = exam.toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' });
+  let num, unit, tip;
+  if (days > 1) { num = days; unit = 'days to go'; tip = examPlannerTip(days); }
+  else if (days === 1) { num = 1; unit = 'day to go'; tip = examPlannerTip(1); }
+  else if (days === 0) { num = '🎯'; unit = 'exam day'; tip = 'Exam day! Read each question carefully, flag-and-return on the hard ones, and trust your preparation. Good luck.'; }
+  else { num = '✓'; unit = 'date passed'; tip = 'Your exam date has passed — hope it went well! Set a new date for a retake or your next certification.'; }
+  host.innerHTML =
+    '<div class="ep-live"><div class="ep-count"><div class="ep-num">' + num + '</div>' +
+    '<div class="ep-unit">' + unit + '</div></div>' +
+    '<div class="ep-body"><div class="ep-date-line">Exam date: <strong>' + dateStr + '</strong> ' +
+    '<button class="ep-link" onclick="clearExamDate()">change</button></div>' +
+    '<div class="ep-tip">' + tip + '</div></div></div>' + streak;
+}
+
+function setExamDate() {
+  const input = document.getElementById('ep-date');
+  if (!input || !input.value) return;
+  try { localStorage.setItem('examDate_' + EXAM_KEY, input.value); } catch (e) {}
+  renderExamPlanner();
+}
+
+function clearExamDate() {
+  try { localStorage.removeItem('examDate_' + EXAM_KEY); } catch (e) {}
+  renderExamPlanner();
 }
