@@ -1426,6 +1426,96 @@ td strong { color: var(--text); }
     <div class="pbq-result" id="pbq-result-cmd"></div>
   </div>
 
+  <!-- PBQ 4: DNS records -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each DNS RECORD TYPE to what it does</h3>
+    <p>DNS records are heavily tested on Network+. Match each record type to its purpose.</p>
+    <div class="pbq-board" data-pbq="net-dns">
+      <div class="pbq-pool" id="pbq-pool-net-dns">
+        <div class="pbq-chip" draggable="true" data-value="ns">NS</div>
+        <div class="pbq-chip" draggable="true" data-value="cname">CNAME</div>
+        <div class="pbq-chip" draggable="true" data-value="a">A</div>
+        <div class="pbq-chip" draggable="true" data-value="txt">TXT</div>
+        <div class="pbq-chip" draggable="true" data-value="aaaa">AAAA</div>
+        <div class="pbq-chip" draggable="true" data-value="ptr">PTR</div>
+        <div class="pbq-chip" draggable="true" data-value="mx">MX</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="a"></div><div class="pbq-label">Maps a hostname to an IPv4 address</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="aaaa"></div><div class="pbq-label">Maps a hostname to an IPv6 address</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="mx"></div><div class="pbq-label">Identifies the mail server responsible for a domain</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="cname"></div><div class="pbq-label">Makes one hostname an alias of another hostname</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ptr"></div><div class="pbq-label">Maps an IP address back to a hostname (reverse lookup)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="txt"></div><div class="pbq-label">Holds arbitrary text, used for SPF and domain verification</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ns"></div><div class="pbq-label">Delegates a zone to its authoritative name servers</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('net-dns')">✓ Check Answers</button>
+      <button onclick="resetPBQ('net-dns')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-net-dns"></div>
+  </div>
+
+  <!-- PBQ 5: Network devices -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each NETWORK DEVICE to its function</h3>
+    <p>Match each device to the job it does on the network.</p>
+    <div class="pbq-board" data-pbq="net-dev">
+      <div class="pbq-pool" id="pbq-pool-net-dev">
+        <div class="pbq-chip" draggable="true" data-value="firewall">Firewall</div>
+        <div class="pbq-chip" draggable="true" data-value="hub">Hub</div>
+        <div class="pbq-chip" draggable="true" data-value="lb">Load balancer</div>
+        <div class="pbq-chip" draggable="true" data-value="router">Router</div>
+        <div class="pbq-chip" draggable="true" data-value="ap">Access point</div>
+        <div class="pbq-chip" draggable="true" data-value="switch">Switch</div>
+        <div class="pbq-chip" draggable="true" data-value="proxy">Proxy</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="switch"></div><div class="pbq-label">Forwards frames to a specific port using a MAC address table</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="router"></div><div class="pbq-label">Forwards packets between different networks using IP addresses</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hub"></div><div class="pbq-label">Legacy Layer 1 device that repeats signals to every port</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="firewall"></div><div class="pbq-label">Permits or blocks traffic based on a set of security rules</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ap"></div><div class="pbq-label">Gives wireless clients access to the wired network</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="lb"></div><div class="pbq-label">Distributes incoming requests across multiple servers</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="proxy"></div><div class="pbq-label">Sits between clients and the internet, caching and filtering requests</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('net-dev')">✓ Check Answers</button>
+      <button onclick="resetPBQ('net-dev')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-net-dev"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — DHCP DORA -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Put the DHCP DORA lease process in ORDER</h3>
+    <p>Drag the order number (1 = first) onto each step to arrange the four-step DHCP lease process in the correct sequence.</p>
+    <div class="pbq-board" data-pbq="net-dora">
+      <div class="pbq-pool" id="pbq-pool-net-dora">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Offer — a DHCP server proposes an available IP address</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Acknowledge — the server confirms and finalizes the lease</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Discover — the client broadcasts a request for an IP address</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Request — the client formally asks for the offered address</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('net-dora')">✓ Check Answers</button>
+      <button onclick="resetPBQ('net-dora')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-net-dora"></div>
+  </div>
+
   <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading &amp; Research</h3>
 
   <div class="activity-card">
