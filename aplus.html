@@ -1574,6 +1574,100 @@ td strong { color: var(--text); }
     <div class="pbq-result" id="pbq-result-mal"></div>
   </div>
 
+  <!-- PBQ 4: Connectors -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each CONNECTOR to what it is used for</h3>
+    <p>A+ Core 1 expects you to identify cables and connectors on sight. Match each connector to its purpose.</p>
+    <div class="pbq-board" data-pbq="conn">
+      <div class="pbq-pool" id="pbq-pool-conn">
+        <div class="pbq-chip" draggable="true" data-value="rj45">RJ-45</div>
+        <div class="pbq-chip" draggable="true" data-value="vga">VGA</div>
+        <div class="pbq-chip" draggable="true" data-value="usbc">USB-C</div>
+        <div class="pbq-chip" draggable="true" data-value="esata">eSATA</div>
+        <div class="pbq-chip" draggable="true" data-value="hdmi">HDMI</div>
+        <div class="pbq-chip" draggable="true" data-value="rj11">RJ-11</div>
+        <div class="pbq-chip" draggable="true" data-value="dp">DisplayPort</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hdmi"></div><div class="pbq-label">Carries HD digital video AND audio over one cable to a TV or monitor</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="dp"></div><div class="pbq-label">Digital video favored on PC graphics cards; supports high refresh rates</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="usbc"></div><div class="pbq-label">Small reversible connector that can carry data, video, and power</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="rj45"></div><div class="pbq-label">Wired Ethernet network connection (8 conductors)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="rj11"></div><div class="pbq-label">Analog telephone or DSL line (smaller, 4-6 conductors)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="esata"></div><div class="pbq-label">Connects an external drive at internal SATA speeds</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="vga"></div><div class="pbq-label">Legacy 15-pin ANALOG video only — carries no audio</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('conn')">✓ Check Answers</button>
+      <button onclick="resetPBQ('conn')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-conn"></div>
+  </div>
+
+  <!-- PBQ 5: Windows tools -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each WINDOWS TOOL to the task it performs</h3>
+    <p>A technician must reach for the right built-in tool quickly. Match each Windows administrative tool to what it does.</p>
+    <div class="pbq-board" data-pbq="tools">
+      <div class="pbq-pool" id="pbq-pool-tools">
+        <div class="pbq-chip" draggable="true" data-value="eventvwr">Event Viewer</div>
+        <div class="pbq-chip" draggable="true" data-value="regedit">regedit</div>
+        <div class="pbq-chip" draggable="true" data-value="taskmgr">Task Manager</div>
+        <div class="pbq-chip" draggable="true" data-value="diskmgmt">Disk Management</div>
+        <div class="pbq-chip" draggable="true" data-value="resmon">Resource Monitor</div>
+        <div class="pbq-chip" draggable="true" data-value="devmgmt">Device Manager</div>
+        <div class="pbq-chip" draggable="true" data-value="msconfig">msconfig</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="taskmgr"></div><div class="pbq-label">End a frozen application and view CPU and memory use per process</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="devmgmt"></div><div class="pbq-label">Update a driver or spot a device flagged with a yellow warning</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="diskmgmt"></div><div class="pbq-label">Create, format, shrink, or extend disk partitions</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="eventvwr"></div><div class="pbq-label">Review system, application, and security log entries</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="msconfig"></div><div class="pbq-label">Adjust boot options and the startup configuration</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="resmon"></div><div class="pbq-label">See real-time disk, network, and handle activity per process</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="regedit"></div><div class="pbq-label">Directly view and edit the Windows Registry</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('tools')">✓ Check Answers</button>
+      <button onclick="resetPBQ('tools')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-tools"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — troubleshooting methodology -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Put the 6-step troubleshooting methodology in ORDER</h3>
+    <p>Drag the order number (1 = first) onto each step to arrange the CompTIA best-practice troubleshooting methodology in the correct sequence.</p>
+    <div class="pbq-board" data-pbq="tsorder">
+      <div class="pbq-pool" id="pbq-pool-tsorder">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="5">5</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+        <div class="pbq-chip" draggable="true" data-value="6">6</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Test the theory to determine the actual cause</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Identify the problem — gather information and find what changed</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="5"></div><div class="pbq-label">Verify full system functionality and apply preventive measures</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Establish a theory of probable cause</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="6"></div><div class="pbq-label">Document findings, actions, and outcomes</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Establish a plan of action and implement the solution</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('tsorder')">✓ Check Answers</button>
+      <button onclick="resetPBQ('tsorder')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-tsorder"></div>
+  </div>
+
   <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading / Research Activities</h3>
 
   <div class="activity-card">
