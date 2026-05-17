@@ -1572,6 +1572,96 @@ td strong { color: var(--text); }
     <div class="pbq-result" id="pbq-result-ai-verify"></div>
   </div>
 
+  <!-- PBQ 4: AI concepts -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each AI CONCEPT to its meaning</h3>
+    <p>Match each term used to describe how AI works to its definition.</p>
+    <div class="pbq-board" data-pbq="ai-concepts">
+      <div class="pbq-pool" id="pbq-pool-ai-concepts">
+        <div class="pbq-chip" draggable="true" data-value="inference">Inference</div>
+        <div class="pbq-chip" draggable="true" data-value="token">Token</div>
+        <div class="pbq-chip" draggable="true" data-value="injection">Prompt injection</div>
+        <div class="pbq-chip" draggable="true" data-value="training">Training</div>
+        <div class="pbq-chip" draggable="true" data-value="context">Context window</div>
+        <div class="pbq-chip" draggable="true" data-value="hallucination">Hallucination</div>
+        <div class="pbq-chip" draggable="true" data-value="neuralnet">Neural network</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="token"></div><div class="pbq-label">The small unit of text an LLM reads and predicts</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="training"></div><div class="pbq-label">The phase where a model learns patterns from huge datasets</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="inference"></div><div class="pbq-label">Using a finished model to generate an answer to a prompt</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="hallucination"></div><div class="pbq-label">When an AI states false information confidently as if it were true</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="neuralnet"></div><div class="pbq-label">The brain-inspired layered structure an LLM is built on</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="context"></div><div class="pbq-label">The limited amount of conversation a model can consider at once</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="injection"></div><div class="pbq-label">A hidden instruction in content that tricks an AI into ignoring its rules</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-concepts')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-concepts')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-concepts"></div>
+  </div>
+
+  <!-- PBQ 5: Privacy and security terms -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each PRIVACY &amp; SECURITY TERM to its description</h3>
+    <p>Match each online safety term to what it means.</p>
+    <div class="pbq-board" data-pbq="ai-privacy">
+      <div class="pbq-pool" id="pbq-pool-ai-privacy">
+        <div class="pbq-chip" draggable="true" data-value="vpn">VPN</div>
+        <div class="pbq-chip" draggable="true" data-value="phishing">Phishing</div>
+        <div class="pbq-chip" draggable="true" data-value="pwmgr">Password manager</div>
+        <div class="pbq-chip" draggable="true" data-value="encryption">Encryption</div>
+        <div class="pbq-chip" draggable="true" data-value="doxxing">Doxxing</div>
+        <div class="pbq-chip" draggable="true" data-value="twofa">Two-factor auth</div>
+        <div class="pbq-chip" draggable="true" data-value="malware">Malware</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="phishing"></div><div class="pbq-label">A fraudulent message that tricks you into revealing information</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="twofa"></div><div class="pbq-label">Requiring a second proof of identity beyond a password</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="encryption"></div><div class="pbq-label">Scrambling data so that only authorized parties can read it</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="vpn"></div><div class="pbq-label">An encrypted tunnel that protects traffic on untrusted networks</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="malware"></div><div class="pbq-label">Software written to damage, disrupt, or spy on a device</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="doxxing"></div><div class="pbq-label">Publishing someone private information online to harass them</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pwmgr"></div><div class="pbq-label">An encrypted vault that stores a unique password for every site</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-privacy')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-privacy')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-privacy"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — the SIFT method -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Put the SIFT method in ORDER</h3>
+    <p>Drag the order number (1 = first) onto each step of the SIFT method for checking a claim you find online.</p>
+    <div class="pbq-board" data-pbq="ai-sift">
+      <div class="pbq-pool" id="pbq-pool-ai-sift">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Investigate the source — find out who is behind the claim</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Trace claims, quotes, and media back to the original context</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Stop — pause and check your reaction before sharing</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Find better coverage — see what trusted sources say</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('ai-sift')">✓ Check Answers</button>
+      <button onclick="resetPBQ('ai-sift')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-ai-sift"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💬 Prompt Lab — 30 min</div>
     <h3>Activity 1: Bad prompt → good prompt</h3>
