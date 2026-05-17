@@ -1764,6 +1764,96 @@ grid-template-columns: 200px 1fr;</code></pre>
     <div class="pbq-result" id="pbq-result-hc-sel"></div>
   </div>
 
+  <!-- PBQ 4: Input types -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each INPUT TYPE to what it produces</h3>
+    <p>Choosing the right form input type improves usability and validation. Match each type to its behavior.</p>
+    <div class="pbq-board" data-pbq="hc-inputs">
+      <div class="pbq-pool" id="pbq-pool-hc-inputs">
+        <div class="pbq-chip" draggable="true" data-value="range">type="range"</div>
+        <div class="pbq-chip" draggable="true" data-value="email">type="email"</div>
+        <div class="pbq-chip" draggable="true" data-value="file">type="file"</div>
+        <div class="pbq-chip" draggable="true" data-value="checkbox">type="checkbox"</div>
+        <div class="pbq-chip" draggable="true" data-value="password">type="password"</div>
+        <div class="pbq-chip" draggable="true" data-value="radio">type="radio"</div>
+        <div class="pbq-chip" draggable="true" data-value="date">type="date"</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="email"></div><div class="pbq-label">A single-line field that validates an email-address format</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="password"></div><div class="pbq-label">A field that masks the characters as they are typed</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="date"></div><div class="pbq-label">A field that opens a calendar date picker</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="checkbox"></div><div class="pbq-label">A box the user can independently tick on or off</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="radio"></div><div class="pbq-label">A button where selecting one in a group deselects the others</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="range"></div><div class="pbq-label">A slider for picking a number between a minimum and maximum</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="file"></div><div class="pbq-label">A control for choosing a file to upload</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-inputs')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-inputs')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-inputs"></div>
+  </div>
+
+  <!-- PBQ 5: Semantic elements -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each SEMANTIC ELEMENT to its purpose</h3>
+    <p>Semantic HTML gives structure meaning for accessibility and SEO. Match each element to what it represents.</p>
+    <div class="pbq-board" data-pbq="hc-sem">
+      <div class="pbq-pool" id="pbq-pool-hc-sem">
+        <div class="pbq-chip" draggable="true" data-value="article">&lt;article&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="nav">&lt;nav&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="footer">&lt;footer&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="main">&lt;main&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="aside">&lt;aside&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="header">&lt;header&gt;</div>
+        <div class="pbq-chip" draggable="true" data-value="section">&lt;section&gt;</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="header"></div><div class="pbq-label">Introductory content or branding at the top of a page or section</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="nav"></div><div class="pbq-label">A block of major navigation links</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="main"></div><div class="pbq-label">The primary, unique content of the page (used once)</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="article"></div><div class="pbq-label">A self-contained piece of content that could stand on its own</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="aside"></div><div class="pbq-label">Content tangentially related to the main content, like a sidebar</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="footer"></div><div class="pbq-label">Closing content such as copyright, links, or contact info</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="section"></div><div class="pbq-label">A thematic grouping of related content with its own heading</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-sem')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-sem')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-sem"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — the box model -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Order the CSS box model from the INSIDE OUT</h3>
+    <p>Drag the order number (1 = innermost) onto each layer to arrange the CSS box model from the content outward.</p>
+    <div class="pbq-board" data-pbq="hc-box">
+      <div class="pbq-pool" id="pbq-pool-hc-box">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Border — the line that wraps the padding and content</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Content — the text or image itself</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Margin — clear space outside the border, separating neighbors</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Padding — clear space between the content and the border</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('hc-box')">✓ Check Answers</button>
+      <button onclick="resetPBQ('hc-box')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-hc-box"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💻 External Sandbox</div>
     <h3>Activity 1: Build a personal homepage</h3>
