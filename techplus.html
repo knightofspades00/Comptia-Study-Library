@@ -1317,6 +1317,100 @@ td strong { color: var(--text); }
     <div class="pbq-result" id="pbq-result-cloud"></div>
   </div>
 
+  <!-- PBQ 4: Hardware components -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each COMPONENT to the job it does</h3>
+    <p>Match each core computer component to its role.</p>
+    <div class="pbq-board" data-pbq="tp-hw">
+      <div class="pbq-pool" id="pbq-pool-tp-hw">
+        <div class="pbq-chip" draggable="true" data-value="ssd">SSD</div>
+        <div class="pbq-chip" draggable="true" data-value="cpu">CPU</div>
+        <div class="pbq-chip" draggable="true" data-value="nic">NIC</div>
+        <div class="pbq-chip" draggable="true" data-value="ram">RAM</div>
+        <div class="pbq-chip" draggable="true" data-value="psu">PSU</div>
+        <div class="pbq-chip" draggable="true" data-value="gpu">GPU</div>
+        <div class="pbq-chip" draggable="true" data-value="mobo">Motherboard</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="cpu"></div><div class="pbq-label">Executes program instructions — the brain of the computer</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ram"></div><div class="pbq-label">Fast, volatile memory that holds data the CPU is actively using</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ssd"></div><div class="pbq-label">Non-volatile storage that keeps files when the power is off</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="gpu"></div><div class="pbq-label">Renders images, video, and 3D graphics</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="mobo"></div><div class="pbq-label">Main circuit board that connects all the components together</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="psu"></div><div class="pbq-label">Converts wall AC power into the DC power the components use</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="nic"></div><div class="pbq-label">Connects the computer to a wired or wireless network</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('tp-hw')">✓ Check Answers</button>
+      <button onclick="resetPBQ('tp-hw')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-tp-hw"></div>
+  </div>
+
+  <!-- PBQ 5: Security basics -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each SECURITY TERM to its description</h3>
+    <p>Match each basic security concept to what it means.</p>
+    <div class="pbq-board" data-pbq="tp-sec">
+      <div class="pbq-pool" id="pbq-pool-tp-sec">
+        <div class="pbq-chip" draggable="true" data-value="mfa">MFA</div>
+        <div class="pbq-chip" draggable="true" data-value="phish">Phishing</div>
+        <div class="pbq-chip" draggable="true" data-value="firewall">Firewall</div>
+        <div class="pbq-chip" draggable="true" data-value="backup">Backup</div>
+        <div class="pbq-chip" draggable="true" data-value="encrypt">Encryption</div>
+        <div class="pbq-chip" draggable="true" data-value="pwmgr">Password manager</div>
+        <div class="pbq-chip" draggable="true" data-value="av">Antivirus</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="firewall"></div><div class="pbq-label">Monitors and filters network traffic using security rules</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="av"></div><div class="pbq-label">Detects and removes malicious software</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="encrypt"></div><div class="pbq-label">Scrambles data so only authorized parties can read it</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="mfa"></div><div class="pbq-label">Requires two or more different proofs of identity to log in</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="backup"></div><div class="pbq-label">A spare copy of data used to recover from loss</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="phish"></div><div class="pbq-label">A fraudulent message that tricks you into revealing information</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pwmgr"></div><div class="pbq-label">An encrypted vault that stores a unique password for each site</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('tp-sec')">✓ Check Answers</button>
+      <button onclick="resetPBQ('tp-sec')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-tp-sec"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — troubleshooting steps -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Put the troubleshooting steps in ORDER</h3>
+    <p>Drag the order number (1 = first) onto each step to arrange the standard troubleshooting process in the correct sequence.</p>
+    <div class="pbq-board" data-pbq="tp-ts">
+      <div class="pbq-pool" id="pbq-pool-tp-ts">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="5">5</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+        <div class="pbq-chip" draggable="true" data-value="6">6</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Test the theory to determine the actual cause</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Identify the problem — gather information from the user</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="5"></div><div class="pbq-label">Verify that the system is fully working again</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Establish a theory of probable cause</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="6"></div><div class="pbq-label">Document what you found and what you did</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Make a plan and implement the solution</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('tp-ts')">✓ Check Answers</button>
+      <button onclick="resetPBQ('tp-ts')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-tp-ts"></div>
+  </div>
+
   <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading / Research Activities</h3>
 
   <div class="activity-card">
