@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1117">
 <title>IT &amp; Digital Skills Library</title>
 <style>
   :root {
@@ -636,6 +639,8 @@
 function applyTheme(theme) {
   const light = theme === 'light';
   document.documentElement.classList.toggle('theme-light', light);
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) tc.setAttribute('content', light ? '#eceff3' : '#0f1117');
   document.querySelectorAll('.theme-toggle').forEach(btn => {
     btn.textContent = light ? '🌙' : '☀️';
     const label = light ? 'Switch to dark mode' : 'Switch to light mode';
@@ -653,6 +658,12 @@ function toggleTheme() {
 document.addEventListener('DOMContentLoaded', () => {
   applyTheme(document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 
 const EXAMS = [
   { key: 'techplus', label: 'Tech+',         file: 'techplus.html' },

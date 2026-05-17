@@ -192,6 +192,8 @@ function updateQuizBadge() {
 function applyTheme(theme) {
   const light = theme === 'light';
   document.documentElement.classList.toggle('theme-light', light);
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) tc.setAttribute('content', light ? '#eceff3' : '#0f1117');
   document.querySelectorAll('.theme-toggle').forEach(btn => {
     btn.textContent = light ? '🌙' : '☀️';
     const label = light ? 'Switch to dark mode' : 'Switch to light mode';
@@ -209,3 +211,9 @@ function toggleTheme() {
 document.addEventListener('DOMContentLoaded', () => {
   applyTheme(document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
