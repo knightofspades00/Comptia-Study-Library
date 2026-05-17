@@ -1420,6 +1420,100 @@ td strong { color: var(--text); }
     <div class="pbq-result" id="pbq-result-crypto"></div>
   </div>
 
+  <!-- PBQ 4: Security concepts -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each SECURITY CONCEPT to its definition</h3>
+    <p>The CIA triad and AAA are foundational Security+ vocabulary. Match each concept to what it means.</p>
+    <div class="pbq-board" data-pbq="sec-aaa">
+      <div class="pbq-pool" id="pbq-pool-sec-aaa">
+        <div class="pbq-chip" draggable="true" data-value="integ">Integrity</div>
+        <div class="pbq-chip" draggable="true" data-value="authz">Authorization</div>
+        <div class="pbq-chip" draggable="true" data-value="avail">Availability</div>
+        <div class="pbq-chip" draggable="true" data-value="auth">Authentication</div>
+        <div class="pbq-chip" draggable="true" data-value="nonrep">Non-repudiation</div>
+        <div class="pbq-chip" draggable="true" data-value="conf">Confidentiality</div>
+        <div class="pbq-chip" draggable="true" data-value="acct">Accounting</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="conf"></div><div class="pbq-label">Ensuring information is disclosed only to authorized parties</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="integ"></div><div class="pbq-label">Ensuring data has not been altered or tampered with</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="avail"></div><div class="pbq-label">Ensuring systems and data are accessible when needed</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="auth"></div><div class="pbq-label">Verifying that a user is who they claim to be</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="authz"></div><div class="pbq-label">Determining what an authenticated user is allowed to access</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="acct"></div><div class="pbq-label">Logging and tracking what users actually did</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="nonrep"></div><div class="pbq-label">Proof that prevents a party from denying an action they took</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('sec-aaa')">✓ Check Answers</button>
+      <button onclick="resetPBQ('sec-aaa')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-sec-aaa"></div>
+  </div>
+
+  <!-- PBQ 5: Malware types -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each MALWARE TYPE to its description</h3>
+    <p>Match each type of malicious software to how it behaves.</p>
+    <div class="pbq-board" data-pbq="sec-mal">
+      <div class="pbq-pool" id="pbq-pool-sec-mal">
+        <div class="pbq-chip" draggable="true" data-value="rootkit">Rootkit</div>
+        <div class="pbq-chip" draggable="true" data-value="worm">Worm</div>
+        <div class="pbq-chip" draggable="true" data-value="botnet">Botnet</div>
+        <div class="pbq-chip" draggable="true" data-value="ransomware">Ransomware</div>
+        <div class="pbq-chip" draggable="true" data-value="spyware">Spyware</div>
+        <div class="pbq-chip" draggable="true" data-value="trojan">Trojan</div>
+        <div class="pbq-chip" draggable="true" data-value="keylogger">Keylogger</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="ransomware"></div><div class="pbq-label">Encrypts files and demands payment for the decryption key</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="worm"></div><div class="pbq-label">Self-replicates and spreads across networks with no user action</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="trojan"></div><div class="pbq-label">Disguises itself as legitimate software the user installs</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="rootkit"></div><div class="pbq-label">Hides deep in the system to conceal other malware from detection</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="keylogger"></div><div class="pbq-label">Records keystrokes to capture passwords and other typed data</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="botnet"></div><div class="pbq-label">A network of compromised devices controlled for coordinated attacks</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="spyware"></div><div class="pbq-label">Secretly monitors activity and exfiltrates user data</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('sec-mal')">✓ Check Answers</button>
+      <button onclick="resetPBQ('sec-mal')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-sec-mal"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — incident response lifecycle -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Put the incident response lifecycle in ORDER</h3>
+    <p>Drag the order number (1 = first) onto each phase to arrange the NIST incident response lifecycle in the correct sequence.</p>
+    <div class="pbq-board" data-pbq="sec-ir">
+      <div class="pbq-pool" id="pbq-pool-sec-ir">
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="6">6</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+        <div class="pbq-chip" draggable="true" data-value="5">5</div>
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Containment — limit the spread and the damage</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Preparation — build policies, tools, training, and playbooks</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="5"></div><div class="pbq-label">Recovery — restore affected systems to normal operation</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Detection and analysis — identify and confirm the incident</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="6"></div><div class="pbq-label">Post-incident activity — review and apply lessons learned</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Eradication — remove the threat from affected systems</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('sec-ir')">✓ Check Answers</button>
+      <button onclick="resetPBQ('sec-ir')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-sec-ir"></div>
+  </div>
+
   <h3 style="margin:32px 0 12px;font-size:1rem;">📖 Reading &amp; Research</h3>
 
   <div class="activity-card">
