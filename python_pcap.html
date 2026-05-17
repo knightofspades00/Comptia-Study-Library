@@ -1778,6 +1778,98 @@ raise NewErr(...) from prev</code></pre>
     <div class="pbq-result" id="pbq-result-py-kw"></div>
   </div>
 
+  <!-- PBQ 4: List and string methods -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 4</div>
+    <h3>Drag each METHOD to what it does</h3>
+    <p>Match each common list or string method to its action.</p>
+    <div class="pbq-board" data-pbq="py-methods">
+      <div class="pbq-pool" id="pbq-pool-py-methods">
+        <div class="pbq-chip" draggable="true" data-value="join">.join()</div>
+        <div class="pbq-chip" draggable="true" data-value="append">.append()</div>
+        <div class="pbq-chip" draggable="true" data-value="strip">.strip()</div>
+        <div class="pbq-chip" draggable="true" data-value="sort">.sort()</div>
+        <div class="pbq-chip" draggable="true" data-value="pop">.pop()</div>
+        <div class="pbq-chip" draggable="true" data-value="split">.split()</div>
+        <div class="pbq-chip" draggable="true" data-value="upper">.upper()</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="append"></div><div class="pbq-label">Adds a single item to the end of a list</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="sort"></div><div class="pbq-label">Reorders a list in place from low to high</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="pop"></div><div class="pbq-label">Removes and returns an item from a list</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="split"></div><div class="pbq-label">Breaks a string into a list using a separator</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="join"></div><div class="pbq-label">Combines a list of strings into one string using a separator</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="upper"></div><div class="pbq-label">Returns a copy of a string with every character in uppercase</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="strip"></div><div class="pbq-label">Returns a copy of a string with leading and trailing whitespace removed</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-methods')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-methods')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-methods"></div>
+  </div>
+
+  <!-- PBQ 5: Exceptions -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 5</div>
+    <h3>Drag each EXCEPTION to what triggers it</h3>
+    <p>Recognizing which exception a piece of code raises is core PCAP knowledge. Match each exception to its cause.</p>
+    <div class="pbq-board" data-pbq="py-exc">
+      <div class="pbq-pool" id="pbq-pool-py-exc">
+        <div class="pbq-chip" draggable="true" data-value="key">KeyError</div>
+        <div class="pbq-chip" draggable="true" data-value="type">TypeError</div>
+        <div class="pbq-chip" draggable="true" data-value="file">FileNotFoundError</div>
+        <div class="pbq-chip" draggable="true" data-value="value">ValueError</div>
+        <div class="pbq-chip" draggable="true" data-value="name">NameError</div>
+        <div class="pbq-chip" draggable="true" data-value="zerodiv">ZeroDivisionError</div>
+        <div class="pbq-chip" draggable="true" data-value="index">IndexError</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="value"></div><div class="pbq-label">Calling int() on a non-numeric string such as abc</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="type"></div><div class="pbq-label">Adding a string and an integer together with +</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="zerodiv"></div><div class="pbq-label">Dividing a number by zero</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="index"></div><div class="pbq-label">Accessing a list position that does not exist</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="key"></div><div class="pbq-label">Looking up a dictionary key that is not present</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="name"></div><div class="pbq-label">Using a variable that has not been defined</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="file"></div><div class="pbq-label">Opening a file path that does not exist</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-exc')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-exc')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-exc"></div>
+  </div>
+
+  <!-- PBQ 6: Ordering — operator precedence -->
+  <div class="pbq-card">
+    <div class="pbq-eyebrow">🎯 Performance Task 6 · Sequencing</div>
+    <h3>Rank Python operators by PRECEDENCE</h3>
+    <p>Drag the order number (1 = evaluated first) onto each group to rank these Python operators from highest precedence to lowest.</p>
+    <div class="pbq-board" data-pbq="py-prec">
+      <div class="pbq-pool" id="pbq-pool-py-prec">
+        <div class="pbq-chip" draggable="true" data-value="3">3</div>
+        <div class="pbq-chip" draggable="true" data-value="1">1</div>
+        <div class="pbq-chip" draggable="true" data-value="5">5</div>
+        <div class="pbq-chip" draggable="true" data-value="2">2</div>
+        <div class="pbq-chip" draggable="true" data-value="4">4</div>
+      </div>
+      <div class="pbq-targets">
+        <div class="pbq-row"><div class="pbq-slot" data-correct="3"></div><div class="pbq-label">Addition and subtraction: + -</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="1"></div><div class="pbq-label">Exponentiation: **</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="5"></div><div class="pbq-label">Boolean operators: and, or</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="2"></div><div class="pbq-label">Multiplication, division, and modulo: * / // %</div></div>
+        <div class="pbq-row"><div class="pbq-slot" data-correct="4"></div><div class="pbq-label">Comparisons: less-than, greater-than, ==, !=</div></div>
+      </div>
+    </div>
+    <div class="pbq-actions">
+      <button onclick="checkPBQ('py-prec')">✓ Check Answers</button>
+      <button onclick="resetPBQ('py-prec')">↺ Reset</button>
+    </div>
+    <div class="pbq-result" id="pbq-result-py-prec"></div>
+  </div>
+
   <div class="activity-card">
     <div class="act-type">💻 REPL Drill — 30 minutes</div>
     <h3>Activity 1: Live-fire data structure practice</h3>
