@@ -1259,7 +1259,7 @@ td strong { color: var(--text); }
       <option value="acronyms">Acronyms</option>
     </select>
     <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
-      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Include cards I've mastered
+      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Browse all cards (ignore review schedule)
     </label>
     </div>
     <div class="fc-progress" id="fc-progress">Card 1 of 20</div>
@@ -1289,7 +1289,7 @@ td strong { color: var(--text); }
     <button class="fc-btn" onclick="nextCard()">Next →</button>
     <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
   </div>
-  <div class="fc-score">Known: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
+  <div class="fc-score">Mastered: <span id="fc-known-count">0</span> / <span id="fc-total-count">20</span></div>
 
   <div class="mastery-section">
     <div class="mastery-header">
@@ -2764,95 +2764,143 @@ let filteredCards = [...allCards];
 let currentCard = 0;
 let isFlipped = false;
 
-function getKnownSet() {
-  try { return new Set(JSON.parse(localStorage.getItem('knownCards_aplus') || '[]')); }
-  catch(e) { return new Set(); }
+/* === Spaced repetition (Leitner boxes) ============================
+ * srs_<EXAM_KEY> = { "<term>": { b: box 1-5, d: due-time epoch ms } }
+ * A card is "due" when it has no record or its due time has passed.
+ * "Got it" promotes the card a box (longer interval); "Still learning"
+ * resets it to box 1 so it comes back fast. */
+const SRS_DAYS = { 1: 1, 2: 2, 3: 4, 4: 8, 5: 16 };
+const DAY_MS = 86400000;
+
+function getSRS() {
+  try {
+    const raw = localStorage.getItem('srs_' + EXAM_KEY);
+    if (raw) return JSON.parse(raw);
+    // first run: migrate any legacy "known" cards into box 3
+    const old = JSON.parse(localStorage.getItem('knownCards_' + EXAM_KEY) || '[]');
+    const srs = {};
+    old.forEach(term => { srs[term] = { b: 3, d: Date.now() + SRS_DAYS[3] * DAY_MS }; });
+    return srs;
+  } catch (e) { return {}; }
 }
-function saveKnownSet(s) { try { localStorage.setItem('knownCards_aplus', JSON.stringify([...s])); } catch(e) {} }
+function saveSRS(srs) {
+  try { localStorage.setItem('srs_' + EXAM_KEY, JSON.stringify(srs)); } catch (e) {}
+}
+function cardDue(term, srs) {
+  const r = srs[term];
+  return !r || r.d <= Date.now();
+}
+function reviewCard(term, gotIt) {
+  const srs = getSRS();
+  const box = gotIt ? Math.min((srs[term] ? srs[term].b : 1) + 1, 5) : 1;
+  srs[term] = { b: box, d: Date.now() + SRS_DAYS[box] * DAY_MS };
+  saveSRS(srs);
+}
+
 function resetMastery() {
   if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
-  localStorage.removeItem('knownCards_aplus');
+  try {
+    localStorage.removeItem('srs_' + EXAM_KEY);
+    localStorage.removeItem('knownCards_' + EXAM_KEY);
+  } catch (e) {}
+  loadCards();
   renderMasteryBars();
-  showCard();
 }
 
 function loadCards() {
-  const cat = document.getElementById('fc-category') ? document.getElementById('fc-category').value : 'all';
-  const showAll = document.getElementById('fc-show-all')?.checked;
-  const known = getKnownSet();
+  const catEl = document.getElementById('fc-category');
+  const cat = catEl ? catEl.value : 'all';
+  const browseAll = document.getElementById('fc-show-all') ? document.getElementById('fc-show-all').checked : false;
+  const srs = getSRS();
   const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
-  filteredCards = showAll ? inCategory : inCategory.filter(c => !known.has(c.term));
-  if (!filteredCards.length) filteredCards = inCategory;
-  currentCard = 0; isFlipped = false;
+  filteredCards = browseAll ? inCategory : inCategory.filter(c => cardDue(c.term, srs));
+  currentCard = 0;
+  isFlipped = false;
   showCard();
 }
 
 function showCard() {
-  if (!filteredCards.length) return;
-  const card = filteredCards[currentCard];
   const fc = document.getElementById('flashcard');
   if (!fc) return;
-  const known = getKnownSet();
-  const knownInFilter = filteredCards.filter(c => known.has(c.term)).length;
+  const srs = getSRS();
+  const catEl = document.getElementById('fc-category');
+  const cat = catEl ? catEl.value : 'all';
+  const browseAll = document.getElementById('fc-show-all') ? document.getElementById('fc-show-all').checked : false;
+  const inCategory = cat === 'all' ? allCards : allCards.filter(c => c.cat === cat);
+  const mastered = inCategory.filter(c => srs[c.term] && srs[c.term].b >= 4).length;
+  document.getElementById('fc-known-count').textContent = mastered;
+  document.getElementById('fc-total-count').textContent = inCategory.length;
+  if (!filteredCards.length) {
+    document.getElementById('fc-term').textContent = '✓ All caught up!';
+    document.getElementById('fc-def').textContent = 'No cards are due for review in this category. Tick "Browse all cards" to study ahead, or come back later — spacing your practice is what makes it stick.';
+    document.getElementById('fc-progress').textContent = 'Nothing due';
+    document.getElementById('fc-count').textContent = '✓';
+    if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+    return;
+  }
+  if (currentCard < 0) currentCard = 0;
+  if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+  const card = filteredCards[currentCard];
+  const box = srs[card.term] ? srs[card.term].b : 1;
   document.getElementById('fc-term').textContent = card.term;
   document.getElementById('fc-def').textContent = card.def;
-  document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length;
+  document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length + (browseAll ? '' : ' due') + ' · Box ' + box + '/5';
   document.getElementById('fc-count').textContent = (currentCard + 1) + ' / ' + filteredCards.length;
-  document.getElementById('fc-known-count').textContent = knownInFilter;
-  document.getElementById('fc-total-count').textContent = filteredCards.length;
   if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
 }
 
 function renderMasteryBars() {
   const container = document.getElementById('mastery-bars');
   if (!container) return;
-  const known = getKnownSet();
-  const labels = { hardware: '🔧 Hardware', networking: '🌐 Networking', os: '💻 Operating Systems', security: '🔐 Security', acronyms: '📚 Acronyms', operational: '📋 Operational' };
+  const srs = getSRS();
+  const labels = {};
+  document.querySelectorAll('#fc-category option').forEach(o => {
+    if (o.value && o.value !== 'all') labels[o.value] = o.textContent.trim();
+  });
   const byCat = {};
   allCards.forEach(c => {
-    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, known: 0 };
+    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, mastered: 0 };
     byCat[c.cat].total++;
-    if (known.has(c.term)) byCat[c.cat].known++;
+    if (srs[c.term] && srs[c.term].b >= 4) byCat[c.cat].mastered++;
   });
   container.innerHTML = Object.keys(byCat).map(cat => {
-    const { total, known } = byCat[cat];
-    const pct = total ? Math.round(known / total * 100) : 0;
-    return '<div class="mastery-item"><div class="mastery-label"><span>' + (labels[cat] || cat) + '</span><span>' + known + ' / ' + total + ' • ' + pct + '%</span></div><div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div></div>';
+    const t = byCat[cat].total, m = byCat[cat].mastered;
+    const pct = t ? Math.round(m / t * 100) : 0;
+    return '<div class="mastery-item"><div class="mastery-label"><span>' + (labels[cat] || cat) +
+      '</span><span>' + m + ' / ' + t + ' • ' + pct + '%</span></div>' +
+      '<div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div></div>';
   }).join('');
 }
 
 function flipCard() {
   const fc = document.getElementById('flashcard');
-  if (!fc) return;
+  if (!fc || !filteredCards.length) return;
   isFlipped = !isFlipped;
   fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
 }
 
-function nextCard() { if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); } }
-function prevCard() { if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); } }
-function markCard(known) {
-  const set = getKnownSet();
+function nextCard() {
+  if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); }
+}
+
+function prevCard() {
+  if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); }
+}
+
+function markCard(gotIt) {
   const card = filteredCards[currentCard];
   if (!card) return;
-  if (known) set.add(card.term); else set.delete(card.term);
-  saveKnownSet(set);
+  reviewCard(card.term, gotIt);
   renderMasteryBars();
-  const showAll = document.getElementById('fc-show-all')?.checked;
-  if (known && !showAll) {
-    filteredCards.splice(currentCard, 1);
-    if (!filteredCards.length) {
-      document.getElementById('fc-term').textContent = '🎉 Deck cleared!';
-      document.getElementById('fc-def').textContent = 'You marked every card in this category as "Got It". Toggle "Include cards I\'ve mastered" above to review them, or pick another category.';
-      document.getElementById('fc-progress').textContent = 'All cards mastered';
-      document.getElementById('fc-count').textContent = '✓';
-      return;
-    }
-    if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
-    isFlipped = false;
-    showCard();
+  if (document.getElementById('fc-show-all') && document.getElementById('fc-show-all').checked) {
+    nextCard();
     return;
   }
-  nextCard();
+  filteredCards.splice(currentCard, 1);
+  if (!gotIt) filteredCards.push(card);
+  if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+  isFlipped = false;
+  showCard();
 }
 
 document.addEventListener('keydown', function(e) {
