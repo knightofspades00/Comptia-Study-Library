@@ -118,6 +118,8 @@ function recordMockScore(pct, score, total) {
       localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
     }
   } catch(e) {}
+  pushScoreHistory(pct, total, 'mock');
+  renderProgress();
 }
 
 function recordQuizScore(pct, score, total) {
@@ -128,6 +130,9 @@ function recordQuizScore(pct, score, total) {
       localStorage.setItem(key, JSON.stringify({ pct, score, total, date: new Date().toISOString().slice(0,10) }));
     }
   } catch(e) {}
+  pushScoreHistory(pct, total, 'quiz');
+  updateWeakQuestions();
+  renderProgress();
 }
 
 function recordVisit() {
@@ -211,6 +216,7 @@ function toggleTheme() {
 document.addEventListener('DOMContentLoaded', () => {
   applyTheme(document.documentElement.classList.contains('theme-light') ? 'light' : 'dark');
   renderExamPlanner();
+  renderProgress();
 });
 
 if ('serviceWorker' in navigator) {
@@ -286,4 +292,90 @@ function setExamDate() {
 function clearExamDate() {
   try { localStorage.removeItem('examDate_' + EXAM_KEY); } catch (e) {}
   renderExamPlanner();
+}
+
+/* === Progress & weak-area tracking ==================================
+ * scoreHistory_<EXAM_KEY> = [{ pct, total, kind, date }]  (last 40)
+ * weakQuestions_<EXAM_KEY> = { "<question>": { misses, opts, answer, exp } }
+ * A weak question self-clears: getting it right again trims its miss count. */
+function pushScoreHistory(pct, total, kind) {
+  try {
+    const key = 'scoreHistory_' + EXAM_KEY;
+    const hist = JSON.parse(localStorage.getItem(key) || '[]');
+    hist.push({ pct: pct, total: total, kind: kind, date: new Date().toISOString().slice(0, 10) });
+    if (hist.length > 40) hist.splice(0, hist.length - 40);
+    localStorage.setItem(key, JSON.stringify(hist));
+  } catch (e) {}
+}
+
+function updateWeakQuestions() {
+  if (typeof wrongAnswers === 'undefined' || typeof quizQs === 'undefined') return;
+  try {
+    const key = 'weakQuestions_' + EXAM_KEY;
+    const weak = JSON.parse(localStorage.getItem(key) || '{}');
+    const missedNow = new Set(wrongAnswers.map(w => w.q));
+    quizQs.forEach(q => {
+      if (missedNow.has(q.q)) {
+        const rec = weak[q.q] || { misses: 0 };
+        rec.misses++;
+        rec.opts = q.opts;
+        rec.answer = q.answer;
+        rec.exp = q.exp;
+        weak[q.q] = rec;
+      } else if (weak[q.q]) {
+        weak[q.q].misses--;
+        if (weak[q.q].misses <= 0) delete weak[q.q];
+      }
+    });
+    localStorage.setItem(key, JSON.stringify(weak));
+  } catch (e) {}
+}
+
+function clearProgress() {
+  if (!confirm('Clear your quiz history and weak-question list? This cannot be undone.')) return;
+  try {
+    localStorage.removeItem('scoreHistory_' + EXAM_KEY);
+    localStorage.removeItem('weakQuestions_' + EXAM_KEY);
+  } catch (e) {}
+  renderProgress();
+}
+
+function renderProgress() {
+  const host = document.getElementById('progress-box');
+  if (!host) return;
+  let hist = [], weak = {};
+  try { hist = JSON.parse(localStorage.getItem('scoreHistory_' + EXAM_KEY) || '[]'); } catch (e) {}
+  try { weak = JSON.parse(localStorage.getItem('weakQuestions_' + EXAM_KEY) || '{}'); } catch (e) {}
+  const weakList = Object.keys(weak).map(q => ({
+    q: q, misses: weak[q].misses, opts: weak[q].opts, answer: weak[q].answer, exp: weak[q].exp
+  })).sort((a, b) => b.misses - a.misses);
+  if (!hist.length && !weakList.length) { host.innerHTML = ''; return; }
+  let html = '<div class="pg-head"><h3>📈 Your progress</h3>' +
+    '<button class="pg-clear" onclick="clearProgress()">Clear</button></div>';
+  if (hist.length) {
+    const pcts = hist.map(h => h.pct);
+    const best = Math.max.apply(null, pcts);
+    const avg = Math.round(pcts.reduce((a, b) => a + b, 0) / pcts.length);
+    const latest = pcts[pcts.length - 1];
+    html += '<div class="pg-stats">' +
+      '<div class="pg-stat"><span class="pg-stat-num">' + hist.length + '</span><span class="pg-stat-lbl">attempts</span></div>' +
+      '<div class="pg-stat"><span class="pg-stat-num">' + latest + '%</span><span class="pg-stat-lbl">latest</span></div>' +
+      '<div class="pg-stat"><span class="pg-stat-num">' + avg + '%</span><span class="pg-stat-lbl">average</span></div>' +
+      '<div class="pg-stat"><span class="pg-stat-num">' + best + '%</span><span class="pg-stat-lbl">best</span></div></div>';
+    html += '<div class="pg-spark">' + hist.slice(-14).map(h => {
+      return '<span class="pg-bar' + (h.pct >= 70 ? ' pass' : '') + '" style="height:' +
+        Math.max(h.pct, 4) + '%" title="' + h.kind + ' — ' + h.pct + '% on ' + h.date + '"></span>';
+    }).join('') + '</div>';
+  }
+  if (weakList.length) {
+    html += '<details class="pg-weak"><summary>🎯 Questions to review (' + weakList.length + ')</summary>' +
+      '<div class="pg-weak-body">' + weakList.slice(0, 20).map(w => {
+        const correct = (w.opts && typeof w.answer === 'number') ? w.opts[w.answer] : '';
+        return '<div class="pg-weak-item"><div class="pg-weak-q">' + w.q +
+          ' <span class="pg-weak-misses">missed ' + w.misses + '×</span></div>' +
+          (correct ? '<div class="pg-weak-a">✓ ' + correct + '</div>' : '') +
+          (w.exp ? '<div class="pg-weak-exp">' + w.exp + '</div>' : '') + '</div>';
+      }).join('') + '</div></details>';
+  }
+  host.innerHTML = html;
 }

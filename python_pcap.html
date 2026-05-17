@@ -58,6 +58,29 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', syste
 .ep-link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; text-decoration: underline; font-family: inherit; padding: 0; }
 .ep-streak { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.83rem; color: var(--text-muted); }
 
+/* === Progress & weak areas === */
+.pg-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; }
+.pg-box:empty { display: none; }
+.pg-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.pg-head h3 { font-size: 0.95rem; font-weight: 700; color: var(--accent); }
+.pg-clear { background: none; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; padding: 3px 10px; font-size: 0.72rem; cursor: pointer; font-family: inherit; }
+.pg-clear:hover { color: var(--text); }
+.pg-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.pg-stat { flex: 1; min-width: 70px; background: var(--surface2); border-radius: 8px; padding: 10px; text-align: center; }
+.pg-stat-num { display: block; font-size: 1.3rem; font-weight: 800; color: var(--text); }
+.pg-stat-lbl { display: block; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 3px; }
+.pg-spark { display: flex; align-items: flex-end; gap: 4px; height: 56px; padding: 8px; background: var(--surface2); border-radius: 8px; }
+.pg-bar { flex: 1; min-width: 6px; background: var(--accent2); border-radius: 2px 2px 0 0; opacity: 0.5; }
+.pg-bar.pass { background: var(--accent); opacity: 1; }
+.pg-weak { margin-top: 14px; }
+.pg-weak summary { cursor: pointer; font-size: 0.85rem; font-weight: 700; color: var(--text); padding: 6px 0; }
+.pg-weak-body { margin-top: 8px; display: flex; flex-direction: column; gap: 10px; }
+.pg-weak-item { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; }
+.pg-weak-q { font-size: 0.86rem; color: var(--text); line-height: 1.5; }
+.pg-weak-misses { font-size: 0.72rem; color: var(--accent); font-weight: 700; white-space: nowrap; }
+.pg-weak-a { font-size: 0.83rem; color: var(--green, #2ecc71); margin-top: 6px; font-weight: 600; }
+.pg-weak-exp { font-size: 0.82rem; color: var(--text-muted); margin-top: 5px; line-height: 1.5; }
+
 /* NAV */
 .top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
 .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
@@ -1472,6 +1495,7 @@ os.makedirs("data/users", exist_ok=True)  # create nested dirs</code></pre>
 
 <!-- ===== QUIZ ===== -->
 <div id="panel-quiz" class="tab-panel">
+  <div class="pg-box" id="progress-box"></div>
   <div class="quiz-header" style="margin-bottom:16px;">
     <h2>Python PCAP Practice Quiz</h2>
     <p>Python PCAP-31-03 practice — Immediate feedback · Wrong-answer review at the end</p>
