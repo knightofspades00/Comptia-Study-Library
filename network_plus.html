@@ -1587,7 +1587,8 @@ td strong { color: var(--text); }
     <h2>🏗️ The OSI Model — Visual Reference</h2>
     <p>The OSI (Open Systems Interconnection) model is a 7-layer framework for understanding how data travels across a network. Every Network+ question about protocols, devices, and troubleshooting maps to one or more OSI layers.</p>
     <div class="infographic-wrap">
-      <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
+      <svg role="img" viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
+        <title>The seven layers of the OSI model</title>
         <defs>
           <linearGradient id="g7" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#9b59b6"/><stop offset="100%" stop-color="#8e44ad"/></linearGradient>
           <linearGradient id="g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3498db"/><stop offset="100%" stop-color="#2980b9"/></linearGradient>
@@ -1681,7 +1682,8 @@ td strong { color: var(--text); }
     <h2>🤝 TCP 3-Way Handshake</h2>
     <p>TCP is <strong>connection-oriented</strong> — before any application data flows, both sides synchronize sequence numbers with a three-message handshake. UDP skips this entirely (which is why it's faster but unreliable).</p>
     <div class="infographic-wrap">
-      <svg viewBox="0 0 660 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <svg role="img" viewBox="0 0 660 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>The TCP three-way handshake: SYN, SYN-ACK, ACK</title>
         <defs>
           <marker id="aTcpO" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b35"/></marker>
           <marker id="aTcpB" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#06b6d4"/></marker>
@@ -1747,7 +1749,8 @@ td strong { color: var(--text); }
     <h2>📡 DHCP DORA — How a Device Gets Its IP</h2>
     <p>DHCP (Dynamic Host Configuration Protocol) assigns IPs, masks, gateways, and DNS to clients automatically. The four steps spell <strong>DORA</strong>: Discover, Offer, Request, Acknowledge. Failure at any step = APIPA fallback.</p>
     <div class="infographic-wrap">
-      <svg viewBox="0 0 660 390" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <svg role="img" viewBox="0 0 660 390" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>The DHCP DORA process (Discover, Offer, Request, Acknowledge) by which a device obtains an IP address</title>
         <defs>
           <marker id="aDhcpO" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff6b35"/></marker>
           <marker id="aDhcpB" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#06b6d4"/></marker>
@@ -1827,7 +1830,8 @@ td strong { color: var(--text); }
     <h3>📊 The Same /24, Split at Different Prefix Lengths</h3>
     <p>One way to feel the trade-off: take a single <strong>/24</strong> (256 addresses) and watch it carved into smaller and smaller subnets. Each step <em>doubles</em> the number of subnets and <em>halves</em> the host count.</p>
     <div class="infographic-wrap">
-      <svg viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <svg role="img" viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>A single /24 network split at progressively longer prefix lengths, doubling the subnet count and halving the host count at each step</title>
         <text x="330" y="20" text-anchor="middle" fill="#e8eaf0" font-size="13" font-weight="700">192.168.1.0/24 — all bars below represent the same 256 addresses</text>
 
         <text x="44" y="60" text-anchor="end" fill="#06b6d4" font-size="13" font-weight="800">/24</text>
@@ -1892,7 +1896,8 @@ td strong { color: var(--text); }
     <h3>🔍 Walk-through: 192.168.10.130 /26 → Network, Broadcast, Range</h3>
     <p>Subnetting becomes obvious once you watch the binary do the work. Here's the full conversion for <strong>192.168.10.130 /26</strong>. Network bits are <span style="color:#ff6b35;font-weight:700">orange</span>; host bits are <span style="color:#06b6d4;font-weight:700">cyan</span>.</p>
     <div class="infographic-wrap">
-      <svg viewBox="0 0 660 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+      <svg role="img" viewBox="0 0 660 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Binary walkthrough of subnetting 192.168.10.130/26 to find the network address, broadcast address, and usable host range</title>
 
         <circle cx="28" cy="34" r="14" fill="#ff6b35"/>
         <text x="28" y="39" text-anchor="middle" fill="#0f1117" font-size="13" font-weight="800">1</text>
