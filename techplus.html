@@ -2090,6 +2090,26 @@ td strong { color: var(--text); }
     <p>Every phishing attack walks through four stages: <strong>bait → hook → capture → damage</strong>. Spotting the warning sign at <em>any</em> stage breaks the chain. MFA is the single best safety net in stage 3 — even a leaked password is mostly useless if a second factor is required.</p>
   </div>
 
+  <div class="cv-card">
+    <h3>📋 MFA methods — pick what fits your account</h3>
+    <p>Not all "second factors" are equally strong. Here's how the common options stack up — and why FIDO2 keys are considered phishing-resistant while SMS is not.</p>
+    <table class="concept-table">
+      <tr><th>Method</th><th>How it works</th><th>Strength</th><th>Watch out for</th></tr>
+      <tr><td><strong>SMS code</strong></td><td>Server texts a 6-digit code to your phone number</td><td><span style="color:#ef4444;font-weight:700">⚠️ Weakest</span></td><td>SIM-swap attacks redirect your number; codes can be phished too</td></tr>
+      <tr><td><strong>Authenticator app (TOTP)</strong></td><td>Phone app generates a fresh 30-second code; no SMS / network needed</td><td><span style="color:#f1c40f;font-weight:700">✓ Strong</span></td><td>Lose the phone without backup codes = locked out; codes can still be phished</td></tr>
+      <tr><td><strong>Push notification</strong></td><td>Microsoft Authenticator / Duo pops "Approve" on your phone</td><td><span style="color:#f1c40f;font-weight:700">✓ Strong (with number-match)</span></td><td>"Push bombing" if number-match isn't required — attacker keeps requesting until you tap Approve</td></tr>
+      <tr><td><strong>Hardware security key (FIDO2 / WebAuthn)</strong></td><td>Tap a physical USB / NFC key; signs a site-specific cryptographic challenge</td><td><span style="color:#22c55e;font-weight:700">✓✓ Strongest — phishing-resistant</span></td><td>Lose the key without a backup = locked out (register two)</td></tr>
+      <tr><td><strong>Passkey</strong></td><td>Cryptographic credential in your device's secure enclave; unlocked by biometric</td><td><span style="color:#22c55e;font-weight:700">✓✓ Strongest, easiest</span></td><td>Cloud sync trust model varies (Apple, Google, password manager)</td></tr>
+      <tr><td><strong>Biometric alone</strong></td><td>Fingerprint / face unlocks the device or account</td><td><span style="color:#f1c40f;font-weight:700">Depends</span></td><td>Only a "second factor" if it's separate from the password — phone unlock by face isn't MFA on its own</td></tr>
+    </table>
+    <div class="tip-box"><div class="tip-label">"Phishing-resistant" — what that means</div>
+      FIDO2 / WebAuthn keys (and passkeys built on the same standard) bind the cryptographic response to the real site's <em>origin</em>. A phishing page on a look-alike domain can't get the key to sign for it. TOTP and SMS have no idea what site you're on — you can hand them to a fake site by accident.
+    </div>
+    <div class="tip-box"><div class="tip-label">Practical recommendation</div>
+      For high-value accounts (email, banking, password manager): use a <strong>passkey</strong> or <strong>hardware key</strong> if the service supports it. Otherwise use an <strong>authenticator app</strong>. Use SMS only as a last resort when nothing else is offered.
+    </div>
+  </div>
+
   <!-- WALK ME THROUGH IT -->
   <div class="cv-card">
     <h3>🧠 Walk Me Through It — Step-by-Step Workings</h3>
