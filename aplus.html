@@ -1042,6 +1042,60 @@ td strong { color: var(--text); }
         <li><strong>UAC:</strong> User Account Control — prompts before elevated actions</li>
         <li><strong>EFS:</strong> Encrypting File System — per-file/folder encryption (NTFS only)</li>
       </ul>
+
+      <h4>Authentication &amp; Authorization</h4>
+      <ul>
+        <li><strong>The three classic factors:</strong> something you <strong>KNOW</strong> (password, PIN, security question), something you <strong>HAVE</strong> (smart card, hardware token, phone with TOTP/push), something you <strong>ARE</strong> (fingerprint, face, iris, voice). Newer additions: something you <strong>DO</strong> (signature pattern, gesture), <strong>somewhere you are</strong> (geolocation).</li>
+        <li><strong>MFA vs single factor:</strong> MFA = two or more <em>different</em> factor types. Two passwords = single factor. Password + SMS code = MFA (know + have). Password + fingerprint = MFA (know + are).</li>
+        <li><strong>TOTP vs SMS vs push vs hardware key:</strong> TOTP apps (Microsoft/Google Authenticator) generate 30-sec codes — resistant to SIM-swap. SMS is convenient but vulnerable to SIM-swap. Push (Microsoft Authenticator, Duo) is easy and phish-resistant when number-matching is enforced. Hardware keys (YubiKey, FIDO2) are the strongest — actually phishing-resistant.</li>
+        <li><strong>Biometrics caveats:</strong> <strong>FAR</strong> (False Acceptance Rate) = stranger gets in (bad). <strong>FRR</strong> (False Rejection Rate) = real user is rejected (annoying). <strong>CER</strong> (Crossover Error Rate) = the tuned sweet spot. Biometrics cannot be reset once compromised.</li>
+        <li><strong>Smart cards (PIV / CAC):</strong> Physical card with an embedded certificate; used with a PIN. PIV (federal civilian), CAC (DoD). Require a card reader + middleware.</li>
+        <li><strong>SSO (Single Sign-On):</strong> One login, many apps. Federated via SAML or OAuth/OIDC (corporate Microsoft 365, Salesforce, Workday). Reduces password fatigue, but a compromised SSO account = lateral access to everything.</li>
+        <li><strong>Authorization concepts:</strong> Authentication = WHO. Authorization = WHAT. <strong>Principle of Least Privilege</strong> — minimum permissions needed. <strong>RBAC</strong> (role-based) — permissions via roles. <strong>ABAC</strong> (attribute-based) — permissions via attributes (department, location, time-of-day).</li>
+      </ul>
+
+      <h4>Wireless Security</h4>
+      <ul>
+        <li><strong>WPA3 (current best):</strong> <strong>SAE</strong> (Simultaneous Authentication of Equals) replaces the WPA2 4-way handshake — no offline dictionary attack on the PSK. Forward secrecy. <strong>PMF</strong> (Protected Management Frames) is mandatory. Personal and Enterprise variants.</li>
+        <li><strong>WPA2:</strong> <strong>AES-CCMP</strong> encryption (current widespread standard). PSK for home; <strong>Enterprise</strong> uses 802.1X + RADIUS for per-user credentials.</li>
+        <li><strong>WPA / TKIP / WEP — all deprecated:</strong> TKIP was a transitional fix and is broken. WEP is trivially crackable in minutes. If a network only offers WEP or original WPA, treat it as open.</li>
+        <li><strong>PSK vs Enterprise:</strong> PSK = one shared password for everyone (home / small office). Enterprise = 802.1X + RADIUS, per-user credentials, often AD-backed. Larger orgs always use Enterprise.</li>
+        <li><strong>Captive portal:</strong> Web page that forces login or T&amp;Cs acceptance before granting network access (hotels, airports, coffee shops). Unrelated to encryption — the radio traffic may still be open.</li>
+        <li><strong>Hidden SSID is not security:</strong> Hiding the SSID just removes it from beacon broadcasts. Anyone scanning sees probe traffic — and clients leak the SSID name as they search. Use a strong WPA2/3-PSK or Enterprise instead.</li>
+        <li><strong>MAC filtering is weak:</strong> MAC addresses are visible in plain Wi-Fi headers and trivially spoofable. Useful as a small annoyance, not a real defense.</li>
+      </ul>
+
+      <h4>Physical Security</h4>
+      <ul>
+        <li><strong>Badges / RFID / NFC access cards:</strong> Tap-to-enter. Fast revocation when lost. Proximity card cloning is possible — use FIDO2 / smart cards for high-value areas.</li>
+        <li><strong>Access control vestibule (mantrap):</strong> Two doors, only one opens at a time. Defeats tailgating / piggybacking. Often paired with badge + biometric on the inner door.</li>
+        <li><strong>CCTV / video surveillance:</strong> Deterrent and evidence. Retention period (30 / 60 / 90 days) is set by policy or regulation. Place cameras at choke points — entrances, server room, loading dock.</li>
+        <li><strong>Cable locks:</strong> Kensington-style locks anchor laptops, desktops, and projectors. Defeats opportunistic theft, not a determined attacker with cutters.</li>
+        <li><strong>Equipment locks &amp; lockable racks:</strong> Server racks have locking front and rear doors; KVMs sit in lockable cabinets. Critical for co-location and multi-tenant environments.</li>
+        <li><strong>Bollards &amp; lighting:</strong> Perimeter controls — bollards block vehicle ramming, lighting deters approach and supports the CCTV that's already there.</li>
+        <li><strong>Clean desk + screen privacy filters:</strong> Sensitive papers stowed when away from the desk. Privacy filters narrow the viewing angle to prevent shoulder surfing.</li>
+      </ul>
+
+      <h4>Workstation Hardening</h4>
+      <ul>
+        <li><strong>Password policy (NIST SP 800-63B):</strong> Length over complexity — 12+ characters preferred. Skip forced rotations unless breach is suspected. Block known-breached passwords. MFA matters more than complexity.</li>
+        <li><strong>Account lockout:</strong> Lock after ~5 failed attempts for 30 minutes (or until admin unlock). Set via Local Security Policy → Account Lockout Policy. Defends against online brute-force.</li>
+        <li><strong>Screen lock timeout:</strong> 5–15 minutes idle → automatic lock. <span class="key-term">Win+L</span> locks manually. Pair with mandatory sign-in on resume.</li>
+        <li><strong>Account types:</strong> Standard for daily work; Administrator only when needed. Don't browse the web as Administrator. UAC catches privilege escalation attempts, but only if you don't reflexively click Yes.</li>
+        <li><strong>AutoPlay / AutoRun disable:</strong> Plugging in an unknown USB used to silently launch programs (USB drop attacks). Disable AutoPlay for removable media in Settings → Devices.</li>
+        <li><strong>Patch management:</strong> Windows Update for OS + drivers; vendor updaters for apps. Patch Tuesday = second Tuesday monthly. Critical / zero-day = within 24–72 hours. WSUS or Intune at enterprise scale.</li>
+        <li><strong>Endpoint protection (AV / EDR):</strong> Defender Antivirus is the baseline. EDR (CrowdStrike, SentinelOne, Microsoft Defender for Endpoint) catches behaviors signature AV misses. Keep definitions current.</li>
+      </ul>
+
+      <h4>Data Destruction</h4>
+      <ul>
+        <li><strong>Why "format" isn't secure:</strong> Quick format only erases the file table; data blocks remain recoverable until overwritten. Full format zeroes the drive but is still software-level.</li>
+        <li><strong>Software wipe (HDDs):</strong> Multi-pass overwrite — DoD 5220.22-M, or NIST SP 800-88 "Clear" (single pass is sufficient for modern HDDs). Tools: DBAN, Eraser, vendor utilities.</li>
+        <li><strong>SSDs need a different approach:</strong> Wear-leveling reassigns blocks during writes, so software wipes are unreliable. Use the drive's <strong>Secure Erase</strong> (ATA command) or <strong>Crypto Erase</strong> — destroy the on-drive encryption key and existing data becomes instantly unreadable.</li>
+        <li><strong>Degaussing:</strong> Strong magnetic field scrambles magnetic media. Works on HDDs and tape. <strong>Does NOT work on SSDs</strong> (flash is non-magnetic).</li>
+        <li><strong>Physical destruction:</strong> Shredding, drilling, pulverizing, incineration. Reserved for highly-sensitive data or end-of-life when nothing else suffices. Shred SSDs to small particles — surviving chips can be reassembled.</li>
+        <li><strong>Certificate of Destruction:</strong> Third-party vendor issues a signed certificate listing serial numbers, method, date, technician. Required for regulated industries (HIPAA, PCI-DSS) to prove chain of custody.</li>
+      </ul>
     </div>
   </div>
 
