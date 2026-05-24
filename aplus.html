@@ -2182,6 +2182,167 @@ td strong { color: var(--text); }
     </table>
   </div>
 
+  <!-- AUTH FACTORS MATRIX -->
+  <div class="concepts-section">
+    <h2>🔑 The Three Factors of Authentication</h2>
+    <p>Authentication answers "who is this?" — and CompTIA tests the three classic factor types relentlessly. <strong>MFA</strong> = combining two or more <em>different</em> types. Two passwords is single-factor; password + phone code is true multi-factor.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Three factors of authentication — something you know, have, or are — and how MFA combines them</title>
+        <text x="330" y="22" text-anchor="middle" fill="#e8eaf0" font-size="13" font-weight="700">Three factors of authentication</text>
+        <text x="330" y="40" text-anchor="middle" fill="#8892b0" font-size="11" font-style="italic">Combine 2+ different types for MFA</text>
+
+        <rect x="20" y="60" width="200" height="44" rx="8" fill="#06b6d4"/>
+        <text x="120" y="80" text-anchor="middle" fill="#0f1117" font-size="13" font-weight="800">🧠 SOMETHING YOU KNOW</text>
+        <text x="120" y="96" text-anchor="middle" fill="#0f1117" font-size="10" font-style="italic">in your head</text>
+
+        <rect x="230" y="60" width="200" height="44" rx="8" fill="#ff6b35"/>
+        <text x="330" y="80" text-anchor="middle" fill="#0f1117" font-size="13" font-weight="800">📱 SOMETHING YOU HAVE</text>
+        <text x="330" y="96" text-anchor="middle" fill="#0f1117" font-size="10" font-style="italic">in your hand</text>
+
+        <rect x="440" y="60" width="200" height="44" rx="8" fill="#22c55e"/>
+        <text x="540" y="80" text-anchor="middle" fill="#0f1117" font-size="13" font-weight="800">👁️ SOMETHING YOU ARE</text>
+        <text x="540" y="96" text-anchor="middle" fill="#0f1117" font-size="10" font-style="italic">on your body</text>
+
+        <rect x="20" y="120" width="200" height="160" rx="8" fill="#252840" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="35" y="142" fill="#06b6d4" font-size="11" font-weight="700">• Password</text>
+        <text x="35" y="166" fill="#06b6d4" font-size="11" font-weight="700">• PIN</text>
+        <text x="35" y="190" fill="#06b6d4" font-size="11" font-weight="700">• Passphrase</text>
+        <text x="35" y="214" fill="#06b6d4" font-size="11" font-weight="700">• Security question</text>
+        <text x="35" y="238" fill="#06b6d4" font-size="11" font-weight="700">• Memorized pattern</text>
+        <text x="35" y="266" fill="#8892b0" font-size="10" font-style="italic">⚠️ Easiest to phish</text>
+
+        <rect x="230" y="120" width="200" height="160" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="245" y="142" fill="#ff6b35" font-size="11" font-weight="700">• Hardware key (YubiKey)</text>
+        <text x="245" y="166" fill="#ff6b35" font-size="11" font-weight="700">• Smart card (PIV / CAC)</text>
+        <text x="245" y="190" fill="#ff6b35" font-size="11" font-weight="700">• Phone — TOTP app</text>
+        <text x="245" y="214" fill="#ff6b35" font-size="11" font-weight="700">• Phone — push notification</text>
+        <text x="245" y="238" fill="#ff6b35" font-size="11" font-weight="700">• SMS code (weakest)</text>
+        <text x="245" y="266" fill="#8892b0" font-size="10" font-style="italic">⚠️ SMS = SIM-swap risk</text>
+
+        <rect x="440" y="120" width="200" height="160" rx="8" fill="#252840" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="455" y="142" fill="#22c55e" font-size="11" font-weight="700">• Fingerprint</text>
+        <text x="455" y="166" fill="#22c55e" font-size="11" font-weight="700">• Face / iris</text>
+        <text x="455" y="190" fill="#22c55e" font-size="11" font-weight="700">• Voice</text>
+        <text x="455" y="214" fill="#22c55e" font-size="11" font-weight="700">• Palm vein</text>
+        <text x="455" y="238" fill="#22c55e" font-size="11" font-weight="700">• Retina</text>
+        <text x="455" y="266" fill="#8892b0" font-size="10" font-style="italic">⚠️ Can't be reset if leaked</text>
+
+        <rect x="20" y="300" width="620" height="34" rx="8" fill="#0e2818" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="330" y="322" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="800">MFA = 2+ DIFFERENT types · Password + Password = single factor</text>
+
+        <text x="330" y="354" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="700">+ Something you DO (gesture / signature) · Somewhere you ARE (geolocation)</text>
+        <text x="330" y="370" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Adaptive auth combines factors based on risk signals</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Exam decision rule</div>
+      A question that says "biometric + smart card" is MFA (are + have). "Password + PIN" is single-factor — both are KNOW. The trap CompTIA loves: two items in the <em>same</em> category is not MFA, even if they're different things.
+    </div>
+  </div>
+
+  <!-- WIRELESS SECURITY EVOLUTION -->
+  <div class="concepts-section">
+    <h2>📶 Wi-Fi Security — Why WPA3 Matters</h2>
+    <p>Every CompTIA exam wants to know whether you'd configure a network with WPA3, WPA2, or something older. The short answer is: <strong>WPA3 if every device supports it; WPA2-AES otherwise; nothing else, ever</strong>.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Wireless security evolution from WEP to WPA3 — which protocols are broken, which are legacy-OK, and which are current</title>
+        <text x="330" y="22" text-anchor="middle" fill="#e8eaf0" font-size="13" font-weight="700">Wi-Fi security protocols — timeline &amp; status</text>
+
+        <line x1="40" y1="58" x2="620" y2="58" stroke="#3d4270" stroke-width="2"/>
+        <polygon points="620,58 612,53 612,63" fill="#3d4270"/>
+
+        <rect x="40" y="80" width="130" height="120" rx="8" fill="#252840" stroke="#ef4444" stroke-width="2"/>
+        <rect x="40" y="80" width="130" height="26" rx="8" fill="#ef4444"/>
+        <text x="105" y="98" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">WEP</text>
+        <text x="105" y="124" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">1999 · BROKEN</text>
+        <text x="105" y="144" text-anchor="middle" fill="#e8eaf0" font-size="10">RC4 stream cipher</text>
+        <text x="105" y="160" text-anchor="middle" fill="#e8eaf0" font-size="10">IV reuse flaw</text>
+        <text x="105" y="180" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Cracked in minutes</text>
+        <text x="105" y="194" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">with aircrack-ng</text>
+
+        <rect x="190" y="80" width="130" height="120" rx="8" fill="#252840" stroke="#ef4444" stroke-width="2"/>
+        <rect x="190" y="80" width="130" height="26" rx="8" fill="#ef4444"/>
+        <text x="255" y="98" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">WPA (TKIP)</text>
+        <text x="255" y="124" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">2003 · BROKEN</text>
+        <text x="255" y="144" text-anchor="middle" fill="#e8eaf0" font-size="10">TKIP per-packet keys</text>
+        <text x="255" y="160" text-anchor="middle" fill="#e8eaf0" font-size="10">Transitional fix</text>
+        <text x="255" y="180" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Replaced by WPA2</text>
+
+        <rect x="340" y="80" width="130" height="120" rx="8" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+        <rect x="340" y="80" width="130" height="26" rx="8" fill="#f1c40f"/>
+        <text x="405" y="98" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">WPA2</text>
+        <text x="405" y="124" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">2004 · LEGACY OK</text>
+        <text x="405" y="144" text-anchor="middle" fill="#e8eaf0" font-size="10">AES-CCMP</text>
+        <text x="405" y="160" text-anchor="middle" fill="#e8eaf0" font-size="10">PSK or 802.1X</text>
+        <text x="405" y="180" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">PSK offline-attackable</text>
+        <text x="405" y="194" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">if password is weak</text>
+
+        <rect x="490" y="80" width="130" height="120" rx="8" fill="#252840" stroke="#22c55e" stroke-width="2"/>
+        <rect x="490" y="80" width="130" height="26" rx="8" fill="#22c55e"/>
+        <text x="555" y="98" text-anchor="middle" fill="#0f1117" font-size="14" font-weight="800">WPA3</text>
+        <text x="555" y="124" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">2018 · CURRENT</text>
+        <text x="555" y="144" text-anchor="middle" fill="#e8eaf0" font-size="10">SAE handshake</text>
+        <text x="555" y="160" text-anchor="middle" fill="#e8eaf0" font-size="10">PMF mandatory</text>
+        <text x="555" y="180" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">Forward secrecy</text>
+        <text x="555" y="194" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">No offline attack</text>
+
+        <rect x="20" y="222" width="620" height="44" rx="8" fill="#1a1d2e" stroke="#3d4270" stroke-width="1"/>
+        <text x="330" y="242" text-anchor="middle" fill="#e8eaf0" font-size="11" font-weight="700">⚠️ Hidden SSID + MAC filtering are NOT security controls</text>
+        <text x="330" y="258" text-anchor="middle" fill="#8892b0" font-size="10">SSIDs leak in client probes · MACs are visible in clear and easy to spoof</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Exam scenario shortcut</div>
+      "Mixed-vendor enterprise wireless" → <strong>WPA2/WPA3-Enterprise with 802.1X + RADIUS</strong>. "Small business / home Wi-Fi" → <strong>WPA3-Personal</strong> with a long passphrase. "Found a network still using WEP" → assume the network is effectively open.
+    </div>
+  </div>
+
+  <!-- DEFENSE IN DEPTH -->
+  <div class="concepts-section">
+    <h2>🧅 Defense in Depth — Layered Security</h2>
+    <p>No single control stops a determined attacker. The model CompTIA tests: stack independent layers so an attacker has to defeat each one in sequence. The lock on the data-center door doesn't matter if the firewall is misconfigured — and vice versa.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Defense in depth — six layers of security stacked from the physical perimeter to the data at rest</title>
+        <text x="330" y="22" text-anchor="middle" fill="#e8eaf0" font-size="13" font-weight="700">Defense in depth — every layer is a separate defense</text>
+        <text x="330" y="40" text-anchor="middle" fill="#8892b0" font-size="11" font-style="italic">Attacker has to defeat all of them in sequence · A single layer failing ≠ breach</text>
+
+        <text x="30" y="68" fill="#ef4444" font-size="11" font-weight="800">ATTACK</text>
+        <line x1="58" y1="80" x2="58" y2="340" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
+        <polygon points="58,340 53,332 63,332" fill="#ef4444"/>
+
+        <rect x="80" y="60" width="560" height="42" rx="6" fill="#3a2418" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="98" y="80" fill="#ff6b35" font-size="12" font-weight="800">1. PHYSICAL</text>
+        <text x="98" y="96" fill="#e8eaf0" font-size="10">Bollards · Locks · Badges · Mantrap · CCTV · Cable locks</text>
+
+        <rect x="80" y="108" width="560" height="42" rx="6" fill="#252840" stroke="#f1c40f" stroke-width="1.5"/>
+        <text x="98" y="128" fill="#f1c40f" font-size="12" font-weight="800">2. PERIMETER</text>
+        <text x="98" y="144" fill="#e8eaf0" font-size="10">Firewall · IDS / IPS · DMZ · VPN gateway · Email filter</text>
+
+        <rect x="80" y="156" width="560" height="42" rx="6" fill="#0e2818" stroke="#06b6d4" stroke-width="1.5"/>
+        <text x="98" y="176" fill="#06b6d4" font-size="12" font-weight="800">3. NETWORK</text>
+        <text x="98" y="192" fill="#e8eaf0" font-size="10">VLANs · 802.1X · WPA3 · Network ACLs · NAC</text>
+
+        <rect x="80" y="204" width="560" height="42" rx="6" fill="#1a1d2e" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="98" y="224" fill="#a855f7" font-size="12" font-weight="800">4. HOST</text>
+        <text x="98" y="240" fill="#e8eaf0" font-size="10">AV / EDR · Patches · Host firewall · UAC · Disk encryption (BitLocker)</text>
+
+        <rect x="80" y="252" width="560" height="42" rx="6" fill="#252840" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="98" y="272" fill="#22c55e" font-size="12" font-weight="800">5. APPLICATION</text>
+        <text x="98" y="288" fill="#e8eaf0" font-size="10">Auth · MFA · Input validation · Code signing · Least privilege</text>
+
+        <rect x="80" y="300" width="560" height="42" rx="6" fill="#1f2937" stroke="#e8eaf0" stroke-width="2"/>
+        <text x="98" y="320" fill="#e8eaf0" font-size="12" font-weight="800">6. DATA  💎</text>
+        <text x="98" y="336" fill="#e8eaf0" font-size="10">Encryption at rest · DLP · Access controls · Backup &amp; recovery</text>
+
+        <text x="330" y="368" text-anchor="middle" fill="#a855f7" font-size="10" font-weight="700">Also called "layered security" · Assume any single layer will eventually fail</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Exam framing</div>
+      Questions asking "which control is BEST?" usually want layered thinking — pick the answer that adds a <em>new</em> layer rather than strengthening one that's already strong. Example: if a server already has a host firewall + AV, the missing layer is application-level auth or data encryption, not a stronger AV.
+    </div>
+  </div>
+
   <!-- WALK ME THROUGH IT -->
   <div class="concepts-section">
     <h2>🧠 Walk Me Through It — Step-by-Step Workings</h2>
