@@ -986,6 +986,38 @@ td strong { color: var(--text); }
         <strong>💼 Real-world — why MFA matters</strong>
         <p>Even a "leaked" password is mostly useless against an account with MFA, because the attacker still needs your second factor (phone, security key, biometric). Turn on MFA for your email first — your email is the master key to password resets for every other account.</p>
       </div>
+
+      <h4>Authentication Factors — Know / Have / Are</h4>
+      <ul>
+        <li><strong>The three factors:</strong> something you <strong>KNOW</strong> (password, PIN), something you <strong>HAVE</strong> (phone with a code, security key), something you <strong>ARE</strong> (fingerprint, face). MFA = combining 2 or more <em>different</em> types.</li>
+        <li><strong>Why passwords alone fail:</strong> reused passwords from breached sites get tried on every other site (credential stuffing). One leak = many account takeovers.</li>
+        <li><strong>Use a password manager:</strong> it generates unique random passwords; you only memorize the master. Bitwarden (free), 1Password, Apple Keychain, Google Password Manager. Much better than reusing the same password.</li>
+        <li><strong>Turn on MFA for your email first:</strong> your email is the master key to every other account's password reset. Protect it before anything else.</li>
+        <li><strong>TOTP &gt; SMS:</strong> authenticator-app codes (Microsoft / Google Authenticator) are safer than SMS codes — SIM-swap attacks intercept SMS, not app codes.</li>
+        <li><strong>Biometrics for convenience, not as your only line:</strong> face and fingerprint can't be changed if compromised. Always pair them with a device passcode and the device's secure enclave.</li>
+        <li><strong>Don't share credentials, ever:</strong> real IT staff and real teachers never need your password. Sharing a password = sharing your identity.</li>
+      </ul>
+
+      <h4>Connection-Security Signals (HTTPS, Padlock, Certificates)</h4>
+      <ul>
+        <li><strong>HTTPS = encrypted, HTTP = not:</strong> the padlock icon in the browser address bar means TLS is encrypting traffic between you and the site. Public Wi-Fi is safe for HTTPS, risky for plain HTTP.</li>
+        <li><strong>The padlock is not a "this site is trustworthy" signal:</strong> it only proves the connection is encrypted and the certificate matches the domain. Phishing sites can get free HTTPS certificates (Let's Encrypt) too.</li>
+        <li><strong>Read certificate warnings before clicking through:</strong> errors like <span class="key-term">NET::ERR_CERT_DATE_INVALID</span>, <span class="key-term">NET::ERR_CERT_AUTHORITY_INVALID</span>, or "Your connection is not private" indicate the cert is expired, untrusted, or doesn't match the domain. Don't click through on banking or email sites.</li>
+        <li><strong>Check the URL before logging in:</strong> phishing pages copy logos perfectly but the domain is wrong (paypaI.com with a capital I, or paypal-secure-login.com). Hover links to see where they actually go.</li>
+        <li><strong>Bookmark important sites:</strong> always reach banking / email from your bookmark, never from a link in an email or text.</li>
+        <li><strong>Address bar &gt; search box:</strong> search results can include sponsored phishing ads. Type the URL or use the bookmark instead of "Googling" your bank.</li>
+      </ul>
+
+      <h4>Safe Habits &amp; Incident Basics</h4>
+      <ul>
+        <li><strong>Suspicious-message checklist:</strong> urgency ("act NOW"), unexpected attachment, sender address mismatch with the display name, requests for credentials or money. Any of these = pause and verify out-of-band (call the sender on a number you already trust).</li>
+        <li><strong>Backups follow the 3-2-1 rule:</strong> 3 copies of important data, on 2 different media types, with 1 copy off-site. Cloud backup counts as off-site when it's separate from your daily account.</li>
+        <li><strong>Software updates aren't optional:</strong> an out-of-date OS or browser is the most common entry point for malware. Turn on auto-updates for OS, browser, and apps.</li>
+        <li><strong>Antivirus is one layer, not the whole defense:</strong> Windows Defender is a fine baseline. The bigger wins are not running random downloads, keeping software updated, and using MFA on your accounts.</li>
+        <li><strong>If you suspect you clicked a phishing link:</strong> disconnect from Wi-Fi immediately (stops further data exfiltration), don't enter any more info, change the affected account's password from a clean device, run a full malware scan.</li>
+        <li><strong>If an account gets taken over:</strong> use the provider's account-recovery flow, notify contacts so they ignore "loan" or weird messages from "you," check linked accounts and revoke unfamiliar sessions.</li>
+        <li><strong>Report phishing to your IT / teacher:</strong> forwarding the original message (with full headers if possible) helps protect everyone else in the org.</li>
+      </ul>
     </div>
   </div>
 
