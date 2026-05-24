@@ -2367,7 +2367,7 @@ td strong { color: var(--text); }
   <!-- WALK ME THROUGH IT -->
   <div class="concepts-section">
     <h2>🧠 Walk Me Through It — Step-by-Step Workings</h2>
-    <p>The three scenarios A+ candidates fail most often in role-play questions. Click any panel to expand the worked example.</p>
+    <p>Four scenarios A+ candidates fail most often in role-play questions. Click any panel to expand the worked example.</p>
 
     <details class="walkthrough">
       <summary><span class="wt-emoji">💾</span><span>Drive 2 of my RAID 5 array failed — now what?</span></summary>
@@ -2488,6 +2488,63 @@ td strong { color: var(--text); }
         <div class="wt-answer">
           <span class="wt-answer-label">Exam takeaway</span>
           <p>Question says "user accessing over the network, effective permission unexpected" → answer is almost always <strong>more restrictive of Share vs NTFS</strong>. When accessing the file <em>locally</em>, only NTFS applies — share perms are bypassed entirely.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🕷️</span><span>Suspected rootkit — why a normal AV scan won't find it</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> A user's workstation behaves like it's compromised — strange outbound network connections, processes that briefly appear and vanish in Task Manager, AV silently disabled — but a full scan with Windows Defender comes back <em>clean</em>. The likely answer is a rootkit. Here's why the scan missed it and what to do instead.</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — What a rootkit is</span>
+          <p>A rootkit sits at a privileged level — kernel driver, hypervisor, or even firmware (UEFI/BIOS, drive controller) — and hooks the OS APIs that AV tools rely on to list processes, files, and disk sectors. A scan running INSIDE the compromised OS asks the OS what's there; the rootkit answers with itself filtered out; the scan reports "clean."</p>
+          <ul>
+            <li><strong>Kernel rootkit</strong> — loads as a (signed, or unsigned in Test Mode) driver</li>
+            <li><strong>User-mode rootkit</strong> — hijacks DLL imports for normal apps; easier to detect than kernel</li>
+            <li><strong>Bootkit</strong> — infects the bootloader / MBR / UEFI; runs before Windows starts</li>
+            <li><strong>Firmware rootkit</strong> — sits in UEFI flash, the drive controller, NIC, or GPU; survives an OS reinstall</li>
+          </ul>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Quarantine FIRST (CompTIA malware-removal step 2)</span>
+          <p>Before anything else, disconnect the box from the network — unplug the cable, disable Wi-Fi, or shut the switch port. This stops lateral spread, ransomware activation, data exfiltration, and the rootkit's call to its command-and-control server.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Boot from clean offline media</span>
+          <p>The fix for "the rootkit lies to the OS" is to scan from a DIFFERENT OS that doesn't load the rootkit. Use a bootable / offline scanner on USB or DVD:</p>
+          <ul>
+            <li><strong>Microsoft Defender Offline</strong> — built into Windows Security or as a standalone bootable USB</li>
+            <li><strong>Kaspersky Rescue Disk</strong> — Linux-based bootable scanner, free</li>
+            <li><strong>ESET SysRescue Live</strong> — similar, free</li>
+            <li><strong>Bitdefender Rescue CD</strong> — similar, free</li>
+          </ul>
+          <p>The infected machine boots into the rescue environment instead of the compromised Windows. The rootkit is now just a file on the disk — it isn't running and can't hide.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Run the scan and remediate</span>
+          <p>Update signatures (the bootable image will usually pull fresh definitions over its own network stack), run a full disk scan, quarantine or delete findings. Take notes for the documentation step. Reboot into Windows, run Defender again as a sanity check, then re-enable network access only after the box is verified clean.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 5 — When to reinstall instead</span>
+          <p>Some rootkits aren't reliably removable. If symptoms persist after a verified clean offline scan, or you suspect a <strong>firmware</strong> rootkit (the infection survives a full OS reinstall, or reappears immediately on a freshly imaged drive), the answer is:</p>
+          <ol>
+            <li>Back up the user's data files (NOT executables) to clean external media</li>
+            <li>Replace the drive (or fully secure-erase / crypto-erase it)</li>
+            <li>Reflash the UEFI firmware from the vendor's verified image</li>
+            <li>Clean OS install from known-good media</li>
+            <li>Restore the user's data files; reinstall apps from trusted sources only</li>
+          </ol>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Exam framing</span>
+          <p>If the question says <em>"normal AV scan finds nothing but symptoms persist,"</em> the answer is almost always an <strong>offline / bootable scanner</strong> — the rootkit can't hide if it isn't running. If the question says <em>"infection returns immediately after a clean Windows reinstall,"</em> the answer is a <strong>firmware rootkit</strong> — fix it by reflashing UEFI and (often) replacing the drive.</p>
         </div>
       </div>
     </details>
