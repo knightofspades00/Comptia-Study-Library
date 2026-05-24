@@ -2113,7 +2113,7 @@ td strong { color: var(--text); }
   <!-- WALK ME THROUGH IT -->
   <div class="cv-card">
     <h3>🧠 Walk Me Through It — Step-by-Step Workings</h3>
-    <p>The three concepts students most often get stuck on. Click any panel to expand the worked example.</p>
+    <p>Four concepts students most often get stuck on. Click any panel to expand the worked example.</p>
 
     <details class="walkthrough">
       <summary><span class="wt-emoji">🔢</span><span>How do I convert decimal ↔ binary?</span></summary>
@@ -2231,6 +2231,60 @@ td strong { color: var(--text); }
             <li><code>chmod 700</code> = private to the owner only (SSH keys, secrets)</li>
             <li><code>chmod 644</code> = owner can write, everyone else can read (config files)</li>
           </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🎣</span><span>Got a suspicious message — is it phishing?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> You get a text: "URGENT: Your bank account has been locked due to suspicious activity. Verify here within 24 hours: https://bofa-security-update.com/verify". Is it real? Walk through the checks.</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Pause on urgency</span>
+          <p>Real institutions almost never demand action in minutes. Urgency is the attacker's most reliable trick — it short-circuits the part of your brain that would normally double-check. <strong>If a message screams "RIGHT NOW," that's already a yellow flag.</strong></p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Check the SENDER, not just the display name</span>
+          <p>Tap or hover the sender. Is the actual phone number or email address one you recognize from past legitimate messages? Banks usually send from short codes (5–6 digits) or named domains like <code>@chase.com</code>. A text from a random 10-digit cell number claiming to be your bank = suspicious.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Inspect the LINK without clicking it</span>
+          <p>Long-press a link on a phone, or hover it on desktop. Look at the actual destination, then read the <em>domain</em> — the part right before the first single slash:</p>
+          <ul>
+            <li><strong>https://bofa-security-update.com/verify</strong> — the domain is <code>bofa-security-update.com</code>, not <code>bankofamerica.com</code>. <strong>FAKE.</strong></li>
+            <li>Legit Bank of America URLs end in <code>bankofamerica.com</code>. Anything else is a look-alike domain.</li>
+          </ul>
+          <p>Common tricks: extra dashes (<code>bofa-security-update</code> vs. <code>bankofamerica</code>), look-alike letters (<code>paypaI</code> with capital I instead of <code>paypal</code>), or a trusted brand as a subdomain on an attacker site (<code>chase.com.fake-update.com</code>).</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Check the wording</span>
+          <ul>
+            <li>Generic greeting ("Dear Customer") instead of your name → phishing tell</li>
+            <li>Threats ("your account will be deleted!") or fake consequences → phishing tell</li>
+            <li>Spelling / grammar errors that wouldn't pass a real brand's review → phishing tell</li>
+            <li>Unexpected attachment from someone you weren't expecting it from → phishing tell</li>
+          </ul>
+          <p>Any one of these alone is not proof, but two or three together is a strong signal.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 5 — Verify out-of-band, then act</span>
+          <p>If you're still not sure, contact the real institution through a channel you ALREADY trust:</p>
+          <ul>
+            <li>Open the bank's app you installed previously, or</li>
+            <li>Type the bank's URL by hand from memory or a saved bookmark, or</li>
+            <li>Call the number on the back of your physical card</li>
+          </ul>
+          <p><strong>Never use any contact info from the suspicious message itself</strong> — the attacker controls those too.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Verdict + safe response</span>
+          <p>The example message is phishing — wrong domain, urgency language, generic greeting. The safe response: don't click, don't reply, don't forward. <strong>Delete or report</strong> (most mail clients and phones have a "Report as phishing" or "Report Junk" button). If you already clicked or entered credentials: disconnect from Wi-Fi, change the password from a different clean device, and notify the real institution.</p>
         </div>
       </div>
     </details>
