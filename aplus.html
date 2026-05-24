@@ -2297,6 +2297,27 @@ td strong { color: var(--text); }
     </div>
   </div>
 
+  <!-- WIRELESS PROTOCOLS COMPARISON -->
+  <div class="concepts-section">
+    <h2>📋 Wireless Security Protocols — Side-by-Side</h2>
+    <p>Quick reference for the question that asks you to identify or pick a Wi-Fi network's protection scheme by description. Read across each row.</p>
+    <table class="concept-table">
+      <tr><th>Protocol</th><th>Year</th><th>Cipher / Handshake</th><th>Key management</th><th>Status</th></tr>
+      <tr><td><strong>WEP</strong></td><td>1999</td><td>RC4 + IV reuse flaw</td><td>Static shared key</td><td><span style="color:#ef4444;font-weight:700">BROKEN</span></td></tr>
+      <tr><td><strong>WPA</strong></td><td>2003</td><td>TKIP (per-packet keys on RC4)</td><td>PSK or 802.1X</td><td><span style="color:#ef4444;font-weight:700">BROKEN</span></td></tr>
+      <tr><td><strong>WPA2-Personal</strong></td><td>2004</td><td>AES-CCMP · 4-way handshake</td><td>PSK (pre-shared key)</td><td><span style="color:#f1c40f;font-weight:700">LEGACY OK</span></td></tr>
+      <tr><td><strong>WPA2-Enterprise</strong></td><td>2004</td><td>AES-CCMP · 4-way handshake</td><td>802.1X + RADIUS, per-user credentials</td><td><span style="color:#f1c40f;font-weight:700">LEGACY OK</span></td></tr>
+      <tr><td><strong>WPA3-Personal</strong></td><td>2018</td><td>AES-CCMP + SAE handshake</td><td>SAE (no offline crack)</td><td><span style="color:#22c55e;font-weight:700">CURRENT</span></td></tr>
+      <tr><td><strong>WPA3-Enterprise</strong></td><td>2018</td><td>AES-GCMP-256 · PMF mandatory</td><td>802.1X + RADIUS</td><td><span style="color:#22c55e;font-weight:700">CURRENT</span></td></tr>
+    </table>
+    <div class="tip-box"><div class="tip-label">AES-CCMP vs AES-GCMP vs TKIP</div>
+      <strong>CCMP</strong> = Counter Mode CBC-MAC Protocol — the WPA2 cipher, AES-128 baseline. <strong>GCMP</strong> = Galois Counter Mode Protocol — used by WPA3 (especially the 192-bit Enterprise suite), faster on modern hardware. Both provide confidentiality and integrity. <strong>TKIP</strong> is the deprecated WPA cipher and should never be selected today.
+    </div>
+    <div class="tip-box"><div class="tip-label">PSK vs Enterprise — picking on the exam</div>
+      Home / small office / guest Wi-Fi → <strong>Personal</strong> (PSK). Anywhere with managed user accounts → <strong>Enterprise</strong> (802.1X + RADIUS), so each user has individual credentials and revoking access doesn't require changing the Wi-Fi password for everyone.
+    </div>
+  </div>
+
   <!-- DEFENSE IN DEPTH -->
   <div class="concepts-section">
     <h2>🧅 Defense in Depth — Layered Security</h2>
