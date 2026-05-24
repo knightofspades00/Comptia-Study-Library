@@ -734,6 +734,82 @@ td strong { color: var(--text); }
   .wt-table td strong { color: var(--text); }
 
 
+/* === UX nav enhancements (in-tab jump pills, accordion sub-TOCs, tab counts) === */
+.tab-nav-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg, #0f1117);
+  padding: 8px 4px;
+  margin: 0 -4px 14px;
+  border-bottom: 1px solid var(--surface2, #252840);
+  scrollbar-width: thin;
+}
+.tab-nav-pills::-webkit-scrollbar { height: 4px; }
+.tab-nav-pills::-webkit-scrollbar-thumb { background: var(--surface3, #3d4270); border-radius: 4px; }
+.tab-nav-pill {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 5px 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #8892b0);
+  background: var(--surface2, #252840);
+  border: 1px solid var(--surface3, #3d4270);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.tab-nav-pill:hover { color: var(--accent, #06b6d4); background: var(--surface3, #3d4270); border-color: var(--accent, #06b6d4); }
+.domain-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 16px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--accent, #06b6d4);
+  border-radius: 4px;
+}
+.domain-toc-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted, #8892b0);
+  margin-right: 4px;
+  align-self: center;
+}
+.domain-toc-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent, #06b6d4);
+  text-decoration: none;
+  padding: 2px 9px;
+  background: var(--bg, #0f1117);
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.domain-toc-pill:hover { background: var(--surface2, #252840); text-decoration: underline; }
+.tab-count {
+  display: inline-block;
+  padding: 1px 7px;
+  margin-left: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted, #8892b0);
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+@media print {
+  .tab-nav-pills, .domain-toc, .tab-count { display: none !important; }
+}
+
 </style>
 </head>
 <body>
@@ -3462,6 +3538,126 @@ function buildScoreCard(score, total) {
       new MutationObserver(sync).observe(h, { attributes: true, attributeFilter: ['class'] });
     } catch (e) {}
   });
+})();
+</script>
+<script>
+/* === UX nav enhancements: in-tab jump pills, accordion sub-TOCs, tab counts === */
+(function initUXNav() {
+  function run() {
+    addTabNavPills();
+    addAccordionTOCs();
+    updateTabCounts();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+
+  function slugify(s) {
+    return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 60) || 'sec';
+  }
+
+  function addTabNavPills() {
+    const concepts = document.getElementById('panel-concepts');
+    if (concepts) {
+      const sections = [...concepts.querySelectorAll(':scope > .concepts-section, :scope > .cv-card')];
+      const headings = sections.map(sec => sec.querySelector('h2, h3'));
+      if (sections.length >= 4 && headings.every(Boolean)) {
+        const nav = buildPillNav(sections, headings, 'cp');
+        if (nav) concepts.insertBefore(nav, concepts.firstElementChild);
+      }
+    }
+    const guide = document.getElementById('panel-guide');
+    if (guide) {
+      const cards = [...guide.querySelectorAll(':scope > .domain-card')];
+      const headings = cards.map(c => c.querySelector('.domain-header h3') || c.querySelector('h3'));
+      if (cards.length >= 3 && headings.every(Boolean)) {
+        const nav = buildPillNav(cards, headings, 'sg');
+        if (nav) guide.insertBefore(nav, guide.firstElementChild);
+      }
+    }
+  }
+
+  function buildPillNav(sections, headings, prefix) {
+    if (!sections.length) return null;
+    const nav = document.createElement('div');
+    nav.className = 'tab-nav-pills';
+    nav.setAttribute('aria-label', 'Jump to section');
+    sections.forEach((sec, i) => {
+      const h = headings[i];
+      if (!sec.id) sec.id = prefix + '-' + slugify(h.textContent) + '-' + i;
+      const a = document.createElement('a');
+      a.className = 'tab-nav-pill';
+      a.href = '#' + sec.id;
+      a.textContent = (h.textContent || '').trim().replace(/\s+/g, ' ');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        // If target is a collapsed accordion, expand it first
+        if (sec.classList.contains('domain-card')) {
+          const body = sec.querySelector('.domain-body');
+          if (body && getComputedStyle(body).display === 'none') {
+            const header = sec.querySelector('.domain-header');
+            if (header) header.click();
+          }
+        }
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + sec.id);
+      });
+      nav.appendChild(a);
+    });
+    return nav;
+  }
+
+  function addAccordionTOCs() {
+    const cards = document.querySelectorAll('#panel-guide .domain-card');
+    cards.forEach((card, i) => {
+      const body = card.querySelector('.domain-body');
+      if (!body) return;
+      const h4s = [...body.querySelectorAll(':scope > h4')];
+      if (h4s.length < 2) return;
+      const toc = document.createElement('div');
+      toc.className = 'domain-toc';
+      const label = document.createElement('span');
+      label.className = 'domain-toc-label';
+      label.textContent = 'Jump:';
+      toc.appendChild(label);
+      h4s.forEach((h, j) => {
+        if (!h.id) h.id = 'dh-' + i + '-' + slugify(h.textContent) + '-' + j;
+        const a = document.createElement('a');
+        a.className = 'domain-toc-pill';
+        a.href = '#' + h.id;
+        a.textContent = (h.textContent || '').trim();
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + h.id);
+        });
+        toc.appendChild(a);
+      });
+      body.insertBefore(toc, body.firstElementChild);
+    });
+  }
+
+  function updateTabCounts() {
+    const btns = document.querySelectorAll('button[onclick*="showTab"], .tab-btn, .tab-button');
+    btns.forEach(btn => {
+      if (btn.querySelector('.tab-count')) return;
+      const onclick = btn.getAttribute('onclick') || '';
+      const text = (btn.textContent || '').toLowerCase();
+      let n = null;
+      if (/['"]concepts['"]/.test(onclick) || /\bconcepts\b/.test(text)) {
+        const root = document.getElementById('panel-concepts');
+        if (root) {
+          n = root.querySelectorAll(':scope > .concepts-section, :scope > .cv-card').length;
+        }
+      } else if (/['"]quiz['"]/.test(onclick) || /\bquiz\b/.test(text)) {
+        if (typeof quizQuestions !== 'undefined' && Array.isArray(quizQuestions)) n = quizQuestions.length;
+      }
+      if (n == null || isNaN(n) || n === 0) return;
+      const span = document.createElement('span');
+      span.className = 'tab-count';
+      span.textContent = n;
+      btn.appendChild(document.createTextNode(' '));
+      btn.appendChild(span);
+    });
+  }
 })();
 </script>
 </body>
