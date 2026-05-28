@@ -1319,12 +1319,484 @@ td strong { color: var(--text); }
 </div>
 
 <div id="panel-concepts" class="tab-panel">
-  <h2 style="margin-top:0;">💡 Concepts &amp; Visuals</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">6 SVG infographics (vector vs raster · projection families · drawing order · attribute vs spatial query · web map architecture · classification methods) plus 3 walkthroughs.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+
+  <!-- ═══ SVG 1: Vector vs Raster ═══ -->
+  <div class="concepts-section">
+    <h2>📍 Vector vs Raster — the two data models</h2>
+    <p>Every GIS layer is one of these two. Vector for things with sharp boundaries; raster for things that change smoothly across space.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Vector data uses points, lines, and polygons defined by vertices; raster data uses a grid of cells (pixels) each holding one value</title>
+        <!-- VECTOR side -->
+        <rect x="10" y="20" width="310" height="320" rx="10" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+        <text x="165" y="46" text-anchor="middle" fill="#06b6d4" font-size="14" font-weight="800">VECTOR — shapes &amp; vertices</text>
+        <text x="165" y="62" text-anchor="middle" fill="#8892b0" font-size="10">scale-independent · crisp at any zoom</text>
+        <polygon points="50,90 110,80 160,115 145,170 80,160 35,125" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2"/>
+        <circle cx="50" cy="90" r="3" fill="#ff6b35"/><circle cx="110" cy="80" r="3" fill="#ff6b35"/>
+        <circle cx="160" cy="115" r="3" fill="#ff6b35"/><circle cx="145" cy="170" r="3" fill="#ff6b35"/>
+        <circle cx="80" cy="160" r="3" fill="#ff6b35"/><circle cx="35" cy="125" r="3" fill="#ff6b35"/>
+        <text x="100" y="195" text-anchor="middle" fill="#e8eaf0" font-size="11">Polygon (parcel)</text>
+        <text x="100" y="208" text-anchor="middle" fill="#8892b0" font-size="9" font-style="italic">vertices in orange</text>
+        <polyline points="200,90 220,125 245,100 270,140 290,115" fill="none" stroke="#06b6d4" stroke-width="2.5"/>
+        <text x="245" y="160" text-anchor="middle" fill="#e8eaf0" font-size="11">Polyline (river)</text>
+        <circle cx="50" cy="260" r="6" fill="#ff6b35"/><circle cx="110" cy="270" r="6" fill="#ff6b35"/>
+        <circle cx="170" cy="255" r="6" fill="#ff6b35"/><circle cx="230" cy="280" r="6" fill="#ff6b35"/>
+        <circle cx="290" cy="265" r="6" fill="#ff6b35"/>
+        <text x="170" y="310" text-anchor="middle" fill="#e8eaf0" font-size="11">Points (schools)</text>
+        <text x="165" y="328" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">Best: roads, parcels, infrastructure</text>
+        <!-- RASTER side -->
+        <rect x="340" y="20" width="310" height="320" rx="10" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+        <text x="495" y="46" text-anchor="middle" fill="#f1c40f" font-size="14" font-weight="800">RASTER — grid of cells</text>
+        <text x="495" y="62" text-anchor="middle" fill="#8892b0" font-size="10">one value per cell · resolution-bound</text>
+        <!-- 7x5 cell grid showing elevation gradient -->
+        <g font-size="9" font-weight="700">
+          <rect x="365" y="80"  width="36" height="36" fill="#1e3a5f"/><text x="383" y="103" text-anchor="middle" fill="#e8eaf0">85</text>
+          <rect x="401" y="80"  width="36" height="36" fill="#1e3a5f"/><text x="419" y="103" text-anchor="middle" fill="#e8eaf0">88</text>
+          <rect x="437" y="80"  width="36" height="36" fill="#26537a"/><text x="455" y="103" text-anchor="middle" fill="#e8eaf0">110</text>
+          <rect x="473" y="80"  width="36" height="36" fill="#3674a3"/><text x="491" y="103" text-anchor="middle" fill="#e8eaf0">145</text>
+          <rect x="509" y="80"  width="36" height="36" fill="#4c97c9"/><text x="527" y="103" text-anchor="middle" fill="#1a1d2e">180</text>
+          <rect x="545" y="80"  width="36" height="36" fill="#7bb7da"/><text x="563" y="103" text-anchor="middle" fill="#1a1d2e">210</text>
+          <rect x="581" y="80"  width="36" height="36" fill="#a3d2e5"/><text x="599" y="103" text-anchor="middle" fill="#1a1d2e">240</text>
+          <rect x="365" y="116" width="36" height="36" fill="#26537a"/><text x="383" y="139" text-anchor="middle" fill="#e8eaf0">102</text>
+          <rect x="401" y="116" width="36" height="36" fill="#26537a"/><text x="419" y="139" text-anchor="middle" fill="#e8eaf0">115</text>
+          <rect x="437" y="116" width="36" height="36" fill="#3674a3"/><text x="455" y="139" text-anchor="middle" fill="#e8eaf0">152</text>
+          <rect x="473" y="116" width="36" height="36" fill="#4c97c9"/><text x="491" y="139" text-anchor="middle" fill="#1a1d2e">186</text>
+          <rect x="509" y="116" width="36" height="36" fill="#7bb7da"/><text x="527" y="139" text-anchor="middle" fill="#1a1d2e">215</text>
+          <rect x="545" y="116" width="36" height="36" fill="#a3d2e5"/><text x="563" y="139" text-anchor="middle" fill="#1a1d2e">248</text>
+          <rect x="581" y="116" width="36" height="36" fill="#c6e3ef"/><text x="599" y="139" text-anchor="middle" fill="#1a1d2e">270</text>
+          <rect x="365" y="152" width="36" height="36" fill="#1e3a5f"/><text x="383" y="175" text-anchor="middle" fill="#e8eaf0">92</text>
+          <rect x="401" y="152" width="36" height="36" fill="#26537a"/><text x="419" y="175" text-anchor="middle" fill="#e8eaf0">120</text>
+          <rect x="437" y="152" width="36" height="36" fill="#3674a3"/><text x="455" y="175" text-anchor="middle" fill="#e8eaf0">155</text>
+          <rect x="473" y="152" width="36" height="36" fill="#4c97c9"/><text x="491" y="175" text-anchor="middle" fill="#1a1d2e">192</text>
+          <rect x="509" y="152" width="36" height="36" fill="#7bb7da"/><text x="527" y="175" text-anchor="middle" fill="#1a1d2e">220</text>
+          <rect x="545" y="152" width="36" height="36" fill="#a3d2e5"/><text x="563" y="175" text-anchor="middle" fill="#1a1d2e">252</text>
+          <rect x="581" y="152" width="36" height="36" fill="#c6e3ef"/><text x="599" y="175" text-anchor="middle" fill="#1a1d2e">275</text>
+          <rect x="365" y="188" width="36" height="36" fill="#1e3a5f"/><text x="383" y="211" text-anchor="middle" fill="#e8eaf0">80</text>
+          <rect x="401" y="188" width="36" height="36" fill="#1e3a5f"/><text x="419" y="211" text-anchor="middle" fill="#e8eaf0">95</text>
+          <rect x="437" y="188" width="36" height="36" fill="#26537a"/><text x="455" y="211" text-anchor="middle" fill="#e8eaf0">130</text>
+          <rect x="473" y="188" width="36" height="36" fill="#3674a3"/><text x="491" y="211" text-anchor="middle" fill="#e8eaf0">170</text>
+          <rect x="509" y="188" width="36" height="36" fill="#4c97c9"/><text x="527" y="211" text-anchor="middle" fill="#1a1d2e">200</text>
+          <rect x="545" y="188" width="36" height="36" fill="#7bb7da"/><text x="563" y="211" text-anchor="middle" fill="#1a1d2e">232</text>
+          <rect x="581" y="188" width="36" height="36" fill="#a3d2e5"/><text x="599" y="211" text-anchor="middle" fill="#1a1d2e">260</text>
+        </g>
+        <text x="495" y="252" text-anchor="middle" fill="#e8eaf0" font-size="11">Each cell = one elevation value</text>
+        <text x="495" y="268" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">(DEM — Digital Elevation Model, 30 m cells)</text>
+        <text x="495" y="308" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">Best: elevation, temperature, imagery</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Choose by phenomenon</div>
+      Sharp boundary, discrete features (a parcel, a road, a school) → <strong>vector</strong>. Continuous values that change smoothly across space (elevation, temperature, NDVI) → <strong>raster</strong>. Many real maps combine both: a vector polygon of a watershed sitting on a raster DEM.
+    </div>
   </div>
+
+  <!-- ═══ SVG 2: Projection Families ═══ -->
+  <div class="concepts-section">
+    <h2>🌐 Projection families — what each preserves (and distorts)</h2>
+    <p>Every projection is a compromise. Pick by which property has to be true for your map.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Conformal projections preserve angles and shape, equal-area preserves area, equidistant preserves distance from a point, compromise balances all properties</title>
+        <!-- Quadrant 1: Conformal -->
+        <rect x="10" y="20" width="315" height="160" rx="10" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+        <text x="168" y="46" text-anchor="middle" fill="#06b6d4" font-size="14" font-weight="800">CONFORMAL</text>
+        <text x="168" y="62" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">✓ angles + local shape</text>
+        <text x="168" y="76" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">✗ area distorted</text>
+        <ellipse cx="60" cy="118" rx="20" ry="20" fill="#06b6d4" fill-opacity="0.35" stroke="#06b6d4" stroke-width="2"/>
+        <text x="60" y="158" text-anchor="middle" fill="#e8eaf0" font-size="10">equator: round</text>
+        <ellipse cx="170" cy="118" rx="20" ry="20" fill="#06b6d4" fill-opacity="0.35" stroke="#06b6d4" stroke-width="2"/>
+        <text x="170" y="158" text-anchor="middle" fill="#e8eaf0" font-size="10">mid-lat: round</text>
+        <ellipse cx="280" cy="118" rx="32" ry="32" fill="#06b6d4" fill-opacity="0.35" stroke="#06b6d4" stroke-width="2"/>
+        <text x="280" y="172" text-anchor="middle" fill="#e8eaf0" font-size="10">high-lat: ROUND but big</text>
+        <text x="168" y="172" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">Mercator, Lambert Conformal</text>
+        <!-- Quadrant 2: Equal-area -->
+        <rect x="335" y="20" width="315" height="160" rx="10" fill="#252840" stroke="#22c55e" stroke-width="2"/>
+        <text x="493" y="46" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="800">EQUAL-AREA</text>
+        <text x="493" y="62" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">✓ area</text>
+        <text x="493" y="76" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">✗ shape squished</text>
+        <ellipse cx="385" cy="118" rx="22" ry="22" fill="#22c55e" fill-opacity="0.35" stroke="#22c55e" stroke-width="2"/>
+        <text x="385" y="158" text-anchor="middle" fill="#e8eaf0" font-size="10">equator: round</text>
+        <ellipse cx="495" cy="118" rx="26" ry="18" fill="#22c55e" fill-opacity="0.35" stroke="#22c55e" stroke-width="2"/>
+        <text x="495" y="158" text-anchor="middle" fill="#e8eaf0" font-size="10">mid-lat: squished</text>
+        <ellipse cx="605" cy="118" rx="32" ry="14" fill="#22c55e" fill-opacity="0.35" stroke="#22c55e" stroke-width="2"/>
+        <text x="605" y="158" text-anchor="middle" fill="#e8eaf0" font-size="10">high-lat: flat oval</text>
+        <text x="493" y="172" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">Albers, Mollweide</text>
+        <!-- Quadrant 3: Equidistant -->
+        <rect x="10" y="190" width="315" height="160" rx="10" fill="#252840" stroke="#a855f7" stroke-width="2"/>
+        <text x="168" y="216" text-anchor="middle" fill="#a855f7" font-size="14" font-weight="800">EQUIDISTANT</text>
+        <text x="168" y="232" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">✓ distance from 1 point</text>
+        <text x="168" y="246" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">✗ area + shape elsewhere</text>
+        <circle cx="168" cy="295" r="6" fill="#ff6b35"/>
+        <circle cx="168" cy="295" r="18" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <circle cx="168" cy="295" r="32" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <circle cx="168" cy="295" r="46" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <text x="168" y="345" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">Azimuthal Equidistant</text>
+        <!-- Quadrant 4: Compromise -->
+        <rect x="335" y="190" width="315" height="160" rx="10" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+        <text x="493" y="216" text-anchor="middle" fill="#f1c40f" font-size="14" font-weight="800">COMPROMISE</text>
+        <text x="493" y="232" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">✓ balanced</text>
+        <text x="493" y="246" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">✗ nothing perfectly preserved</text>
+        <path d="M 405 295 Q 425 270 460 268 Q 510 270 540 285 Q 570 300 580 295 Q 565 305 530 312 Q 470 318 430 312 Q 405 308 405 295 Z" fill="#f1c40f" fill-opacity="0.2" stroke="#f1c40f" stroke-width="2"/>
+        <text x="493" y="345" text-anchor="middle" fill="#f1c40f" font-size="10" font-weight="700">Robinson, Winkel Tripel</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Pick by purpose</div>
+      Choropleth (density, percentages) → <strong>equal-area</strong>. Navigation, weather → <strong>conformal</strong>. "Distance from this airport" → <strong>equidistant</strong>. General-purpose world reference → <strong>compromise</strong>. Web tiles default to <strong>Web Mercator (conformal)</strong> — gorgeous for streets, terrible for area-based stats.
+    </div>
+  </div>
+
+  <!-- ═══ SVG 3: Layer drawing order ═══ -->
+  <div class="concepts-section">
+    <h2>📚 Layer drawing order — what sits on top of what</h2>
+    <p>Layers in ArcGIS Pro draw bottom-to-top, like sheets of paper stacked. If a feature is hidden, check the order.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Layers stack from bottom to top: basemap, polygons, lines, points, labels. Labels always render on top so they remain readable.</title>
+        <defs>
+          <marker id="dArr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#06b6d4"/></marker>
+        </defs>
+        <!-- arrow showing draw order top-down -->
+        <text x="40" y="40" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">draws</text>
+        <text x="40" y="54" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">LAST</text>
+        <text x="40" y="70" text-anchor="middle" fill="#06b6d4" font-size="14">↓</text>
+        <text x="40" y="86" text-anchor="middle" fill="#06b6d4" font-size="14">↓</text>
+        <text x="40" y="102" text-anchor="middle" fill="#06b6d4" font-size="14">↓</text>
+        <text x="40" y="118" text-anchor="middle" fill="#06b6d4" font-size="14">↓</text>
+        <text x="40" y="134" text-anchor="middle" fill="#06b6d4" font-size="14">↓</text>
+        <text x="40" y="290" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">draws</text>
+        <text x="40" y="304" text-anchor="middle" fill="#06b6d4" font-size="11" font-weight="700">FIRST</text>
+        <!-- 5 stacked layers -->
+        <g>
+          <rect x="80" y="30" width="540" height="48" rx="6" fill="#252840" stroke="#22c55e" stroke-width="2"/>
+          <text x="100" y="58" fill="#22c55e" font-size="13" font-weight="800">5. Labels &amp; Annotation</text>
+          <text x="430" y="58" fill="#8892b0" font-size="11">always on top so text stays readable</text>
+        </g>
+        <g>
+          <rect x="80" y="86" width="540" height="48" rx="6" fill="#252840" stroke="#ff6b35" stroke-width="2"/>
+          <text x="100" y="114" fill="#ff6b35" font-size="13" font-weight="800">4. Point features</text>
+          <text x="430" y="114" fill="#8892b0" font-size="11">schools, hydrants, sample sites</text>
+        </g>
+        <g>
+          <rect x="80" y="142" width="540" height="48" rx="6" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+          <text x="100" y="170" fill="#06b6d4" font-size="13" font-weight="800">3. Line features</text>
+          <text x="430" y="170" fill="#8892b0" font-size="11">roads, rivers, transit lines</text>
+        </g>
+        <g>
+          <rect x="80" y="198" width="540" height="48" rx="6" fill="#252840" stroke="#a855f7" stroke-width="2"/>
+          <text x="100" y="226" fill="#a855f7" font-size="13" font-weight="800">2. Polygon features</text>
+          <text x="430" y="226" fill="#8892b0" font-size="11">parcels, counties, fire perimeters</text>
+        </g>
+        <g>
+          <rect x="80" y="254" width="540" height="48" rx="6" fill="#252840" stroke="#f1c40f" stroke-width="2"/>
+          <text x="100" y="282" fill="#f1c40f" font-size="13" font-weight="800">1. Basemap (raster or vector tiles)</text>
+          <text x="430" y="282" fill="#8892b0" font-size="11">streets, imagery, topo, light-gray canvas</text>
+        </g>
+        <text x="340" y="335" text-anchor="middle" fill="#8892b0" font-size="11" font-style="italic">In ArcGIS Pro Contents pane: top of list = top of map. Drag to reorder.</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Why this matters</div>
+      A common bug: you added a polygon layer and now your point layer "disappeared." It's still there — the polygon is on top covering it. Drag the points above the polygons in the Contents pane. <strong>Point → Line → Polygon → Basemap</strong> bottom-up is the rule of thumb.
+    </div>
+  </div>
+
+  <!-- ═══ SVG 4: Attribute vs Spatial Query ═══ -->
+  <div class="concepts-section">
+    <h2>🔍 Attribute query vs Spatial query — two ways to select</h2>
+    <p>Both tools narrow a layer to the features you care about. They answer different questions.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>Attribute queries select features by attribute table values using SQL; spatial queries select features by geographic relationship with another layer</title>
+        <!-- Attribute query side -->
+        <rect x="10" y="20" width="310" height="280" rx="10" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+        <text x="165" y="46" text-anchor="middle" fill="#06b6d4" font-size="14" font-weight="800">SELECT BY ATTRIBUTES</text>
+        <text x="165" y="62" text-anchor="middle" fill="#8892b0" font-size="11">asks the TABLE: which rows match?</text>
+        <rect x="30" y="80" width="270" height="80" rx="6" fill="#0f1117" stroke="#3d4270" stroke-width="1"/>
+        <text x="40" y="100" fill="#8892b0" font-size="10" font-family="monospace">SQL query:</text>
+        <text x="40" y="120" fill="#06b6d4" font-size="12" font-family="monospace" font-weight="700">POPULATION &gt; 50000</text>
+        <text x="40" y="138" fill="#06b6d4" font-size="12" font-family="monospace" font-weight="700">  AND STATE = 'TX'</text>
+        <text x="165" y="180" text-anchor="middle" fill="#e8eaf0" font-size="11">Reads the attribute table</text>
+        <text x="165" y="196" text-anchor="middle" fill="#e8eaf0" font-size="11">Returns features whose</text>
+        <text x="165" y="212" text-anchor="middle" fill="#e8eaf0" font-size="11">values match the query</text>
+        <text x="165" y="244" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Use when criteria are about</text>
+        <text x="165" y="260" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">the data itself</text>
+        <text x="165" y="288" text-anchor="middle" fill="#f1c40f" font-size="10" font-style="italic">"big Texas cities"</text>
+        <!-- Spatial query side -->
+        <rect x="340" y="20" width="310" height="280" rx="10" fill="#252840" stroke="#a855f7" stroke-width="2"/>
+        <text x="495" y="46" text-anchor="middle" fill="#a855f7" font-size="14" font-weight="800">SELECT BY LOCATION</text>
+        <text x="495" y="62" text-anchor="middle" fill="#8892b0" font-size="11">asks the MAP: where are they relative to X?</text>
+        <rect x="360" y="80" width="270" height="80" rx="6" fill="#0f1117" stroke="#3d4270" stroke-width="1"/>
+        <text x="370" y="100" fill="#8892b0" font-size="10">Spatial relationships:</text>
+        <text x="370" y="118" fill="#a855f7" font-size="11" font-weight="700">• intersects</text>
+        <text x="370" y="134" fill="#a855f7" font-size="11" font-weight="700">• within / contains</text>
+        <text x="370" y="150" fill="#a855f7" font-size="11" font-weight="700">• within a distance of</text>
+        <text x="495" y="180" text-anchor="middle" fill="#e8eaf0" font-size="11">Reads the GEOMETRY</text>
+        <text x="495" y="196" text-anchor="middle" fill="#e8eaf0" font-size="11">Returns features that have</text>
+        <text x="495" y="212" text-anchor="middle" fill="#e8eaf0" font-size="11">the chosen relationship with B</text>
+        <text x="495" y="244" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">Use when criteria are about</text>
+        <text x="495" y="260" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="700">spatial position</text>
+        <text x="495" y="288" text-anchor="middle" fill="#f1c40f" font-size="10" font-style="italic">"schools within 500 m of any park"</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Combine them</div>
+      The most common real query is BOTH: <em>"high-priority projects (attribute) within the floodplain (spatial)."</em> ArcGIS Pro lets you chain — apply Select By Attributes, then Select By Location with "from currently selected features" to layer the criteria.
+    </div>
+  </div>
+
+  <!-- ═══ SVG 5: Web map architecture ═══ -->
+  <div class="concepts-section">
+    <h2>🌍 Web map architecture — Pro to AGOL to browser</h2>
+    <p>A web map in someone's browser is the tip of a four-tier stack. Knowing the path makes "where do I change this?" obvious.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>ArcGIS Pro publishes data to a hosted feature layer on ArcGIS Online; web maps reference that layer plus a basemap; the browser renders the web map via the REST API</title>
+        <defs>
+          <marker id="webArr" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#06b6d4"/></marker>
+        </defs>
+        <!-- Tier 1: ArcGIS Pro (bottom = source) -->
+        <rect x="20" y="280" width="620" height="58" rx="8" fill="#252840" stroke="#a855f7" stroke-width="2"/>
+        <text x="40" y="305" fill="#a855f7" font-size="14" font-weight="800">📦 ArcGIS Pro (authoring)</text>
+        <text x="40" y="324" fill="#8892b0" font-size="11">local geodatabase, your editing environment · Share As → Web Layer</text>
+        <text x="600" y="318" text-anchor="end" fill="#22c55e" font-size="11" font-weight="700">Edit here</text>
+        <!-- arrow up -->
+        <line x1="330" y1="278" x2="330" y2="252" stroke="#06b6d4" stroke-width="2" marker-end="url(#webArr)"/>
+        <text x="350" y="270" fill="#06b6d4" font-size="10" font-style="italic">Publish</text>
+        <!-- Tier 2: AGOL hosted layer -->
+        <rect x="20" y="210" width="620" height="42" rx="8" fill="#252840" stroke="#06b6d4" stroke-width="2"/>
+        <text x="40" y="237" fill="#06b6d4" font-size="13" font-weight="800">🗄️ Hosted Feature Layer (in your AGOL org)</text>
+        <text x="600" y="237" text-anchor="end" fill="#8892b0" font-size="11">data lives in the cloud · REST endpoint</text>
+        <!-- arrow up -->
+        <line x1="330" y1="208" x2="330" y2="184" stroke="#06b6d4" stroke-width="2" marker-end="url(#webArr)"/>
+        <text x="350" y="200" fill="#06b6d4" font-size="10" font-style="italic">Add to map + style</text>
+        <!-- Tier 3: Web map JSON -->
+        <rect x="20" y="142" width="620" height="42" rx="8" fill="#252840" stroke="#ff6b35" stroke-width="2"/>
+        <text x="40" y="169" fill="#ff6b35" font-size="13" font-weight="800">🗺️ Web Map (JSON document)</text>
+        <text x="600" y="169" text-anchor="end" fill="#8892b0" font-size="11">basemap + layer URLs + popups + symbology</text>
+        <!-- arrow up -->
+        <line x1="330" y1="140" x2="330" y2="116" stroke="#06b6d4" stroke-width="2" marker-end="url(#webArr)"/>
+        <text x="350" y="132" fill="#06b6d4" font-size="10" font-style="italic">Open in app or viewer</text>
+        <!-- Tier 4: Browser -->
+        <rect x="20" y="74" width="620" height="42" rx="8" fill="#252840" stroke="#22c55e" stroke-width="2"/>
+        <text x="40" y="101" fill="#22c55e" font-size="13" font-weight="800">🌐 Browser (Map Viewer · Dashboard · Experience Builder)</text>
+        <text x="600" y="101" text-anchor="end" fill="#22c55e" font-size="11" font-weight="700">What the user sees</text>
+        <!-- Title -->
+        <text x="330" y="38" text-anchor="middle" fill="#e8eaf0" font-size="14" font-weight="800">The four tiers — top is what's rendered, bottom is where it lives</text>
+        <text x="330" y="56" text-anchor="middle" fill="#8892b0" font-size="11">Where you make a change determines who sees it</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">Where do I fix this?</div>
+      <strong>Symbology wrong?</strong> Edit the web map (tier 3). <strong>Data wrong?</strong> Edit the source in Pro and re-publish, OR edit the hosted feature layer directly in AGOL (tier 2). <strong>Layout/UI wrong?</strong> Edit the app config (tier 4). Don't edit hosted features in AGOL and ALSO in Pro — your edits diverge.
+    </div>
+  </div>
+
+  <!-- ═══ SVG 6: Classification Methods ═══ -->
+  <div class="concepts-section">
+    <h2>📊 Classification methods — same data, four stories</h2>
+    <p>Take a skewed dataset (most counties low, a few high) and bin it four ways. Each method produces a different map.</p>
+    <div class="infographic-wrap">
+      <svg role="img" viewBox="0 0 660 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:6px auto 14px;">
+        <title>The same 16 data values are classified four ways: Equal Interval, Quantile, Natural Breaks, Standard Deviation — each produces a different visual story</title>
+        <!-- header -->
+        <text x="330" y="22" text-anchor="middle" fill="#e8eaf0" font-size="13" font-weight="800">Same 16 values: 5, 8, 10, 12, 14, 16, 18, 20, 22, 25, 30, 50, 80, 120, 180, 240</text>
+        <text x="330" y="38" text-anchor="middle" fill="#8892b0" font-size="11" font-style="italic">Skewed — most small, a few large. Color: light = low, dark = high.</text>
+        <!-- Row 1: Equal Interval -->
+        <text x="10" y="80" fill="#06b6d4" font-size="12" font-weight="800">Equal Interval</text>
+        <text x="10" y="94" fill="#8892b0" font-size="10">bins by VALUE range</text>
+        <g>
+          <rect x="170" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="194" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="218" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="242" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="266" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="290" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="314" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="338" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="362" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="386" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="410" y="65" width="22" height="30" fill="#d3e8e0"/><rect x="434" y="65" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="458" y="65" width="22" height="30" fill="#7bb7da"/><rect x="482" y="65" width="22" height="30" fill="#4c97c9"/>
+          <rect x="506" y="65" width="22" height="30" fill="#3674a3"/><rect x="530" y="65" width="22" height="30" fill="#1e3a5f"/>
+        </g>
+        <text x="565" y="84" fill="#ef4444" font-size="10" font-weight="700">⚠ all light</text>
+        <!-- Row 2: Quantile -->
+        <text x="10" y="160" fill="#06b6d4" font-size="12" font-weight="800">Quantile</text>
+        <text x="10" y="174" fill="#8892b0" font-size="10">bins by feature COUNT</text>
+        <g>
+          <rect x="170" y="145" width="22" height="30" fill="#d3e8e0"/><rect x="194" y="145" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="218" y="145" width="22" height="30" fill="#d3e8e0"/><rect x="242" y="145" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="266" y="145" width="22" height="30" fill="#7bb7da"/><rect x="290" y="145" width="22" height="30" fill="#7bb7da"/>
+          <rect x="314" y="145" width="22" height="30" fill="#7bb7da"/><rect x="338" y="145" width="22" height="30" fill="#7bb7da"/>
+          <rect x="362" y="145" width="22" height="30" fill="#4c97c9"/><rect x="386" y="145" width="22" height="30" fill="#4c97c9"/>
+          <rect x="410" y="145" width="22" height="30" fill="#4c97c9"/><rect x="434" y="145" width="22" height="30" fill="#4c97c9"/>
+          <rect x="458" y="145" width="22" height="30" fill="#1e3a5f"/><rect x="482" y="145" width="22" height="30" fill="#1e3a5f"/>
+          <rect x="506" y="145" width="22" height="30" fill="#1e3a5f"/><rect x="530" y="145" width="22" height="30" fill="#1e3a5f"/>
+        </g>
+        <text x="565" y="164" fill="#22c55e" font-size="10" font-weight="700">balanced</text>
+        <!-- Row 3: Natural Breaks -->
+        <text x="10" y="240" fill="#06b6d4" font-size="12" font-weight="800">Natural Breaks</text>
+        <text x="10" y="254" fill="#8892b0" font-size="10">finds GAPS in the data</text>
+        <g>
+          <rect x="170" y="225" width="22" height="30" fill="#d3e8e0"/><rect x="194" y="225" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="218" y="225" width="22" height="30" fill="#d3e8e0"/><rect x="242" y="225" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="266" y="225" width="22" height="30" fill="#d3e8e0"/><rect x="290" y="225" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="314" y="225" width="22" height="30" fill="#d3e8e0"/><rect x="338" y="225" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="362" y="225" width="22" height="30" fill="#d3e8e0"/><rect x="386" y="225" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="410" y="225" width="22" height="30" fill="#7bb7da"/><rect x="434" y="225" width="22" height="30" fill="#7bb7da"/>
+          <rect x="458" y="225" width="22" height="30" fill="#4c97c9"/><rect x="482" y="225" width="22" height="30" fill="#4c97c9"/>
+          <rect x="506" y="225" width="22" height="30" fill="#1e3a5f"/><rect x="530" y="225" width="22" height="30" fill="#1e3a5f"/>
+        </g>
+        <text x="565" y="244" fill="#22c55e" font-size="10" font-weight="700">best default</text>
+        <!-- Row 4: Standard Deviation -->
+        <text x="10" y="320" fill="#06b6d4" font-size="12" font-weight="800">Standard Dev.</text>
+        <text x="10" y="334" fill="#8892b0" font-size="10">bins around MEAN</text>
+        <g>
+          <rect x="170" y="305" width="22" height="30" fill="#7bb7da"/><rect x="194" y="305" width="22" height="30" fill="#7bb7da"/>
+          <rect x="218" y="305" width="22" height="30" fill="#7bb7da"/><rect x="242" y="305" width="22" height="30" fill="#7bb7da"/>
+          <rect x="266" y="305" width="22" height="30" fill="#7bb7da"/><rect x="290" y="305" width="22" height="30" fill="#7bb7da"/>
+          <rect x="314" y="305" width="22" height="30" fill="#7bb7da"/><rect x="338" y="305" width="22" height="30" fill="#7bb7da"/>
+          <rect x="362" y="305" width="22" height="30" fill="#7bb7da"/><rect x="386" y="305" width="22" height="30" fill="#7bb7da"/>
+          <rect x="410" y="305" width="22" height="30" fill="#7bb7da"/><rect x="434" y="305" width="22" height="30" fill="#d3e8e0"/>
+          <rect x="458" y="305" width="22" height="30" fill="#d3e8e0"/><rect x="482" y="305" width="22" height="30" fill="#3674a3"/>
+          <rect x="506" y="305" width="22" height="30" fill="#1e3a5f"/><rect x="530" y="305" width="22" height="30" fill="#1e3a5f"/>
+        </g>
+        <text x="565" y="324" fill="#f1c40f" font-size="10" font-weight="700">"above avg?"</text>
+        <!-- Legend / takeaway -->
+        <text x="330" y="380" text-anchor="middle" fill="#e8eaf0" font-size="11" font-weight="700">For SKEWED data: avoid Equal Interval. Natural Breaks (Jenks) is the safest default.</text>
+        <text x="330" y="402" text-anchor="middle" fill="#8892b0" font-size="10" font-style="italic">Quantile if ranking matters. Std Dev if "deviation from average" is the story.</text>
+      </svg>
+    </div>
+    <div class="tip-box"><div class="tip-label">The classification trap</div>
+      Equal Interval is intuitive but dishonest with skewed data — it dumps most counties into one bin and makes the map look uniform. <strong>Inspect the histogram first.</strong> If most values cluster low with a long tail, pick Natural Breaks (or Quantile if the story is ranking). The choice changes what the map says, not just how it looks.
+    </div>
+  </div>
+
+  <!-- ═══ WALK ME THROUGH IT ═══ -->
+  <div class="concepts-section">
+    <h2>🧠 Walk Me Through It — Step-by-Step Workings</h2>
+    <p>Three step-by-step scenarios that show up on the cert and in real GIS work. Click any panel to expand.</p>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🧭</span><span>Layers don't line up — Project or Define Projection?</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> A colleague hands you a shapefile of county boundaries. You drop it into your project — and it lands in the Gulf of Mexico instead of Texas. The data has no <code>.prj</code> file. What do you do?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Identify the symptom</span>
+          <p>Coordinates that fall in the wrong real-world place usually mean the data IS in a real CRS — just unlabeled or mislabeled. The geometry numbers are fine; ArcGIS doesn't know how to interpret them.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Inspect the coordinates</span>
+          <p>Right-click the layer → Properties → Source. Look at sample coordinate values. Values like <code>(-97.123, 30.456)</code> = decimal degrees (GCS). Values like <code>(682500, 3371000)</code> = projected (likely meters, possibly UTM or State Plane).</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Choose the right tool</span>
+          <table class="wt-table">
+            <tr><th>Symptom</th><th>Tool</th><th>What it does</th></tr>
+            <tr><td>Data unlabeled, coordinates look correct for some known CRS</td><td><strong>Define Projection</strong></td><td>Adds the CRS label. Geometry numbers unchanged.</td></tr>
+            <tr><td>Data labeled with CRS A, you need it in CRS B</td><td><strong>Project</strong></td><td>Math-transforms coordinates from A to B.</td></tr>
+            <tr><td>Data labeled WRONG (label doesn't match the coordinate values)</td><td><strong>Define Projection</strong> with the CORRECT label first, then Project if you also need to convert</td><td>Fix the label, then transform if needed</td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Apply to this scenario</span>
+          <p>Coordinates look like <code>(682500, 3371000)</code> — meter-range numbers, so projected. Texas is in UTM Zone 14N. Try <strong>Define Projection</strong> → UTM Zone 14N NAD 83 (EPSG 26914). Reload — counties now snap into Texas. Done.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Exam decision rule</span>
+          <ul>
+            <li>"Data appears in wrong place, no .prj" → <strong>Define Projection</strong> (you're adding the missing label)</li>
+            <li>"Data in CRS A, analysis layer in CRS B" → <strong>Project</strong> (you're converting)</li>
+            <li>"Defined Projection by mistake with the wrong CRS" → <strong>Define Projection</strong> AGAIN with the right CRS to fix the label</li>
+            <li>Never: use Project on already-correct data hoping to "match" the map frame — Pro projects on the fly for display.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">🔬</span><span>Find schools within 500 m of any park — full workflow</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> Your superintendent wants a list of every school within 500 m of any city park, plus the name of the nearest park for each. You have a Schools layer (points) and a Parks layer (polygons). Walk the analysis end-to-end.</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Check the CRSs</span>
+          <p>Distance tools need a PROJECTED CRS (meters or feet). If either layer is in a Geographic CRS (degrees), use Project first to a local UTM or State Plane zone. Otherwise "500" gets interpreted as 500 degrees of longitude — useless.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Buffer the parks 500 m</span>
+          <p>Buffer (Analysis tool) → Input = Parks → Distance = 500 m → Dissolve = ALL → Output = Parks_500mBuffer. Dissolve merges overlapping buffer rings so adjacent parks don't double-count. Output is one or a few polygon features.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Select schools inside the buffer</span>
+          <p>Two equivalent options:</p>
+          <ul>
+            <li><strong>Select By Location</strong>: Target = Schools, Relationship = "Intersects", Source = Parks_500mBuffer. Apply. Schools inside the buffer light up.</li>
+            <li><strong>Clip</strong>: Input = Schools, Clip Layer = Parks_500mBuffer, Output = Schools_NearPark. Produces a new feature class containing only the nearby schools.</li>
+          </ul>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Attach the nearest park's name</span>
+          <p>Now bring in park info per school via <strong>Spatial Join</strong>:</p>
+          <p>Target = Schools_NearPark · Join Feature = Parks · Operation = "Join one to one" · Match Option = <strong>Closest</strong>. Add a Distance field. Output = a Schools layer where each row carries the nearest park's NAME and the distance.</p>
+          <p>For one-school-to-many-parks (e.g., a school within 500 m of three parks, want a row for each), use "Join one to many" with Match Option = "Within a distance of 500 m".</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 5 — Deliverable</span>
+          <p>Export the resulting Schools_NearPark table to CSV (Right-click → Data → Export Table) and attach it to your email. Optionally, share a web map showing the buffer, parks, and the highlighted schools.</p>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Workflow shortcut</span>
+          <p>Whenever you see <em>"features of A within distance D of features in B"</em> on an exam: <strong>Buffer B, then Spatial Join (or Select By Location) on A</strong>. Memorize this 2-tool sequence — it appears in almost every applied scenario question.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="walkthrough">
+      <summary><span class="wt-emoji">📊</span><span>Pick a classification method — county income map</span></summary>
+      <div class="walkthrough-body">
+        <div class="wt-scenario"><strong>Scenario:</strong> You're making a US county-level median household income choropleth. Most counties cluster between $40K and $70K, but a handful of suburban counties hit $150K+. You try Equal Interval and the map looks almost entirely one color. Now what?</div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 1 — Diagnose: skewed data</span>
+          <p>Open the data histogram (Symbology pane → Histogram). You see a tall spike at $50K–$70K with a thin tail to $200K+. Classic right-skewed distribution. Equal Interval splits the full $20K–$220K range into equal bins, so 95% of counties land in the first bin.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 2 — Decide what the map should communicate</span>
+          <table class="wt-table">
+            <tr><th>If your story is...</th><th>Use</th></tr>
+            <tr><td>"Natural groupings in the data — where are the breakpoints?"</td><td><strong>Natural Breaks (Jenks)</strong></td></tr>
+            <tr><td>"How does this county rank vs others?"</td><td><strong>Quantile</strong></td></tr>
+            <tr><td>"Which counties are unusually above or below the national average?"</td><td><strong>Standard Deviation</strong></td></tr>
+            <tr><td>"There are meaningful real-world thresholds (e.g., poverty line)"</td><td><strong>Manual</strong> — set the breaks yourself</td></tr>
+          </table>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 3 — Apply: Natural Breaks for the general case</span>
+          <p>Symbology → Method = <strong>Natural Breaks (Jenks)</strong>, Classes = 5. The algorithm finds gaps in the data (around $60K, $85K, $120K, $170K) and breaks there. Now the map shows real geographic patterns — the suburban high-income outliers pop out, and the middle band has visible variation.</p>
+        </div>
+
+        <div class="wt-step">
+          <span class="wt-step-label">Step 4 — Defensive moves</span>
+          <ul>
+            <li>5–7 classes is the sweet spot. Too few = oversimplification; too many = unreadable legend.</li>
+            <li>Use a <strong>sequential</strong> color ramp (light → dark of one hue) for ordered data like income.</li>
+            <li>Round the break labels in the legend ($60,000 not $59,847.23) — readability over precision.</li>
+            <li>Note the classification method on the map: "Classification: Natural Breaks, 5 classes." Honest cartography.</li>
+          </ul>
+        </div>
+
+        <div class="wt-answer">
+          <span class="wt-answer-label">Default rule of thumb</span>
+          <p>When in doubt with thematic numeric data: <strong>Natural Breaks (Jenks) with 5 classes and a sequential color ramp</strong>. Use Equal Interval only when the data is roughly uniform or when bin widths must be meaningful (e.g., decade bins for years). Use Quantile when ranking is the story. Use Standard Deviation when above/below average matters.</p>
+        </div>
+      </div>
+    </details>
+  </div>
+
 </div>
 
 <div id="panel-acronyms" class="tab-panel">
