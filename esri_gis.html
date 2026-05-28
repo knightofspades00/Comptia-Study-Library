@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1117">
+<title>ESRI GIS Foundations Study Hub</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --accent: #16a34a; --accent2: #22c55e; --text: #e8eaf0; --text-muted: #8892b0;
+  --border: #2d3153; --radius: 10px; --green: #2ecc71; --blue: #3498db; --yellow: #f1c40f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+/* === Light theme === */
+:root.theme-light {
+  --bg: #eceff3; --surface: #ffffff; --surface2: #f0f2f6; --surface3: #e3e7ee;
+  --text: #1c1f2e; --text-muted: #5b6474; --border: #d3d8e0;
+}
+:root.theme-light .exam-header,
+:root.theme-light .walkthrough {
+  --surface: #1a1d2e; --surface2: #252840; --surface3: #2e3255;
+  --text: #e8eaf0; --text-muted: #8892b0; --border: #2d3153;
+  color: #e8eaf0;
+}
+:root.theme-light .infographic-wrap { background: #161a2c; border-color: #2a2f4a; }
+:root.theme-light .cv-card svg { background: #161a2c; border-radius: 8px; }
+:root.theme-light .fc-back { background: var(--surface2); }
+.theme-toggle {
+  background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+  border-radius: 8px; width: 32px; height: 32px; font-size: 0.95rem; line-height: 1;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; flex-shrink: 0; transition: border-color .15s, transform .1s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle:active { transform: scale(0.9); }
+
+/* === Exam-date planner === */
+.exam-planner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 22px; }
+.ep-set { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ep-icon { font-size: 1.4rem; }
+.ep-set-label { font-size: 0.9rem; color: var(--text-muted); flex: 1; min-width: 200px; }
+.ep-input { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-family: inherit; font-size: 0.85rem; }
+.ep-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; border-radius: 6px; padding: 8px 16px; font-weight: 700; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
+.ep-live { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.ep-count { text-align: center; min-width: 92px; padding: 10px 14px; background: var(--surface2); border-radius: 8px; }
+.ep-num { font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.ep-unit { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-top: 5px; }
+.ep-body { flex: 1; min-width: 240px; }
+.ep-date-line { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
+.ep-date-line strong { color: var(--text); }
+.ep-tip { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+.ep-link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; text-decoration: underline; font-family: inherit; padding: 0; }
+.ep-streak { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.83rem; color: var(--text-muted); }
+
+/* === Progress & weak areas === */
+.pg-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; }
+.pg-box:empty { display: none; }
+.pg-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.pg-head h3 { font-size: 0.95rem; font-weight: 700; color: var(--accent); }
+.pg-clear { background: none; border: 1px solid var(--border); color: var(--text-muted); border-radius: 6px; padding: 3px 10px; font-size: 0.72rem; cursor: pointer; font-family: inherit; }
+.pg-clear:hover { color: var(--text); }
+.pg-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.pg-stat { flex: 1; min-width: 70px; background: var(--surface2); border-radius: 8px; padding: 10px; text-align: center; }
+.pg-stat-num { display: block; font-size: 1.3rem; font-weight: 800; color: var(--text); }
+.pg-stat-lbl { display: block; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 3px; }
+.pg-spark { display: flex; align-items: flex-end; gap: 4px; height: 56px; padding: 8px; background: var(--surface2); border-radius: 8px; }
+.pg-bar { flex: 1; min-width: 6px; background: var(--accent2); border-radius: 2px 2px 0 0; opacity: 0.5; }
+.pg-bar.pass { background: var(--accent); opacity: 1; }
+.pg-weak { margin-top: 14px; }
+.pg-weak summary { cursor: pointer; font-size: 0.85rem; font-weight: 700; color: var(--text); padding: 6px 0; }
+.pg-weak-body { margin-top: 8px; display: flex; flex-direction: column; gap: 10px; }
+.pg-weak-item { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; }
+.pg-weak-q { font-size: 0.86rem; color: var(--text); line-height: 1.5; }
+.pg-weak-misses { font-size: 0.72rem; color: var(--accent); font-weight: 700; white-space: nowrap; }
+.pg-weak-a { font-size: 0.83rem; color: var(--green, #2ecc71); margin-top: 6px; font-weight: 600; }
+.pg-weak-exp { font-size: 0.82rem; color: var(--text-muted); margin-top: 5px; line-height: 1.5; }
+
+/* NAV */
+.top-nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 30px; display: flex; align-items: center; gap: 16px; }
+.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+.back-link:hover { color: var(--text); }
+.nav-title { font-weight: 700; font-size: 1rem; }
+.nav-badge { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-left: auto; }
+
+/* HEADER */
+.exam-header {
+  background: linear-gradient(135deg, #1e1025 0%, #1a1d2e 60%, #0f1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 40px;
+  position: relative; overflow: hidden;
+}
+.exam-header::after { content: '🖥️'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 5rem; opacity: 0.08; }
+.exam-header .code { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--accent2); text-transform: uppercase; margin-bottom: 8px; }
+.exam-header h1 { font-size: 2rem; font-weight: 800; }
+.exam-header h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.exam-header p { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+.exam-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.meta-item { font-size: 0.8rem; color: var(--text-muted); }
+.meta-item strong { color: var(--text); }
+
+/* TABS */
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; padding: 0 30px; }
+.tab-btn { position: relative; }
+.progress-badge { position: absolute; top: 5px; right: 5px; background: #f39c12; color: white; font-size: 0.62rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; line-height: 1.2; pointer-events: none; }
+.tab-btn {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  padding: 16px 20px; font-size: 0.88rem; font-weight: 600; white-space: nowrap;
+  border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+  display: flex; align-items: center; gap: 7px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* CONTENT AREA */
+.content-area { max-width: 960px; margin: 0 auto; padding: 36px 30px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* STUDY GUIDE */
+.domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.domain-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px; cursor: pointer; user-select: none;
+  background: var(--surface);
+}
+.domain-header:hover { background: var(--surface2); }
+.domain-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.domain-pct { font-size: 0.75rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+
+.messer-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.74rem; font-weight: 600;
+  color: #ff4d4d; text-decoration: none;
+  background: rgba(255, 77, 77, 0.10);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  padding: 4px 10px; border-radius: 999px;
+  white-space: nowrap; margin: 0 14px 0 auto;
+  transition: background .15s, border-color .15s;
+}
+.messer-link:hover { background: rgba(255, 77, 77, 0.20); border-color: #ff4d4d; }
+@media print { .messer-link { display: none !important; } }
+.chevron { transition: transform 0.2s; color: var(--text-muted); }
+.domain-header.open .chevron { transform: rotate(180deg); }
+.domain-body { display: none; padding: 0 22px 22px; }
+.domain-body.open { display: block; }
+.gs-overlay { position: fixed; inset: 0; background: rgba(15,17,23,0.85); z-index: 2000; display: none; align-items: flex-start; justify-content: center; padding-top: 80px; }
+.gs-overlay.show { display: flex; }
+.gs-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; width: 92%; max-width: 640px; max-height: 70vh; display: flex; flex-direction: column; gap: 12px; }
+.gs-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; outline: none; }
+.gs-input:focus { border-color: var(--blue); }
+.gs-results { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.gs-result { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+.gs-result:hover { border-color: var(--blue); }
+.gs-kind { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 2px; }
+.gs-title { font-size: 0.92rem; font-weight: 600; }
+.gs-snippet { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+.gs-empty { color: var(--text-muted); text-align: center; padding: 20px; font-size: 0.9rem; }
+.gs-hint { font-size: 0.72rem; color: var(--text-muted); text-align: center; }
+
+.study-toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px; position: sticky; top: 6px; z-index: 50; align-items: center; }
+.toc-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-right: 6px; }
+.toc-item { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.76rem; padding: 4px 10px; border-radius: 12px; cursor: pointer; }
+.toc-item:hover { border-color: var(--blue); color: var(--blue); }
+.toc-item.active { background: var(--blue); border-color: var(--blue); color: white; }
+
+.domain-toolbar { display: flex; gap: 8px; margin-bottom: 20px; }
+.domain-tool-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all .15s; }
+.domain-tool-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+.domain-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.domain-body p, .domain-body li { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.domain-body ul { padding-left: 20px; }
+.domain-body ul li { margin-bottom: 4px; }
+.key-term { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; color: var(--accent); margin: 2px; font-family: monospace; }
+.info-box { background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.warn-box { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 8px; padding: 14px 16px; margin: 14px 0; font-size: 0.88rem; line-height: 1.6; }
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+tr:last-child td { border-bottom: none; }
+td strong { color: var(--text); }
+
+/* FLASHCARDS */
+.fc-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+.fc-toggle input { vertical-align: middle; margin-right: 4px; }
+.fc-kbd-hint { font-size: 0.78rem; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; margin-bottom: 20px; }
+.fc-kbd-hint kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: 'Consolas', monospace; font-size: 0.75rem; color: var(--text); margin: 0 2px; }
+
+/* Callout boxes */
+.callout { margin: 16px 0; border-radius: 8px; padding: 12px 16px; border-left: 4px solid; }
+.callout strong:first-child { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.callout p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+.callout.exam-tip { background: rgba(52,152,219,0.08); border-color: #3498db; }
+.callout.exam-tip strong:first-child { color: #3498db; }
+.callout.real-world { background: rgba(46,204,113,0.08); border-color: #2ecc71; }
+.callout.real-world strong:first-child { color: #2ecc71; }
+.callout.mnemonic { background: rgba(241,196,15,0.08); border-color: #f1c40f; }
+.callout.mnemonic strong:first-child { color: #f1c40f; }
+.fc-controls .category-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 0.88rem; cursor: pointer; }
+.fc-progress { font-size: 0.85rem; color: var(--text-muted); }
+.flashcard-scene { width: 100%; max-width: 600px; height: 280px; margin: 0 auto 28px; perspective: 1000px; cursor: pointer; }
+.flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 30px; text-align: center;
+}
+.fc-front { background: linear-gradient(135deg, var(--surface2), var(--surface)); border: 1px solid var(--border); }
+.fc-back { background: linear-gradient(135deg, #1e2a1e, var(--surface)); border: 1px solid rgba(46,204,113,0.4); transform: rotateY(180deg); }
+.fc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.fc-term { font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+.fc-definition { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+.fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.fc-nav { display: flex; justify-content: center; gap: 16px; align-items: center; }
+.fc-btn {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.88rem;
+  font-weight: 600; transition: background 0.15s;
+}
+.fc-btn:hover { background: var(--surface2); }
+.fc-count { font-size: 0.9rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+.fc-known-btn { background: var(--green); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-unknown-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.fc-score { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); }
+.fc-score span { color: var(--green); font-weight: 700; }
+
+/* External Resources */
+.resource-section-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.resource-section-title:first-of-type { margin-top: 0; }
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.resource-card { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+.resource-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+.resource-icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.resource-content { flex: 1; min-width: 0; }
+.resource-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+.resource-host { font-size: 0.72rem; color: var(--text-muted); font-family: 'Consolas', monospace; letter-spacing: 0.5px; margin-bottom: 6px; }
+.resource-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+/* Performance-based questions (drag-and-drop) */
+.pbq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-bottom: 24px; }
+.pbq-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.pbq-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.pbq-card > p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; }
+.pbq-board { display: grid; grid-template-columns: minmax(160px, 240px) 1fr; gap: 22px; align-items: start; }
+@media (max-width: 720px) { .pbq-board { grid-template-columns: 1fr; } }
+.pbq-pool { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 14px; min-height: 100px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.pbq-pool.over { border-color: var(--accent); }
+.pbq-chip { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 7px 14px; border-radius: 18px; font-size: 0.82rem; font-weight: 600; cursor: grab; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.pbq-chip:active { cursor: grabbing; }
+.pbq-chip.placed { opacity: 0.85; }
+.pbq-chip.correct { background: linear-gradient(135deg, var(--green), #16a085); }
+.pbq-chip.incorrect { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.pbq-targets { display: flex; flex-direction: column; gap: 8px; }
+.pbq-row { display: grid; grid-template-columns: 100px 1fr; gap: 12px; align-items: center; }
+@media (max-width: 720px) { .pbq-row { grid-template-columns: 80px 1fr; } }
+.pbq-slot { background: var(--surface2); border: 2px dashed var(--border); border-radius: 8px; padding: 7px; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+.pbq-slot.over { border-color: var(--accent); background: rgba(52,152,219,0.08); }
+.pbq-label { font-size: 0.83rem; color: var(--text); }
+.pbq-actions { margin-top: 16px; display: flex; gap: 8px; }
+.pbq-actions button { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+.pbq-actions button:hover { border-color: var(--accent); color: var(--accent); }
+.pbq-result { margin-top: 14px; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; display: none; }
+.pbq-result.show { display: block; }
+.pbq-result.pass { background: rgba(46,204,113,0.15); border: 1px solid var(--green); color: var(--green); }
+.pbq-result.fail { background: rgba(231,76,60,0.15); border: 1px solid #e74c3c; color: #e74c3c; }
+
+/* Notes panel */
+.notes-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.notes-status { font-size: 0.78rem; color: var(--text-muted); }
+.notes-status.saving { color: #f39c12; }
+.notes-status.saved { color: var(--green); }
+.notes-btns { display: flex; gap: 8px; }
+.notes-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; }
+.notes-btn:hover { border-color: var(--blue); color: var(--blue); }
+.notes-btn.notes-btn-danger:hover { border-color: #e74c3c; color: #e74c3c; }
+.notes-textarea { width: 100%; min-height: 420px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 16px 18px; border-radius: 8px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.92rem; line-height: 1.6; resize: vertical; box-sizing: border-box; }
+.notes-textarea:focus { outline: 1px solid var(--blue); }
+
+/* Acronyms panel */
+.acro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.acro-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.acro-acro { font-family: 'Consolas', monospace; font-weight: 700; color: var(--blue); font-size: 0.95rem; margin-bottom: 4px; }
+.acro-full { font-size: 0.85rem; color: var(--text); margin-bottom: 4px; }
+.acro-note { font-size: 0.78rem; color: var(--text-muted); }
+
+/* Mock Exam button */
+.mock-exam-btn { background: linear-gradient(135deg, #e74c3c, #f39c12); color: white; border: none; padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; }
+.mock-exam-btn:hover { opacity: 0.9; box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
+
+/* Mock Exam overlay */
+.mock-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 1000; overflow-y: auto; }
+.mock-overlay.active { display: flex; flex-direction: column; }
+.mock-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
+.mock-bar-left { display: flex; align-items: center; gap: 18px; font-size: 0.95rem; }
+.mock-bar-left strong { color: var(--accent); }
+.mock-progress-text { font-size: 0.82rem; color: var(--text-muted); }
+.mock-bar-center { flex: 1; text-align: center; }
+.mock-timer { font-family: 'Consolas', monospace; font-size: 1.6rem; font-weight: 700; color: var(--blue); letter-spacing: 2px; }
+.mock-timer.warning { color: #f39c12; }
+.mock-timer.danger { color: #e74c3c; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.mock-bar-right { display: flex; gap: 8px; }
+.mock-btn-submit { background: linear-gradient(135deg, #27ae60, #16a085); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700; }
+.mock-btn-exit { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.mock-body { max-width: 860px; margin: 0 auto; padding: 28px; flex: 1; width: 100%; box-sizing: border-box; }
+.mock-question { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+.mock-question .mock-q-num { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+.mock-question .mock-q-text { font-size: 1.05rem; line-height: 1.6; margin-bottom: 22px; }
+.mock-question .mock-opts { display: flex; flex-direction: column; gap: 10px; }
+.mock-question .mock-opt { background: var(--surface2); border: 1px solid var(--border); color: var(--text); text-align: left; padding: 14px 18px; border-radius: 8px; cursor: pointer; font-size: 0.92rem; font-family: inherit; transition: all 0.15s; }
+.mock-question .mock-opt:hover { border-color: var(--blue); }
+.mock-question .mock-opt.selected { background: rgba(52,152,219,0.18); border-color: var(--blue); }
+.mock-question .mock-letter { font-weight: 700; color: var(--text-muted); margin-right: 10px; }
+.mock-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.mock-nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.mock-nav-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+.mock-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.mock-palette { display: flex; flex-wrap: wrap; gap: 4px; max-width: 560px; }
+.mock-palette-cell { width: 24px; height: 24px; border-radius: 4px; background: var(--surface2); border: 1px solid var(--border); cursor: pointer; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+.mock-palette-cell.answered { background: rgba(52,152,219,0.4); color: white; border-color: var(--blue); }
+.mock-palette-cell.current { outline: 2px solid var(--accent); }
+
+/* Mastery bars */
+.mastery-section { margin-top: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+.mastery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.mastery-header h3 { font-size: 1rem; font-weight: 700; }
+.mastery-reset { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; }
+.mastery-reset:hover { color: #e74c3c; border-color: #e74c3c; }
+.mastery-item { margin-bottom: 14px; }
+.mastery-item:last-child { margin-bottom: 0; }
+.mastery-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.mastery-label span { color: var(--text-muted); font-size: 0.78rem; }
+.mastery-bar { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.mastery-fill { height: 100%; background: linear-gradient(90deg, var(--green) 0%, var(--blue) 100%); border-radius: 4px; transition: width 0.4s; }
+
+/* QUIZ */
+.quiz-header { margin-bottom: 28px; }
+.quiz-header h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.quiz-header p { color: var(--text-muted); font-size: 0.88rem; }
+.quiz-progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.3s; }
+.question-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+.q-number { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; }
+.q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-opt {
+  background: var(--surface2); border: 2px solid var(--border); border-radius: 8px;
+  padding: 13px 16px; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5;
+  color: var(--text); text-align: left; font-family: inherit;
+}
+.q-opt:hover:not(.disabled) { border-color: var(--accent); background: rgba(231,76,60,0.1); }
+.q-opt.correct { border-color: var(--green); background: rgba(46,204,113,0.1); }
+.q-opt.incorrect { border-color: var(--accent); background: rgba(231,76,60,0.1); }
+.q-opt.disabled { cursor: default; }
+.q-letter { font-weight: 700; color: var(--text-muted); min-width: 18px; }
+.q-explanation { margin-top: 16px; background: rgba(52,152,219,0.1); border: 1px solid rgba(52,152,219,0.3); border-radius: 8px; padding: 14px; font-size: 0.87rem; line-height: 1.6; display: none; }
+.q-next-btn { background: linear-gradient(135deg, var(--accent), var(--accent2, var(--accent))); color: white; border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; margin-top: 16px; font-family: inherit; }
+.q-next-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.print-cheat-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-family: inherit; margin-bottom: 16px; }
+.print-cheat-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cv-diagram { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.78rem; line-height: 1.5; white-space: pre; overflow-x: auto; margin-bottom: 14px; color: var(--text); }
+.cv-diagram code { background: none; padding: 0; color: var(--text); }
+.tips-section { margin-bottom: 36px; }
+.tips-list { padding-left: 22px; }
+.tips-list li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+.tips-list li strong { color: var(--text); }
+.career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 14px 0; }
+.career-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.career-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.career-card .career-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+.q-explanation.show { display: block; }
+
+/* Wrong-answer review */
+.wrong-review { margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.wrong-review h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #e74c3c; }
+.wrong-review .wr-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+.wrong-review-item { background: var(--surface2); border-left: 3px solid #e74c3c; padding: 14px 16px; margin-bottom: 12px; border-radius: 6px; }
+.wrong-review-item .wri-q { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+.wrong-review-item .wri-line { font-size: 0.83rem; margin: 4px 0; }
+.wrong-review-item .wri-line.user { color: #e74c3c; }
+.wrong-review-item .wri-line.correct { color: var(--green); }
+.wrong-review-item .wri-exp { font-size: 0.83rem; line-height: 1.6; color: var(--text); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.wrong-review .perfect-msg { text-align: center; padding: 20px; color: var(--green); font-weight: 600; }
+/* Quiz controls */
+.quiz-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.quiz-controls label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-right: 4px; }
+.quiz-controls select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.85rem; cursor: pointer; }
+.quiz-controls select:focus { outline: 1px solid var(--accent); }
+.quiz-next-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white;
+  border: none; padding: 13px 32px; border-radius: 8px; cursor: pointer;
+  font-size: 0.95rem; font-weight: 700; margin-top: 10px; display: none;
+}
+.quiz-next-btn.show { display: inline-block; }
+.quiz-result { text-align: center; padding: 50px 30px; }
+.quiz-result .score { font-size: 4rem; font-weight: 800; }
+.quiz-result .score-label { color: var(--text-muted); margin-bottom: 20px; }
+.quiz-result .verdict { font-size: 1.1rem; font-weight: 600; margin-bottom: 24px; }
+.restart-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; padding: 13px 30px; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+
+/* CHEAT SHEET */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.cheat-card h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.cheat-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid rgba(45,49,83,0.5); font-size: 0.83rem; gap: 10px; }
+.cheat-row:last-child { border-bottom: none; }
+.cheat-key { color: var(--text); font-weight: 600; min-width: 80px; }
+.cheat-val { color: var(--text-muted); text-align: right; }
+
+/* ACTIVITIES */
+.activity-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.activity-card .act-type { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+.activity-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+.activity-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+.activity-card ol { padding-left: 20px; }
+.activity-card ol li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
+.activity-card .resources { margin-top: 14px; }
+.activity-card .resources h4 { font-size: 0.8rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+.resource-link { display: block; color: var(--blue); font-size: 0.82rem; padding: 2px 0; }
+.reading-prompt { background: var(--surface2); border-left: 3px solid var(--accent); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Concepts & Visuals Tab */
+  .concepts-section { margin-bottom: 36px; }
+  .concepts-section h2 { font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .concepts-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+  .concepts-section p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+  .concepts-section .example-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 6px; padding: 12px 16px; margin: 10px 0; font-size: 0.85rem; color: var(--text); }
+  .concepts-section .example-box strong { color: var(--accent); }
+  .vocab-search { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.9rem; margin-bottom: 18px; outline: none; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .vocab-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .vocab-card .vocab-term { font-weight: 700; font-size: 0.88rem; color: var(--accent); margin-bottom: 5px; }
+  .vocab-card .vocab-def { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .vocab-card .vocab-example { font-size: 0.78rem; color: var(--text); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); font-style: italic; }
+  .infographic-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 14px 0; overflow-x: auto; }
+  .infographic-wrap svg { display: block; max-width: 100%; height: auto; }
+  .concept-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 10px 0; }
+  .concept-table th { background: var(--surface2); color: var(--accent); text-align: left; padding: 8px 10px; border: 1px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .concept-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .concept-table tr:nth-child(even) td { background: var(--surface2); }
+  .tip-box { background: var(--surface2); border: 1px solid #2a6b4a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .tip-box .tip-label { color: #2ecc71; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .warn-box { background: var(--surface2); border: 1px solid #7a3a1a; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.84rem; }
+  .warn-box .warn-label { color: #e67e22; font-weight: 700; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* ── Week Assignment Tracker ── */
+  .week-tracker {
+    background: var(--surface); border-bottom: 2px solid var(--accent);
+    padding: 0; overflow: hidden;
+  }
+  .tracker-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 30px; cursor: pointer; user-select: none;
+    transition: background 0.15s;
+  }
+  .tracker-toggle:hover { background: var(--surface2); }
+  .tracker-title { font-size: 0.88rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .tracker-progress { font-size: 0.78rem; color: var(--text-muted); background: var(--surface2); padding: 3px 10px; border-radius: 20px; }
+  .tracker-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.2s; }
+  .tracker-chevron.open { transform: rotate(180deg); }
+  .tracker-body {
+    display: none; padding: 16px 30px 20px;
+    border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;
+  }
+  .tracker-body.open { display: grid; }
+  .tracker-day {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tracker-day input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent); }
+  .tracker-day label { font-size: 0.83rem; line-height: 1.5; cursor: pointer; color: var(--text-muted); }
+  .tracker-day label strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tracker-day.done { border-color: var(--green); background: rgba(46,204,113,0.07); }
+  .tracker-day.done label { color: var(--text); }
+
+  /* ── Score Card ── */
+  .score-card {
+    border-radius: 16px; padding: 32px; max-width: 500px;
+    margin: 0 auto; background: var(--surface);
+    border: 3px solid var(--border);
+  }
+  .score-card.pass { border-color: var(--green); }
+  .score-card.fail { border-color: #e74c3c; }
+  .score-card-header { text-align: center; margin-bottom: 20px; }
+  .score-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .score-card-date { font-size: 0.82rem; color: var(--text-muted); }
+  .score-card-numbers { display: flex; justify-content: center; gap: 40px; margin: 20px 0; }
+  .score-card-num { text-align: center; }
+  .score-card-big { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+  .score-card-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .score-card-banner { text-align: center; padding: 11px; border-radius: 8px; margin-bottom: 18px; font-weight: 700; }
+  .score-card-banner.pass { background: rgba(46,204,113,0.12); border: 1px solid var(--green); color: var(--green); }
+  .score-card-banner.fail { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; color: #e74c3c; }
+  .screenshot-prompt {
+    background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.5);
+    border-radius: 8px; padding: 12px 16px; text-align: center; margin-bottom: 18px;
+  }
+  .screenshot-prompt .sp-label { font-size: 0.8rem; font-weight: 700; color: #f1c40f; margin-bottom: 4px; }
+  .screenshot-prompt .sp-sub { font-size: 0.78rem; color: var(--text-muted); }
+  .screenshot-prompt .sp-keys { text-align: left; margin-top: 6px; }
+  .screenshot-prompt .sp-key-line { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; padding: 2px 0; }
+  .screenshot-prompt .sp-key-line strong { color: var(--text); }
+  .screenshot-prompt kbd { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; font-family: 'Consolas', monospace; font-size: 0.72rem; color: var(--text); margin: 0 2px; }
+  .score-card-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .score-card-btns button { padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 700; border: none; }
+
+
+  /* ── Tips & Careers tab ─────────────────────────────────── */
+  .mnem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .mnem-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .mnem-phrase {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+  .mnem-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mnem-step {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .mnem-detail {
+    font-size: .88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+  .strategy-section { margin-bottom: 28px; }
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .strategy-card h4 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+    color: var(--accent);
+  }
+  .strategy-card p, .strategy-card li {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .resource-link {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: .83rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .resource-link:hover { background: var(--accent); color: #fff; }
+  .careers-section { margin-bottom: 28px; }
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .career-card-tip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .career-card-title {
+    font-weight: 700;
+    font-size: .95rem;
+    margin-bottom: 6px;
+  }
+  .career-salary {
+    font-size: .9rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .career-desc {
+    font-size: .83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  /* tip section headings */
+  .tips-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+  }
+
+/* Print-friendly cheat sheet — Ctrl+P from the Cheat Sheet tab gives a clean printout */
+
+
+/* ── Accessibility ── */
+.skip-link { position: absolute; left: 8px; top: -52px; z-index: 3000; background: var(--accent); color: #fff; padding: 10px 18px; border-radius: 0 0 8px 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: top .15s; }
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 3px solid #6cb6ff; outline-offset: 2px; }
+.domain-header { border-radius: 4px; }
+/* ── Mobile / small-screen responsive ── */
+@media (max-width: 640px) {
+  .content-area { padding: 22px 14px; }
+  .exam-header { padding: 22px 18px; }
+  .exam-header h1 { font-size: 1.5rem; line-height: 1.2; }
+  .exam-header .code { font-size: 0.66rem; }
+  .exam-header p { font-size: 0.88rem; }
+  .exam-meta { gap: 12px; }
+  .tab-btn { padding: 12px 12px; font-size: 0.82rem; }
+  .content-area table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  .domain-header { padding: 14px 16px; }
+  .domain-header h3 { font-size: 0.92rem; }
+  .domain-body { padding: 0 16px 18px; }
+  .infographic-wrap, .table-wrap { overflow-x: auto; }
+  .fc-nav { flex-wrap: wrap; gap: 8px; }
+  .fc-card { min-height: 200px; }
+  .mnem-step { white-space: normal; }
+  .mnem-breakdown { gap: 6px; }
+  .cheat-key { min-width: 0; }
+  .cheat-val { min-width: 0; overflow-wrap: anywhere; text-align: right; }
+}
+
+@media print {
+  body { background: white !important; color: black !important; font-size: 10pt; }
+  header, .tab-bar, .week-tracker, .back-link, .quiz-controls, .domain-toolbar,
+  #panel-guide, #panel-flashcards, #panel-quiz, #panel-activities, #panel-concepts, #panel-acronyms, #panel-resources, #panel-notes, #panel-tips,
+  .mock-overlay,
+  .restart-btn, .open-btn, footer, button { display: none !important; }
+  #panel-cheatsheet { display: block !important; padding: 0 !important; }
+  #panel-cheatsheet h2 { font-size: 16pt !important; margin-bottom: 8px !important; color: black !important; }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8pt !important; }
+  .cheat-card { background: white !important; border: 1px solid #ccc !important; padding: 8pt !important; page-break-inside: avoid; box-shadow: none !important; }
+  .cheat-card h3 { font-size: 11pt !important; color: black !important; margin-bottom: 4pt !important; border-bottom: 1px solid #999; padding-bottom: 3pt; }
+  .cheat-row { font-size: 9pt !important; border-bottom: 1px dotted #ccc !important; padding: 2pt 0 !important; }
+  .cheat-key, .cheat-val { color: black !important; }
+  .cheat-key { font-weight: 700; }
+
+  /* Full Study Guide print mode */
+  body.printing-guide #panel-guide { display: block !important; padding: 0 !important; }
+  body.printing-guide #panel-guide .domain-body { display: block !important; }
+  body.printing-guide #panel-guide .domain-card { page-break-inside: avoid; margin-bottom: 10pt; border: 1px solid #999 !important; background: white !important; }
+  body.printing-guide #panel-guide .domain-header { background: white !important; padding: 6pt 10pt !important; }
+  body.printing-guide #panel-guide .domain-header h3 { color: black !important; font-size: 13pt !important; }
+  body.printing-guide #panel-guide .domain-header .domain-pct { background: white !important; color: black !important; border: 1px solid #ccc !important; }
+  body.printing-guide #panel-guide .chevron { display: none; }
+  body.printing-guide #panel-guide .domain-toolbar, body.printing-guide #panel-guide .study-toc { display: none !important; }
+  body.printing-guide #panel-guide h4 { font-size: 11pt !important; color: #333 !important; margin-top: 8pt !important; }
+  body.printing-guide #panel-guide p, body.printing-guide #panel-guide li { color: black !important; font-size: 10pt !important; }
+  body.printing-guide #panel-guide .info-box, body.printing-guide #panel-guide .callout, body.printing-guide #panel-guide .warn-box { background: #f8f8f8 !important; border: 1px solid #ccc !important; color: black !important; page-break-inside: avoid; }
+  body.printing-guide #panel-cheatsheet { display: none !important; }
+}
+  /* ── Walk-me-through expandable panels ── */
+  .walkthrough { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin: 10px 0; transition: border-color .15s; }
+  .walkthrough[open] { border-color: var(--accent); background: var(--surface2); }
+  .walkthrough summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--accent); list-style: none; display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+  .walkthrough summary::-webkit-details-marker, .walkthrough summary::marker { display: none; content: ''; }
+  .walkthrough summary::after { content: '▾'; margin-left: auto; color: var(--text-muted); transition: transform .2s; font-size: 0.85rem; }
+  .walkthrough[open] summary::after { transform: rotate(180deg); }
+  .walkthrough summary:hover { color: var(--accent2, var(--accent)); }
+  .walkthrough .wt-emoji { font-size: 1.05rem; }
+  .walkthrough-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 0.87rem; color: var(--text); line-height: 1.65; }
+  .walkthrough-body p { margin-bottom: 10px; color: var(--text-muted); }
+  .walkthrough-body p strong { color: var(--text); }
+  .walkthrough-body ol, .walkthrough-body ul { padding-left: 22px; margin: 8px 0 12px; }
+  .walkthrough-body ol > li, .walkthrough-body ul > li { margin-bottom: 8px; color: var(--text-muted); }
+  .walkthrough-body code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.85em; color: #e8eaf0; }
+  .wt-scenario { background: rgba(6, 182, 212, 0.08); border-left: 3px solid #06b6d4; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 0.88rem; color: #e8eaf0; }
+  .wt-scenario strong { color: #06b6d4; }
+  .wt-step { background: var(--surface2); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; }
+  .wt-step-label { color: var(--accent); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .wt-answer { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.4); border-left: 4px solid #22c55e; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .wt-answer-label { color: #22c55e; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .wt-answer p, .wt-answer li { color: #d4f4dd; }
+  .wt-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.84rem; }
+  .wt-table th { background: var(--surface2); color: var(--accent); padding: 8px 10px; text-align: left; border: 1px solid var(--border); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wt-table td { padding: 8px 10px; border: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
+  .wt-table td strong { color: var(--text); }
+
+
+/* === UX nav enhancements (in-tab jump pills, accordion sub-TOCs, tab counts) === */
+.tab-nav-pills {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg, #0f1117);
+  padding: 8px 4px;
+  margin: 0 -4px 14px;
+  border-bottom: 1px solid var(--surface2, #252840);
+  scrollbar-width: thin;
+}
+.tab-nav-pills::-webkit-scrollbar { height: 4px; }
+.tab-nav-pills::-webkit-scrollbar-thumb { background: var(--surface3, #3d4270); border-radius: 4px; }
+.tab-nav-pill {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 5px 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #8892b0);
+  background: var(--surface2, #252840);
+  border: 1px solid var(--surface3, #3d4270);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.tab-nav-pill:hover { color: var(--accent, #06b6d4); background: var(--surface3, #3d4270); border-color: var(--accent, #06b6d4); }
+.domain-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 16px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--accent, #06b6d4);
+  border-radius: 4px;
+}
+.domain-toc-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted, #8892b0);
+  margin-right: 4px;
+  align-self: center;
+}
+.domain-toc-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent, #06b6d4);
+  text-decoration: none;
+  padding: 2px 9px;
+  background: var(--bg, #0f1117);
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.domain-toc-pill:hover { background: var(--surface2, #252840); text-decoration: underline; }
+.tab-count {
+  display: inline-block;
+  padding: 1px 7px;
+  margin-left: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted, #8892b0);
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+@media print {
+  .tab-nav-pills, .domain-toc, .tab-count { display: none !important; }
+}
+
+</style>
+</head>
+<body>
+
+<a href="#hub-main" class="skip-link">Skip to main content</a>
+<div class="top-nav">
+  <a href="index.html" class="back-link">← Library Home</a>
+  <span class="nav-title">ESRI GIS Foundations Study Hub</span>
+  <span class="nav-badge">GIS Foundations</span>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle color theme" title="Toggle color theme">☀️</button>
+</div>
+
+<div class="exam-header">
+  <div class="code">Esri &nbsp;|&nbsp; ArcGIS Pro Foundation Cert prep &nbsp;|&nbsp; General GIS Literacy</div>
+  <h1>ESRI <span>GIS Foundations</span> Study Hub</h1>
+  <p>GIS concepts, coordinate systems, spatial analysis, and ArcGIS Online. Prep for Esri's ArcGIS Pro Foundation cert — and become fluent in the maps and data behind real-world decisions.</p>
+  <div class="exam-meta">
+    <span class="meta-item"><strong>Format:</strong> Online proctored, multiple choice (single + multi-select)</span>
+    <span class="meta-item"><strong>Tools:</strong> ArcGIS Online · ArcGIS Pro · Esri Academy</span>
+    <span class="meta-item"><strong>Level:</strong> Foundation (entry-level)</span>
+    <span class="meta-item"><strong>Domains:</strong> Data · Projections · Cartography · Analysis · Web GIS · Geodatabases</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('guide', event)">📖 Study Guide</button>
+  <button class="tab-btn" onclick="showTab('flashcards', event)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('quiz', event)">❓ Practice Quiz</button>
+  <button class="tab-btn" onclick="showTab('cheatsheet', event)">📋 Cheat Sheet</button>
+  <button class="tab-btn" onclick="showTab('activities', event)">🔬 Activities</button>
+  <button class="tab-btn" onclick="showTab('concepts', event)">💡 Concepts &amp; Visuals</button>
+  <button class="tab-btn" onclick="showTab('acronyms', event)">📖 Acronyms</button>
+  <button class="tab-btn" onclick="showTab('resources', event)">🌐 Resources</button>
+  <button class="tab-btn" onclick="showTab('notes', event)">✏️ My Notes</button>
+  <button class="tab-btn" onclick="showTab('tips', event)">🧠 Tips &amp; Careers</button>
+</div>
+
+<div class="content-area" id="hub-main">
+
+<!-- ===== STUDY GUIDE ===== -->
+<div id="panel-guide" class="tab-panel active">
+  <h2 style="margin-top:0;">📖 Study Guide</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Six domain accordions: Geographic Data Models · Coordinate Systems &amp; Projections · Cartography &amp; Symbology · Spatial Analysis · ArcGIS Online &amp; Web GIS · Geodatabases, Metadata &amp; Sharing.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-flashcards" class="tab-panel">
+  <h2 style="margin-top:0;">🃏 Flashcards</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">~90 vocab cards categorized by domain — terms like feature class, projection, georeferencing, layer file, attribute join.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-quiz" class="tab-panel">
+  <h2 style="margin-top:0;">❓ Practice Quiz</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">~120 questions with explanations covering all 6 domains.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-cheatsheet" class="tab-panel">
+  <h2 style="margin-top:0;">📋 Cheat Sheet</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">A printable condensed reference: projections, common analysis tools, ArcGIS Online sharing settings, geoprocessing parameters.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-activities" class="tab-panel">
+  <h2 style="margin-top:0;">🔬 Activities</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Hands-on activities using your ArcGIS Online account and Esri Academy free learning paths.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-concepts" class="tab-panel">
+  <h2 style="margin-top:0;">💡 Concepts &amp; Visuals</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">6 SVG infographics (vector vs raster · projection families · drawing order · attribute vs spatial query · web map architecture · classification methods) plus 3 walkthroughs.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-acronyms" class="tab-panel">
+  <h2 style="margin-top:0;">📖 Acronyms</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">~60 GIS acronyms — CRS, EPSG, OGC, WKT, REST, FGDB, KML, WMS, WMTS, MXD, APRX, LYR, OBJECTID, and friends.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-resources" class="tab-panel">
+  <h2 style="margin-top:0;">🌐 Resources</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Curated free links: Esri Academy, ArcGIS Online learn paths, Esri documentation, public open-data portals.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-notes" class="tab-panel">
+  <h2 style="margin-top:0;">✏️ My Notes</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Your personal study notes — saved in your browser. Available now.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="panel-tips" class="tab-panel">
+  <h2 style="margin-top:0;">🧠 Tips &amp; Careers</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">GIS career paths (analyst, technician, developer, cartographer), study tips, mnemonics.</p>
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 Content in progress</strong>
+    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  </div>
+</div>
+
+<div id="global-search" class="gs-overlay" onclick="if(event.target.id==='global-search')closeGlobalSearch()">
+  <div class="gs-modal">
+    <input id="gs-input" class="gs-input" type="text" placeholder="Search flashcards, acronyms, study guide..." />
+    <div class="gs-results" id="gs-results"></div>
+    <div class="gs-hint">⌨ Ctrl+K (Cmd+K on Mac) to open · Esc to close · Click a result to jump there</div>
+  </div>
+</div>
+
+<script>
+
+const apVocabTerms = []; // PCAP hub does not use a separate vocab list
+
+function buildVocabAP(terms) {
+  var grid = document.getElementById('gis-vocab-grid');
+  if (!grid) return;
+  grid.innerHTML = terms.map(function(t) {
+    return '<div class="vocab-card">' +
+      '<div class="vocab-term">' + t.term + '</div>' +
+      '<div class="vocab-def">' + t.def + '</div>' +
+      '<div class="vocab-example">Example: ' + t.example + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function filterVocabPCAP(query) {
+  var q = query.toLowerCase();
+  var filtered = apVocabTerms.filter(function(t) {
+    return t.term.toLowerCase().indexOf(q) >= 0 || t.def.toLowerCase().indexOf(q) >= 0;
+  });
+  buildVocabAP(filtered);
+}
+
+function showTab(name, ev) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (ev && ev.target) ev.target.classList.add('active');
+  // Lazy-init only if the panel hasn't been populated yet — never reset in-progress state
+  if (name === 'flashcards' && (!filteredCards || filteredCards.length === 0)) loadCards();
+  if (name === 'quiz' && (!quizQs || quizQs.length === 0)) initQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Number-key tab shortcuts (1-9, 0 for tab 10) ────────────────────────
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+  if (document.getElementById('mock-exam-overlay')?.classList.contains('active')) return;
+  const k = e.key;
+  let idx = -1;
+  if (k >= '1' && k <= '9') idx = parseInt(k, 10) - 1;
+  else if (k === '0') idx = 9;
+  if (idx < 0) return;
+  const tabs = document.querySelectorAll('.tab-btn');
+  if (tabs[idx]) { e.preventDefault(); tabs[idx].click(); }
+});
+function toggleDomain(h) {
+  h.classList.toggle('open');
+  h.nextElementSibling.classList.toggle('open');
+}
+// ── Global search (Ctrl/Cmd+K) ───────────────────────────────────────────
+function openGlobalSearch() {
+  const overlay = document.getElementById('global-search');
+  if (!overlay) return;
+  overlay.classList.add('show');
+  const input = document.getElementById('gs-input');
+  input.value = '';
+  document.getElementById('gs-results').innerHTML = '<div class="gs-empty">Type to search across flashcards, acronyms, and Study Guide.</div>';
+  setTimeout(() => input.focus(), 50);
+}
+function closeGlobalSearch() {
+  document.getElementById('global-search')?.classList.remove('show');
+}
+function _gsEscapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+function gsSearch(q) {
+  q = (q || '').toLowerCase().trim();
+  const out = document.getElementById('gs-results');
+  if (!out) return;
+  if (q.length < 2) { out.innerHTML = '<div class="gs-empty">Type to search across flashcards, acronyms, and Study Guide.</div>'; return; }
+  const results = [];
+  (typeof allCards !== 'undefined' ? allCards : []).forEach(c => {
+    if (c.term.toLowerCase().includes(q) || c.def.toLowerCase().includes(q)) {
+      results.push({ kind: 'Flashcard', title: c.term, snippet: c.def.slice(0, 120), action: 'flashcards' });
+    }
+  });
+  (typeof acronyms !== 'undefined' ? acronyms : []).forEach(a => {
+    if (a.a.toLowerCase().includes(q) || a.f.toLowerCase().includes(q) || (a.n || '').toLowerCase().includes(q)) {
+      results.push({ kind: 'Acronym', title: a.a + ' — ' + a.f, snippet: a.n || '', action: 'acronyms' });
+    }
+  });
+  (typeof apVocabTerms !== 'undefined' ? apVocabTerms : []).forEach(v => {
+    if (v.term.toLowerCase().includes(q) || v.def.toLowerCase().includes(q)) {
+      results.push({ kind: 'Vocabulary', title: v.term, snippet: v.def.slice(0, 120), action: 'concepts' });
+    }
+  });
+  document.querySelectorAll('#panel-guide .domain-card .domain-header h3').forEach((h, i) => {
+    if (h.textContent.toLowerCase().includes(q)) {
+      results.push({ kind: 'Study Guide', title: h.textContent.trim(), snippet: 'Jump to this domain', action: 'domain:' + i });
+    }
+  });
+  if (!results.length) { out.innerHTML = '<div class="gs-empty">No matches for "' + _gsEscapeHTML(q) + '".</div>'; return; }
+  out.innerHTML = results.slice(0, 30).map(r =>
+    '<div class="gs-result" data-action="' + r.action + '"><div class="gs-kind">' + r.kind + '</div><div class="gs-title">' + _gsEscapeHTML(r.title) + '</div>' + (r.snippet ? '<div class="gs-snippet">' + _gsEscapeHTML(r.snippet) + '</div>' : '') + '</div>'
+  ).join('');
+  out.querySelectorAll('.gs-result').forEach(el => el.addEventListener('click', () => gsGo(el.dataset.action)));
+}
+function gsGo(action) {
+  closeGlobalSearch();
+  if (action === 'flashcards' || action === 'acronyms' || action === 'concepts') {
+    const labelMap = { flashcards: 'Flashcards', acronyms: 'Acronyms', concepts: 'Concepts' };
+    const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes(labelMap[action]));
+    btn?.click();
+  } else if (action.startsWith('domain:')) {
+    const idx = parseInt(action.slice(7), 10);
+    const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes('Study Guide'));
+    btn?.click();
+    setTimeout(() => {
+      const card = document.querySelectorAll('#panel-guide .domain-card')[idx];
+      if (!card) return;
+      card.querySelector('.domain-header')?.classList.add('open');
+      card.querySelector('.domain-body')?.classList.add('open');
+      const y = card.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 100);
+  }
+}
+
+const allCards = [];
+
+let filteredCards = [...allCards];
+let currentCard = 0;
+let isFlipped = false;
+
+/* === Spaced repetition (Leitner boxes) ============================
+ * srs_<EXAM_KEY> = { "<term>": { b: box 1-5, d: due-time epoch ms } }
+ * A card is "due" when it has no record or its due time has passed.
+ * "Got it" promotes the card a box (longer interval); "Still learning"
+ * resets it to box 1 so it comes back fast. */
+const SRS_DAYS = { 1: 1, 2: 2, 3: 4, 4: 8, 5: 16 };
+const DAY_MS = 86400000;
+
+function getSRS() {
+  try {
+    const raw = localStorage.getItem('srs_' + EXAM_KEY);
+    if (raw) return JSON.parse(raw);
+    // first run: migrate any legacy "known" cards into box 3
+    const old = JSON.parse(localStorage.getItem('knownCards_' + EXAM_KEY) || '[]');
+    const srs = {};
+    old.forEach(term => { srs[term] = { b: 3, d: Date.now() + SRS_DAYS[3] * DAY_MS }; });
+    return srs;
+  } catch (e) { return {}; }
+}
+function saveSRS(srs) {
+  try { localStorage.setItem('srs_' + EXAM_KEY, JSON.stringify(srs)); } catch (e) {}
+}
+function cardDue(term, srs) {
+  const r = srs[term];
+  return !r || r.d <= Date.now();
+}
+function reviewCard(term, gotIt) {
+  const srs = getSRS();
+  const box = gotIt ? Math.min((srs[term] ? srs[term].b : 1) + 1, 5) : 1;
+  srs[term] = { b: box, d: Date.now() + SRS_DAYS[box] * DAY_MS };
+  saveSRS(srs);
+}
+
+function resetMastery() {
+  if (!confirm('Reset all flashcard progress? This cannot be undone.')) return;
+  try {
+    localStorage.removeItem('srs_' + EXAM_KEY);
+    localStorage.removeItem('knownCards_' + EXAM_KEY);
+  } catch (e) {}
+  loadCards();
+  renderMasteryBars();
+}
+
+function loadCards() {
+  const catEl = document.getElementById('fc-category');
+  const cat = catEl ? catEl.value : 'all';
+  const browseAll = document.getElementById('fc-show-all') ? document.getElementById('fc-show-all').checked : false;
+  const srs = getSRS();
+  const inCategory = cat === 'all' ? [...allCards] : allCards.filter(c => c.cat === cat);
+  filteredCards = browseAll ? inCategory : inCategory.filter(c => cardDue(c.term, srs));
+  currentCard = 0;
+  isFlipped = false;
+  showCard();
+}
+
+function showCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc) return;
+  const srs = getSRS();
+  const catEl = document.getElementById('fc-category');
+  const cat = catEl ? catEl.value : 'all';
+  const browseAll = document.getElementById('fc-show-all') ? document.getElementById('fc-show-all').checked : false;
+  const inCategory = cat === 'all' ? allCards : allCards.filter(c => c.cat === cat);
+  const mastered = inCategory.filter(c => srs[c.term] && srs[c.term].b >= 4).length;
+  document.getElementById('fc-known-count').textContent = mastered;
+  document.getElementById('fc-total-count').textContent = inCategory.length;
+  if (!filteredCards.length) {
+    document.getElementById('fc-term').textContent = '✓ All caught up!';
+    document.getElementById('fc-def').textContent = 'No cards are due for review in this category. Tick "Browse all cards" to study ahead, or come back later — spacing your practice is what makes it stick.';
+    document.getElementById('fc-progress').textContent = 'Nothing due';
+    document.getElementById('fc-count').textContent = '✓';
+    if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+    return;
+  }
+  if (currentCard < 0) currentCard = 0;
+  if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+  const card = filteredCards[currentCard];
+  const box = srs[card.term] ? srs[card.term].b : 1;
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-progress').textContent = 'Card ' + (currentCard + 1) + ' of ' + filteredCards.length + (browseAll ? '' : ' due') + ' · Box ' + box + '/5';
+  document.getElementById('fc-count').textContent = (currentCard + 1) + ' / ' + filteredCards.length;
+  if (isFlipped) { fc.style.transform = 'rotateY(0deg)'; isFlipped = false; }
+}
+
+function renderMasteryBars() {
+  const container = document.getElementById('mastery-bars');
+  if (!container) return;
+  const srs = getSRS();
+  const labels = {};
+  document.querySelectorAll('#fc-category option').forEach(o => {
+    if (o.value && o.value !== 'all') labels[o.value] = o.textContent.trim();
+  });
+  const byCat = {};
+  allCards.forEach(c => {
+    if (!byCat[c.cat]) byCat[c.cat] = { total: 0, mastered: 0 };
+    byCat[c.cat].total++;
+    if (srs[c.term] && srs[c.term].b >= 4) byCat[c.cat].mastered++;
+  });
+  container.innerHTML = Object.keys(byCat).map(cat => {
+    const t = byCat[cat].total, m = byCat[cat].mastered;
+    const pct = t ? Math.round(m / t * 100) : 0;
+    return '<div class="mastery-item"><div class="mastery-label"><span>' + (labels[cat] || cat) +
+      '</span><span>' + m + ' / ' + t + ' • ' + pct + '%</span></div>' +
+      '<div class="mastery-bar"><div class="mastery-fill" style="width:' + pct + '%"></div></div></div>';
+  }).join('');
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc || !filteredCards.length) return;
+  isFlipped = !isFlipped;
+  fc.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() {
+  if (currentCard < filteredCards.length - 1) { currentCard++; isFlipped = false; showCard(); }
+}
+
+function prevCard() {
+  if (currentCard > 0) { currentCard--; isFlipped = false; showCard(); }
+}
+
+function markCard(gotIt) {
+  const card = filteredCards[currentCard];
+  if (!card) return;
+  reviewCard(card.term, gotIt);
+  renderMasteryBars();
+  if (document.getElementById('fc-show-all') && document.getElementById('fc-show-all').checked) {
+    nextCard();
+    return;
+  }
+  filteredCards.splice(currentCard, 1);
+  if (!gotIt) filteredCards.push(card);
+  if (currentCard >= filteredCards.length) currentCard = filteredCards.length - 1;
+  isFlipped = false;
+  showCard();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('panel-flashcards')?.classList.contains('active')) return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+  switch (e.key) {
+    case ' ': e.preventDefault(); flipCard(); break;
+    case 'ArrowRight': e.preventDefault(); nextCard(); break;
+    case 'ArrowLeft': e.preventDefault(); prevCard(); break;
+    case 'g': case 'G': case '1': e.preventDefault(); markCard(true); break;
+    case 's': case 'S': case '2': e.preventDefault(); markCard(false); break;
+  }
+});
+
+const quizQuestions = [];
+
+let quizQs = [];
+let currentQ = 0;
+let score = 0;
+let answered = false;
+let wrongAnswers = [];
+
+function initQuiz() {
+  const count = parseInt(document.getElementById('quiz-count')?.value || '60', 10);
+  const dom = document.getElementById('quiz-domain')?.value || 'all';
+  let pool = [...quizQuestions];
+  if (dom !== 'all' && typeof quizDomainFilter === 'function') pool = pool.filter(q => quizDomainFilter(q, dom));
+  quizQs = pool.sort(() => Math.random() - 0.5).slice(0, count);
+  currentQ = 0; score = 0; answered = false; wrongAnswers = [];
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  document.getElementById('q-total').textContent = quizQs.length;
+  renderQuestion();
+  if (typeof updateQuizBadge === 'function') updateQuizBadge();
+}
+
+function renderQuestion() {
+  if (currentQ >= quizQs.length) { showResult(); return; }
+  answered = false;
+  const q = quizQs[currentQ];
+  document.getElementById('q-current').textContent = currentQ + 1;
+  document.getElementById('quiz-progress').style.width = ((currentQ / quizQs.length) * 100) + '%';
+  const area = document.getElementById('question-area');
+  const opts = q.opts.map((o, i) => '<button class="q-opt" onclick="selectAnswer(' + i + ')">' + String.fromCharCode(65+i) + '. ' + o + '</button>').join('');
+  area.innerHTML = '<div class="quiz-question"><p class="q-text">' + q.q + '</p><div class="q-options">' + opts + '</div><div class="q-explanation" id="q-exp" style="display:none"></div><button class="q-next-btn" id="q-next" onclick="nextQuestion()" style="display:none">Next Question →</button></div>';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizQs[currentQ];
+  if (idx === q.answer) score++;
+  else wrongAnswers.push({ q: q.q, opts: q.opts, answer: q.answer, exp: q.exp, userAnswer: idx });
+  const btns = document.querySelectorAll('.q-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+    else if (i === idx) b.classList.add('incorrect');
+  });
+  const exp = document.getElementById('q-exp');
+  exp.innerHTML = '<strong>' + (idx === q.answer ? '✓ Correct!' : '✗ Incorrect.') + '</strong> ' + q.exp;
+  exp.style.display = 'block';
+  document.getElementById('q-next').style.display = 'inline-block';
+}
+
+function nextQuestion() { currentQ++; renderQuestion(); updateQuizBadge(); }
+
+function renderWrongAnswers() {
+  if (!wrongAnswers.length) {
+    return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score — no wrong answers to review!</div></div>';
+  }
+  const letter = n => String.fromCharCode(65 + n);
+  const items = wrongAnswers.map((w, i) =>
+    '<div class="wrong-review-item">' +
+      '<div class="wri-q">' + (i+1) + '. ' + w.q + '</div>' +
+      '<div class="wri-line user">✗ Your answer: ' + letter(w.userAnswer) + '. ' + w.opts[w.userAnswer] + '</div>' +
+      '<div class="wri-line correct">✓ Correct answer: ' + letter(w.answer) + '. ' + w.opts[w.answer] + '</div>' +
+      '<div class="wri-exp">' + w.exp + '</div>' +
+    '</div>'
+  ).join('');
+  return '<div class="wrong-review">' +
+    '<h3>📚 Review the ' + wrongAnswers.length + ' you missed</h3>' +
+    '<p class="wr-sub">These are the questions where you didn\'t pick the right answer. Read the explanation for each one before retaking.</p>' +
+    items +
+  '</div>';
+}
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildScoreCard(score, quizQs.length) + renderWrongAnswers();
+  recordQuizScore(Math.round(score / quizQs.length * 100), score, quizQs.length);
+  if (typeof updateQuizBadge === 'function') updateQuizBadge();
+}
+
+// ─── Notes ─────────────────────────────────────────────────────────────────
+let notesSaveTimer = null;
+function saveNotes() {
+  const text = document.getElementById('notes-text').value;
+  const status = document.getElementById('notes-status');
+  status.textContent = 'Saving…'; status.className = 'notes-status saving';
+  clearTimeout(notesSaveTimer);
+  notesSaveTimer = setTimeout(() => {
+    try { localStorage.setItem('notes_gis', text); status.textContent = 'All changes saved'; status.className = 'notes-status saved'; }
+    catch(e) { status.textContent = 'Could not save (storage full?)'; status.className = 'notes-status'; }
+  }, 300);
+}
+function loadNotes() { try { const el = document.getElementById('notes-text'); if (el) el.value = localStorage.getItem('notes_gis') || ''; } catch(e) {} }
+function clearNotes() {
+  if (!confirm('Erase all your Python PCAP notes? This cannot be undone.')) return;
+  document.getElementById('notes-text').value = '';
+  localStorage.removeItem('notes_gis');
+  document.getElementById('notes-status').textContent = 'Notes cleared';
+}
+function downloadNotes() {
+  const text = document.getElementById('notes-text').value;
+  if (!text.trim()) { alert('No notes to download yet.'); return; }
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'python-pcap-notes-' + new Date().toISOString().slice(0,10) + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+// ─── Acronyms ──────────────────────────────────────────────────────────────
+const acronyms = [];
+
+function buildAcronyms(list) {
+  const g = document.getElementById('acro-grid'); if (!g) return;
+  g.innerHTML = list.map(x => '<div class="acro-card"><div class="acro-acro">' + x.a + '</div><div class="acro-full">' + x.f + '</div>' + (x.n ? '<div class="acro-note">' + x.n + '</div>' : '') + '</div>').join('');
+}
+function filterAcronyms() {
+  const q = (document.getElementById('acro-search').value || '').toLowerCase();
+  buildAcronyms(!q ? acronyms : acronyms.filter(x => x.a.toLowerCase().includes(q) || x.f.toLowerCase().includes(q) || (x.n || '').toLowerCase().includes(q)));
+}
+
+// ─── Mock Exam mode ────────────────────────────────────────────────────────
+const MOCK_DURATION_MIN = 65;
+const MOCK_PASS_PCT = 70;
+const MOCK_EXAM_LABEL = 'PCAP';
+let mockQs = [];
+let mockAnswers = [];
+let mockQIdx = 0;
+let mockTimerInterval = null;
+let mockSecondsLeft = 0;
+let mockStartedAt = null;
+
+function startMockExam() {
+  if (!confirm('Start the Mock Exam? You\'ll have ' + MOCK_DURATION_MIN + ' minutes to answer ' + quizQuestions.length + ' questions. No per-question feedback until you submit.')) return;
+  mockQs = [...quizQuestions].sort(() => Math.random() - 0.5);
+  mockAnswers = new Array(mockQs.length).fill(null);
+  mockQIdx = 0;
+  mockSecondsLeft = MOCK_DURATION_MIN * 60;
+  mockStartedAt = Date.now();
+  document.getElementById('mock-q-total').textContent = mockQs.length;
+  document.getElementById('mock-exam-overlay').classList.add('active');
+  renderMockQuestion();
+  updateMockTimer();
+  if (mockTimerInterval) clearInterval(mockTimerInterval);
+  mockTimerInterval = setInterval(() => {
+    mockSecondsLeft--;
+    updateMockTimer();
+    if (mockSecondsLeft <= 0) { clearInterval(mockTimerInterval); alert('⏰ Time is up! Submitting your exam now.'); submitMockExam(true); }
+  }, 1000);
+}
+
+function updateMockTimer() {
+  const m = Math.floor(mockSecondsLeft / 60), s = mockSecondsLeft % 60;
+  const t = document.getElementById('mock-timer');
+  t.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  t.classList.toggle('warning', mockSecondsLeft <= 600 && mockSecondsLeft > 300);
+  t.classList.toggle('danger', mockSecondsLeft <= 300);
+}
+
+function renderMockQuestion() {
+  const q = mockQs[mockQIdx];
+  document.getElementById('mock-q-current').textContent = mockQIdx + 1;
+  const opts = q.opts.map((o, i) => {
+    const sel = mockAnswers[mockQIdx] === i ? ' selected' : '';
+    return '<button class="mock-opt' + sel + '" onclick="selectMockAnswer(' + i + ')"><span class="mock-letter">' + String.fromCharCode(65+i) + '.</span>' + o + '</button>';
+  }).join('');
+  document.getElementById('mock-question-area').innerHTML =
+    '<div class="mock-q-num">Question ' + (mockQIdx + 1) + ' of ' + mockQs.length + '</div>' +
+    '<div class="mock-q-text">' + q.q + '</div>' +
+    '<div class="mock-opts">' + opts + '</div>';
+  document.getElementById('mock-prev-btn').disabled = mockQIdx === 0;
+  document.getElementById('mock-next-btn').disabled = mockQIdx >= mockQs.length - 1;
+  renderMockPalette();
+}
+
+function selectMockAnswer(idx) {
+  mockAnswers[mockQIdx] = idx;
+  document.querySelectorAll('.mock-question .mock-opt').forEach((b, i) => { b.classList.toggle('selected', i === idx); });
+  renderMockPalette();
+}function submitMockExam(timesUp) {
+  if (!timesUp) {
+    const unanswered = mockAnswers.filter(a => a === null).length;
+    if (unanswered > 0 && !confirm('You have ' + unanswered + ' unanswered question' + (unanswered === 1 ? '' : 's') + '. Submit anyway?')) return;
+  }
+  if (mockTimerInterval) clearInterval(mockTimerInterval);
+  const elapsedMs = Date.now() - mockStartedAt;
+  const elapsedMin = Math.floor(elapsedMs / 60000);
+  const elapsedSec = Math.floor((elapsedMs % 60000) / 1000);
+  let correct = 0; const missed = [];
+  mockQs.forEach((q, i) => {
+    if (mockAnswers[i] === q.answer) correct++;
+    else if (mockAnswers[i] !== null) missed.push({ ...q, userAnswer: mockAnswers[i] });
+    else missed.push({ ...q, userAnswer: -1 });
+  });
+  const pct = Math.round(correct / mockQs.length * 100);
+  const passed = pct >= MOCK_PASS_PCT;
+  document.getElementById('mock-exam-overlay').classList.remove('active');
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'block';
+  document.getElementById('quiz-result').innerHTML = buildMockResultCard(correct, mockQs.length, pct, passed, elapsedMin, elapsedSec) + renderMockMissed(missed);
+  recordMockScore(pct, correct, mockQs.length);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (passed) celebrate();
+}
+
+function buildMockResultCard(correct, total, pct, passed, elapsedMin, elapsedSec) {
+  const date = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= MOCK_PASS_PCT ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return '<div class="score-card ' + (passed ? 'pass' : 'fail') + '">' +
+    '<div class="score-card-header">' +
+      '<div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">🎯 Mock Exam Results</div>' +
+      '<div class="score-card-title">' + MOCK_EXAM_LABEL + ' Mock Exam</div>' +
+      '<div class="score-card-date">' + date + '</div>' +
+    '</div>' +
+    '<div class="score-card-numbers">' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:' + (passed?'var(--green)':'#e74c3c') + '">' + pct + '%</div><div class="score-card-lbl">Score</div></div>' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:var(--blue)">' + correct + '/' + total + '</div><div class="score-card-lbl">Correct</div></div>' +
+      '<div class="score-card-num"><div class="score-card-big" style="color:var(--accent2)">' + elapsedMin + ':' + String(elapsedSec).padStart(2,'0') + '</div><div class="score-card-lbl">Time</div></div>' +
+    '</div>' +
+    '<div class="score-card-banner ' + (passed ? 'pass' : 'fail') + '">' +
+      (passed ? '✓ You passed the Mock Exam at ' + pct + '% (threshold: ' + MOCK_PASS_PCT + '%)' : '✗ Below the ' + MOCK_PASS_PCT + '% passing threshold — review missed questions and retake') +
+    '</div>' +
+    '<div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">' + grade + '</div>' +
+    '<div class="screenshot-prompt">' +
+      '<div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>' +
+      '<div class="sp-sub" style="margin-bottom:8px;">Mock exam score is a great submission for finals prep.</div>' +
+      '<div class="sp-keys">' +
+        '<div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — usually 6th key from left where F5 would be).</div>' +
+        '<div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag.</div>' +
+        '<div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="score-card-btns">' +
+      '<button onclick="startMockExam()" style="background:linear-gradient(135deg,#e74c3c,#f39c12);color:white;">🔄 Retake Mock Exam</button>' +
+      '<button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderMockMissed(missed) {
+  if (!missed.length) return '<div class="wrong-review"><h3>🎯 Review</h3><div class="perfect-msg">🏆 Perfect score on the Mock Exam!</div></div>';
+  const letter = n => String.fromCharCode(65 + n);
+  const items = missed.map((m, i) => {
+    const userAns = m.userAnswer === -1 ? '<em>Skipped (unanswered)</em>' : letter(m.userAnswer) + '. ' + m.opts[m.userAnswer];
+    return '<div class="wrong-review-item">' +
+      '<div class="wri-q">' + (i+1) + '. ' + m.q + '</div>' +
+      '<div class="wri-line user">✗ Your answer: ' + userAns + '</div>' +
+      '<div class="wri-line correct">✓ Correct answer: ' + letter(m.answer) + '. ' + m.opts[m.answer] + '</div>' +
+      '<div class="wri-exp">' + m.exp + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="wrong-review"><h3>📚 Review the ' + missed.length + ' you missed</h3><p class="wr-sub">Read each explanation carefully before retaking the Mock Exam.</p>' + items + '</div>';
+}
+
+// ── Performance-based questions (drag-and-drop) ─────────────────────────
+let pbqDragged = null;
+function initPBQ() {
+  document.querySelectorAll('.pbq-chip').forEach(chip => {
+    chip.addEventListener('dragstart', e => {
+      pbqDragged = chip;
+      chip.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    chip.addEventListener('dragend', () => {
+      chip.classList.remove('dragging');
+      pbqDragged = null;
+    });
+  });
+  document.querySelectorAll('.pbq-slot, .pbq-pool').forEach(target => {
+    target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+    target.addEventListener('dragleave', () => target.classList.remove('over'));
+    target.addEventListener('drop', e => {
+      e.preventDefault();
+      target.classList.remove('over');
+      if (!pbqDragged) return;
+      // If dropping on a slot that already has a chip, move that chip back to pool
+      if (target.classList.contains('pbq-slot')) {
+        const existing = target.querySelector('.pbq-chip');
+        if (existing) {
+          const pool = target.closest('.pbq-board').querySelector('.pbq-pool');
+          existing.classList.remove('placed', 'correct', 'incorrect');
+          pool.appendChild(existing);
+        }
+      }
+      target.appendChild(pbqDragged);
+      pbqDragged.classList.remove('correct', 'incorrect');
+      if (target.classList.contains('pbq-slot')) pbqDragged.classList.add('placed');
+      else pbqDragged.classList.remove('placed');
+    });
+  });
+}
+
+function checkPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]');
+  if (!board) return;
+  let correct = 0, total = 0;
+  board.querySelectorAll('.pbq-slot').forEach(slot => {
+    total++;
+    const chip = slot.querySelector('.pbq-chip');
+    chip?.classList.remove('correct', 'incorrect');
+    if (chip && chip.dataset.value === slot.dataset.correct) {
+      chip.classList.add('correct');
+      correct++;
+    } else if (chip) {
+      chip.classList.add('incorrect');
+    }
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) {
+    const pct = total ? Math.round(correct / total * 100) : 0;
+    result.className = 'pbq-result show ' + (correct === total ? 'pass' : 'fail');
+    result.textContent = correct === total
+      ? '🎉 All ' + total + ' correct! Great job — this is what a real performance-based question on the exam looks like.'
+      : '✗ ' + correct + ' / ' + total + ' (' + pct + '%). Red chips are in the wrong slot. Drag them to fix, then check again.';
+  }
+}
+
+function resetPBQ(id) {
+  const board = document.querySelector('.pbq-board[data-pbq="' + id + '"]');
+  if (!board) return;
+  const pool = board.querySelector('.pbq-pool');
+  board.querySelectorAll('.pbq-slot .pbq-chip').forEach(chip => {
+    chip.classList.remove('placed', 'correct', 'incorrect');
+    pool.appendChild(chip);
+  });
+  const result = document.getElementById('pbq-result-' + id);
+  if (result) { result.className = 'pbq-result'; result.textContent = ''; }
+}
+
+const EXAM_KEY = 'gis';
+const EXAM_LABEL = 'PCAP';document.addEventListener('DOMContentLoaded', function() {
+  buildVocabAP(apVocabTerms);
+  loadCards();
+  initQuiz();
+  document.querySelector('.domain-header')?.classList.add('open');
+  document.querySelector('.domain-body')?.classList.add('open');
+  loadTracker();
+  recordVisit();
+  renderMasteryBars();
+  initPBQ();
+  loadNotes();
+  buildAcronyms(acronyms);
+  buildStudyTOC();
+  document.getElementById('gs-input')?.addEventListener('input', e => gsSearch(e.target.value));
+});
+
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+    e.preventDefault();
+    openGlobalSearch();
+  } else if (e.key === 'Escape' && document.getElementById('global-search')?.classList.contains('show')) {
+    closeGlobalSearch();
+  }
+});
+
+
+// ── Week Tracker ─────────────────────────────────────────────────────────────
+function saveTracker() {
+  const state = [1,2,3,4,5].map(i => document.getElementById('task-'+i)?.checked || false);
+  localStorage.setItem('tracker_gis', JSON.stringify(state));
+  renderTracker(state);
+}
+
+function loadTracker() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('tracker_gis') || '[]');
+    if (saved.length === 5) renderTracker(saved);
+  } catch(e) {}
+}
+
+// ── Score Card builder ────────────────────────────────────────────────────────
+function buildScoreCard(score, total) {
+  const pct    = Math.round(score / total * 100);
+  const passed = pct >= 72;
+  const date   = new Date().toLocaleDateString('en-US', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const grade  = pct >= 90 ? 'Excellent! 🎉' : pct >= 80 ? 'Great Job! 👍' : pct >= 72 ? 'Passed ✓' : pct >= 60 ? 'Almost There 📚' : 'Keep Studying 💪';
+  return `<div class="score-card ${passed?'pass':'fail'}">
+    <div class="score-card-header">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">CompTIA Study Library</div>
+      <div class="score-card-title">Python PCAP Practice Quiz</div>
+      <div class="score-card-date">${date}</div>
+    </div>
+    <div class="score-card-numbers">
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:${passed?'var(--green)':'#e74c3c'}">${pct}%</div>
+        <div class="score-card-lbl">Score</div>
+      </div>
+      <div class="score-card-num">
+        <div class="score-card-big" style="color:var(--blue)">${score}/${total}</div>
+        <div class="score-card-lbl">Correct</div>
+      </div>
+    </div>
+    <div class="score-card-banner ${passed?'pass':'fail'}">
+      ${passed ? '✓ Above passing threshold (72%)' : '✗ Below passing threshold — retake on Day 5'}
+    </div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:700;margin-bottom:16px;">${grade}</div>
+    <div class="screenshot-prompt">
+      <div class="sp-label">📸 SCREENSHOT THIS TO SUBMIT</div>
+      <div class="sp-sub" style="margin-bottom:8px;">Upload to Google Classroom as your Day 4 submission. Make sure your name is visible in the browser tab.</div>
+      <div class="sp-keys">
+        <div class="sp-key-line"><strong>💻 Chromebook:</strong> Hold <kbd>Ctrl</kbd> + the <strong>Show Windows</strong> key (top row, looks like ▭ ⃦ — a rectangle with two stripes beside it, usually 6th key from the left where F5 would be) for full screen. Add <kbd>Shift</kbd> to drag-select a region.</div>
+        <div class="sp-key-line"><strong>🪟 Windows:</strong> <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, then drag to select.</div>
+        <div class="sp-key-line"><strong>🍎 Mac:</strong> <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>4</kbd>, then drag.</div>
+      </div>
+    </div>
+    <div class="score-card-btns">
+      <button onclick="initQuiz()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;">🔄 Try Again</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border);">🖨 Print</button>
+    </div>
+  </div>`;
+}
+
+/* ── Accessibility: keyboard-operable accordions ─────────────────── */
+(function() {
+  document.querySelectorAll('.domain-header').forEach(function(h) {
+    h.setAttribute('tabindex', '0');
+    h.setAttribute('role', 'button');
+    function sync() {
+      h.setAttribute('aria-expanded', h.classList.contains('open') ? 'true' : 'false');
+    }
+    sync();
+    h.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        h.click();
+      }
+    });
+    try {
+      new MutationObserver(sync).observe(h, { attributes: true, attributeFilter: ['class'] });
+    } catch (e) {}
+  });
+})();
+</script>
+<script>
+/* === UX nav enhancements: in-tab jump pills, accordion sub-TOCs, tab counts === */
+(function initUXNav() {
+  function run() {
+    addTabNavPills();
+    addAccordionTOCs();
+    updateTabCounts();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+
+  function slugify(s) {
+    return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 60) || 'sec';
+  }
+
+  function addTabNavPills() {
+    const concepts = document.getElementById('panel-concepts');
+    if (concepts) {
+      const sections = [...concepts.querySelectorAll(':scope > .concepts-section, :scope > .cv-card')];
+      const headings = sections.map(sec => sec.querySelector('h2, h3'));
+      if (sections.length >= 4 && headings.every(Boolean)) {
+        const nav = buildPillNav(sections, headings, 'cp');
+        if (nav) concepts.insertBefore(nav, concepts.firstElementChild);
+      }
+    }
+    const guide = document.getElementById('panel-guide');
+    if (guide) {
+      const cards = [...guide.querySelectorAll(':scope > .domain-card')];
+      const headings = cards.map(c => c.querySelector('.domain-header h3') || c.querySelector('h3'));
+      if (cards.length >= 3 && headings.every(Boolean)) {
+        const nav = buildPillNav(cards, headings, 'sg');
+        if (nav) guide.insertBefore(nav, guide.firstElementChild);
+      }
+    }
+  }
+
+  function buildPillNav(sections, headings, prefix) {
+    if (!sections.length) return null;
+    const nav = document.createElement('div');
+    nav.className = 'tab-nav-pills';
+    nav.setAttribute('aria-label', 'Jump to section');
+    sections.forEach((sec, i) => {
+      const h = headings[i];
+      if (!sec.id) sec.id = prefix + '-' + slugify(h.textContent) + '-' + i;
+      const a = document.createElement('a');
+      a.className = 'tab-nav-pill';
+      a.href = '#' + sec.id;
+      a.textContent = (h.textContent || '').trim().replace(/\s+/g, ' ');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        // If target is a collapsed accordion, expand it first
+        if (sec.classList.contains('domain-card')) {
+          const body = sec.querySelector('.domain-body');
+          if (body && getComputedStyle(body).display === 'none') {
+            const header = sec.querySelector('.domain-header');
+            if (header) header.click();
+          }
+        }
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + sec.id);
+      });
+      nav.appendChild(a);
+    });
+    return nav;
+  }
+
+  function addAccordionTOCs() {
+    const cards = document.querySelectorAll('#panel-guide .domain-card');
+    cards.forEach((card, i) => {
+      const body = card.querySelector('.domain-body');
+      if (!body) return;
+      const h4s = [...body.querySelectorAll(':scope > h4')];
+      if (h4s.length < 2) return;
+      const toc = document.createElement('div');
+      toc.className = 'domain-toc';
+      const label = document.createElement('span');
+      label.className = 'domain-toc-label';
+      label.textContent = 'Jump:';
+      toc.appendChild(label);
+      h4s.forEach((h, j) => {
+        if (!h.id) h.id = 'dh-' + i + '-' + slugify(h.textContent) + '-' + j;
+        const a = document.createElement('a');
+        a.className = 'domain-toc-pill';
+        a.href = '#' + h.id;
+        a.textContent = (h.textContent || '').trim();
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + h.id);
+        });
+        toc.appendChild(a);
+      });
+      body.insertBefore(toc, body.firstElementChild);
+    });
+  }
+
+  function updateTabCounts() {
+    const btns = document.querySelectorAll('button[onclick*="showTab"], .tab-btn, .tab-button');
+    btns.forEach(btn => {
+      if (btn.querySelector('.tab-count')) return;
+      const onclick = btn.getAttribute('onclick') || '';
+      const text = (btn.textContent || '').toLowerCase();
+      let n = null;
+      if (/['"]concepts['"]/.test(onclick) || /\bconcepts\b/.test(text)) {
+        const root = document.getElementById('panel-concepts');
+        if (root) {
+          n = root.querySelectorAll(':scope > .concepts-section, :scope > .cv-card').length;
+        }
+      } else if (/['"]quiz['"]/.test(onclick) || /\bquiz\b/.test(text)) {
+        if (typeof quizQuestions !== 'undefined' && Array.isArray(quizQuestions)) n = quizQuestions.length;
+      }
+      if (n == null || isNaN(n) || n === 0) return;
+      const span = document.createElement('span');
+      span.className = 'tab-count';
+      span.textContent = n;
+      btn.appendChild(document.createTextNode(' '));
+      btn.appendChild(span);
+    });
+  }
+})();
+</script>
+</body>
+</html><script src="study.js"></script>
+

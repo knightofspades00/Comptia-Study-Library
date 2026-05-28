@@ -117,6 +117,7 @@
   .exam-card.htmlcss::before { background: linear-gradient(90deg, #e34c26, #2965f1); }
   .exam-card.pcap::before { background: linear-gradient(90deg, #3776ab, #ffd43b); }
   .exam-card.ailit::before { background: linear-gradient(90deg, #7c3aed, #06b6d4); }
+  .exam-card.esrigis::before { background: linear-gradient(90deg, #15803d, #4ade80); }
   .exam-card.coming-soon { opacity: 0.55; pointer-events: none; }
   .exam-card.coming-soon::before { background: linear-gradient(90deg, #555, #777); }
   .exam-card.coming-soon .icon { filter: grayscale(0.5); }
@@ -136,6 +137,7 @@
   .exam-card.htmlcss h2 { background: linear-gradient(90deg, #e34c26, #2965f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.pcap h2 { background: linear-gradient(90deg, #3776ab, #ffd43b); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.ailit h2 { background: linear-gradient(90deg, #7c3aed, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .exam-card.esrigis h2 { background: linear-gradient(90deg, #15803d, #4ade80); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.coming-soon h2 { color: var(--text-muted); }
   .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
@@ -180,6 +182,7 @@
   .exam-card.htmlcss .open-btn { background: linear-gradient(135deg, #e34c26, #2965f1); color: white; }
   .exam-card.pcap .open-btn { background: linear-gradient(135deg, #3776ab, #ffd43b); color: #1a1d2e; }
   .exam-card.ailit .open-btn { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: white; }
+  .exam-card.esrigis .open-btn { background: linear-gradient(135deg, #15803d, #4ade80); color: white; }
 
   /* How to use section */
   .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
@@ -531,6 +534,39 @@
 
 
   <div class="pillar-section">
+  <h2 class="pillar-title">🗺️ Spatial Skills — Maps &amp; GIS</h2>
+  <div class="exam-grid">
+
+    <!-- ESRI GIS Foundations Card -->
+    <a href="esri_gis.html" class="exam-card esrigis">
+      <div class="icon">🗺️</div>
+      <div class="exam-code">Esri · ArcGIS Pro Foundation</div>
+      <h2>ESRI GIS Foundations</h2>
+      <p>How geographic data is captured, projected, analyzed, and shared. Prep for Esri's ArcGIS Pro Foundation cert — and become fluent in the maps and data behind real-world decisions.</p>
+      <ul class="domain-list">
+        <li>Geographic Data Models (vector &amp; raster)</li>
+        <li>Coordinate Systems &amp; Projections</li>
+        <li>Cartography &amp; Symbology</li>
+        <li>Spatial Analysis &amp; Geoprocessing</li>
+        <li>ArcGIS Online &amp; Web GIS</li>
+        <li>Geodatabases, Metadata &amp; Sharing</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Practice Quiz</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+        <span class="chip">🌐 ArcGIS Online ready</span>
+      </div>
+      <span class="open-btn">Open ESRI GIS Foundations Hub →</span>
+    </a>
+
+  </div><!-- /exam-grid -->
+  </div><!-- /pillar-section Spatial Skills -->
+
+
+  <div class="pillar-section">
   <h2 class="pillar-title">🎨 Web Dev — Build the Page</h2>
   <div class="exam-grid">
 
@@ -670,6 +706,7 @@ const EXAMS = [
   { key: 'aplus',    label: 'A+',            file: 'aplus.html' },
   { key: 'netplus',  label: 'Network+',      file: 'network_plus.html' },
   { key: 'secplus',  label: 'Security+',     file: 'security_plus.html' },
+  { key: 'gis',      label: 'ESRI GIS',      file: 'esri_gis.html' },
   { key: 'htmlcss',  label: 'HTML & CSS',    file: 'htmlcss.html' },
   { key: 'pcap',     label: 'Python PCAP',   file: 'python_pcap.html' },
   { key: 'ailit',    label: 'AI &amp; Digital', file: 'ai_literacy.html' }
