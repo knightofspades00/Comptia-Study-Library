@@ -835,12 +835,361 @@ td strong { color: var(--text); }
 
 <!-- ===== STUDY GUIDE ===== -->
 <div id="panel-guide" class="tab-panel active">
-  <h2 style="margin-top:0;">📖 Study Guide</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Six domain accordions: Geographic Data Models · Coordinate Systems &amp; Projections · Cartography &amp; Symbology · Spatial Analysis · ArcGIS Online &amp; Web GIS · Geodatabases, Metadata &amp; Sharing.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  <div class="exam-planner" id="exam-planner"></div>
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">📖 Study Guide — ArcGIS Pro Foundation Cert Prep + GIS Literacy</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">💡 Click any domain header to expand. Six domains covering the core of ArcGIS Pro Foundation cert prep and general GIS literacy. Esri Academy hosts the canonical free video lessons: <a href="https://www.esri.com/training/catalog/" target="_blank" rel="noopener">esri.com/training/catalog</a> · <a href="https://learn.arcgis.com/" target="_blank" rel="noopener">learn.arcgis.com</a> hosts free guided tutorials.</p>
+
+  <!-- ═════════ DOMAIN 1: Geographic Data Models ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🗺️ 1.0 — Geographic Data Models</h3>
+      <a class="messer-link" href="https://pro.arcgis.com/en/pro-app/latest/help/data/an-overview-of-data-management.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Pro documentation">📚 Pro docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>What is GIS? — the layered worldview</h4>
+      <ul>
+        <li>GIS = software that maps and analyzes <strong>geographic information</strong>. Every layer is data tagged with a location.</li>
+        <li>Three pieces in every GIS dataset: <strong>geometry</strong> (where), <strong>attributes</strong> (what), <strong>spatial reference</strong> (how to align). Missing any one and the map is broken.</li>
+        <li>Layers stack bottom-up: basemap underneath, operational data on top. Drawing order matters — points on top of polygons, labels on top of everything.</li>
+        <li><strong>ArcGIS Pro</strong> is the desktop authoring app; <strong>ArcGIS Online (AGOL)</strong> is the cloud sharing/serving platform. You build in Pro, publish to AGOL, share to your audience.</li>
+        <li>Common verbs: <em>capture</em> (digitize, GPS, import), <em>store</em> (geodatabase), <em>analyze</em> (geoprocessing), <em>visualize</em> (cartography), <em>share</em> (web maps, dashboards).</li>
+      </ul>
+
+      <h4>Vector data — features represented by shapes</h4>
+      <ul>
+        <li><strong>Points</strong> — discrete single locations (a school, a fire hydrant, a sample site). One x,y pair per feature.</li>
+        <li><strong>Lines</strong> (polylines) — connected vertex chains (a road, a river, a power line).</li>
+        <li><strong>Polygons</strong> — closed areas (a state, a parcel, a fire perimeter). First vertex repeats as last; counter-clockwise rings = outer boundary, clockwise rings = hole.</li>
+        <li><strong>Multipoint / multilinestring / multipolygon</strong> — one feature row can hold multiple disjoint geometries (e.g., the State of Hawaii = one feature, many island polygons).</li>
+        <li>Vector is best for things with sharp boundaries — buildings, roads, parcels. Scale-independent: still crisp when zoomed in.</li>
+      </ul>
+
+      <h4>Raster data — the world as a grid</h4>
+      <ul>
+        <li>Cells (pixels) with a single value each — elevation, temperature, land cover, satellite reflectance.</li>
+        <li><strong>Cell size</strong> = ground distance one pixel represents (10 m, 30 m, 1 m). Trade-off: smaller cells = sharper detail and a much larger file.</li>
+        <li><strong>Bands</strong>: a raster can have one band (a DEM) or many (4-band orthoimagery = Red, Green, Blue, Near-Infrared).</li>
+        <li><strong>Continuous</strong> rasters (elevation, temperature) gradient symbology; <strong>discrete/thematic</strong> rasters (land-cover classes) use unique values.</li>
+        <li>Best for phenomena that change smoothly across space — terrain, climate, imagery — and for analyses like slope, viewshed, hillshade, NDVI.</li>
+      </ul>
+
+      <h4>Attribute tables — the data behind the features</h4>
+      <ul>
+        <li>Every feature class has a table: <strong>one row per feature</strong>, columns are <strong>fields</strong> (attributes).</li>
+        <li><strong>OBJECTID</strong> — automatic unique row ID. Don't edit or delete; ArcGIS uses it internally for joins and selections.</li>
+        <li><strong>Shape (SHAPE)</strong> — the geometry column. Symbology and spatial analysis read this column.</li>
+        <li>Field <strong>data types</strong>: Short Integer, Long Integer, Double, Text, Date. Pick once; changing later requires reloading or recreating the field.</li>
+        <li><strong>Joins</strong> attach another table's attributes by a common key (census tract data → census tract polygons via GEOID). Joins are <em>temporary</em> until you export to a new feature class.</li>
+      </ul>
+
+      <h4>Common file formats you'll see</h4>
+      <ul>
+        <li><strong>Shapefile (.shp + sidecars)</strong> — Esri's legacy format, ubiquitous. Limits: 2 GB max, 10-character field names, no native time data. Always travels as a folder of 4-6 files: <code>.shp .shx .dbf .prj</code> at minimum.</li>
+        <li><strong>Feature class in a geodatabase</strong> — the modern Esri vector container. No 2 GB cap, full field names, supports domains, subtypes, attribute rules.</li>
+        <li><strong>GeoJSON</strong> — open web standard, plain text JSON. Spec mandates <strong>WGS 84 (EPSG 4326)</strong>.</li>
+        <li><strong>KML / KMZ</strong> — Google Earth's format, good for 3D globe viewing. KMZ = zipped KML.</li>
+        <li><strong>CSV with X/Y</strong> — text rows with lat/long columns; import via <em>XY Table to Point</em>.</li>
+      </ul>
+    </div>
   </div>
+
+  <!-- ═════════ DOMAIN 2: Coordinate Systems & Projections ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🧭 2.0 — Coordinate Systems &amp; Projections</h3>
+      <a class="messer-link" href="https://pro.arcgis.com/en/pro-app/latest/help/mapping/properties/coordinate-systems-and-projections.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Pro documentation">📚 Pro docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>The Earth's shape — datums, ellipsoids, geoids</h4>
+      <ul>
+        <li>The Earth is <em>almost</em> a sphere — slightly flattened at the poles. We approximate it with an <strong>ellipsoid</strong> (a mathematical model with semi-major and semi-minor axes).</li>
+        <li>A <strong>datum</strong> ties the ellipsoid to specific reference points on the Earth. Same coordinates on different datums = different real-world places.</li>
+        <li>The <strong>geoid</strong> is the actual gravitational "sea level" surface — used for elevation (height above sea level). Bumpy, not smooth.</li>
+        <li>Why it matters: a point's coordinates depend on which datum is assumed. "30.0, 45.0" on WGS 84 vs NAD 27 can differ by hundreds of meters.</li>
+      </ul>
+
+      <h4>Geographic vs Projected CRS (GCS vs PCS)</h4>
+      <ul>
+        <li><strong>Geographic CRS (GCS)</strong> uses angles — latitude/longitude on the round Earth. Units = degrees. Distances and areas are NOT directly measurable (a degree of longitude shrinks with latitude).</li>
+        <li><strong>Projected CRS (PCS)</strong> uses Cartesian X/Y on a flat plane. Units = meters or feet. Distances and areas are measurable. Trade-off: every projection distorts something.</li>
+        <li>Rule of thumb: <strong>store and exchange in a GCS; analyze and measure in a PCS</strong>.</li>
+        <li>ArcGIS Pro projects layers on-the-fly to match the map frame's CRS, but analysis tools work most reliably when every input shares one PCS.</li>
+      </ul>
+
+      <h4>Common datums you'll meet</h4>
+      <ul>
+        <li><strong>WGS 84</strong> — global GPS standard. Default for GeoJSON, KML, web maps, almost all GPS receivers.</li>
+        <li><strong>NAD 83</strong> — modern North American datum. Used for State Plane and most US authoritative data.</li>
+        <li><strong>NAD 27</strong> — older North American datum. Still common in historical/oil-and-gas data; can differ from NAD 83 by ~100 m in the lower 48.</li>
+        <li><strong>Mixing datums without a transformation</strong> is the #1 source of "my layers don't line up" tickets. ArcGIS Pro warns you and asks which datum transformation to apply.</li>
+      </ul>
+
+      <h4>Projection families — what each preserves</h4>
+      <ul>
+        <li><strong>Conformal</strong> — preserves <em>local angles/shape</em>. Examples: Mercator, Lambert Conformal Conic. Best for navigation, weather.</li>
+        <li><strong>Equal-area</strong> — preserves <em>area</em>. Examples: Albers Equal Area, Mollweide. Best for population maps, choropleths.</li>
+        <li><strong>Equidistant</strong> — preserves <em>distance</em> from one or two reference points. Good for "distance from here" analyses.</li>
+        <li><strong>Compromise</strong> — preserves nothing perfectly but minimizes overall distortion. Examples: Robinson, Winkel Tripel — common general-purpose world maps.</li>
+        <li>No projection preserves all properties. Pick by what your map must communicate truthfully.</li>
+      </ul>
+
+      <h4>Projections you'll meet most often</h4>
+      <ul>
+        <li><strong>Web Mercator (EPSG 3857)</strong> — the web-map default (Google, OSM, AGOL basemaps). Conformal but distorts area badly toward the poles — Greenland looks the size of Africa; it isn't.</li>
+        <li><strong>UTM</strong> — 60 zones, each 6° wide. Within a zone, distances are accurate to roughly 1 part in 2500. Used by surveyors, ecologists, the US military.</li>
+        <li><strong>State Plane (NAD 83)</strong> — US state-specific zones designed for high accuracy within each state. East-west states (e.g., Texas) use Lambert; north-south states (e.g., Idaho) use Transverse Mercator.</li>
+        <li><strong>Albers Equal Area Conic</strong> — the standard "lower-48" choropleth projection.</li>
+      </ul>
+
+      <h4>EPSG codes — the universal CRS shorthand</h4>
+      <ul>
+        <li>Every CRS has an <strong>EPSG code</strong> — a number you copy/paste into any GIS software to specify the CRS unambiguously.</li>
+        <li>WGS 84 = <strong>4326</strong> · Web Mercator = <strong>3857</strong> · NAD 83 = <strong>4269</strong> · NAD 27 = <strong>4267</strong>.</li>
+        <li>Look up unknown codes at <a href="https://epsg.io" target="_blank" rel="noopener">epsg.io</a>.</li>
+        <li>In ArcGIS Pro, every CRS dialog shows the <strong>WKID</strong> (Well-Known ID) — usually the EPSG code.</li>
+      </ul>
+
+      <h4>Project vs Define Projection — the most-tested distinction</h4>
+      <ul>
+        <li><strong>Project</strong> (or <strong>Project Raster</strong>) — converts data <em>from</em> one CRS <em>to</em> another. Geometry coordinates change. Use when you actually need to re-project.</li>
+        <li><strong>Define Projection</strong> — sets the CRS label on data that has no label or the wrong label. <strong>Geometry coordinates do NOT change.</strong> Use when a dataset came in unlabeled.</li>
+        <li>Wrong tool = silent disaster. If you "Define" data with the wrong CRS, the numbers stay but the label is a lie — every subsequent operation projects to wrong real-world locations and you may never notice.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═════════ DOMAIN 3: Cartography & Symbology ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🎨 3.0 — Cartography &amp; Symbology</h3>
+      <a class="messer-link" href="https://pro.arcgis.com/en/pro-app/latest/help/mapping/symbols-and-styles/symbology.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Pro documentation">📚 Pro docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>The five must-have map elements</h4>
+      <ul>
+        <li><strong>Title</strong> — what the map is about, at the top, sized for the audience.</li>
+        <li><strong>Legend</strong> — explains every symbol. Match the in-map symbol exactly; group related entries; drop layers that don't need explaining.</li>
+        <li><strong>Scale bar</strong> — graphic, resizes correctly if printed at different sizes. Avoid representative-fraction text on web maps that re-scale.</li>
+        <li><strong>North arrow</strong> — required unless north is clearly up and obvious (small inset maps can skip).</li>
+        <li><strong>Neat line + credits/source/date</strong> — frame the map, cite the data source, note the projection. Professionally required.</li>
+      </ul>
+
+      <h4>Symbology approaches in ArcGIS Pro</h4>
+      <ul>
+        <li><strong>Single Symbol</strong> — every feature drawn identically. Use for context layers.</li>
+        <li><strong>Unique Values (categorized)</strong> — one symbol per discrete category (land-cover class, school type). Up to ~7 categories before the legend becomes unreadable.</li>
+        <li><strong>Graduated Colors</strong> — color ramp keyed to a numeric value (income, density). Pick a classification method (next).</li>
+        <li><strong>Graduated Symbols</strong> — point/line/polygon size keyed to a numeric value. Use when color is already taken.</li>
+        <li><strong>Heatmap</strong> — density estimation for point data. Great for "where's the cluster?" but bad for comparing exact counts.</li>
+      </ul>
+
+      <h4>Classification methods for graduated symbology</h4>
+      <ul>
+        <li><strong>Equal Interval</strong> — splits the value range into equal-width bins. Easy to read; bad when data is skewed (most features land in one bin).</li>
+        <li><strong>Quantile</strong> — equal feature count per bin. Highlights ranking, but can put very different values in the same bin.</li>
+        <li><strong>Natural Breaks (Jenks)</strong> — algorithm finds gaps in the data and breaks there. Best general default for skewed data.</li>
+        <li><strong>Standard Deviation</strong> — bins relative to the mean. Use when "above/below average" matters most.</li>
+        <li><strong>Manual</strong> — when the data has meaningful real-world thresholds (e.g., flood-stage levels, IRS tax brackets).</li>
+      </ul>
+
+      <h4>Color — the most powerful and most-misused tool</h4>
+      <ul>
+        <li><strong>Sequential</strong> ramps (light → dark of one hue) — for ordered data: low to high (income, density, elevation).</li>
+        <li><strong>Diverging</strong> ramps (two hues meeting at a neutral middle) — for data with a meaningful midpoint (gain/loss, above/below average).</li>
+        <li><strong>Qualitative</strong> palettes (distinct hues, no order) — for categorical data (land-cover types, political party).</li>
+        <li>Color-blind safe: stick to <strong>ColorBrewer</strong> ramps (built into ArcGIS Pro). Avoid red-green diverging without testing.</li>
+        <li>Less is more: too many hues compete. Pick one ramp per layer and reserve bright colors for the focus of the map.</li>
+      </ul>
+
+      <h4>Labels, annotation, and visual hierarchy</h4>
+      <ul>
+        <li><strong>Labels</strong> — generated dynamically from a field. Reposition as the map redraws; toggle per-scale ranges. Light to maintain.</li>
+        <li><strong>Annotation</strong> — fixed text features stored in the geodatabase. Hand-place when labels can't be positioned correctly automatically.</li>
+        <li><strong>Visual hierarchy</strong>: the important stuff is bigger, brighter, or sharper. The map should answer "what is this about?" within one second of looking.</li>
+        <li><strong>Standard layout</strong>: title at the top, legend bottom-right, scale bar bottom-left, north arrow bottom-right corner. Don't crowd the map frame.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═════════ DOMAIN 4: Spatial Analysis & Geoprocessing ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🔬 4.0 — Spatial Analysis &amp; Geoprocessing</h3>
+      <a class="messer-link" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/basics/what-is-geoprocessing-.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Pro documentation">📚 Pro docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>The geoprocessing model</h4>
+      <ul>
+        <li>A <strong>tool</strong> takes input data + parameters and produces output data. Always file-based — outputs are new datasets; originals are untouched.</li>
+        <li><strong>Parameters</strong> — required and optional. ArcGIS Pro shows required ones with a red asterisk.</li>
+        <li><strong>Environments</strong> — defaults that apply to every run: output CRS, processing extent, raster cell size, mask. Set per project to avoid surprises.</li>
+        <li><strong>History</strong> — every geoprocessing run is logged. Right-click → Copy Python Snippet to script later.</li>
+      </ul>
+
+      <h4>Vector overlay operations</h4>
+      <ul>
+        <li><strong>Buffer</strong> — the area within distance D of a feature. Inputs: features + distance + optional dissolve to merge overlapping buffers.</li>
+        <li><strong>Clip</strong> — cookie-cutter: keep features (or parts) INSIDE another layer. Attributes stay; geometry is trimmed.</li>
+        <li><strong>Intersect</strong> — features where two layers overlap. Output carries attributes from BOTH inputs.</li>
+        <li><strong>Union</strong> — output covers every part of BOTH layers (overlap + non-overlap parts), each tagged with which input it came from.</li>
+        <li><strong>Erase</strong> — remove area in B from A. <strong>Symmetric Difference</strong> — "parts that don't overlap" (XOR of A and B).</li>
+      </ul>
+
+      <h4>Proximity &amp; selection</h4>
+      <ul>
+        <li><strong>Near / Generate Near Table</strong> — find the nearest feature in another layer for each input feature; record the distance.</li>
+        <li><strong>Select By Attributes</strong> — SQL on the attribute table. Builds a query like <code>POPULATION &gt; 50000 AND STATE = 'TX'</code>.</li>
+        <li><strong>Select By Location</strong> — spatial relationships: intersects, within, contains, within a distance of. Combine with Select By Attributes for compound queries.</li>
+        <li><strong>Spatial Join</strong> — bring attributes from B into A by spatial relationship. One-to-one (default with summary stats) or one-to-many (each spatial match becomes a row).</li>
+      </ul>
+
+      <h4>Raster analysis essentials</h4>
+      <ul>
+        <li><strong>Map Algebra</strong> — arithmetic on raster values, cell by cell: <code>NDVI = (NIR - Red) / (NIR + Red)</code>.</li>
+        <li><strong>Reclassify</strong> — assign new values to ranges. Convert continuous → discrete (elevation → high/medium/low).</li>
+        <li><strong>Slope</strong> — degree or percent rise from a DEM. <strong>Aspect</strong> — compass direction the slope faces (0–360°, with -1 = flat).</li>
+        <li><strong>Hillshade</strong> — illuminate terrain from a chosen sun angle/azimuth to make 3D shape readable.</li>
+        <li><strong>Zonal Statistics</strong> — compute stats (mean, max, count) of one raster within zones defined by another (e.g., mean elevation per county).</li>
+      </ul>
+
+      <h4>Geoprocessing environments — the gotchas</h4>
+      <ul>
+        <li><strong>Output Coordinate System</strong> — if inputs differ in CRS, set this explicitly. Otherwise tools may pick the first input's CRS.</li>
+        <li><strong>Extent</strong> — limit processing to a rectangle. Speeds large-area analyses dramatically.</li>
+        <li><strong>Cell Size</strong> (rasters) — defaults to the largest input's cell size. Override to control output resolution.</li>
+        <li><strong>Mask</strong> — only process cells inside this polygon/raster. Common pattern: run analysis nationally, mask to one state for the deliverable.</li>
+      </ul>
+
+      <h4>ModelBuilder vs Python (ArcPy)</h4>
+      <ul>
+        <li><strong>ModelBuilder</strong> — visual flow: input → tool → output → next tool. Great for documenting analyses and sharing workflows with non-coders.</li>
+        <li><strong>Python (ArcPy)</strong> — script the same operations. Better for loops, branches, integration with non-Esri tools.</li>
+        <li>Both produce the same results. Pick by audience: ModelBuilder for the team meeting, Python for the scheduled job.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═════════ DOMAIN 5: ArcGIS Online & Web GIS ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🌐 5.0 — ArcGIS Online &amp; Web GIS</h3>
+      <a class="messer-link" href="https://doc.arcgis.com/en/arcgis-online/get-started/get-started.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Online documentation">📚 AGOL docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>AGOL accounts, orgs, and roles</h4>
+      <ul>
+        <li>ArcGIS Online (AGOL) is Esri's cloud platform. Your school's <strong>organization</strong> has its own URL — typically <code>yourschool.maps.arcgis.com</code>.</li>
+        <li><strong>Roles</strong>: Viewer (read-only), User (create/own content), Publisher (publish hosted services), Administrator (manage the org).</li>
+        <li><strong>Credits</strong> — Esri's billing unit. Some operations consume credits: geocoding, storage of hosted layers, premium content access.</li>
+        <li><strong>My Content</strong> — items you own. <strong>My Groups</strong> — collections you've joined or created.</li>
+      </ul>
+
+      <h4>Content types you'll create</h4>
+      <ul>
+        <li><strong>Web Map</strong> — a basemap + operational layers + popups + bookmarks. The most common deliverable.</li>
+        <li><strong>Web App</strong> — a web map wrapped in a user interface (Dashboard, Experience Builder, Map Viewer).</li>
+        <li><strong>Hosted Feature Layer</strong> — vector data hosted by AGOL. Editable from the web, queryable via the REST API.</li>
+        <li><strong>Hosted Tile Layer</strong> — raster tiles pre-rendered at fixed zoom levels. Fast but not editable.</li>
+        <li><strong>Hosted Vector Tile Layer</strong> — vector tiles styled at the client. Crisp at any zoom, restyleable in the browser.</li>
+      </ul>
+
+      <h4>Sharing — the gate for who sees what</h4>
+      <ul>
+        <li><strong>Owner</strong> — only you (default for new items).</li>
+        <li><strong>Organization</strong> — anyone signed into your org. Good for in-class sharing.</li>
+        <li><strong>Groups</strong> — share with named groups (a class period, a project team).</li>
+        <li><strong>Everyone (public)</strong> — anyone on the internet. Required for public-facing maps and apps.</li>
+        <li>An app's audience can only be as wide as the items inside it. If the map is "Org" and the app is "Public," external viewers see broken layers — share every layer to match the widest audience.</li>
+      </ul>
+
+      <h4>Building a web map — the workflow</h4>
+      <ul>
+        <li>1. Pick a <strong>basemap</strong> (Imagery, Streets, Topographic, Light Gray Canvas).</li>
+        <li>2. Add <strong>operational layers</strong> from My Content, Living Atlas, or a URL.</li>
+        <li>3. <strong>Style each layer</strong> with <strong>Smart Mapping</strong> — AGOL inspects the data and suggests defensible symbology.</li>
+        <li>4. <strong>Configure popups</strong> — choose which fields show, rename headers, add Arcade expressions for derived fields.</li>
+        <li>5. <strong>Save</strong> with full item details, then <strong>share</strong>.</li>
+      </ul>
+
+      <h4>ArcGIS apps you should know</h4>
+      <ul>
+        <li><strong>Dashboards</strong> — KPI cards + charts + a map driven by a single feature layer. Near-real-time monitoring.</li>
+        <li><strong>Survey123</strong> — smart forms that collect into a feature layer. Field-data collection.</li>
+        <li><strong>Field Maps</strong> — mobile app for navigation, data collection, inspections. Offline-capable.</li>
+        <li><strong>Experience Builder</strong> — drag-and-drop web-app builder. Replaced the older Web AppBuilder.</li>
+        <li><strong>StoryMaps</strong> — narrative + maps + photos. Best for explaining a project to a non-GIS audience.</li>
+      </ul>
+
+      <h4>Publishing from ArcGIS Pro → AGOL</h4>
+      <ul>
+        <li>Sign into your org in Pro: Project tab → Portals → set active portal.</li>
+        <li>Right-click a layer → Share As Web Layer. Choose Feature, Tile, or Vector Tile.</li>
+        <li>Set the sharing level, tags, and item details BEFORE you click Publish — easier than retrofitting after.</li>
+        <li>The published item lands in My Content in AGOL. Now add it to a web map.</li>
+      </ul>
+
+      <h4>Smart Mapping &amp; item-details best practices</h4>
+      <ul>
+        <li><strong>Smart Mapping</strong> inspects your field data type and distribution and suggests defensible defaults. Use it as the starting point for choropleths and graduated styles.</li>
+        <li><strong>Always fill out item details</strong>: Title, Summary, Description, Terms of Use, Credits, Tags, Thumbnail. Discoverable items get used; bare items collect dust.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═════════ DOMAIN 6: Geodatabases, Metadata & Sharing ═════════ -->
+  <div class="domain-card">
+    <div class="domain-header" onclick="toggleDomain(this)">
+      <h3>🗄️ 6.0 — Geodatabases, Metadata &amp; Sharing</h3>
+      <a class="messer-link" href="https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/what-is-a-geodatabase-.htm" onclick="event.stopPropagation()" target="_blank" rel="noopener" title="ArcGIS Pro documentation">📚 Pro docs</a>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="domain-body">
+      <h4>Geodatabase types</h4>
+      <ul>
+        <li><strong>File geodatabase (.gdb)</strong> — a folder of binary files. Default for most ArcGIS Pro projects. Supports up to 1 TB per feature class; domains, subtypes, attribute rules.</li>
+        <li><strong>Mobile geodatabase (.geodatabase)</strong> — a single SQLite file. Easy to share, embed in mobile apps, version with git.</li>
+        <li><strong>Enterprise geodatabase</strong> — runs inside SQL Server, Oracle, PostgreSQL, etc. Multi-user editing, versioning, replication. Used in large orgs.</li>
+        <li>Shapefile is NOT a geodatabase — it's a single-feature-class legacy container with strict limits.</li>
+      </ul>
+
+      <h4>Schema concepts</h4>
+      <ul>
+        <li><strong>Feature dataset</strong> — a container inside a geodatabase that groups feature classes sharing a CRS. Required for topology and some networks.</li>
+        <li><strong>Feature class</strong> — one geometry type + one CRS + an attribute table. Lives inside a geodatabase (or a feature dataset).</li>
+        <li><strong>Domains</strong> — controlled lists of allowed values for a field (e.g., a domain "RoadType" with values Highway/Arterial/Local). Prevents typos and standardizes categories.</li>
+        <li><strong>Subtypes</strong> — different feature behaviors within one feature class (Roads with subtypes Highway/Arterial — each gets its own default attribute values and symbology).</li>
+        <li><strong>Attribute rules</strong> — Arcade expressions that fire on insert/update/delete to validate or auto-populate fields.</li>
+      </ul>
+
+      <h4>Topology and relationship classes (intro)</h4>
+      <ul>
+        <li><strong>Topology</strong> — rules that enforce spatial relationships (parcels must not overlap, roads must connect at intersections). The Error Inspector flags violations for correction.</li>
+        <li><strong>Relationship class</strong> — links rows in one table to rows in another by a key (one parcel → many tax records). Enforces referential integrity.</li>
+      </ul>
+
+      <h4>Metadata — the part everyone skips</h4>
+      <ul>
+        <li><strong>Metadata</strong> = data about your data: title, abstract, lineage, source, contact, CRS, fields, dates.</li>
+        <li><strong>Standards</strong>: <strong>ISO 19115</strong> (international), <strong>FGDC CSDGM</strong> (US legacy). ArcGIS Pro supports both via the Metadata style setting.</li>
+        <li>Why it matters: without metadata, your shapefile from 2017 is mystery data. With it, the next person knows what they have and how to use it correctly.</li>
+        <li>Edit metadata in Pro: right-click a dataset → Edit Metadata.</li>
+      </ul>
+
+      <h4>Sharing best practices &amp; export formats</h4>
+      <ul>
+        <li>Before sharing, complete <strong>Item Details</strong>: Title (clear), Summary (1–2 sentences), Description (full context), Terms of Use, Credits.</li>
+        <li><strong>Tags</strong> drive search — include the topic, the area, and the dataset type.</li>
+        <li><strong>Export formats</strong>: Shapefile (universal but limited), file geodatabase (best for ArcGIS users), GeoJSON (web), KML (Google Earth), CSV with WKT or X/Y (spreadsheets).</li>
+        <li>If sharing publicly, double-check no PII or sensitive locations are encoded in attributes or in raw vertex coordinates.</li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
 <div id="panel-flashcards" class="tab-panel">
