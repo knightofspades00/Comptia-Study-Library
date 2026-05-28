@@ -118,6 +118,7 @@
   .exam-card.pcap::before { background: linear-gradient(90deg, #3776ab, #ffd43b); }
   .exam-card.ailit::before { background: linear-gradient(90deg, #7c3aed, #06b6d4); }
   .exam-card.esrigis::before { background: linear-gradient(90deg, #15803d, #4ade80); }
+  .exam-card.examportal::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
   .exam-card.coming-soon { opacity: 0.55; pointer-events: none; }
   .exam-card.coming-soon::before { background: linear-gradient(90deg, #555, #777); }
   .exam-card.coming-soon .icon { filter: grayscale(0.5); }
@@ -138,6 +139,7 @@
   .exam-card.pcap h2 { background: linear-gradient(90deg, #3776ab, #ffd43b); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.ailit h2 { background: linear-gradient(90deg, #7c3aed, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.esrigis h2 { background: linear-gradient(90deg, #15803d, #4ade80); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .exam-card.examportal h2 { background: linear-gradient(90deg, #f59e0b, #ef4444); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .exam-card.coming-soon h2 { color: var(--text-muted); }
   .exam-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
 
@@ -183,6 +185,7 @@
   .exam-card.pcap .open-btn { background: linear-gradient(135deg, #3776ab, #ffd43b); color: #1a1d2e; }
   .exam-card.ailit .open-btn { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: white; }
   .exam-card.esrigis .open-btn { background: linear-gradient(135deg, #15803d, #4ade80); color: white; }
+  .exam-card.examportal .open-btn { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
 
   /* How to use section */
   .howto { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 40px; }
@@ -429,7 +432,7 @@
   <p class="section-title">Choose Your Hub</p>
 
   <div class="pillar-section">
-  <h2 class="pillar-title">🛡️ IT Foundations — CompTIA Track</h2>
+  <h2 class="pillar-title">🛡️ IT Foundations — Certifications</h2>
   <div class="exam-grid">
 
     <!-- Tech+ Card -->
@@ -527,6 +530,55 @@
         <span class="chip">💡 Concepts &amp; Visuals</span>
       </div>
       <span class="open-btn">Open Security+ Study Hub →</span>
+    </a>
+
+    <!-- AI + Digital Literacy Card (moved from Digital Citizen pillar — same cert-style content) -->
+    <a href="ai_literacy.html" class="exam-card ailit">
+      <div class="icon">🤖</div>
+      <div class="exam-code">AI Literacy + Digital Citizenship</div>
+      <h2>AI &amp; Digital Literacy</h2>
+      <p>Modern students hit AI tools and online sources in the same browser tab — this combined hub treats them as one set of skills, not two.</p>
+      <ul class="domain-list">
+        <li>How AI Actually Works</li>
+        <li>Prompt Literacy — Talk to AI Well</li>
+        <li>AI Ethics, Bias &amp; Academic Honesty</li>
+        <li>Evaluating Online Sources</li>
+        <li>Digital Footprint, Privacy &amp; Safety</li>
+        <li>Digital Citizenship &amp; Wellbeing</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">📖 Study Guide</span>
+        <span class="chip">🃏 Flashcards</span>
+        <span class="chip">❓ Self-Assessment</span>
+        <span class="chip">📋 Cheat Sheet</span>
+        <span class="chip">💡 Concepts &amp; Visuals</span>
+        <span class="chip">🧠 Walk-Me-Through</span>
+      </div>
+      <span class="open-btn">Open AI &amp; Digital Literacy Hub →</span>
+    </a>
+
+    <!-- CompTIA Exam Portal Card — companion app, links out -->
+    <a href="https://knightofspades00.github.io/Comptia-Exam-Sim/" class="exam-card examportal">
+      <div class="icon">📝</div>
+      <div class="exam-code">Practice · Tech+ / A+ / N+</div>
+      <h2>CompTIA Exam Portal</h2>
+      <p>Sit a full-length, timed practice exam after you've finished studying. Real exam format with countdown timer, drag-and-drop, multi-response, and PBQs. Scores can submit straight to your teacher's gradebook sheet.</p>
+      <ul class="domain-list">
+        <li>Tech+ · A+ Core 1 · A+ Core 2 · Network+</li>
+        <li>Real-exam timing &amp; question counts</li>
+        <li>Multi-response, drag-drop, and PBQs</li>
+        <li>CompTIA-style scaled score (100–900)</li>
+        <li>Per-domain breakdown after submit</li>
+        <li>Auto-submits when timer hits zero</li>
+      </ul>
+      <div class="material-chips">
+        <span class="chip">⏱️ Timed Exam</span>
+        <span class="chip">🎯 Real Format</span>
+        <span class="chip">🧪 PBQs</span>
+        <span class="chip">📊 Scaled Score</span>
+        <span class="chip">🌐 Teacher Submit</span>
+      </div>
+      <span class="open-btn">Launch Exam Portal →</span>
     </a>
 
   </div><!-- /exam-grid -->
@@ -631,37 +683,6 @@
   </div><!-- /pillar-section Programming -->
 
 
-  <div class="pillar-section">
-  <h2 class="pillar-title">🌍 Digital Citizen — Think Critically</h2>
-  <div class="exam-grid">
-
-    <!-- AI + Digital Literacy Card -->
-    <a href="ai_literacy.html" class="exam-card ailit">
-      <div class="icon">🤖</div>
-      <div class="exam-code">AI Literacy + Digital Citizenship</div>
-      <h2>AI &amp; Digital Literacy</h2>
-      <p>Modern students hit AI tools and online sources in the same browser tab — this combined hub treats them as one set of skills, not two.</p>
-      <ul class="domain-list">
-        <li>How AI Actually Works</li>
-        <li>Prompt Literacy — Talk to AI Well</li>
-        <li>AI Ethics, Bias &amp; Academic Honesty</li>
-        <li>Evaluating Online Sources</li>
-        <li>Digital Footprint, Privacy &amp; Safety</li>
-        <li>Digital Citizenship &amp; Wellbeing</li>
-      </ul>
-      <div class="material-chips">
-        <span class="chip">📖 Study Guide</span>
-        <span class="chip">🃏 Flashcards</span>
-        <span class="chip">❓ Self-Assessment</span>
-        <span class="chip">📋 Cheat Sheet</span>
-        <span class="chip">💡 Concepts &amp; Visuals</span>
-        <span class="chip">🧠 Walk-Me-Through</span>
-      </div>
-      <span class="open-btn">Open AI &amp; Digital Literacy Hub →</span>
-    </a>
-
-  </div><!-- /exam-grid -->
-  </div><!-- /pillar-section Digital Citizen -->
 
 </main>
 
