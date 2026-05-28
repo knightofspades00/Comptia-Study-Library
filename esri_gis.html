@@ -1193,11 +1193,56 @@ td strong { color: var(--text); }
 </div>
 
 <div id="panel-flashcards" class="tab-panel">
-  <h2 style="margin-top:0;">🃏 Flashcards</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">~90 vocab cards categorized by domain — terms like feature class, projection, georeferencing, layer file, attribute join.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+  <div class="fc-controls">
+    <div>
+    <select class="category-select" id="fc-category" onchange="loadCards()">
+      <option value="all">All Categories</option>
+      <option value="data">Data Models</option>
+      <option value="projections">Projections &amp; CRS</option>
+      <option value="cartography">Cartography</option>
+      <option value="analysis">Spatial Analysis</option>
+      <option value="webgis">ArcGIS Online &amp; Web GIS</option>
+      <option value="gdb">Geodatabases &amp; Sharing</option>
+    </select>
+    <label class="fc-toggle" style="margin-left:14px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+      <input type="checkbox" id="fc-show-all" onchange="loadCards()"> Browse all cards (ignore review schedule)
+    </label>
+    </div>
+    <div class="fc-progress" id="fc-progress">Card 1 of 90</div>
+  </div>
+  <div class="fc-kbd-hint">
+    💡 Keyboard shortcuts: <kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> prev/next · <kbd>G</kbd> Got it · <kbd>S</kbd> Still learning
+  </div>
+
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-face fc-front">
+        <div class="fc-label">Term</div>
+        <div class="fc-term" id="fc-term">Loading...</div>
+        <div class="fc-hint">Click to reveal definition</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-label">Definition</div>
+        <div class="fc-definition" id="fc-def"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-nav">
+    <button class="fc-unknown-btn" onclick="markCard(false)">✗ Still Learning</button>
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <span class="fc-count" id="fc-count">1 / 90</span>
+    <button class="fc-btn" onclick="nextCard()">Next →</button>
+    <button class="fc-known-btn" onclick="markCard(true)">✓ Got It</button>
+  </div>
+  <div class="fc-score">Mastered: <span id="fc-known-count">0</span> / <span id="fc-total-count">90</span></div>
+
+  <div class="mastery-section">
+    <div class="mastery-header">
+      <h3>📊 Your mastery by domain</h3>
+      <button class="mastery-reset" onclick="resetMastery()">Reset progress</button>
+    </div>
+    <div id="mastery-bars"></div>
   </div>
 </div>
 
@@ -1238,13 +1283,11 @@ td strong { color: var(--text); }
 </div>
 
 <div id="panel-acronyms" class="tab-panel">
-  <h2 style="margin-top:0;">📖 Acronyms</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">~60 GIS acronyms — CRS, EPSG, OGC, WKT, REST, FGDB, KML, WMS, WMTS, MXD, APRX, LYR, OBJECTID, and friends.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
-  </div>
-</div>
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">GIS Acronyms &amp; Standards</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">High-frequency GIS acronyms — formats, standards bodies, satellite systems, datums. Search to find any term fast.</p>
+  <input class="vocab-search" type="text" id="acro-search" placeholder="Search acronyms or what they stand for..." oninput="filterAcronyms()">
+  <div class="acro-grid" id="acro-grid"></div>
+</div><!-- /panel-acronyms -->
 
 <div id="panel-resources" class="tab-panel">
   <h2 style="margin-top:0;">🌐 Resources</h2>
@@ -1401,7 +1444,98 @@ function gsGo(action) {
   }
 }
 
-const allCards = [];
+const allCards = [
+  { term: "Feature class", def: "Vector container inside a geodatabase. One geometry type (point/line/polygon) + one CRS + an attribute table.", cat: 'data' },
+  { term: "Feature dataset", def: "Geodatabase container that groups feature classes sharing a CRS. Required for topology and some network features.", cat: 'data' },
+  { term: "Attribute table", def: "The table behind every feature class — one row per feature, columns are fields. Edit via the table view in Pro.", cat: 'data' },
+  { term: "OBJECTID", def: "System-managed unique ID per row in a feature class. Never edit or delete; ArcGIS uses it for joins and selections.", cat: 'data' },
+  { term: "Shape (SHAPE)", def: "The geometry column in a feature class attribute table. Spatial analysis and symbology read this column.", cat: 'data' },
+  { term: "Field", def: "A column in an attribute table. Has a name, data type (Short/Long/Double/Text/Date), and optional domain.", cat: 'data' },
+  { term: "Domain", def: "Controlled list of allowed values for a field (e.g., RoadType = Highway/Arterial/Local). Prevents typos, standardizes categories.", cat: 'data' },
+  { term: "Subtype", def: "Different feature behaviors within one feature class. Each subtype gets its own default attributes and symbology.", cat: 'data' },
+  { term: "Attribute rule", def: "Arcade expression that fires on insert/update/delete to validate or auto-populate fields.", cat: 'data' },
+  { term: "Shapefile", def: "Esri's legacy vector format. Folder of 4-6 files (.shp .shx .dbf .prj at minimum). Limit: 2 GB, 10-char field names, no native time data.", cat: 'data' },
+  { term: "File geodatabase (.gdb)", def: "Default Esri vector container — a folder of binary files. Up to 1 TB per feature class; supports domains, subtypes, attribute rules.", cat: 'data' },
+  { term: "Raster", def: "Grid of cells (pixels) where each cell stores a single value. Used for elevation, temperature, land cover, satellite imagery.", cat: 'data' },
+  { term: "Cell size", def: "Ground distance one raster pixel represents (10 m, 30 m, 1 m). Smaller cells = sharper detail and much larger files.", cat: 'data' },
+  { term: "Band", def: "Single channel of a multi-band raster (e.g., 4-band ortho = R, G, B, NIR). DEMs are one-band; satellite imagery often has many.", cat: 'data' },
+  { term: "NDVI", def: "Normalized Difference Vegetation Index. (NIR - Red) / (NIR + Red). Values near 1 = healthy vegetation; near 0 = bare/built; below 0 = water.", cat: 'data' },
+  { term: "CRS / SRS", def: "Coordinate Reference System (a.k.a. Spatial Reference System). The full spec that tells GIS where data sits on Earth: datum + projection + units.", cat: 'projections' },
+  { term: "Datum", def: "Anchors the ellipsoid to real Earth reference points. Same coordinates on different datums = different real-world places.", cat: 'projections' },
+  { term: "Ellipsoid", def: "Mathematical model of Earth's shape — a slightly flattened sphere with a semi-major and semi-minor axis.", cat: 'projections' },
+  { term: "Geoid", def: "The actual gravitational sea-level surface — used for elevation. Bumpy, not smooth.", cat: 'projections' },
+  { term: "WGS 84", def: "Global GPS datum standard. EPSG 4326. Default for GeoJSON, KML, web maps. The most-used datum in the world.", cat: 'projections' },
+  { term: "NAD 83", def: "Modern North American Datum. EPSG 4269. Used for State Plane and most US authoritative data.", cat: 'projections' },
+  { term: "NAD 27", def: "Older North American Datum (EPSG 4267). Can differ from NAD 83 by ~100 m in the lower 48 — still in some legacy data.", cat: 'projections' },
+  { term: "GCS", def: "Geographic Coordinate System. Uses latitude/longitude on the round Earth. Units = degrees. Distances NOT directly measurable.", cat: 'projections' },
+  { term: "PCS", def: "Projected Coordinate System. Uses Cartesian X/Y on a flat plane. Units = meters or feet. Distances measurable; every projection distorts something.", cat: 'projections' },
+  { term: "EPSG code", def: "Universal CRS shorthand number. WGS 84 = 4326, Web Mercator = 3857, NAD 83 = 4269. Look up at epsg.io.", cat: 'projections' },
+  { term: "WKID", def: "Well-Known ID. What Esri calls the EPSG code in its CRS dialogs.", cat: 'projections' },
+  { term: "WKT", def: "Well-Known Text. Plain-text CRS definition string, also used for geometry in CSVs (POINT, LINESTRING, POLYGON).", cat: 'projections' },
+  { term: "Web Mercator", def: "EPSG 3857. The web map default (Google/OSM/AGOL basemaps). Conformal but distorts area badly toward the poles.", cat: 'projections' },
+  { term: "UTM", def: "Universal Transverse Mercator. 60 zones × 6° wide. Distances accurate to ~1/2500 within a zone. Surveyor/military favorite.", cat: 'projections' },
+  { term: "Define Projection", def: "Sets the CRS LABEL on data that has no label or the wrong one. Geometry coordinates do NOT change. Different from Project (which actually re-projects).", cat: 'projections' },
+  { term: "Basemap", def: "Context layer underneath operational data. Streets, Imagery, Topographic, Light Gray Canvas are common AGOL basemaps.", cat: 'cartography' },
+  { term: "Legend", def: "Map element explaining every symbol used. Match in-map symbols exactly; drop layers that don’t need explaining.", cat: 'cartography' },
+  { term: "Scale bar", def: "Graphic measure of distance on the map. Resizes correctly when printed at different sizes; better than written scale on web maps.", cat: 'cartography' },
+  { term: "Title", def: "Top map element naming what the map is about. Sized for the audience; the first thing a viewer reads.", cat: 'cartography' },
+  { term: "Symbology", def: "How features are visually represented — color, shape, size. Set in the Symbology pane in ArcGIS Pro.", cat: 'cartography' },
+  { term: "Smart Mapping", def: "AGOL feature that inspects field data type and distribution and suggests defensible symbology defaults. Start here for choropleths.", cat: 'cartography' },
+  { term: "Single Symbol", def: "Symbology approach where every feature is drawn identically. Use for context layers.", cat: 'cartography' },
+  { term: "Unique Values", def: "Categorized symbology — one symbol per discrete category. ~7 categories max before the legend becomes unreadable.", cat: 'cartography' },
+  { term: "Graduated Colors", def: "Color ramp keyed to a numeric value (income, density). Pair with a classification method.", cat: 'cartography' },
+  { term: "Equal Interval", def: "Classification that splits the value range into equal-width bins. Easy to read; bad when data is skewed.", cat: 'cartography' },
+  { term: "Quantile", def: "Classification with equal feature count per bin. Highlights ranking but can put very different values in one bin.", cat: 'cartography' },
+  { term: "Natural Breaks (Jenks)", def: "Classification algorithm that finds gaps in the data and breaks there. Best general default for skewed data.", cat: 'cartography' },
+  { term: "ColorBrewer", def: "Color-blind-safe ramp library built into ArcGIS Pro. Sequential / diverging / qualitative palettes.", cat: 'cartography' },
+  { term: "Heatmap", def: "Density estimation for point data. Great for \"where's the cluster?\" but bad for comparing exact counts.", cat: 'cartography' },
+  { term: "Annotation", def: "Fixed text features stored in the geodatabase. Hand-placed when dynamic labels can’t be positioned correctly.", cat: 'cartography' },
+  { term: "Geoprocessing", def: "File-based spatial analysis tool model. Tools take input data + parameters and produce new output datasets; originals untouched.", cat: 'analysis' },
+  { term: "ModelBuilder", def: "Visual workflow editor for geoprocessing tools. Drag tools, connect outputs to inputs. Great for documenting analyses.", cat: 'analysis' },
+  { term: "ArcPy", def: "Esri's Python module for scripting ArcGIS Pro. Imports as `import arcpy`. Used for automation, loops, batch processing.", cat: 'analysis' },
+  { term: "Buffer", def: "Spatial analysis tool. Creates polygons covering the area within distance D of input features. Optional dissolve merges overlapping buffers.", cat: 'analysis' },
+  { term: "Clip", def: "Cookie-cutter overlay. Keeps the parts of input features INSIDE the clip layer; attributes stay, geometry trims.", cat: 'analysis' },
+  { term: "Intersect", def: "Overlay that returns only the area where two layers overlap. Output carries attributes from BOTH inputs.", cat: 'analysis' },
+  { term: "Union", def: "Overlay that returns ALL area from both inputs (overlap + non-overlap parts). Each output feature tagged with its source layer.", cat: 'analysis' },
+  { term: "Erase", def: "Overlay that removes the area of B from A. Inverse of Clip in some ways. Use to subtract a study-area exclusion zone.", cat: 'analysis' },
+  { term: "Spatial Join", def: "Brings attributes from layer B to layer A based on a spatial relationship. One-to-one (with summary) or one-to-many.", cat: 'analysis' },
+  { term: "Select By Attributes", def: "SQL-based selection on the attribute table. Builds queries like POPULATION > 50000 AND STATE = ‘TX’.", cat: 'analysis' },
+  { term: "Select By Location", def: "Selection by spatial relationship: intersects, within, contains, within a distance of. Pair with Select By Attributes for compound queries.", cat: 'analysis' },
+  { term: "Near", def: "Proximity tool. For each input feature, finds the nearest feature in another layer and records the distance.", cat: 'analysis' },
+  { term: "Reclassify", def: "Raster tool that assigns new values to ranges of cell values. Useful for converting continuous data into discrete classes.", cat: 'analysis' },
+  { term: "Hillshade", def: "Raster tool that illuminates terrain from a chosen sun azimuth and altitude. Makes 3D shape readable on a flat map.", cat: 'analysis' },
+  { term: "Zonal Statistics", def: "Computes stats (mean, max, count, sum) of one raster within zones defined by another (e.g., mean elevation per county).", cat: 'analysis' },
+  { term: "ArcGIS Online (AGOL)", def: "Esri's cloud SaaS GIS platform. Hosts web maps, web apps, hosted feature/tile/vector layers. Org URL = yourschool.maps.arcgis.com.", cat: 'webgis' },
+  { term: "Web map", def: "AGOL document: basemap + operational layers + popups + bookmarks. The most common AGOL deliverable.", cat: 'webgis' },
+  { term: "Web app", def: "A web map wrapped in a user interface — Dashboard, Experience Builder, Map Viewer, StoryMap.", cat: 'webgis' },
+  { term: "Hosted Feature Layer", def: "AGOL-hosted vector data. Editable from the web, queryable via the REST API. Stores in your org’s tenant.", cat: 'webgis' },
+  { term: "Hosted Tile Layer", def: "AGOL-hosted raster tiles pre-rendered at fixed zoom levels. Fast but not editable; rebuild to update.", cat: 'webgis' },
+  { term: "Hosted Vector Tile Layer", def: "AGOL-hosted vector tiles styled at the client. Crisp at any zoom, restyleable in the browser.", cat: 'webgis' },
+  { term: "Credits (AGOL)", def: "Esri's billing unit. Some operations consume credits: geocoding, storage, premium content access.", cat: 'webgis' },
+  { term: "Sharing level", def: "Who can see an AGOL item: Owner / Organization / Group / Everyone (public). App audience can’t exceed the layers inside it.", cat: 'webgis' },
+  { term: "Item details", def: "Metadata block on every AGOL item: title, summary, description, tags, terms of use, credits, thumbnail.", cat: 'webgis' },
+  { term: "Dashboard", def: "AGOL app with KPI cards + charts + map driven by a single feature layer. Used for monitoring near-real-time data.", cat: 'webgis' },
+  { term: "Survey123", def: "AGOL app for smart forms that collect data into a feature layer. The standard field-data collection tool.", cat: 'webgis' },
+  { term: "Field Maps", def: "AGOL mobile app for navigation, data collection, inspections. Offline-capable. Replaced Collector and Explorer.", cat: 'webgis' },
+  { term: "Experience Builder", def: "AGOL drag-and-drop web app builder. Replaced the older Web AppBuilder (which is being retired).", cat: 'webgis' },
+  { term: "StoryMaps", def: "AGOL narrative app: combines maps, text, photos, video into a scrollable web story. Best for non-GIS audiences.", cat: 'webgis' },
+  { term: "Living Atlas", def: "Esri's curated public content library — basemaps, imagery, demographics, environmental data. Free to browse and add to maps.", cat: 'webgis' },
+  { term: "Mobile geodatabase", def: "Single SQLite file (.geodatabase). Easy to share, embed in mobile apps, version with git.", cat: 'gdb' },
+  { term: "Enterprise geodatabase", def: "Geodatabase running in SQL Server, Oracle, PostgreSQL, etc. Multi-user editing, versioning, replication. Used in large orgs.", cat: 'gdb' },
+  { term: "Schema", def: "Structure of a geodatabase: feature datasets, feature classes, fields, types, domains, subtypes.", cat: 'gdb' },
+  { term: "Topology", def: "Rules that enforce spatial integrity: no overlapping parcels, roads must connect at intersections. Error Inspector flags violations.", cat: 'gdb' },
+  { term: "Relationship class", def: "Links rows in one table to rows in another by a key (one parcel → many tax records). Enforces referential integrity.", cat: 'gdb' },
+  { term: "Metadata", def: "Data about your data: title, abstract, lineage, source, contact, CRS, fields, dates. Edit in Pro via right-click → Edit Metadata.", cat: 'gdb' },
+  { term: "ISO 19115", def: "International metadata standard for geospatial data. ArcGIS Pro's preferred metadata style for sharing internationally.", cat: 'gdb' },
+  { term: "FGDC CSDGM", def: "US Federal Geographic Data Committee Content Standard for Digital Geospatial Metadata. Legacy US federal standard.", cat: 'gdb' },
+  { term: "Tags", def: "Keywords on an AGOL item that drive search. Include topic, area, and dataset type for discoverability.", cat: 'gdb' },
+  { term: "KML", def: "Keyhole Markup Language. Google Earth's format. Good for 3D globe viewing; limited attribute support.", cat: 'gdb' },
+  { term: "KMZ", def: "Zipped KML. Single file bundling KML + any referenced images or icons. Lighter to share than KML+folder.", cat: 'gdb' },
+  { term: "GeoJSON", def: "Open web standard for geographic features, plain text JSON. Spec mandates WGS 84 (EPSG 4326).", cat: 'gdb' },
+  { term: "CSV with X/Y", def: "Text rows with latitude/longitude columns. Import via 'XY Table to Point' in ArcGIS Pro.", cat: 'gdb' },
+  { term: "APRX", def: "ArcGIS Pro project file format (.aprx). Holds maps, layouts, and references to data — like an MXD for Pro.", cat: 'gdb' },
+  { term: "LYRX", def: "ArcGIS Pro layer file (.lyrx). Stores symbology + a reference to a data source. Apply pre-made symbology to a layer in one click.", cat: 'gdb' }
+];
 
 let filteredCards = [...allCards];
 let currentCard = 0;
@@ -1669,7 +1803,68 @@ function downloadNotes() {
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 // ─── Acronyms ──────────────────────────────────────────────────────────────
-const acronyms = [];
+const acronyms = [
+  { a: "GIS", f: "Geographic Information System", n: "Software that maps and analyzes location-tagged data" },
+  { a: "Esri", f: "Environmental Systems Research Institute", n: "The company that makes ArcGIS" },
+  { a: "CRS", f: "Coordinate Reference System", n: "The full spec for locating data on Earth (datum + projection + units)" },
+  { a: "SRS", f: "Spatial Reference System", n: "Synonym for CRS, more common in OGC docs" },
+  { a: "GCS", f: "Geographic Coordinate System", n: "Lat/long on the round Earth, units = degrees" },
+  { a: "PCS", f: "Projected Coordinate System", n: "X/Y on a flat plane, units = meters or feet" },
+  { a: "WGS", f: "World Geodetic System", n: "WGS 84 is the global GPS datum standard" },
+  { a: "NAD", f: "North American Datum", n: "NAD 83 (modern) and NAD 27 (legacy)" },
+  { a: "EPSG", f: "European Petroleum Survey Group", n: "Originated the EPSG code catalog of CRS identifiers" },
+  { a: "WKID", f: "Well-Known ID", n: "Esri name for the EPSG code" },
+  { a: "WKT", f: "Well-Known Text", n: "Plain-text CRS definition string; also a geometry format" },
+  { a: "UTM", f: "Universal Transverse Mercator", n: "60 zones, each 6 degrees wide; surveyor / military favorite" },
+  { a: "UPS", f: "Universal Polar Stereographic", n: "Projection used for the polar regions UTM does not cover" },
+  { a: "SPCS", f: "State Plane Coordinate System", n: "High-accuracy US state-specific projected zones" },
+  { a: "OGC", f: "Open Geospatial Consortium", n: "Standards body for web GIS protocols (WMS, WFS, WMTS, etc.)" },
+  { a: "OSM", f: "OpenStreetMap", n: "Crowd-sourced free world map and dataset" },
+  { a: "AGOL", f: "ArcGIS Online", n: "Esri’s cloud SaaS GIS platform" },
+  { a: "REST", f: "Representational State Transfer", n: "Architectural style behind AGOL’s web service APIs" },
+  { a: "SHP", f: "Shapefile", n: "Esri legacy vector format (.shp + sidecars)" },
+  { a: "SHX", f: "Shape Index", n: "Sidecar file of a shapefile, indexes geometry" },
+  { a: "DBF", f: "dBASE File", n: "Sidecar file of a shapefile, stores the attribute table" },
+  { a: "PRJ", f: "Projection File", n: "Sidecar file of a shapefile, stores the CRS as WKT" },
+  { a: "FGDB", f: "File Geodatabase", n: "Folder-of-binary geodatabase, default in ArcGIS Pro (.gdb)" },
+  { a: "APRX", f: "ArcGIS Pro Project", n: "Pro project file format" },
+  { a: "MXD", f: "Map Exchange Document", n: "Legacy ArcMap project file format" },
+  { a: "LYRX", f: "ArcGIS Pro Layer File", n: "Layer-file format for Pro (.lyrx)" },
+  { a: "LYR", f: "ArcMap Layer File", n: "Legacy ArcMap layer file (.lyr)" },
+  { a: "KML", f: "Keyhole Markup Language", n: "Google Earth’s vector format" },
+  { a: "KMZ", f: "Zipped KML", n: "Compressed bundle of KML + referenced assets" },
+  { a: "CSV", f: "Comma-Separated Values", n: "Plain-text tabular format; with X/Y or WKT columns, holds geographic data" },
+  { a: "JSON", f: "JavaScript Object Notation", n: "Format used by GeoJSON and REST responses" },
+  { a: "SQL", f: "Structured Query Language", n: "Used in Select By Attributes and enterprise geodatabases" },
+  { a: "DEM", f: "Digital Elevation Model", n: "Raster where each cell = ground elevation (bare earth)" },
+  { a: "DTM", f: "Digital Terrain Model", n: "Bare-earth elevation model (often synonym for DEM)" },
+  { a: "DSM", f: "Digital Surface Model", n: "Elevation model that includes buildings and tree canopy" },
+  { a: "TIN", f: "Triangulated Irregular Network", n: "Vector surface model made of triangles; alternative to a raster DEM" },
+  { a: "LiDAR", f: "Light Detection and Ranging", n: "Laser-based remote sensing that produces dense 3D point clouds" },
+  { a: "RGB", f: "Red Green Blue", n: "Three-band visible-light raster" },
+  { a: "NIR", f: "Near Infrared", n: "Fourth band in 4-band orthoimagery, drives NDVI" },
+  { a: "NDVI", f: "Normalized Difference Vegetation Index", n: "(NIR - Red) / (NIR + Red); vegetation health from imagery" },
+  { a: "WMS", f: "Web Map Service", n: "OGC standard for serving map images over the web" },
+  { a: "WMTS", f: "Web Map Tile Service", n: "OGC standard for serving pre-rendered tile pyramids" },
+  { a: "WFS", f: "Web Feature Service", n: "OGC standard for serving editable feature data" },
+  { a: "WCS", f: "Web Coverage Service", n: "OGC standard for serving raster coverage data" },
+  { a: "TMS", f: "Tile Map Service", n: "Community-standard tile URL scheme {z}/{x}/{y}" },
+  { a: "XYZ", f: "XYZ Tiles", n: "URL convention for slippy-map tiles (z = zoom, x and y = column/row)" },
+  { a: "GPS", f: "Global Positioning System", n: "US satellite navigation system; one constellation under the GNSS umbrella" },
+  { a: "GNSS", f: "Global Navigation Satellite System", n: "Umbrella term covering GPS, GLONASS, Galileo, BeiDou" },
+  { a: "AOI", f: "Area of Interest", n: "Polygon defining the geographic scope of a project" },
+  { a: "AOR", f: "Area of Responsibility", n: "Spatial scope assigned to a person/team/agency" },
+  { a: "FGDC", f: "Federal Geographic Data Committee", n: "US body that authored the CSDGM metadata standard" },
+  { a: "ISO", f: "International Organization for Standardization", n: "Authors ISO 19115 (geospatial metadata) and related standards" },
+  { a: "PII", f: "Personally Identifiable Information", n: "Sensitive personal data — check before sharing GIS layers publicly" },
+  { a: "NAVD", f: "North American Vertical Datum", n: "NAVD 88 is the modern US elevation reference datum" },
+  { a: "MGRS", f: "Military Grid Reference System", n: "Alphanumeric grid based on UTM, used by NATO militaries" },
+  { a: "DD", f: "Decimal Degrees", n: "Lat/long expressed as decimal numbers (e.g., 35.7796)" },
+  { a: "DMS", f: "Degrees Minutes Seconds", n: "Lat/long in sexagesimal form (e.g., 35° 46′ 46″ N)" },
+  { a: "POI", f: "Point of Interest", n: "Named landmark feature (a school, a hospital, a coffee shop)" },
+  { a: "SDE", f: "Spatial Database Engine", n: "Legacy Esri name for enterprise geodatabase technology (ArcSDE)" },
+  { a: "GeoJSON", f: "Geographic JSON", n: "Open web standard for geographic features; coordinates always in WGS 84" }
+];
 
 function buildAcronyms(list) {
   const g = document.getElementById('acro-grid'); if (!g) return;
