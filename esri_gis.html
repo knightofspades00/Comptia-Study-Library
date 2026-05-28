@@ -1301,20 +1301,172 @@ td strong { color: var(--text); }
 </div>
 
 <div id="panel-cheatsheet" class="tab-panel">
-  <h2 style="margin-top:0;">📋 Cheat Sheet</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">A printable condensed reference: projections, common analysis tools, ArcGIS Online sharing settings, geoprocessing parameters.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">📋 ESRI GIS Foundations Cheat Sheet</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Print for exam day. Hidden in print: side nav, tabs, footer.</p>
+  <button class="print-cheat-btn" onclick="window.print()">🖨 Print this cheat sheet</button>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h3>🗺️ Data Models</h3>
+      <div class="cheat-row"><span class="cheat-key">OBJECTID</span><span class="cheat-val">auto unique ID</span></div>
+      <div class="cheat-row"><span class="cheat-key">Shape / SHAPE</span><span class="cheat-val">geometry column</span></div>
+      <div class="cheat-row"><span class="cheat-key">Shapefile</span><span class="cheat-val">2 GB · 10-char fields</span></div>
+      <div class="cheat-row"><span class="cheat-key">File GDB</span><span class="cheat-val">1 TB · full names</span></div>
+      <div class="cheat-row"><span class="cheat-key">Vector</span><span class="cheat-val">sharp boundaries</span></div>
+      <div class="cheat-row"><span class="cheat-key">Raster</span><span class="cheat-val">continuous values</span></div>
+      <div class="cheat-row"><span class="cheat-key">Multipart</span><span class="cheat-val">1 row, many geoms</span></div>
+      <div class="cheat-row"><span class="cheat-key">NDVI</span><span class="cheat-val">(NIR-Red)/(NIR+Red)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🧭 Projections &amp; CRS</h3>
+      <div class="cheat-row"><span class="cheat-key">WGS 84</span><span class="cheat-val">EPSG 4326 (GCS)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Web Mercator</span><span class="cheat-val">EPSG 3857</span></div>
+      <div class="cheat-row"><span class="cheat-key">NAD 83</span><span class="cheat-val">EPSG 4269</span></div>
+      <div class="cheat-row"><span class="cheat-key">NAD 27</span><span class="cheat-val">EPSG 4267</span></div>
+      <div class="cheat-row"><span class="cheat-key">GCS units</span><span class="cheat-val">degrees</span></div>
+      <div class="cheat-row"><span class="cheat-key">PCS units</span><span class="cheat-val">meters / feet</span></div>
+      <div class="cheat-row"><span class="cheat-key">Project</span><span class="cheat-val">CHANGES coords</span></div>
+      <div class="cheat-row"><span class="cheat-key">Define Projection</span><span class="cheat-val">sets LABEL only</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🎨 Cartography</h3>
+      <div class="cheat-row"><span class="cheat-key">5 must-haves</span><span class="cheat-val">Title · Legend · Scale · N · Neat line</span></div>
+      <div class="cheat-row"><span class="cheat-key">Sequential</span><span class="cheat-val">ordered (low→high)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Diverging</span><span class="cheat-val">midpoint matters</span></div>
+      <div class="cheat-row"><span class="cheat-key">Qualitative</span><span class="cheat-val">unordered categories</span></div>
+      <div class="cheat-row"><span class="cheat-key">Natural Breaks</span><span class="cheat-val">skewed data default</span></div>
+      <div class="cheat-row"><span class="cheat-key">Quantile</span><span class="cheat-val">equal feature count</span></div>
+      <div class="cheat-row"><span class="cheat-key">Equal Interval</span><span class="cheat-val">equal value width</span></div>
+      <div class="cheat-row"><span class="cheat-key">Std Deviation</span><span class="cheat-val">above/below mean</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔬 Spatial Analysis</h3>
+      <div class="cheat-row"><span class="cheat-key">Buffer</span><span class="cheat-val">area within distance D</span></div>
+      <div class="cheat-row"><span class="cheat-key">Clip</span><span class="cheat-val">A inside B · A's attrs</span></div>
+      <div class="cheat-row"><span class="cheat-key">Intersect</span><span class="cheat-val">overlap · BOTH attrs</span></div>
+      <div class="cheat-row"><span class="cheat-key">Union</span><span class="cheat-val">A + B (all parts)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Erase</span><span class="cheat-val">A minus B</span></div>
+      <div class="cheat-row"><span class="cheat-key">Spatial Join</span><span class="cheat-val">B's attrs → A</span></div>
+      <div class="cheat-row"><span class="cheat-key">Map Algebra</span><span class="cheat-val">raster cell math</span></div>
+      <div class="cheat-row"><span class="cheat-key">Reclassify</span><span class="cheat-val">new values for ranges</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌐 ArcGIS Online</h3>
+      <div class="cheat-row"><span class="cheat-key">Roles</span><span class="cheat-val">Viewer · User · Publisher · Admin</span></div>
+      <div class="cheat-row"><span class="cheat-key">Sharing</span><span class="cheat-val">Owner · Org · Group · Public</span></div>
+      <div class="cheat-row"><span class="cheat-key">Credits</span><span class="cheat-val">geocode · hosted storage</span></div>
+      <div class="cheat-row"><span class="cheat-key">Web map</span><span class="cheat-val">basemap + ops + popups</span></div>
+      <div class="cheat-row"><span class="cheat-key">Dashboard</span><span class="cheat-val">KPI + chart + map</span></div>
+      <div class="cheat-row"><span class="cheat-key">Survey123</span><span class="cheat-val">forms → feature layer</span></div>
+      <div class="cheat-row"><span class="cheat-key">Field Maps</span><span class="cheat-val">mobile + offline</span></div>
+      <div class="cheat-row"><span class="cheat-key">StoryMaps</span><span class="cheat-val">narrative + maps</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🗄️ Geodatabases &amp; Sharing</h3>
+      <div class="cheat-row"><span class="cheat-key">File GDB</span><span class="cheat-val">folder of binaries (.gdb)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Mobile GDB</span><span class="cheat-val">single SQLite (.geodatabase)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Enterprise GDB</span><span class="cheat-val">SQL Server · Oracle · PG</span></div>
+      <div class="cheat-row"><span class="cheat-key">Domain</span><span class="cheat-val">controlled list of values</span></div>
+      <div class="cheat-row"><span class="cheat-key">Subtype</span><span class="cheat-val">behavior split within FC</span></div>
+      <div class="cheat-row"><span class="cheat-key">Topology</span><span class="cheat-val">spatial integrity rules</span></div>
+      <div class="cheat-row"><span class="cheat-key">ISO 19115</span><span class="cheat-val">metadata standard</span></div>
+      <div class="cheat-row"><span class="cheat-key">APRX · LYRX</span><span class="cheat-val">Pro project · layer file</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📐 Decision rules</h3>
+      <div class="cheat-row"><span class="cheat-key">"Layers don't line up"</span><span class="cheat-val">CRS / datum mismatch</span></div>
+      <div class="cheat-row"><span class="cheat-key">No .prj, wrong place</span><span class="cheat-val">Define Projection</span></div>
+      <div class="cheat-row"><span class="cheat-key">Need different CRS</span><span class="cheat-val">Project</span></div>
+      <div class="cheat-row"><span class="cheat-key">Distance/area math</span><span class="cheat-val">use a PCS, not GCS</span></div>
+      <div class="cheat-row"><span class="cheat-key">"Within D of"</span><span class="cheat-val">Buffer + Select By Location</span></div>
+      <div class="cheat-row"><span class="cheat-key">Choropleth</span><span class="cheat-val">equal-area projection</span></div>
+      <div class="cheat-row"><span class="cheat-key">Skewed data</span><span class="cheat-val">Natural Breaks (Jenks)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Public web app</span><span class="cheat-val">share EVERY layer public</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🚦 File formats at a glance</h3>
+      <div class="cheat-row"><span class="cheat-key">.shp + .shx + .dbf + .prj</span><span class="cheat-val">shapefile bundle</span></div>
+      <div class="cheat-row"><span class="cheat-key">.gdb (folder)</span><span class="cheat-val">file geodatabase</span></div>
+      <div class="cheat-row"><span class="cheat-key">.geodatabase</span><span class="cheat-val">mobile geodatabase</span></div>
+      <div class="cheat-row"><span class="cheat-key">.aprx</span><span class="cheat-val">ArcGIS Pro project</span></div>
+      <div class="cheat-row"><span class="cheat-key">.lyrx</span><span class="cheat-val">layer file (symbology)</span></div>
+      <div class="cheat-row"><span class="cheat-key">.kml / .kmz</span><span class="cheat-val">Google Earth</span></div>
+      <div class="cheat-row"><span class="cheat-key">.geojson</span><span class="cheat-val">web standard (WGS 84)</span></div>
+      <div class="cheat-row"><span class="cheat-key">.tif / .img</span><span class="cheat-val">raster (GeoTIFF / IMAGINE)</span></div>
+    </div>
   </div>
 </div>
 
 <div id="panel-activities" class="tab-panel">
-  <h2 style="margin-top:0;">🔬 Activities</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Hands-on activities using your ArcGIS Online account and Esri Academy free learning paths.</p>
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🔬 Hands-On Activities — ArcGIS Online &amp; Esri Academy</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">Four activities you can do entirely in your browser with your school ArcGIS Online account. The first two take ~20 min each; the third is a full data-collection project; the fourth ends with a printable Esri Academy completion certificate.</p>
+
+  <div class="activity-card">
+    <h3>🌍 Activity 1 — Make your first web map (15 min)</h3>
+    <p><strong>Goal:</strong> Sign in to ArcGIS Online, add a layer from Living Atlas, style it with Smart Mapping, configure popups, save, and share.</p>
+    <ol>
+      <li>Open <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> → Sign In with your school account.</li>
+      <li>Top nav → Map. The Map Viewer opens with a default basemap.</li>
+      <li>Layers → Add → Browse Living Atlas. Search "USA Counties" or "World Population". Add it.</li>
+      <li>Layer card → Styles → pick a numeric attribute. Smart Mapping suggests palettes — pick a sequential ramp.</li>
+      <li>Layer card → Pop-ups → choose which fields show; rename a field; save.</li>
+      <li>Map → Save and open → Save As. Fill out Title, Tags ("class", "demo"), Summary, Description.</li>
+      <li>Share → Org. Open the link in a private/incognito window while signed out — confirm it requires sign-in.</li>
+    </ol>
+    <p><strong>Submit:</strong> Screenshot of your saved web map + the shareable URL.</p>
+  </div>
+
+  <div class="activity-card">
+    <h3>🧭 Activity 2 — Diagnose a projection mismatch (20 min)</h3>
+    <p><strong>Goal:</strong> Practice identifying when data has the wrong CRS, and choose between Project vs Define Projection to fix it.</p>
+    <ol>
+      <li>Download two layers of the same study area in different CRSs — e.g., a US Census tract shapefile in NAD 83 (EPSG 4269) and the same tracts in Web Mercator (EPSG 3857). Many tutorial sites or data.gov downloads provide both.</li>
+      <li>In ArcGIS Pro (or AGOL Map Viewer), add both layers.</li>
+      <li>Question 1: Do they line up? Why or why not? Write a 2-3 sentence answer.</li>
+      <li>Now delete the <code>.prj</code> from one layer (simulating "no projection info") and re-add it. Pro flags it as having an unknown CRS.</li>
+      <li>Question 2: Should you Project or Define Projection? Write your reasoning, then apply the fix.</li>
+      <li>Confirm the layer now sits in the correct location.</li>
+    </ol>
+    <p><strong>Submit:</strong> A short writeup (1 page) answering both questions and screenshots showing before/after alignment.</p>
+  </div>
+
+  <div class="activity-card">
+    <h3>📋 Activity 3 — Build a Survey123 form and collect class data (30-60 min)</h3>
+    <p><strong>Goal:</strong> Author a smart form, deploy it to your class, and visualize the results in a web map.</p>
+    <ol>
+      <li>Open <a href="https://survey123.arcgis.com/" target="_blank" rel="noopener">survey123.arcgis.com</a> → New Survey → Web Designer.</li>
+      <li>Add 3-4 questions: a short text (name), a single-choice (favorite biome), a GPS map question, an image question.</li>
+      <li>Publish → set sharing to your class group.</li>
+      <li>Share the survey URL with classmates and ask everyone to submit one entry.</li>
+      <li>In ArcGIS Online, open the resulting feature layer. Add it to a new web map. Style by "favorite biome" using Unique Values.</li>
+      <li>Configure popups to show name and image.</li>
+    </ol>
+    <p><strong>Submit:</strong> The published web map URL (shared to your class group) and a brief note describing what the data shows.</p>
+  </div>
+
+  <div class="activity-card">
+    <h3>🎓 Activity 4 — Esri Academy: "Getting Started with ArcGIS Pro" (60 min)</h3>
+    <p><strong>Goal:</strong> Complete the free official Esri Academy intro learning path, end-to-end. The certificate is automatic on completion.</p>
+    <ol>
+      <li>Sign in at <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> with your school ArcGIS account.</li>
+      <li>Search for "Getting Started with ArcGIS Pro" or "ArcGIS Pro Foundation." Pick an introductory course or learning plan.</li>
+      <li>Complete every module. Hands-on lessons use a free sample dataset hosted by Esri.</li>
+      <li>At the end, download the printable certificate of completion.</li>
+    </ol>
+    <p><strong>Submit:</strong> The PDF certificate of completion.</p>
+  </div>
+
   <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+    <strong>📌 What counts as completion</strong>
+    <p>Each activity is intentionally small enough to finish in one class period (Activity 3 might take a second period if you wait for classmates to submit). Activity 4 can be done at home — Esri Academy is free and self-paced.</p>
   </div>
 </div>
 
@@ -1807,12 +1959,155 @@ td strong { color: var(--text); }
 </div><!-- /panel-acronyms -->
 
 <div id="panel-resources" class="tab-panel">
-  <h2 style="margin-top:0;">🌐 Resources</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">Curated free links: Esri Academy, ArcGIS Online learn paths, Esri documentation, public open-data portals.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🌐 Curated External Resources — ESRI GIS Foundations</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:14px;">Free, high-quality study materials for the ArcGIS Pro Foundation cert and general GIS literacy. Esri Academy is the canonical source — these supplements add hands-on practice and open data.</p>
+
+  <div class="callout exam-tip" style="margin-bottom:22px;">
+    <strong>⚠️ Heads up — school filtering</strong>
+    <p>YouTube and some other sites may be blocked on school Chromebooks. If a link won't open at school, try it at home.</p>
   </div>
+
+  <h3 class="resource-section-title">🎓 Official Esri Training (canonical)</h3>
+  <div class="resource-grid">
+    <a href="https://www.esri.com/training/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🎓</div>
+      <div class="resource-content">
+        <div class="resource-title">Esri Academy</div>
+        <div class="resource-host">esri.com/training</div>
+        <div class="resource-desc">Free official courses + the cert exam catalog. Start here for ArcGIS Pro Foundation prep.</div>
+      </div>
+    </a>
+    <a href="https://learn.arcgis.com/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛝</div>
+      <div class="resource-content">
+        <div class="resource-title">Learn ArcGIS</div>
+        <div class="resource-host">learn.arcgis.com</div>
+        <div class="resource-desc">Free guided hands-on lessons. Pick a path: "Get Started with ArcGIS Online" or "ArcGIS Pro for Beginners."</div>
+      </div>
+    </a>
+    <a href="https://www.esri.com/en-us/certification/browse-certifications" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📜</div>
+      <div class="resource-content">
+        <div class="resource-title">Esri Technical Certifications</div>
+        <div class="resource-host">esri.com/certification</div>
+        <div class="resource-desc">The official cert catalog. Read the exam blueprint for ArcGIS Pro Foundation here.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">📚 Documentation &amp; References</h3>
+  <div class="resource-grid">
+    <a href="https://pro.arcgis.com/en/pro-app/latest/help/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📖</div>
+      <div class="resource-content">
+        <div class="resource-title">ArcGIS Pro documentation</div>
+        <div class="resource-host">pro.arcgis.com</div>
+        <div class="resource-desc">The authoritative reference for every tool, dialog, and concept in ArcGIS Pro.</div>
+      </div>
+    </a>
+    <a href="https://doc.arcgis.com/en/arcgis-online/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📖</div>
+      <div class="resource-content">
+        <div class="resource-title">ArcGIS Online documentation</div>
+        <div class="resource-host">doc.arcgis.com/en/arcgis-online</div>
+        <div class="resource-desc">Everything about AGOL: roles, content types, sharing, web map authoring.</div>
+      </div>
+    </a>
+    <a href="https://epsg.io/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🧭</div>
+      <div class="resource-content">
+        <div class="resource-title">EPSG.io</div>
+        <div class="resource-host">epsg.io</div>
+        <div class="resource-desc">Look up any EPSG code, see the CRS in detail, convert coordinates between systems.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🗺️ Free Open Data Portals</h3>
+  <div class="resource-grid">
+    <a href="https://www.arcgis.com/home/group.html?id=47dd57c9a59d458c86d3d6b978560088#overview" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌍</div>
+      <div class="resource-content">
+        <div class="resource-title">Living Atlas of the World</div>
+        <div class="resource-host">arcgis.com (Living Atlas)</div>
+        <div class="resource-desc">Esri-curated layers — basemaps, imagery, demographics, environmental data. Ready to drop into any web map.</div>
+      </div>
+    </a>
+    <a href="https://catalog.data.gov/dataset/?_res_format_limit=0&amp;res_format=Esri+REST" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🇺🇸</div>
+      <div class="resource-content">
+        <div class="resource-title">data.gov</div>
+        <div class="resource-host">data.gov</div>
+        <div class="resource-desc">US federal open data. Filter by format = Esri REST / Shapefile / KML for GIS-ready downloads.</div>
+      </div>
+    </a>
+    <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🗺️</div>
+      <div class="resource-content">
+        <div class="resource-title">OpenStreetMap</div>
+        <div class="resource-host">openstreetmap.org</div>
+        <div class="resource-desc">Crowd-sourced free world map. Export region as a shapefile via the "Export" button or services like geofabrik.de.</div>
+      </div>
+    </a>
+    <a href="https://earthexplorer.usgs.gov/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🛰️</div>
+      <div class="resource-content">
+        <div class="resource-title">USGS Earth Explorer</div>
+        <div class="resource-host">earthexplorer.usgs.gov</div>
+        <div class="resource-desc">Free satellite imagery (Landsat, Sentinel), DEMs, aerial photos. Account required but free.</div>
+      </div>
+    </a>
+    <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🌐</div>
+      <div class="resource-content">
+        <div class="resource-title">Natural Earth</div>
+        <div class="resource-host">naturalearthdata.com</div>
+        <div class="resource-desc">Free public-domain world vector and raster data at 1:10M, 1:50M, 1:110M scales. Cartographer favorite.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">📺 Video Courses (Free)</h3>
+  <div class="resource-grid">
+    <a href="https://www.youtube.com/@ArcGIS" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">📺</div>
+      <div class="resource-content">
+        <div class="resource-title">Esri Official YouTube</div>
+        <div class="resource-host">youtube.com/@ArcGIS</div>
+        <div class="resource-desc">Tutorials, product updates, UC sessions. Search "ArcGIS Pro tutorial" for shorter how-tos.</div>
+      </div>
+    </a>
+    <a href="https://www.coursera.org/learn/gis" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">🎥</div>
+      <div class="resource-content">
+        <div class="resource-title">Coursera: GIS Specialization</div>
+        <div class="resource-host">coursera.org</div>
+        <div class="resource-desc">UC Davis multi-week GIS courses. Free to audit (no certificate); paid for grading.</div>
+      </div>
+    </a>
+  </div>
+
+  <h3 class="resource-section-title">🧰 GIS Community &amp; Help</h3>
+  <div class="resource-grid">
+    <a href="https://community.esri.com/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">💬</div>
+      <div class="resource-content">
+        <div class="resource-title">Esri Community</div>
+        <div class="resource-host">community.esri.com</div>
+        <div class="resource-desc">Forums staffed by Esri engineers + power users. Search before you post — most questions have answers.</div>
+      </div>
+    </a>
+    <a href="https://gis.stackexchange.com/" target="_blank" rel="noopener" class="resource-card">
+      <div class="resource-icon">💬</div>
+      <div class="resource-content">
+        <div class="resource-title">GIS Stack Exchange</div>
+        <div class="resource-host">gis.stackexchange.com</div>
+        <div class="resource-desc">Q&amp;A site covering ArcGIS, QGIS, PostGIS, web GIS. Curated, high-signal answers.</div>
+      </div>
+    </a>
+  </div>
+
 </div>
 
 <div id="panel-notes" class="tab-panel">
@@ -1825,13 +2120,115 @@ td strong { color: var(--text); }
 </div>
 
 <div id="panel-tips" class="tab-panel">
-  <h2 style="margin-top:0;">🧠 Tips &amp; Careers</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">GIS career paths (analyst, technician, developer, cartographer), study tips, mnemonics.</p>
-  <div class="callout exam-tip" style="margin-top:18px;">
-    <strong>📌 Content in progress</strong>
-    <p>This section is being authored across the next few commits. In the meantime, head to <a href="https://www.esri.com/training/" target="_blank" rel="noopener">esri.com/training</a> for Esri Academy learning paths and the canonical ArcGIS Pro Foundation cert prep materials. <a href="https://www.arcgis.com/" target="_blank" rel="noopener">arcgis.com</a> hosts your ArcGIS Online account.</p>
+
+  <h2 style="font-size:1.1rem;margin-bottom:6px;">🧠 Tips &amp; Careers — GIS as a profession</h2>
+  <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:18px;">How to study for the cert · GIS career paths · what employers actually ask in interviews.</p>
+
+  <h3 class="resource-section-title">📚 Cert-prep study tips</h3>
+  <ul style="line-height:1.9;font-size:0.95rem;color:var(--text);">
+    <li><strong>Spend 70% of your time on Domains 2, 4, 5</strong> (Projections, Spatial Analysis, ArcGIS Online). These have the highest exam weight and the most "applied scenario" questions.</li>
+    <li><strong>Build muscle memory in ArcGIS Online, not just Pro.</strong> The Foundation exam tests web GIS concepts heavily.</li>
+    <li><strong>Memorize the four EPSG codes</strong> (4326, 3857, 4269, 4267). Half the projection questions test recognition.</li>
+    <li><strong>Master the Project vs Define Projection distinction.</strong> It appears in some form on nearly every Esri foundation exam.</li>
+    <li><strong>Do all four hands-on Activities</strong> in this hub — applied practice retains 5x better than reading alone.</li>
+    <li><strong>Take the full 100-question quiz twice, scoring 75%+ each time</strong> before scheduling the cert.</li>
+    <li><strong>Run the Mock Exam (50 Qs, 75 min) once a week</strong> in the final two weeks. Practice the pacing.</li>
+  </ul>
+
+  <h3 class="resource-section-title">🎯 The day-of-exam checklist</h3>
+  <ul style="line-height:1.9;font-size:0.95rem;color:var(--text);">
+    <li>Sleep 7-8 hours the night before. Cramming after 10 PM is negative ROI.</li>
+    <li>Eat a regular breakfast. Skip caffeine if you're sensitive — exam adrenaline is plenty.</li>
+    <li>Online proctored? Test your camera, mic, and ID 30 min before the start time.</li>
+    <li>First pass: answer everything you know in &lt; 30 sec each. Flag the unknowns.</li>
+    <li>Second pass: tackle flagged questions. Eliminate obviously wrong answers; pick the most defensible remaining option.</li>
+    <li>Never leave a question blank — there's no penalty for guessing, and you have a 25% chance.</li>
+    <li>If two options seem equally right, read the question stem again. The exam writer chose words carefully.</li>
+  </ul>
+
+  <h3 class="resource-section-title">💼 GIS career paths</h3>
+  <div class="career-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:12px;">
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">🗺️ GIS Analyst</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">The "data detective." Combines layers, runs analyses, writes reports, makes maps for non-GIS audiences.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, AGOL, Excel, SQL</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $55k - $90k</p>
+    </div>
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">🔧 GIS Technician</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">Field + lab. Captures, edits, and QCs spatial data. Often paired with surveyors or planners.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, GPS, Field Maps, Survey123</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $40k - $65k · usually entry-level</p>
+    </div>
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">💻 GIS Developer</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">Builds web maps, dashboards, custom apps. Lives at the intersection of GIS and software engineering.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, ArcPy, JavaScript, REST APIs, Experience Builder</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $75k - $130k</p>
+    </div>
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">🎨 Cartographer</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">Map design specialist. Print + web. Often works for publishers, government agencies, or design firms.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, Adobe Illustrator, Mapbox Studio</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $55k - $85k</p>
+    </div>
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">🛰️ Remote Sensing Analyst</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">Specializes in raster / imagery. Environmental, agricultural, or military domains.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, ENVI, Python, Google Earth Engine</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $65k - $110k</p>
+    </div>
+    <div class="career-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;">
+      <h4 style="color:var(--accent);margin:0 0 8px;">🏛️ Urban / Regional Planner with GIS</h4>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0 0 8px;">Planners who use GIS as a core skill alongside policy and design.</p>
+      <p style="font-size:0.82rem;"><strong>Tools:</strong> ArcGIS Pro, AGOL, Dashboards, demographics data</p>
+      <p style="font-size:0.82rem;"><strong>Pay (US, 2024):</strong> $60k - $95k · often gov't / consulting</p>
+    </div>
   </div>
-</div>
+
+  <h3 class="resource-section-title">🎤 Common interview questions for GIS roles</h3>
+  <ol style="line-height:1.9;font-size:0.95rem;color:var(--text);">
+    <li>"Walk me through your workflow for a typical analysis project." <em>They want: scoping → data inventory → CRS check → analysis steps → QC → deliverable.</em></li>
+    <li>"What's the difference between Project and Define Projection?" <em>The most common entry-level interview question.</em></li>
+    <li>"When would you use a raster vs vector representation for elevation?" <em>Trick — raster always for elevation. They're testing your understanding.</em></li>
+    <li>"How would you share a web map publicly so external users can view it without signing in?" <em>Map + every layer set to Public; reference Item Details, Terms of Use.</em></li>
+    <li>"Have you used Survey123, Dashboards, or Experience Builder?" <em>Mention any you've built in class — the Activities tab covers Survey123.</em></li>
+    <li>"Show me a map you've made." <em>Bring a portfolio. Even one well-made web map beats a long resume.</em></li>
+  </ol>
+
+  <h3 class="resource-section-title">💡 Mnemonics</h3>
+  <div class="mnemonic-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:12px;">
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">📐 Projection trade-offs</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">"<strong>C</strong>onformal <strong>k</strong>eeps <strong>s</strong>hape, <strong>e</strong>qual-<strong>a</strong>rea <strong>k</strong>eeps <strong>s</strong>ize, <strong>e</strong>quidistant <strong>k</strong>eeps <strong>d</strong>istance, <strong>c</strong>ompromise <strong>k</strong>eeps <strong>n</strong>othing perfectly." Match the C / EA / Eq / Cm to S / Sz / D / N.</p>
+    </div>
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">🧭 EPSG quick recall</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;"><strong>4326</strong> WGS 84 · <strong>3857</strong> Web Mercator · <strong>4269</strong> NAD 83 · <strong>4267</strong> NAD 27. "<strong>4-3-2-6</strong> for the world, <strong>3-8-5-7</strong> for the web." (The two North-American datums are easier — 4269 modern, 4267 old.)</p>
+    </div>
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">🔍 Project vs Define</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;"><strong>"D"</strong>efine = <strong>D</strong>escribe (sets the label). <strong>"P"</strong>roject = <strong>P</strong>ush (moves the coordinates). If you only need to add a label, Describe. If you need to move data into a new CRS, Push.</p>
+    </div>
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">📊 Classification picker</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">"Even values → Equal Interval · Even counts → Quantile · Even GAPS → Natural Breaks · Even spread → Std Dev." If you can describe what's "even" in your data, you've picked your classification.</p>
+    </div>
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">🌐 Sharing escalator</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">Sharing levels: <strong>O</strong>wner → <strong>O</strong>rg → <strong>G</strong>roup → <strong>E</strong>veryone. <em>"<strong>Open Other GIS Everywhere</strong>"</em> — widening as you go.</p>
+    </div>
+    <div class="mnemonic-card" style="background:var(--surface);border-left:4px solid var(--accent);padding:12px 14px;border-radius:6px;">
+      <div class="mnem-title" style="font-weight:700;color:var(--accent);margin-bottom:6px;">🔬 The "within distance" pattern</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">Whenever you read "<em>features of A within D of features in B</em>" — the answer is always <strong>Buffer B by D, then Select By Location (intersects) on A</strong>. This pattern appears in every applied scenario set.</p>
+    </div>
+  </div>
+
+  <div class="callout exam-tip" style="margin-top:18px;">
+    <strong>📌 The career bottom line</strong>
+    <p>GIS is one of the few cert-friendly tech fields with strong demand in BOTH the private sector and government. Salaries skew lower than software engineering BUT the work is concrete (you make real maps used by real people), the entry barrier is lower, and the path to specialization (developer, remote sensing, planning) is flexible. ArcGIS Pro Foundation is the right credential for an entry-level GIS Technician or Analyst role.</p>
+  </div>
+</div><!-- /panel-tips -->
 
 <div id="global-search" class="gs-overlay" onclick="if(event.target.id==='global-search')closeGlobalSearch()">
   <div class="gs-modal">
