@@ -878,6 +878,28 @@ td strong { color: var(--text); }
         <strong>📌 Exam tip — bits vs bytes</strong>
         <p>An <strong>uppercase B</strong> = byte. A <strong>lowercase b</strong> = bit. Internet speed is in megabits per second (Mbps) — 100 Mbps = 12.5 MB/s, not 100. CompTIA tests whether you can spot the difference.</p>
       </div>
+
+      <h4>The 6-Step Troubleshooting Model</h4>
+      <p>CompTIA tests this <strong>in order</strong>. Skipping steps (especially "Identify the problem" and "Verify functionality") is the most common wrong-answer trap.</p>
+      <ol>
+        <li><strong>Identify the problem.</strong> Gather symptoms from the user, ask focused questions ("What were you doing when this started?"), check what changed, and review any error messages. Don't act yet.</li>
+        <li><strong>Establish a theory of probable cause.</strong> Based on the symptoms, form a hypothesis. Start with the simplest, most likely explanations first (Occam's razor).</li>
+        <li><strong>Test the theory to determine the cause.</strong> Try the fix that would prove or disprove your hypothesis. If wrong, form a new theory.</li>
+        <li><strong>Establish a plan of action and implement the solution.</strong> Once the cause is confirmed, plan the fix, then apply it. Consider rollback if it fails.</li>
+        <li><strong>Verify full system functionality.</strong> Don't just check that the original symptom is gone — make sure nothing else broke. Then implement any preventive measures.</li>
+        <li><strong>Document findings, actions, and outcomes.</strong> Update the ticket so the next technician (or you in six months) sees what happened, what worked, and what didn't.</li>
+      </ol>
+      <div class="callout exam-tip">
+        <strong>📌 Exam tip — FIRST vs LAST</strong>
+        <p>"What is the FIRST step?" → <em>Identify the problem</em> (gather symptoms — not "establish a theory" and not "replace the hardware"). "What should happen BEFORE documenting?" → <em>Verify full system functionality</em>.</p>
+      </div>
+
+      <h4>Data vs Information</h4>
+      <ul>
+        <li><strong>Data</strong> = raw facts and figures. A list of student IDs and quiz scores is data.</li>
+        <li><strong>Information</strong> = data that has been organized and given context for a purpose. A chart showing class averages over time, or a flag of students at risk, is information.</li>
+        <li><strong>Why this matters:</strong> businesses collect data so they can analyze it into information that supports better decisions. "Data-driven decision making" is the goal.</li>
+      </ul>
     </div>
   </div>
 
@@ -1309,12 +1331,296 @@ td strong { color: var(--text); }
 
     <div class="cheat-card">
       <h3>💡 Programming Basics</h3>
-      <div class="cheat-row"><span class="cheat-key">Variable</span><span class="cheat-val">Named container for a value</span></div>
+      <div class="cheat-row"><span class="cheat-key">Variable</span><span class="cheat-val">Named container; value can change</span></div>
+      <div class="cheat-row"><span class="cheat-key">Constant</span><span class="cheat-val">Like a variable but value never changes</span></div>
       <div class="cheat-row"><span class="cheat-key">Algorithm</span><span class="cheat-val">Step-by-step problem solution</span></div>
       <div class="cheat-row"><span class="cheat-key">Loop</span><span class="cheat-val">Repeats code (for, while)</span></div>
-      <div class="cheat-row"><span class="cheat-key">Conditional</span><span class="cheat-val">Decision making (if/else)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Branching</span><span class="cheat-val">Decision making (if/else)</span></div>
       <div class="cheat-row"><span class="cheat-key">Function</span><span class="cheat-val">Reusable named block of code</span></div>
-      <div class="cheat-row"><span class="cheat-key">Bug</span><span class="cheat-val">Error in code causing bad behavior</span></div>
+      <div class="cheat-row"><span class="cheat-key">Pseudocode</span><span class="cheat-val">Plain-language logic before real code</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔢 Data Types</h3>
+      <div class="cheat-row"><span class="cheat-key">Integer</span><span class="cheat-val">Whole number (17, -3, 0)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Float / Decimal</span><span class="cheat-val">Number with fraction (19.99)</span></div>
+      <div class="cheat-row"><span class="cheat-key">String</span><span class="cheat-val">Text ("Hello", "Maria Lopez")</span></div>
+      <div class="cheat-row"><span class="cheat-key">Boolean</span><span class="cheat-val">true or false (only two values)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Char</span><span class="cheat-val">Single character ('A')</span></div>
+      <div class="cheat-row"><span class="cheat-key">Array / List</span><span class="cheat-val">Ordered collection by index</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🧮 Number Systems</h3>
+      <div class="cheat-row"><span class="cheat-key">Binary</span><span class="cheat-val">Base 2 — only 0 and 1</span></div>
+      <div class="cheat-row"><span class="cheat-key">Decimal</span><span class="cheat-val">Base 10 — what humans use</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hexadecimal</span><span class="cheat-val">Base 16 — 0-9 + A-F</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 hex digit</span><span class="cheat-val">= 4 binary bits (compact)</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 byte</span><span class="cheat-val">= 8 bits = 2 hex digits = 0–255</span></div>
+      <div class="cheat-row"><span class="cheat-key">Why hex</span><span class="cheat-val">Colors (FF8000), MAC addresses, memory</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚡ Bits vs Bytes Math</h3>
+      <div class="cheat-row"><span class="cheat-key">8 bits</span><span class="cheat-val">= 1 byte (always)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Mbps</span><span class="cheat-val">Megabits per second (network speed)</span></div>
+      <div class="cheat-row"><span class="cheat-key">MB/s</span><span class="cheat-val">Megabytes per second (file transfer)</span></div>
+      <div class="cheat-row"><span class="cheat-key">100 Mbps</span><span class="cheat-val">≈ 12.5 MB/s (÷ 8)</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 Gbps</span><span class="cheat-val">≈ 125 MB/s</span></div>
+      <div class="cheat-row"><span class="cheat-key">Capital B</span><span class="cheat-val">= byte; lowercase b = bit</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📡 Wi-Fi Bands</h3>
+      <div class="cheat-row"><span class="cheat-key">2.4 GHz</span><span class="cheat-val">Longer range, slower, more interference</span></div>
+      <div class="cheat-row"><span class="cheat-key">5 GHz</span><span class="cheat-val">Faster, shorter range, worse through walls</span></div>
+      <div class="cheat-row"><span class="cheat-key">6 GHz</span><span class="cheat-val">Wi-Fi 6E — fastest, least crowded</span></div>
+      <div class="cheat-row"><span class="cheat-key">Far away</span><span class="cheat-val">Prefer 2.4 GHz for coverage</span></div>
+      <div class="cheat-row"><span class="cheat-key">Close-up speed</span><span class="cheat-val">Prefer 5 / 6 GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hotspot</span><span class="cheat-val">Phone shares cellular data as Wi-Fi</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔌 Cables &amp; Connectors</h3>
+      <div class="cheat-row"><span class="cheat-key">USB</span><span class="cheat-val">Universal — keyboards, drives, peripherals</span></div>
+      <div class="cheat-row"><span class="cheat-key">HDMI</span><span class="cheat-val">Video + audio in one cable</span></div>
+      <div class="cheat-row"><span class="cheat-key">DisplayPort</span><span class="cheat-val">High-refresh-rate monitors</span></div>
+      <div class="cheat-row"><span class="cheat-key">Ethernet (RJ-45)</span><span class="cheat-val">Wired network — Cat 5e/6/6a</span></div>
+      <div class="cheat-row"><span class="cheat-key">Fiber-optic</span><span class="cheat-val">Light-based, long distance, EMI-immune</span></div>
+      <div class="cheat-row"><span class="cheat-key">Coaxial</span><span class="cheat-val">Cable internet / older TV</span></div>
+      <div class="cheat-row"><span class="cheat-key">3.5 mm</span><span class="cheat-val">Audio jack — headphones, mics</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🛠️ Troubleshooting Model</h3>
+      <div class="cheat-row"><span class="cheat-key">1.</span><span class="cheat-val">Identify the problem (gather symptoms)</span></div>
+      <div class="cheat-row"><span class="cheat-key">2.</span><span class="cheat-val">Establish a theory of probable cause</span></div>
+      <div class="cheat-row"><span class="cheat-key">3.</span><span class="cheat-val">Test the theory</span></div>
+      <div class="cheat-row"><span class="cheat-key">4.</span><span class="cheat-val">Establish a plan of action</span></div>
+      <div class="cheat-row"><span class="cheat-key">5.</span><span class="cheat-val">Verify full system functionality</span></div>
+      <div class="cheat-row"><span class="cheat-key">6.</span><span class="cheat-val">Document findings &amp; outcomes</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🗃️ Database Concepts</h3>
+      <div class="cheat-row"><span class="cheat-key">Table</span><span class="cheat-val">Rows × columns; one entity type</span></div>
+      <div class="cheat-row"><span class="cheat-key">Record / Row</span><span class="cheat-val">One entity instance (one student)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Field / Column</span><span class="cheat-val">One attribute (last name)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Primary key</span><span class="cheat-val">Unique row identifier (ID)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Foreign key</span><span class="cheat-val">Links to another table's PK</span></div>
+      <div class="cheat-row"><span class="cheat-key">SQL (Relational)</span><span class="cheat-val">Strict schema, rows/columns</span></div>
+      <div class="cheat-row"><span class="cheat-key">NoSQL (Document)</span><span class="cheat-val">Flexible schema, JSON-like</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📊 Data Classification</h3>
+      <div class="cheat-row"><span class="cheat-key">Structured</span><span class="cheat-val">Rows + columns (database, sheet)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Unstructured</span><span class="cheat-val">Photos, videos, free text, audio</span></div>
+      <div class="cheat-row"><span class="cheat-key">Metadata</span><span class="cheat-val">Data about data (author, date, size)</span></div>
+      <div class="cheat-row"><span class="cheat-key">PII</span><span class="cheat-val">Personally Identifiable Info (SSN, DOB)</span></div>
+      <div class="cheat-row"><span class="cheat-key">At rest</span><span class="cheat-val">Stored on disk / device</span></div>
+      <div class="cheat-row"><span class="cheat-key">In transit</span><span class="cheat-val">Moving across a network</span></div>
+      <div class="cheat-row"><span class="cheat-key">In use</span><span class="cheat-val">Loaded in memory, being processed</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>💾 Backup Strategy (3-2-1)</h3>
+      <div class="cheat-row"><span class="cheat-key">3 copies</span><span class="cheat-val">Three total copies of the data</span></div>
+      <div class="cheat-row"><span class="cheat-key">2 media</span><span class="cheat-val">On two different storage types</span></div>
+      <div class="cheat-row"><span class="cheat-key">1 off-site</span><span class="cheat-val">At least one outside the building</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cloud</span><span class="cheat-val">Counts as off-site (different building)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Same drive copy</span><span class="cheat-val">Doesn't count — one drive failure kills both</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID ≠ backup</span><span class="cheat-val">RAID is uptime, NOT recovery</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🛡️ RAID Levels</h3>
+      <div class="cheat-row"><span class="cheat-key">RAID 0</span><span class="cheat-val">Striping — fastest, NO redundancy</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 1</span><span class="cheat-val">Mirror — 50% capacity, full redundancy</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 5</span><span class="cheat-val">Parity — 1 drive fault, (n-1)/n capacity</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 10</span><span class="cheat-val">Mirror + stripe — fast + redundant, 50%</span></div>
+      <div class="cheat-row"><span class="cheat-key">Min drives</span><span class="cheat-val">RAID 0/1: 2 · RAID 5: 3 · RAID 10: 4</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hot spare</span><span class="cheat-val">Auto-replaces a failed drive</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🎭 Phishing Variants</h3>
+      <div class="cheat-row"><span class="cheat-key">Phishing</span><span class="cheat-val">Fake email (general term)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Spear phishing</span><span class="cheat-val">Phishing targeted at a specific person</span></div>
+      <div class="cheat-row"><span class="cheat-key">Whaling</span><span class="cheat-val">Spear phishing aimed at executives</span></div>
+      <div class="cheat-row"><span class="cheat-key">Vishing</span><span class="cheat-val">Voice phishing — phone call</span></div>
+      <div class="cheat-row"><span class="cheat-key">Smishing</span><span class="cheat-val">SMS / text message phishing</span></div>
+      <div class="cheat-row"><span class="cheat-key">Pretexting</span><span class="cheat-val">Pretending to be authority (IT, CEO)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔑 Auth Factors (MFA)</h3>
+      <div class="cheat-row"><span class="cheat-key">Know</span><span class="cheat-val">Password, PIN, security question</span></div>
+      <div class="cheat-row"><span class="cheat-key">Have</span><span class="cheat-val">Phone, hardware key, smart card</span></div>
+      <div class="cheat-row"><span class="cheat-key">Are</span><span class="cheat-val">Fingerprint, face, iris (biometric)</span></div>
+      <div class="cheat-row"><span class="cheat-key">MFA</span><span class="cheat-val">2+ factors from DIFFERENT types</span></div>
+      <div class="cheat-row"><span class="cheat-key">Password + PIN</span><span class="cheat-val">Still single-factor (both "know")</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMS &lt; App</span><span class="cheat-val">Authenticator app safer (no SIM-swap)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🛡️ Security Principles</h3>
+      <div class="cheat-row"><span class="cheat-key">CIA: C</span><span class="cheat-val">Confidentiality (no unauthorized read)</span></div>
+      <div class="cheat-row"><span class="cheat-key">CIA: I</span><span class="cheat-val">Integrity (no unauthorized change)</span></div>
+      <div class="cheat-row"><span class="cheat-key">CIA: A</span><span class="cheat-val">Availability (authorized access works)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Least privilege</span><span class="cheat-val">Minimum access needed to do the job</span></div>
+      <div class="cheat-row"><span class="cheat-key">Defense in depth</span><span class="cheat-val">Multiple overlapping controls</span></div>
+      <div class="cheat-row"><span class="cheat-key">Separation of duties</span><span class="cheat-val">No single person controls a critical task</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔒 HTTPS / Connection Signals</h3>
+      <div class="cheat-row"><span class="cheat-key">HTTPS</span><span class="cheat-val">Encrypted — uses TLS</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTP</span><span class="cheat-val">Plaintext — never for credentials</span></div>
+      <div class="cheat-row"><span class="cheat-key">Padlock 🔒</span><span class="cheat-val">Encrypted + cert matches domain</span></div>
+      <div class="cheat-row"><span class="cheat-key">Padlock ≠ trust</span><span class="cheat-val">Phishing sites also get HTTPS</span></div>
+      <div class="cheat-row"><span class="cheat-key">Check URL</span><span class="cheat-val">Domain spelling matters most</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cert warning</span><span class="cheat-val">Don't click through on banking</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🦠 Malware Quick Reference</h3>
+      <div class="cheat-row"><span class="cheat-key">Virus</span><span class="cheat-val">Needs host file + user action</span></div>
+      <div class="cheat-row"><span class="cheat-key">Worm</span><span class="cheat-val">Self-spreads across networks</span></div>
+      <div class="cheat-row"><span class="cheat-key">Trojan</span><span class="cheat-val">Looks legit but isn't</span></div>
+      <div class="cheat-row"><span class="cheat-key">Ransomware</span><span class="cheat-val">Encrypts files, demands payment</span></div>
+      <div class="cheat-row"><span class="cheat-key">Spyware</span><span class="cheat-val">Secretly captures data</span></div>
+      <div class="cheat-row"><span class="cheat-key">Adware</span><span class="cheat-val">Inserts ads, redirects</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cryptojacking</span><span class="cheat-val">Mines crypto using your CPU</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📁 File Extensions</h3>
+      <div class="cheat-row"><span class="cheat-key">.docx / .pdf</span><span class="cheat-val">Word / portable document</span></div>
+      <div class="cheat-row"><span class="cheat-key">.xlsx</span><span class="cheat-val">Excel spreadsheet</span></div>
+      <div class="cheat-row"><span class="cheat-key">.pptx</span><span class="cheat-val">PowerPoint presentation</span></div>
+      <div class="cheat-row"><span class="cheat-key">.txt</span><span class="cheat-val">Plain text</span></div>
+      <div class="cheat-row"><span class="cheat-key">.zip / .7z</span><span class="cheat-val">Compressed archive</span></div>
+      <div class="cheat-row"><span class="cheat-key">.jpg / .png</span><span class="cheat-val">Image (photo / lossless)</span></div>
+      <div class="cheat-row"><span class="cheat-key">.mp3 / .mp4</span><span class="cheat-val">Audio / video</span></div>
+      <div class="cheat-row"><span class="cheat-key">.exe</span><span class="cheat-val">Windows executable program</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🖥️ Operating Systems</h3>
+      <div class="cheat-row"><span class="cheat-key">Windows</span><span class="cheat-val">Most common desktop OS</span></div>
+      <div class="cheat-row"><span class="cheat-key">macOS</span><span class="cheat-val">Apple desktop OS</span></div>
+      <div class="cheat-row"><span class="cheat-key">Linux</span><span class="cheat-val">Open-source; servers, dev, embedded</span></div>
+      <div class="cheat-row"><span class="cheat-key">Android</span><span class="cheat-val">Mobile OS (Google, open)</span></div>
+      <div class="cheat-row"><span class="cheat-key">iOS</span><span class="cheat-val">Mobile OS (Apple)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Embedded OS</span><span class="cheat-val">Routers, thermostats, smart TVs</span></div>
+      <div class="cheat-row"><span class="cheat-key">Server OS</span><span class="cheat-val">Windows Server, Linux server distros</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🧰 Software Categories</h3>
+      <div class="cheat-row"><span class="cheat-key">System</span><span class="cheat-val">OS itself + utilities (antivirus)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Application</span><span class="cheat-val">User tasks (Word, Chrome, games)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Utility</span><span class="cheat-val">Maintains the system (disk cleanup)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Driver</span><span class="cheat-val">Lets OS talk to specific hardware</span></div>
+      <div class="cheat-row"><span class="cheat-key">Firmware</span><span class="cheat-val">Software embedded in hardware (BIOS)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Middleware</span><span class="cheat-val">Connects apps to other apps/data</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📜 License Types</h3>
+      <div class="cheat-row"><span class="cheat-key">Perpetual</span><span class="cheat-val">Buy once, own indefinitely (Office 2021)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Subscription</span><span class="cheat-val">Pay monthly/yearly (M365)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Open-source</span><span class="cheat-val">Source visible; modify, share</span></div>
+      <div class="cheat-row"><span class="cheat-key">Proprietary</span><span class="cheat-val">Closed-source, vendor controls</span></div>
+      <div class="cheat-row"><span class="cheat-key">Single-use</span><span class="cheat-val">One install per license</span></div>
+      <div class="cheat-row"><span class="cheat-key">Site / Volume</span><span class="cheat-val">Many installs under one contract</span></div>
+      <div class="cheat-row"><span class="cheat-key">Freeware</span><span class="cheat-val">Free, but NOT open-source</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔐 Permission Levels</h3>
+      <div class="cheat-row"><span class="cheat-key">Read</span><span class="cheat-val">View/open only — no changes</span></div>
+      <div class="cheat-row"><span class="cheat-key">Write</span><span class="cheat-val">Create/save new files</span></div>
+      <div class="cheat-row"><span class="cheat-key">Modify</span><span class="cheat-val">Read + Write + Delete files</span></div>
+      <div class="cheat-row"><span class="cheat-key">Full Control</span><span class="cheat-val">Modify + change permissions</span></div>
+      <div class="cheat-row"><span class="cheat-key">Linux rwx</span><span class="cheat-val">read / write / execute per user/group/other</span></div>
+      <div class="cheat-row"><span class="cheat-key">chmod 755</span><span class="cheat-val">Owner rwx, group r-x, others r-x</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📱 Mobile Connectivity</h3>
+      <div class="cheat-row"><span class="cheat-key">Wi-Fi</span><span class="cheat-val">Local wireless network</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cellular</span><span class="cheat-val">Phone carrier network (4G, 5G)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Bluetooth</span><span class="cheat-val">Short-range device-to-device</span></div>
+      <div class="cheat-row"><span class="cheat-key">NFC</span><span class="cheat-val">Very short range (tap-to-pay)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hotspot</span><span class="cheat-val">Phone shares cellular as Wi-Fi</span></div>
+      <div class="cheat-row"><span class="cheat-key">Tethering</span><span class="cheat-val">Same as hotspot via USB cable</span></div>
+      <div class="cheat-row"><span class="cheat-key">Airplane mode</span><span class="cheat-val">Disables all radios at once</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>☁️ Cloud Responsibility</h3>
+      <div class="cheat-row"><span class="cheat-key">IaaS — you</span><span class="cheat-val">OS, apps, data, configuration</span></div>
+      <div class="cheat-row"><span class="cheat-key">IaaS — provider</span><span class="cheat-val">Hardware, network, virtualization</span></div>
+      <div class="cheat-row"><span class="cheat-key">PaaS — you</span><span class="cheat-val">App code + data only</span></div>
+      <div class="cheat-row"><span class="cheat-key">PaaS — provider</span><span class="cheat-val">Hardware, OS, runtime</span></div>
+      <div class="cheat-row"><span class="cheat-key">SaaS — you</span><span class="cheat-val">Data, accounts, settings</span></div>
+      <div class="cheat-row"><span class="cheat-key">SaaS — provider</span><span class="cheat-val">Everything else</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📐 Flowchart Shapes</h3>
+      <div class="cheat-row"><span class="cheat-key">Oval</span><span class="cheat-val">Start / End</span></div>
+      <div class="cheat-row"><span class="cheat-key">Rectangle</span><span class="cheat-val">Process / action step</span></div>
+      <div class="cheat-row"><span class="cheat-key">Diamond</span><span class="cheat-val">Decision (yes/no, true/false)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Parallelogram</span><span class="cheat-val">Input / Output</span></div>
+      <div class="cheat-row"><span class="cheat-key">Arrow</span><span class="cheat-val">Flow / order of execution</span></div>
+      <div class="cheat-row"><span class="cheat-key">Compiler</span><span class="cheat-val">Whole program → machine code first</span></div>
+      <div class="cheat-row"><span class="cheat-key">Interpreter</span><span class="cheat-val">Runs code line-by-line</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌍 Web &amp; Browser Terms</h3>
+      <div class="cheat-row"><span class="cheat-key">URL</span><span class="cheat-val">Web address (scheme://domain/path)</span></div>
+      <div class="cheat-row"><span class="cheat-key">DNS</span><span class="cheat-val">Translates names → IP addresses</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP</span><span class="cheat-val">Auto-assigns IP, mask, gateway, DNS</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cookie</span><span class="cheat-val">Site stores small data in browser</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cache</span><span class="cheat-val">Local copies for faster page loads</span></div>
+      <div class="cheat-row"><span class="cheat-key">Incognito</span><span class="cheat-val">No local history; NOT anonymous online</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTML</span><span class="cheat-val">Markup — structures page content</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🏷️ Network Addressing</h3>
+      <div class="cheat-row"><span class="cheat-key">MAC address</span><span class="cheat-val">Physical, burned into NIC, never changes</span></div>
+      <div class="cheat-row"><span class="cheat-key">IP address</span><span class="cheat-val">Logical, assigned, can change</span></div>
+      <div class="cheat-row"><span class="cheat-key">IPv4</span><span class="cheat-val">32 bits (192.168.1.10)</span></div>
+      <div class="cheat-row"><span class="cheat-key">IPv6</span><span class="cheat-val">128 bits (huge address space)</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP</span><span class="cheat-val">Auto IP/mask/gateway/DNS</span></div>
+      <div class="cheat-row"><span class="cheat-key">APIPA</span><span class="cheat-val">169.254.x.x = DHCP failed</span></div>
+      <div class="cheat-row"><span class="cheat-key">NAT</span><span class="cheat-val">Many private IPs → one public</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌐 Network Types</h3>
+      <div class="cheat-row"><span class="cheat-key">PAN</span><span class="cheat-val">Personal (Bluetooth — meters)</span></div>
+      <div class="cheat-row"><span class="cheat-key">LAN</span><span class="cheat-val">Local (one building / campus)</span></div>
+      <div class="cheat-row"><span class="cheat-key">WLAN</span><span class="cheat-val">Wireless LAN (Wi-Fi)</span></div>
+      <div class="cheat-row"><span class="cheat-key">MAN</span><span class="cheat-val">Metropolitan (one city)</span></div>
+      <div class="cheat-row"><span class="cheat-key">WAN</span><span class="cheat-val">Wide (regions, countries)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Internet</span><span class="cheat-val">Global public network of WANs</span></div>
+      <div class="cheat-row"><span class="cheat-key">Intranet</span><span class="cheat-val">Private internal company network</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>💡 Storage Performance</h3>
+      <div class="cheat-row"><span class="cheat-key">HDD</span><span class="cheat-val">~100-200 MB/s — cheap, slow, spinning</span></div>
+      <div class="cheat-row"><span class="cheat-key">SATA SSD</span><span class="cheat-val">~550 MB/s — much faster than HDD</span></div>
+      <div class="cheat-row"><span class="cheat-key">NVMe SSD</span><span class="cheat-val">5,000+ MB/s — fastest consumer storage</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB 2.0</span><span class="cheat-val">~30 MB/s real-world</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB 3.2 Gen 2</span><span class="cheat-val">~900 MB/s real-world</span></div>
+      <div class="cheat-row"><span class="cheat-key">Speed wins</span><span class="cheat-val">Old PC: HDD → SSD = biggest upgrade</span></div>
     </div>
 
   </div>
