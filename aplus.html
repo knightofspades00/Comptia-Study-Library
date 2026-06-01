@@ -2109,6 +2109,69 @@ td strong { color: var(--text); }
       <div class="cheat-row"><span class="cheat-key">DRM</span><span class="cheat-val">Digital Rights Management</span></div>
     </div>
 
+    <div class="cheat-card">
+      <h3>📧 Email Ports</h3>
+      <div class="cheat-row"><span class="cheat-key">SMTP</span><span class="cheat-val">25 (server-to-server, often blocked)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMTP submission</span><span class="cheat-val">587 (STARTTLS, modern client)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMTPS</span><span class="cheat-val">465 (implicit TLS)</span></div>
+      <div class="cheat-row"><span class="cheat-key">POP3</span><span class="cheat-val">110 plaintext · 995 SSL/TLS</span></div>
+      <div class="cheat-row"><span class="cheat-key">IMAP</span><span class="cheat-val">143 plaintext · 993 SSL/TLS</span></div>
+      <div class="cheat-row"><span class="cheat-key">Webmail</span><span class="cheat-val">HTTPS 443 (works when desktop fails)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📱 Mobile App Troubleshooting</h3>
+      <div class="cheat-row"><span class="cheat-key">App crashes</span><span class="cheat-val">Update app → reinstall app</span></div>
+      <div class="cheat-row"><span class="cheat-key">Battery drain</span><span class="cheat-val">Settings → Battery → Usage</span></div>
+      <div class="cheat-row"><span class="cheat-key">"No Service"</span><span class="cheat-val">Reseat SIM, airplane toggle, reset network</span></div>
+      <div class="cheat-row"><span class="cheat-key">Slow Wi-Fi data</span><span class="cheat-val">Forget &amp; rejoin, check Wi-Fi vs cellular</span></div>
+      <div class="cheat-row"><span class="cheat-key">App won't install</span><span class="cheat-val">Free storage, check OS version, sign in</span></div>
+      <div class="cheat-row"><span class="cheat-key">Sync failed</span><span class="cheat-val">Re-auth account in Settings</span></div>
+      <div class="cheat-row"><span class="cheat-key">Soft reset</span><span class="cheat-val">Power-cycle BEFORE hard reset</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📂 Regulated Data</h3>
+      <div class="cheat-row"><span class="cheat-key">PII</span><span class="cheat-val">Personally Identifiable Info (SSN, DOB)</span></div>
+      <div class="cheat-row"><span class="cheat-key">PHI</span><span class="cheat-val">Protected Health Info (HIPAA)</span></div>
+      <div class="cheat-row"><span class="cheat-key">PCI-DSS</span><span class="cheat-val">Cardholder Data Environment</span></div>
+      <div class="cheat-row"><span class="cheat-key">GDPR</span><span class="cheat-val">EU personal data — broad scope</span></div>
+      <div class="cheat-row"><span class="cheat-key">CCPA</span><span class="cheat-val">California consumer privacy</span></div>
+      <div class="cheat-row"><span class="cheat-key">FERPA</span><span class="cheat-val">Student educational records</span></div>
+      <div class="cheat-row"><span class="cheat-key">Retention</span><span class="cheat-val">Keep only as long as needed by policy</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚡ ESD &amp; Safety</h3>
+      <div class="cheat-row"><span class="cheat-key">Humidity 40-60%</span><span class="cheat-val">Ideal — minimizes static</span></div>
+      <div class="cheat-row"><span class="cheat-key">Humidity &lt; 40%</span><span class="cheat-val">High ESD risk — extra care</span></div>
+      <div class="cheat-row"><span class="cheat-key">Wrist strap</span><span class="cheat-val">Bond to chassis ground</span></div>
+      <div class="cheat-row"><span class="cheat-key">Anti-static mat</span><span class="cheat-val">Work surface grounded</span></div>
+      <div class="cheat-row"><span class="cheat-key">Anti-static bag</span><span class="cheat-val">Store/ship loose components</span></div>
+      <div class="cheat-row"><span class="cheat-key">Power off + unplug</span><span class="cheat-val">Before opening case</span></div>
+      <div class="cheat-row"><span class="cheat-key">PSU caps</span><span class="cheat-val">DON'T open PSU — high-voltage caps</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>☁️ Cloud Deployment Models</h3>
+      <div class="cheat-row"><span class="cheat-key">Public</span><span class="cheat-val">Shared, anyone buys (AWS, Azure)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Private</span><span class="cheat-val">Single org, dedicated</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hosted private</span><span class="cheat-val">Private cloud RUN by third party</span></div>
+      <div class="cheat-row"><span class="cheat-key">Community</span><span class="cheat-val">Shared by similar orgs (healthcare)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hybrid</span><span class="cheat-val">Mix of public + private</span></div>
+      <div class="cheat-row"><span class="cheat-key">On-premises</span><span class="cheat-val">Owned + run in-house</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚠️ Windows Update Errors</h3>
+      <div class="cheat-row"><span class="cheat-key">0x80070070</span><span class="cheat-val">Low disk — Disk Cleanup, free space</span></div>
+      <div class="cheat-row"><span class="cheat-key">0x80070005</span><span class="cheat-val">Access denied — reset SoftwareDistribution</span></div>
+      <div class="cheat-row"><span class="cheat-key">SoftwareDistribution reset</span><span class="cheat-val">Stop wuauserv → rename folder → restart</span></div>
+      <div class="cheat-row"><span class="cheat-key">Update assistant</span><span class="cheat-val">Manual feature-update tool</span></div>
+      <div class="cheat-row"><span class="cheat-key">Rebuild search index</span><span class="cheat-val">Control Panel → Indexing → Rebuild</span></div>
+      <div class="cheat-row"><span class="cheat-key">Office reauth loop</span><span class="cheat-val">Clear Credential Manager Office entries</span></div>
+    </div>
+
   </div>
 </div>
 

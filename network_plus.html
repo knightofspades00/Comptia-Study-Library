@@ -1396,6 +1396,270 @@ td strong { color: var(--text); }
       <div class="cheat-row"><span class="cheat-key">NetFlow</span><span class="cheat-val">Traffic flow analysis</span></div>
       <div class="cheat-row"><span class="cheat-key">STP</span><span class="cheat-val">802.1D (RSTP=802.1w)</span></div>
     </div>
+
+    <!-- ═══════════════════ EXPANSION ═══════════════════ -->
+
+    <div class="cheat-card">
+      <h3>🔌 Common Ports (Full)</h3>
+      <div class="cheat-row"><span class="cheat-key">FTP</span><span class="cheat-val">TCP 20/21</span></div>
+      <div class="cheat-row"><span class="cheat-key">SSH / SFTP / SCP</span><span class="cheat-val">TCP 22</span></div>
+      <div class="cheat-row"><span class="cheat-key">Telnet</span><span class="cheat-val">TCP 23 (insecure)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMTP / SMTPS / submit</span><span class="cheat-val">TCP 25 / 465 / 587</span></div>
+      <div class="cheat-row"><span class="cheat-key">DNS</span><span class="cheat-val">UDP 53 (TCP for zone xfer)</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP</span><span class="cheat-val">UDP 67 (server) / 68 (client)</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTP / HTTPS</span><span class="cheat-val">TCP 80 / 443</span></div>
+      <div class="cheat-row"><span class="cheat-key">POP3 / POP3S</span><span class="cheat-val">TCP 110 / 995</span></div>
+      <div class="cheat-row"><span class="cheat-key">IMAP / IMAPS</span><span class="cheat-val">TCP 143 / 993</span></div>
+      <div class="cheat-row"><span class="cheat-key">SNMP / SNMP trap</span><span class="cheat-val">UDP 161 / 162</span></div>
+      <div class="cheat-row"><span class="cheat-key">LDAP / LDAPS</span><span class="cheat-val">TCP 389 / 636</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMB</span><span class="cheat-val">TCP 445</span></div>
+      <div class="cheat-row"><span class="cheat-key">RDP</span><span class="cheat-val">TCP 3389</span></div>
+      <div class="cheat-row"><span class="cheat-key">RADIUS / TACACS+</span><span class="cheat-val">UDP 1812-1813 / TCP 49</span></div>
+      <div class="cheat-row"><span class="cheat-key">SIP / Syslog / NTP</span><span class="cheat-val">5060/5061 · UDP 514 · UDP 123</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📡 802.11 Wi-Fi Standards</h3>
+      <div class="cheat-row"><span class="cheat-key">802.11a</span><span class="cheat-val">5 GHz · 54 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11b</span><span class="cheat-val">2.4 GHz · 11 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11g</span><span class="cheat-val">2.4 GHz · 54 Mbps</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11n (Wi-Fi 4)</span><span class="cheat-val">2.4/5 · 600 Mbps · MIMO</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ac (Wi-Fi 5)</span><span class="cheat-val">5 GHz · 3.5 Gbps · MU-MIMO</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ax (Wi-Fi 6)</span><span class="cheat-val">2.4/5 · 9.6 Gbps · OFDMA</span></div>
+      <div class="cheat-row"><span class="cheat-key">Wi-Fi 6E</span><span class="cheat-val">+6 GHz band (less congestion)</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11be (Wi-Fi 7)</span><span class="cheat-val">2.4/5/6 · MLO · 320 MHz</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📻 2.4 GHz Channels</h3>
+      <div class="cheat-row"><span class="cheat-key">Non-overlapping</span><span class="cheat-val">1, 6, 11 (use these)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Channel width</span><span class="cheat-val">20 MHz on 2.4 GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">Total channels</span><span class="cheat-val">11 in US, 13 in EU</span></div>
+      <div class="cheat-row"><span class="cheat-key">5 GHz widths</span><span class="cheat-val">20 / 40 / 80 / 160 MHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">DFS</span><span class="cheat-val">Dynamic Freq Selection avoids radar</span></div>
+      <div class="cheat-row"><span class="cheat-key">Roaming</span><span class="cheat-val">Same SSID + band-steering</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌳 Spanning Tree Port States</h3>
+      <div class="cheat-row"><span class="cheat-key">1. Blocking</span><span class="cheat-val">Listens to BPDUs only</span></div>
+      <div class="cheat-row"><span class="cheat-key">2. Listening</span><span class="cheat-val">Building topology</span></div>
+      <div class="cheat-row"><span class="cheat-key">3. Learning</span><span class="cheat-val">Populating MAC table</span></div>
+      <div class="cheat-row"><span class="cheat-key">4. Forwarding</span><span class="cheat-val">Normal traffic</span></div>
+      <div class="cheat-row"><span class="cheat-key">Disabled</span><span class="cheat-val">Admin shutdown</span></div>
+      <div class="cheat-row"><span class="cheat-key">PortFast</span><span class="cheat-val">Skip to forwarding (edge ports)</span></div>
+      <div class="cheat-row"><span class="cheat-key">BPDU Guard</span><span class="cheat-val">Shutdown if BPDU on PortFast port</span></div>
+      <div class="cheat-row"><span class="cheat-key">Root Guard</span><span class="cheat-val">Prevents downstream root takeover</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🏷️ VLAN &amp; Trunking</h3>
+      <div class="cheat-row"><span class="cheat-key">802.1Q</span><span class="cheat-val">VLAN tag standard (4-byte tag)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Access port</span><span class="cheat-val">ONE VLAN, no tag</span></div>
+      <div class="cheat-row"><span class="cheat-key">Trunk port</span><span class="cheat-val">Carries many VLANs (tagged)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Native VLAN</span><span class="cheat-val">Untagged on trunk — change from default 1</span></div>
+      <div class="cheat-row"><span class="cheat-key">Voice VLAN</span><span class="cheat-val">For IP phones (CDP/LLDP-MED auto)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Double-tag attack</span><span class="cheat-val">VLAN hopping — protect native VLAN</span></div>
+      <div class="cheat-row"><span class="cheat-key">VTP</span><span class="cheat-val">Cisco VLAN trunking protocol</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔀 FHRP &amp; Redundancy</h3>
+      <div class="cheat-row"><span class="cheat-key">HSRP</span><span class="cheat-val">Cisco · active/standby virtual IP</span></div>
+      <div class="cheat-row"><span class="cheat-key">VRRP</span><span class="cheat-val">Open · active/standby virtual IP</span></div>
+      <div class="cheat-row"><span class="cheat-key">GLBP</span><span class="cheat-val">Cisco · load-balancing virtual gateway</span></div>
+      <div class="cheat-row"><span class="cheat-key">Active-active</span><span class="cheat-val">Both nodes serve simultaneously</span></div>
+      <div class="cheat-row"><span class="cheat-key">Active-passive</span><span class="cheat-val">Standby takes over on fail</span></div>
+      <div class="cheat-row"><span class="cheat-key">Heartbeat</span><span class="cheat-val">Health check between nodes</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔁 NAT &amp; PAT</h3>
+      <div class="cheat-row"><span class="cheat-key">Static NAT</span><span class="cheat-val">1-to-1 mapping (server hosting)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Dynamic NAT</span><span class="cheat-val">Pool of public IPs, dynamic assign</span></div>
+      <div class="cheat-row"><span class="cheat-key">PAT / NAT overload</span><span class="cheat-val">Many private → one public + port</span></div>
+      <div class="cheat-row"><span class="cheat-key">Port forwarding</span><span class="cheat-val">Inbound port → internal IP:port</span></div>
+      <div class="cheat-row"><span class="cheat-key">Inside local</span><span class="cheat-val">Private IP on the inside</span></div>
+      <div class="cheat-row"><span class="cheat-key">Outside global</span><span class="cheat-val">Public IP on the internet</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⏰ NTP Stratum</h3>
+      <div class="cheat-row"><span class="cheat-key">Stratum 0</span><span class="cheat-val">Atomic / GPS / radio reference</span></div>
+      <div class="cheat-row"><span class="cheat-key">Stratum 1</span><span class="cheat-val">Direct connection to S0</span></div>
+      <div class="cheat-row"><span class="cheat-key">Stratum 2-15</span><span class="cheat-val">Each step lower accuracy</span></div>
+      <div class="cheat-row"><span class="cheat-key">Stratum 16</span><span class="cheat-val">Unreachable / invalid</span></div>
+      <div class="cheat-row"><span class="cheat-key">Sync importance</span><span class="cheat-val">Kerberos, logs, certs require sync</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🏢 BC / DR Metrics</h3>
+      <div class="cheat-row"><span class="cheat-key">RTO</span><span class="cheat-val">Recovery Time — how fast restored</span></div>
+      <div class="cheat-row"><span class="cheat-key">RPO</span><span class="cheat-val">Recovery Point — how much data loss OK</span></div>
+      <div class="cheat-row"><span class="cheat-key">MTBF</span><span class="cheat-val">Mean Time Between Failures</span></div>
+      <div class="cheat-row"><span class="cheat-key">MTTR</span><span class="cheat-val">Mean Time To Repair</span></div>
+      <div class="cheat-row"><span class="cheat-key">Hot site</span><span class="cheat-val">Live ready (fastest, costliest)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Warm site</span><span class="cheat-val">Equipped, needs data load</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cold site</span><span class="cheat-val">Empty building (cheapest, slowest)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔐 AAA: RADIUS vs TACACS+</h3>
+      <div class="cheat-row"><span class="cheat-key">RADIUS</span><span class="cheat-val">UDP 1812/1813 · network access</span></div>
+      <div class="cheat-row"><span class="cheat-key">RADIUS encrypts</span><span class="cheat-val">Only password (rest plaintext)</span></div>
+      <div class="cheat-row"><span class="cheat-key">RADIUS use case</span><span class="cheat-val">Wi-Fi, VPN, 802.1X user access</span></div>
+      <div class="cheat-row"><span class="cheat-key">TACACS+</span><span class="cheat-val">TCP 49 · Cisco proprietary</span></div>
+      <div class="cheat-row"><span class="cheat-key">TACACS+ encrypts</span><span class="cheat-val">FULL payload</span></div>
+      <div class="cheat-row"><span class="cheat-key">TACACS+ use case</span><span class="cheat-val">Network device admin (router/switch)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Separates AAA</span><span class="cheat-val">TACACS+ separates A/A/A (RADIUS combines)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📡 Wireless Security Modes</h3>
+      <div class="cheat-row"><span class="cheat-key">WPA3-Personal</span><span class="cheat-val">SAE handshake — replaces PSK</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA3-Enterprise</span><span class="cheat-val">192-bit (GCMP-256, 802.1X)</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA2-PSK</span><span class="cheat-val">Pre-shared key + AES/CCMP</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA2-Enterprise</span><span class="cheat-val">802.1X + RADIUS</span></div>
+      <div class="cheat-row"><span class="cheat-key">SAE</span><span class="cheat-val">Forward secrecy — past sessions safe</span></div>
+      <div class="cheat-row"><span class="cheat-key">TKIP / WEP</span><span class="cheat-val">Deprecated — never use</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🛡️ Security Architecture</h3>
+      <div class="cheat-row"><span class="cheat-key">Screened subnet (DMZ)</span><span class="cheat-val">Public servers between two firewalls</span></div>
+      <div class="cheat-row"><span class="cheat-key">Zero Trust</span><span class="cheat-val">Never trust, always verify</span></div>
+      <div class="cheat-row"><span class="cheat-key">Microsegmentation</span><span class="cheat-val">Granular L4-L7 policy per workload</span></div>
+      <div class="cheat-row"><span class="cheat-key">Jump box</span><span class="cheat-val">Bastion for admin access</span></div>
+      <div class="cheat-row"><span class="cheat-key">Honeypot</span><span class="cheat-val">Decoy system attracts attackers</span></div>
+      <div class="cheat-row"><span class="cheat-key">Honeynet</span><span class="cheat-val">Multiple honeypots</span></div>
+      <div class="cheat-row"><span class="cheat-key">NAC + 802.1X</span><span class="cheat-val">Posture check before allowing access</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🎯 Network Attacks</h3>
+      <div class="cheat-row"><span class="cheat-key">Evil twin</span><span class="cheat-val">Rogue AP impersonating legit SSID</span></div>
+      <div class="cheat-row"><span class="cheat-key">Deauth</span><span class="cheat-val">Spoofed deauth frames — kick clients</span></div>
+      <div class="cheat-row"><span class="cheat-key">On-path (MITM)</span><span class="cheat-val">Attacker between two endpoints</span></div>
+      <div class="cheat-row"><span class="cheat-key">ARP poisoning</span><span class="cheat-val">Spoof gateway MAC on LAN</span></div>
+      <div class="cheat-row"><span class="cheat-key">DNS poisoning</span><span class="cheat-val">Inject false DNS records</span></div>
+      <div class="cheat-row"><span class="cheat-key">DDoS reflection / amp</span><span class="cheat-val">Use 3rd party w/ spoofed source</span></div>
+      <div class="cheat-row"><span class="cheat-key">Password spray</span><span class="cheat-val">Common password, many accounts</span></div>
+      <div class="cheat-row"><span class="cheat-key">VLAN hopping</span><span class="cheat-val">Double-tag or switch-spoof</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🛠️ Troubleshooting Approach</h3>
+      <div class="cheat-row"><span class="cheat-key">Top-down</span><span class="cheat-val">App → Physical (user complaint side)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Bottom-up</span><span class="cheat-val">Physical → App (when cable suspect)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Divide &amp; conquer</span><span class="cheat-val">Start at boundary device (best fit)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Scope first</span><span class="cheat-val">"All", "one floor", "one user"?</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cable test</span><span class="cheat-val">When physical layer suspect</span></div>
+      <div class="cheat-row"><span class="cheat-key">Recent change</span><span class="cheat-val">Always ask first</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔧 Cable Tools</h3>
+      <div class="cheat-row"><span class="cheat-key">Cable tester</span><span class="cheat-val">Continuity + wiremap</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cable certifier</span><span class="cheat-val">Verify performance to spec</span></div>
+      <div class="cheat-row"><span class="cheat-key">TDR</span><span class="cheat-val">Time-Domain Refl — copper distance to fault</span></div>
+      <div class="cheat-row"><span class="cheat-key">OTDR</span><span class="cheat-val">Fiber TDR — distance to break</span></div>
+      <div class="cheat-row"><span class="cheat-key">Tone generator / probe</span><span class="cheat-val">Trace cable through walls</span></div>
+      <div class="cheat-row"><span class="cheat-key">Punchdown tool</span><span class="cheat-val">Terminate keystone / 66/110 block</span></div>
+      <div class="cheat-row"><span class="cheat-key">Crimper</span><span class="cheat-val">Attach RJ-45</span></div>
+      <div class="cheat-row"><span class="cheat-key">Loopback plug</span><span class="cheat-val">Test NIC / switch port locally</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📐 Common Subnetting</h3>
+      <div class="cheat-row"><span class="cheat-key">/30</span><span class="cheat-val">2 hosts (P2P links)</span></div>
+      <div class="cheat-row"><span class="cheat-key">/29</span><span class="cheat-val">6 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/28</span><span class="cheat-val">14 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/27</span><span class="cheat-val">30 hosts</span></div>
+      <div class="cheat-row"><span class="cheat-key">/26</span><span class="cheat-val">62 hosts (block size 64)</span></div>
+      <div class="cheat-row"><span class="cheat-key">/25</span><span class="cheat-val">126 hosts (block size 128)</span></div>
+      <div class="cheat-row"><span class="cheat-key">/24</span><span class="cheat-val">254 hosts (Class C size)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Formula</span><span class="cheat-val">2^(32-prefix) − 2 usable</span></div>
+      <div class="cheat-row"><span class="cheat-key">/31</span><span class="cheat-val">RFC 3021 P2P (no broadcast)</span></div>
+      <div class="cheat-row"><span class="cheat-key">/32</span><span class="cheat-val">Single host (loopback)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌐 Network Architecture</h3>
+      <div class="cheat-row"><span class="cheat-key">3-tier</span><span class="cheat-val">Core → Distribution → Access</span></div>
+      <div class="cheat-row"><span class="cheat-key">Collapsed core</span><span class="cheat-val">Core + Distribution merged</span></div>
+      <div class="cheat-row"><span class="cheat-key">Spine-leaf</span><span class="cheat-val">DC topology — uniform 2 hops</span></div>
+      <div class="cheat-row"><span class="cheat-key">MDF</span><span class="cheat-val">Main Distribution Frame</span></div>
+      <div class="cheat-row"><span class="cheat-key">IDF</span><span class="cheat-val">Intermediate Distribution (per floor)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Demarc</span><span class="cheat-val">ISP-to-customer boundary</span></div>
+      <div class="cheat-row"><span class="cheat-key">SD-WAN</span><span class="cheat-val">Software-defined WAN — multipath</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔧 Net Diagnostic Commands</h3>
+      <div class="cheat-row"><span class="cheat-key">ping</span><span class="cheat-val">Reachability + RTT</span></div>
+      <div class="cheat-row"><span class="cheat-key">tracert / traceroute</span><span class="cheat-val">Hop path + per-hop latency</span></div>
+      <div class="cheat-row"><span class="cheat-key">nslookup / dig</span><span class="cheat-val">DNS query</span></div>
+      <div class="cheat-row"><span class="cheat-key">ipconfig /all</span><span class="cheat-val">Win IP config</span></div>
+      <div class="cheat-row"><span class="cheat-key">ifconfig / ip a</span><span class="cheat-val">Linux interface info</span></div>
+      <div class="cheat-row"><span class="cheat-key">netstat -ano</span><span class="cheat-val">Listening sockets + PID</span></div>
+      <div class="cheat-row"><span class="cheat-key">arp -a</span><span class="cheat-val">IP↔MAC cache</span></div>
+      <div class="cheat-row"><span class="cheat-key">iperf / iperf3</span><span class="cheat-val">Throughput measurement</span></div>
+      <div class="cheat-row"><span class="cheat-key">tcpdump / Wireshark</span><span class="cheat-val">Packet capture</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚙️ Switch / Router CLI</h3>
+      <div class="cheat-row"><span class="cheat-key">show running-config</span><span class="cheat-val">Active config in RAM</span></div>
+      <div class="cheat-row"><span class="cheat-key">show ip interface brief</span><span class="cheat-val">Interface IPs + status</span></div>
+      <div class="cheat-row"><span class="cheat-key">show mac address-table</span><span class="cheat-val">L2 MAC ↔ port mapping</span></div>
+      <div class="cheat-row"><span class="cheat-key">show interfaces</span><span class="cheat-val">Errors / CRC / duplex / speed</span></div>
+      <div class="cheat-row"><span class="cheat-key">show ip route</span><span class="cheat-val">Routing table</span></div>
+      <div class="cheat-row"><span class="cheat-key">show ip ospf neighbor</span><span class="cheat-val">OSPF adjacencies</span></div>
+      <div class="cheat-row"><span class="cheat-key">show cdp / lldp neighbors</span><span class="cheat-val">Discover connected devices</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚠️ Physical Layer Errors</h3>
+      <div class="cheat-row"><span class="cheat-key">CRC errors</span><span class="cheat-val">Cable damage / EMI / bad transceiver</span></div>
+      <div class="cheat-row"><span class="cheat-key">Late collisions</span><span class="cheat-val">Duplex mismatch (classic signature)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Runts / giants</span><span class="cheat-val">Undersized / oversized frames</span></div>
+      <div class="cheat-row"><span class="cheat-key">Input drops</span><span class="cheat-val">Buffer overrun — over-utilization</span></div>
+      <div class="cheat-row"><span class="cheat-key">Duplex mismatch</span><span class="cheat-val">100/full vs 100/half → low throughput</span></div>
+      <div class="cheat-row"><span class="cheat-key">DOM / DDM</span><span class="cheat-val">SFP signal-level monitoring</span></div>
+      <div class="cheat-row"><span class="cheat-key">Light levels</span><span class="cheat-val">SFP dBm too low = fiber dirty/broken</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌍 IPv6 Quick Reference</h3>
+      <div class="cheat-row"><span class="cheat-key">128 bits</span><span class="cheat-val">8 groups of 4 hex digits</span></div>
+      <div class="cheat-row"><span class="cheat-key">Loopback</span><span class="cheat-val">::1/128</span></div>
+      <div class="cheat-row"><span class="cheat-key">Link-local</span><span class="cheat-val">fe80::/10 (auto on every iface)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Unique local</span><span class="cheat-val">fc00::/7 (private)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Multicast</span><span class="cheat-val">ff00::/8 (no broadcast in v6)</span></div>
+      <div class="cheat-row"><span class="cheat-key">SLAAC</span><span class="cheat-val">Stateless auto-config via RA</span></div>
+      <div class="cheat-row"><span class="cheat-key">EUI-64</span><span class="cheat-val">Build host portion from MAC</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔥 Firewall Types</h3>
+      <div class="cheat-row"><span class="cheat-key">Stateless</span><span class="cheat-val">Per-packet rules (ACLs)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Stateful</span><span class="cheat-val">Tracks connections</span></div>
+      <div class="cheat-row"><span class="cheat-key">NGFW</span><span class="cheat-val">Stateful + app awareness + IPS</span></div>
+      <div class="cheat-row"><span class="cheat-key">WAF</span><span class="cheat-val">Web Application Firewall (L7)</span></div>
+      <div class="cheat-row"><span class="cheat-key">UTM</span><span class="cheat-val">Unified Threat Management</span></div>
+      <div class="cheat-row"><span class="cheat-key">Host firewall</span><span class="cheat-val">Per-endpoint (Win Defender FW)</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📦 SIEM &amp; Monitoring</h3>
+      <div class="cheat-row"><span class="cheat-key">SIEM</span><span class="cheat-val">Aggregates + correlates logs/alerts</span></div>
+      <div class="cheat-row"><span class="cheat-key">Syslog server</span><span class="cheat-val">Receives logs; SIEM does analysis</span></div>
+      <div class="cheat-row"><span class="cheat-key">Baseline</span><span class="cheat-val">Normal traffic profile for compare</span></div>
+      <div class="cheat-row"><span class="cheat-key">Capacity planning</span><span class="cheat-val">Trend NetFlow over weeks/months</span></div>
+      <div class="cheat-row"><span class="cheat-key">Alert correlation</span><span class="cheat-val">Multiple events = single incident</span></div>
+      <div class="cheat-row"><span class="cheat-key">SNMP traps</span><span class="cheat-val">Async device alerts to NMS</span></div>
+    </div>
+
   </div>
 </div>
 
