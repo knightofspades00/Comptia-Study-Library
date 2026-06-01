@@ -1828,6 +1828,76 @@ td strong { color: var(--text); }
       <div class="cheat-row"><span class="cheat-key">Hybrid</span><span class="cheat-val">Mix of on-prem + public cloud</span></div>
     </div>
 
+    <div class="cheat-card">
+      <h3>🔋 Safety / Disposal</h3>
+      <div class="cheat-row"><span class="cheat-key">Swollen Li-ion</span><span class="cheat-val">Power off, isolate, recycle — NEVER puncture/freeze/charge</span></div>
+      <div class="cheat-row"><span class="cheat-key">Toner spill</span><span class="cheat-val">Cold water + damp cloth (heat sets toner)</span></div>
+      <div class="cheat-row"><span class="cheat-key">ESD wrist strap</span><span class="cheat-val">Bonded to chassis ground</span></div>
+      <div class="cheat-row"><span class="cheat-key">Anti-static bag</span><span class="cheat-val">Store and ship loose components</span></div>
+      <div class="cheat-row"><span class="cheat-key">SDS</span><span class="cheat-val">Safety Data Sheet — disposal rules</span></div>
+      <div class="cheat-row"><span class="cheat-key">e-waste</span><span class="cheat-val">Approved recycler, NEVER landfill</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>⚡ Power Protection</h3>
+      <div class="cheat-row"><span class="cheat-key">Surge protector</span><span class="cheat-val">Blocks voltage spikes only — no runtime</span></div>
+      <div class="cheat-row"><span class="cheat-key">Power strip</span><span class="cheat-val">More outlets, NO protection</span></div>
+      <div class="cheat-row"><span class="cheat-key">UPS (online)</span><span class="cheat-val">Battery + surge — ride-through outages</span></div>
+      <div class="cheat-row"><span class="cheat-key">UPS sizing</span><span class="cheat-val">Apparent power (VA) ≥ device watts</span></div>
+      <div class="cheat-row"><span class="cheat-key">Generator</span><span class="cheat-val">Long-term, kicks in after UPS</span></div>
+      <div class="cheat-row"><span class="cheat-key">Brownout</span><span class="cheat-val">Sustained voltage drop — UPS handles</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔌 USB Speed Tiers</h3>
+      <div class="cheat-row"><span class="cheat-key">USB 2.0</span><span class="cheat-val">480 Mbps · ~30 MB/s real-world</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB 3.0 / 3.2 Gen 1</span><span class="cheat-val">5 Gbps · ~450 MB/s</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB 3.2 Gen 2</span><span class="cheat-val">10 Gbps · ~900 MB/s</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB 3.2 Gen 2x2</span><span class="cheat-val">20 Gbps (USB-C only)</span></div>
+      <div class="cheat-row"><span class="cheat-key">USB4 / TB3/4</span><span class="cheat-val">40 Gbps · power + video</span></div>
+      <div class="cheat-row"><span class="cheat-key">Speed tip</span><span class="cheat-val">Chain capped by slowest link</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🌐 Broadcast Domains &amp; VLANs</h3>
+      <div class="cheat-row"><span class="cheat-key">Collision domain</span><span class="cheat-val">Bounded by switch port (one per port)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Broadcast domain</span><span class="cheat-val">Bounded by ROUTER (not switch)</span></div>
+      <div class="cheat-row"><span class="cheat-key">VLAN</span><span class="cheat-val">L2 broadcast separation on one switch</span></div>
+      <div class="cheat-row"><span class="cheat-key">Inter-VLAN</span><span class="cheat-val">Requires L3 routing (router or L3 switch)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Trunk port</span><span class="cheat-val">Carries multiple VLANs (802.1Q tag)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Access port</span><span class="cheat-val">Belongs to ONE VLAN</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>📦 Mass Deployment / Imaging</h3>
+      <div class="cheat-row"><span class="cheat-key">PXE</span><span class="cheat-val">Preboot eXecution Env — boot from network</span></div>
+      <div class="cheat-row"><span class="cheat-key">WDS</span><span class="cheat-val">Windows Deployment Services</span></div>
+      <div class="cheat-row"><span class="cheat-key">MDT</span><span class="cheat-val">Microsoft Deployment Toolkit</span></div>
+      <div class="cheat-row"><span class="cheat-key">Golden image</span><span class="cheat-val">Configured master image to deploy</span></div>
+      <div class="cheat-row"><span class="cheat-key">Sysprep</span><span class="cheat-val">Strips SID before imaging</span></div>
+      <div class="cheat-row"><span class="cheat-key">.wim / .iso</span><span class="cheat-val">Windows image / install media</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🔁 Wi-Fi Performance Tips</h3>
+      <div class="cheat-row"><span class="cheat-key">Time-of-day slow</span><span class="cheat-val">2.4 GHz channel congestion (neighbors)</span></div>
+      <div class="cheat-row"><span class="cheat-key">Band-steering</span><span class="cheat-val">AP nudges clients to 5 GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">Same SSID both bands</span><span class="cheat-val">Auto-roam between 2.4 and 5</span></div>
+      <div class="cheat-row"><span class="cheat-key">Channel choice</span><span class="cheat-val">2.4 GHz: 1, 6, or 11 (non-overlap)</span></div>
+      <div class="cheat-row"><span class="cheat-key">MAC filter / hidden SSID</span><span class="cheat-val">NOT real security</span></div>
+      <div class="cheat-row"><span class="cheat-key">Mesh node</span><span class="cheat-val">Extends 5 GHz to far rooms</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3>🖥️ Display Bandwidth</h3>
+      <div class="cheat-row"><span class="cheat-key">1080p 60 Hz</span><span class="cheat-val">Any modern connector OK</span></div>
+      <div class="cheat-row"><span class="cheat-key">1440p 144 Hz</span><span class="cheat-val">DisplayPort 1.2+ or HDMI 2.0+</span></div>
+      <div class="cheat-row"><span class="cheat-key">4K 60 Hz</span><span class="cheat-val">HDMI 2.0 / DP 1.2 minimum</span></div>
+      <div class="cheat-row"><span class="cheat-key">4K 120 Hz</span><span class="cheat-val">HDMI 2.1 or DP 1.4+</span></div>
+      <div class="cheat-row"><span class="cheat-key">DVI</span><span class="cheat-val">No audio; ≤ 1080p single-link</span></div>
+      <div class="cheat-row"><span class="cheat-key">VGA</span><span class="cheat-val">Analog only — quality degrades w/ length</span></div>
+    </div>
+
   </div>
 </div>
 
